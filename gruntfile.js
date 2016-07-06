@@ -18,7 +18,22 @@ var grunt = require("grunt");
         {expand: false, src: ['node_modules/vue/dist/vue.min.js'], dest: 'dist/vue.js', filter: 'isFile'},
       ],
     },
-  },    
+  },  
+  jshint: {
+    all: ['js/*.js']
+  },
+  concat: {
+    options: {
+      // define a string to put between each file in the concatenated output
+      //separator: ';'
+    },
+    dist: {
+      // the files to concatenate
+      src: ['js/**/*.js'],
+      // the location of the resulting JS file
+      dest: 'dist/scripts.js'
+    }
+  },
   watch: {
     css: {
       files: '**/*.scss',
@@ -29,4 +44,6 @@ var grunt = require("grunt");
 grunt.loadNpmTasks('grunt-contrib-sass');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-copy');
-grunt.registerTask('default',['copy', 'sass', 'watch']);
+grunt.loadNpmTasks('grunt-contrib-jshint');
+grunt.loadNpmTasks('grunt-contrib-concat');
+grunt.registerTask('default',['copy', 'sass', 'jshint', 'concat', 'watch']);
