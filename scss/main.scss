@@ -18,14 +18,14 @@ a {
 p {
     line-height:2.4rem;
     margin-bottom:1rem;
-    
+
 
 }
 
 /* Navigation menu */
 
 header {
-    height:5rem;
+    height:6rem;
     line-height:6rem;
 
     width:100%;
@@ -36,7 +36,7 @@ header {
 }
 
 header .logo {
-    height:100%;
+    height:5rem;
     max-width:20rem;
     margin-right:2rem;
     display:inline-block;
@@ -45,7 +45,7 @@ header .logo {
 }
 
 header .logo img {
-    width:100%;
+    height:100%;
 }
 
 header ul {
@@ -56,7 +56,6 @@ header ul {
 
 header .menuitem {
     display:inline-block;
-    
 
 }
 
@@ -65,11 +64,9 @@ header .menuitem a {
 
     color:$almostwhite;
     border-radius:5px;
-
     
     //  font-weight:500;
     font-size:1.8rem;
-
 
 }
 

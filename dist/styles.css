@@ -962,7 +962,7 @@ p {
 
 /* Navigation menu */
 header {
-  height: 5rem;
+  height: 6rem;
   line-height: 6rem;
   width: 100%;
   background-color: #e0390c;
@@ -970,13 +970,13 @@ header {
   margin-bottom: 2rem; }
 
 header .logo {
-  height: 100%;
+  height: 5rem;
   max-width: 20rem;
   margin-right: 2rem;
   display: inline-block; }
 
 header .logo img {
-  width: 100%; }
+  height: 100%; }
 
 header ul {
   width: 100%;
