@@ -1,0 +1,138 @@
+body {
+    background-color:$almostwhite;
+    color:$textcolor;
+    font-family:"Helvetica", sans-serif;
+}
+
+.container { 
+    width:100%;
+    margin: 0;
+    
+}
+
+a {
+    text-decoration:none;
+    color:$orange;
+}
+
+p {
+    line-height:2.4rem;
+    margin-bottom:1rem;
+    
+
+}
+
+/* Navigation menu */
+
+header {
+    height:5rem;
+    line-height:6rem;
+
+    width:100%;
+    background-color:$orange;
+    color:$almostwhite;
+
+    margin-bottom:2rem;
+}
+
+header .logo {
+    height:100%;
+    max-width:20rem;
+    margin-right:2rem;
+    display:inline-block;
+
+    
+}
+
+header .logo img {
+    width:100%;
+}
+
+header ul {
+    width:100%;
+    margin: 0;
+}
+
+
+header .menuitem {
+    display:inline-block;
+    
+
+}
+
+header .menuitem a {
+    padding: 1rem 2rem 2rem;
+
+    color:$almostwhite;
+    border-radius:5px;
+
+    
+    //  font-weight:500;
+    font-size:1.8rem;
+
+
+}
+
+header .menuitem a:hover, header .menuitem a.active {
+    background-color:$almostwhite;
+    color:$orange;
+
+}
+
+/* End of navigation menu */
+
+
+/* Button styles */
+a.btn {
+    padding:1rem 2rem;
+ 
+    transition:0.4s ease-in-out;
+    border-radius:5px;
+
+}
+
+.btn-secondary {
+    background-color:$almostwhite;
+    color:$orange;
+    border:2px solid $orange;
+
+}
+
+a.btn-secondary:hover {
+    box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.15);
+
+}
+
+.btn-primary {
+    background-color:$orange;
+    color:$almostwhite;
+}
+
+a.btn-primary:hover {
+    background-color:$orange-darker;
+    box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.15);
+    color:#fff;
+}
+
+
+
+/* End of button styles */
+
+/* Media queries */
+
+@media (min-width: 960px) {
+    .container {
+        width:960px;
+        margin: 0 auto;
+    }
+
+    /* Navigation menu */
+
+    header ul {
+        width:960px;
+        margin:0 auto;
+    }
+    /* End of navigation menu */
+
+}
+/* End of media queries */

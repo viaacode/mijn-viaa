@@ -20,18 +20,26 @@ time, mark, audio, video {
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline; }
+  vertical-align: baseline;
+ }
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block; }
 
+html {
+  font-size:62.5%;
+}
+
 body {
-  line-height: 1; }
+  line-height: 1;
+  font-size:1.6rem;
+ }
 
 ol, ul {
-  list-style: none; }
+  list-style: none;
+  box-sizing:border-box; }
 
 blockquote, q {
   quotes: none; }
@@ -46,7 +54,9 @@ table {
   border-spacing: 0; }
 
 html {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+
+   }
 
 *, *:before, *:after {
   box-sizing: inherit; }

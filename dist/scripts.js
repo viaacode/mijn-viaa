@@ -1,3 +1,12 @@
-alert('test2');
+(function() {
 
-alert('test');
+  new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue.js!'
+    }
+  });
+
+
+})();
+

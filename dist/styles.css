@@ -27,11 +27,16 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block; }
 
+html {
+  font-size: 62.5%; }
+
 body {
-  line-height: 1; }
+  line-height: 1;
+  font-size: 1.6rem; }
 
 ol, ul {
-  list-style: none; }
+  list-style: none;
+  box-sizing: border-box; }
 
 blockquote, q {
   quotes: none; }
@@ -938,7 +943,99 @@ html {
 .display-none {
   display: none !important; }
 
-.main {
-  background-color: #000; }
+body {
+  background-color: #fdfdfd;
+  color: #111;
+  font-family: "Helvetica", sans-serif; }
+
+.container {
+  width: 100%;
+  margin: 0; }
+
+a {
+  text-decoration: none;
+  color: #e0390c; }
+
+p {
+  line-height: 2.4rem;
+  margin-bottom: 1rem; }
+
+/* Navigation menu */
+header {
+  height: 5rem;
+  line-height: 6rem;
+  width: 100%;
+  background-color: #e0390c;
+  color: #fdfdfd;
+  margin-bottom: 2rem; }
+
+header .logo {
+  height: 100%;
+  max-width: 20rem;
+  margin-right: 2rem;
+  display: inline-block; }
+
+header .logo img {
+  width: 100%; }
+
+header ul {
+  width: 100%;
+  margin: 0; }
+
+header .menuitem {
+  display: inline-block; }
+
+header .menuitem a {
+  padding: 1rem 2rem 2rem;
+  color: #fdfdfd;
+  border-radius: 5px;
+  font-size: 1.8rem; }
+
+header .menuitem a:hover, header .menuitem a.active {
+  background-color: #fdfdfd;
+  color: #e0390c; }
+
+/* End of navigation menu */
+/* Button styles */
+a.btn {
+  padding: 1rem 2rem;
+  transition: 0.4s ease-in-out;
+  border-radius: 5px; }
+
+.btn-secondary {
+  background-color: #fdfdfd;
+  color: #e0390c;
+  border: 2px solid #e0390c; }
+
+a.btn-secondary:hover {
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.15); }
+
+.btn-primary {
+  background-color: #e0390c;
+  color: #fdfdfd; }
+
+a.btn-primary:hover {
+  background-color: #b7310d;
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.15);
+  color: #fff; }
+
+/* End of button styles */
+/* Media queries */
+@media (min-width: 960px) {
+  .container {
+    width: 960px;
+    margin: 0 auto; }
+
+  /* Navigation menu */
+  header ul {
+    width: 960px;
+    margin: 0 auto; }
+
+  /* End of navigation menu */ }
+/* End of media queries */
+article h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 1rem; }
 
 /*# sourceMappingURL=styles.css.map */
