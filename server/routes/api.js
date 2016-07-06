@@ -41,7 +41,7 @@ router.get('/stats/organisation/:organisationId', function (req, res, next) {
   var organisationId = req.params.organisationId;
   var organisation = dummy.organisations[organisationId];
 
-  if (!organisation) next("Organisation '" + organisationId + "' does not exist");
+  if (!organisation) return next("Organisation '" + organisationId + "' does not exist");
 
   res.json(organisation);
 });
