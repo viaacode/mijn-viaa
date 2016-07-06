@@ -13,7 +13,12 @@ body {
 a {
     text-decoration:none;
     color:$orange;
+
+    &:hover {
+        color:$orange-lighter;
+    }
 }
+
 
 p {
     line-height:2.4rem;
@@ -32,50 +37,48 @@ header {
     color:$almostwhite;
 
     margin-bottom:2rem;
-}
 
-header .logo {
-    height:6rem;
-    max-width:20rem;
-    margin-right:4rem;
-    margin-top:0.5rem;
-    display:inline-block;
-    float:left;
-    
-}
+    .logo {
+        height:6rem;
+        max-width:20rem;
+        margin-right:4rem;
+        margin-top:0.5rem;
+        display:inline-block;
+        float:left;
+        
+        img {
+            height:100%;
+        }
 
-header .logo img {
-    height:100%;
-}
+    }
 
-header ul {
-    width:100%;
-    height:100%;
-    margin: 0;
-}
+    ul {
+        width:100%;
+        height:100%;
+        margin: 0;
+    }
 
+    .menuitem {
+        display:inline-block;
 
-header .menuitem {
-    display:inline-block;
+        a {
+            padding: 1rem 2rem;
+            line-height:10rem;
+            color:$almostwhite;
+            border-radius:5px 5px 0 0;
+        
+            font-size:1.8rem; 
 
-}
+            &:hover, &.active {
+                background-color:$almostwhite;
+                color:$orange;
+            }
+        }
 
-header .menuitem a {
-    padding: 1rem 2rem;
-    line-height:10rem;
-    color:$almostwhite;
-    border-radius:5px 5px 0 0;
-    
-    //  font-weight:500;
-    font-size:1.8rem;
- 
-}
-
-header .menuitem a:hover, header .menuitem a.active {
-    background-color:$almostwhite;
-    color:$orange;
+    }
 
 }
+
 
 /* End of navigation menu */
 
@@ -83,6 +86,8 @@ header .menuitem a:hover, header .menuitem a.active {
 /* Button styles */
 a.btn {
     padding:1rem 2rem;
+    display:inline-block;
+    box-sizing:border-box;
  
     transition:0.4s ease-in-out;
     border-radius:5px;
@@ -104,6 +109,7 @@ a.btn-secondary:hover {
 .btn-primary {
     background-color:$orange;
     color:$almostwhite;
+    border:2px solid $orange; // Not respecting box-sizing!?
 }
 
 a.btn-primary:hover {
