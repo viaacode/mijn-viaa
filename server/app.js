@@ -11,7 +11,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 
 // Routes
-app.use('/', require('./routes/index'));
+app.use('/', require('./routes/documentation'));
 app.use('/api', require('./routes/api'));
 
 // Error handling
