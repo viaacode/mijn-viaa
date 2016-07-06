@@ -5,6 +5,7 @@ var router = express.Router();
 // used in callback argument to return if successful
 // otherwise the error object/message is returned (not a falsy value)
 var SUCCESS = '';
+var NO_ORGANISATION = '';
 
 //region Dummy data
 var dummy = {
@@ -39,7 +40,7 @@ function fetchStats (organisation, callback) {
 
   var url = 'http://labs.viaa.be/api/v1/archived';
 
-  if (organisation) {
+  if (organisation !== NO_ORGANISATION) {
     url += '?tenant=' + organisation;
   }
 
@@ -63,7 +64,7 @@ function parseStats (inputObject) {
 }
 
 router.get('/stats/', function (req, res, next) {
-  fetchStats(false, function (err, data) {
+  fetchStats(NO_ORGANISATION, function (err, data) {
     if (err) return next(err);
     res.json(data);
   });
@@ -72,11 +73,7 @@ router.get('/stats/', function (req, res, next) {
 // todo: auth
 router.get('/stats/organisation/:organisationId', function (req, res, next) {
   var organisationId = req.params.organisationId;
-  var organisation = dummy.organisations[organisationId];
-
-  if (!organisation) return next("Organisation '" + organisationId + "' does not exist");
-
-  fetchStats(false, function (err, data) {
+  fetchStats(organisationId, function (err, data) {
     if (err) return next(err);
     res.json(data);
   });
