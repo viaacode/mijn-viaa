@@ -7,6 +7,7 @@ body {
 .container { 
     width:100%;
     margin: 0;
+    padding: 0 1rem;
     
 }
 
@@ -33,10 +34,10 @@ header {
     height:7rem;
 
     width:100%;
+    padding:0 1rem;
+    margin-bottom:4rem;
     background-color:$orange;
     color:$almostwhite;
-
-    margin-bottom:2rem;
 
     .logo {
         height:6rem;
@@ -92,6 +93,8 @@ a.btn {
     transition:0.4s ease-in-out;
     border-radius:5px;
 
+    margin-right:1rem;
+
 }
 
 .btn-secondary {
@@ -103,7 +106,8 @@ a.btn {
 
 a.btn-secondary:hover {
     box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.15);
-
+    color:$orange-darker;
+    border-color:$orange-darker;
 }
 
 .btn-primary {
@@ -116,6 +120,7 @@ a.btn-primary:hover {
     background-color:$orange-darker;
     box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.15);
     color:#fff;
+    border:2px solid $orange-darker; // Not respecting box-sizing!?
 }
 
 
@@ -125,18 +130,12 @@ a.btn-primary:hover {
 /* Media queries */
 
 @media (min-width: 960px) {
-    .container {
-        width:960px;
-        margin: 0 auto;
-    }
 
-    /* Navigation menu */
-
-    header ul {
+    header ul, .container {
         width:960px;
         margin:0 auto;
+        padding:0;
     }
-    /* End of navigation menu */
 
 }
 /* End of media queries */
