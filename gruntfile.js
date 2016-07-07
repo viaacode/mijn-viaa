@@ -5,7 +5,7 @@ var grunt = require("grunt");
   sass: {
       dist: {
        src: [
-         'scss/_styles.scss',
+         'scss/styles.scss',
        ],
        dest: 'dist/styles.css',
      }
