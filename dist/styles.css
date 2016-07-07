@@ -1053,11 +1053,27 @@ article {
   padding: 2.5rem;
   margin-right: 4rem;
   border-radius: 50%;
-  border: 2px solid #188CAD;
-  background-color: #188CAD; }
+  border: 2px solid #94c847;
+  background-color: #94c847; }
 
 .service-icon img {
   max-height: 5rem;
   max-width: 5rem; }
+
+.service-icon-ftp {
+  border: 2px solid #e0390c;
+  background-color: #e0390c; }
+
+.service-icon-ams {
+  border: 2px solid #8fcee0;
+  background-color: #8fcee0; }
+
+.service-icon-mam {
+  border: 2px solid #7e525f;
+  background-color: #7e525f; }
+
+.service-icon-dbs {
+  border: 2px solid #94c847;
+  background-color: #94c847; }
 
 /*# sourceMappingURL=styles.css.map */
