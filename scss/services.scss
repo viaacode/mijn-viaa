@@ -6,7 +6,7 @@ article h1 {
 }
 
 article {
-    margin-bottom:4rem;
+    margin-bottom:6rem;
     border:1px solid $grey-light;
     padding:1rem;
     padding-bottom:1rem;
@@ -45,7 +45,6 @@ article {
 
     border:2px solid $orange;
     background-color:$orange;
-
 }
 
 .service-icon-ams {
@@ -85,6 +84,7 @@ article {
     }
 
     article {
+        margin-bottom:4rem;
         padding:2rem;
     }
 }
