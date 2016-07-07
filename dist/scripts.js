@@ -1,12 +1,10 @@
-(function() {
+$(document).ready(function() {
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Vue.js is working'
+        }
+    });
 
-  new Vue({
-    el: '#app',
-    data: {
-      message: 'Hello Vue.js!'
-    }
-  });
-
-
-})();
+});
 
