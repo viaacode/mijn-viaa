@@ -16,6 +16,7 @@ var grunt = require("grunt");
         // includes files within path
         {expand: false, src: ['node_modules/basscss/css/basscss.css'], dest: 'scss/basscss.scss', filter: 'isFile'},
         {expand: false, src: ['node_modules/vue/dist/vue.min.js'], dest: 'dist/vue.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/jquery/dist/jquery.min.js'], dest: 'dist/jquery.js', filter: 'isFile'},
       ],
     },
   },  
@@ -46,4 +47,6 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-copy');
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-concat');
-grunt.registerTask('default',['copy', 'sass', 'jshint', 'concat', 'watch']);
+grunt.registerTask('default',['copy', 'sass', 'jshint', 'concat']);
+
+
