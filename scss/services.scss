@@ -6,23 +6,32 @@ article h1 {
 }
 
 article {
-    margin-bottom:4rem;
+    margin-bottom:6rem;
     border:1px solid $grey-light;
-    padding:2rem;
+    padding:1rem;
     padding-bottom:1rem;
 }
 
-.service-icon {
+.service-icon-container {
+    width:100%;
+    float:left;
+}
+
+.service-icon { 
+    display:block;
+
+    margin:0 auto 2rem;
     
+
     width:10rem;
     height:10rem;
 
     padding:2.5rem;
-    margin-right:4rem;
+    
 
     border-radius:50%;
-    border:2px solid $textcolor;
-    background-color:#fff;
+    border:2px solid $green;
+    background-color:$green;
 }
 
 .service-icon img {
@@ -30,4 +39,52 @@ article {
     max-height:5rem;
     max-width:5rem;
 
+}
+
+.service-icon-ftp {
+
+    border:2px solid $orange;
+    background-color:$orange;
+}
+
+.service-icon-ams {
+
+    border:2px solid $blue;
+    background-color:$blue;
+
+}
+
+.service-icon-mam {
+
+    border:2px solid $purple;
+    background-color:$purple;
+
+}
+
+.service-icon-dbs {
+
+    border:2px solid $green;
+    background-color:$green;
+
+}
+
+.service-content {
+    width:100%;
+    float:left;
+}
+
+@media (min-width:760px) {
+    .service-icon-container {
+        width:15%;
+        margin:0 2% 0 0;
+    }
+
+    .service-content {
+        width:83%;
+    }
+
+    article {
+        margin-bottom:4rem;
+        padding:2rem;
+    }
 }

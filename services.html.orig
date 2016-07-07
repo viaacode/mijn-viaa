@@ -34,10 +34,15 @@
 
         <div class="container col-8">
             <article class="col col-12">
+<<<<<<< HEAD
+                <div class="col col-2 service-icon service-icon-ftp">
+                    <img src="assets/ftp.svg" alt="FTP icon"/>
+=======
                 <div class="service-icon-container">
-                    <div class="service-icon service-icon-ftp">
+                    <div class="service-icon">
                         <img src="assets/ftp.svg" alt="FTP icon"/>
                     </div>
+>>>>>>> responsive
                 </div>
                 <div class="service-content">
                     <h1>FTP &ndash; Bestanden</h1>
@@ -52,10 +57,15 @@
             </article>
 
             <article class="col col-12">
+<<<<<<< HEAD
+                <div class="col col-2 service-icon service-icon-ams">
+                    <img src="assets/avo.svg" alt="FTP icon"/>
+=======
                 <div class="service-icon-container">
-                    <div class="service-icon service-icon-ams">
-                        <img src="assets/avo.svg" alt="AMS icon"/>
+                    <div class="service-icon">
+                        <img src="assets/avo.svg" alt="FTP icon"/>
                     </div>
+>>>>>>> responsive
                 </div>
                 <div class="service-content">
                     <h1>AMS &ndash; Registratie</h1>
@@ -70,10 +80,15 @@
             </article>
 
             <article class="col col-12">
+<<<<<<< HEAD
+                <div class="col col-2 service-icon service-icon-mam">
+                    <img src="assets/mam.svg" alt="FTP icon"/>
+=======
                 <div class="service-icon-container">
-                    <div class="service-icon service-icon-mam">
-                        <img src="assets/mam.svg" alt="MAM icon"/>
+                    <div class="service-icon">
+                        <img src="assets/mam.svg" alt="FTP icon"/>
                     </div>
+>>>>>>> responsive
                 </div>
                 <div class="service-content">
                     <h1>MAM &ndash; Archief</h1>
@@ -88,10 +103,15 @@
             </article>
 
             <article class="col col-12">
+<<<<<<< HEAD
+                <div class="col col-2 service-icon service-icon-dbs">
+                    <img src="assets/avo.svg" alt="FTP icon"/>
+=======
                 <div class="service-icon-container">
-                    <div class="service-icon service-icon-dbs">
-                        <img src="assets/avo.svg" alt="DBS icon"/>
+                    <div class="service-icon">
+                        <img src="assets/avo.svg" alt="FTP icon"/>
                     </div>
+>>>>>>> responsive
                 </div>
                 <div class="service-content">
                     <h1>DBS &ndash; Contracten</h1>
