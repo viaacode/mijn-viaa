@@ -26,6 +26,10 @@ p {
     margin-bottom:1rem;
 }
 
+.error {
+    color: $error;
+}
+
 [v-cloak] {
     display: none;
 }

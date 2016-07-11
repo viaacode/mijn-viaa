@@ -29,19 +29,15 @@
             <!-- Here comes the content -->
             <div id="home-app" v-cloak>
                 
-                <h1>{{ stats | json }}</h1>
-
-                <br>
-
+                <p>{{ stats | json }}</p>
+                <p class="error" v-show="errormsg">{{ errormsg }}</p>
                 <ul>
                     <li>Terabytes: {{ stats.terabytes }}</li>
                     <li>Items: {{ stats.items }}</li>
                     <li>Archite growth: {{ stats.archive_growth }}</li>
                     <li>Registration growth: {{ stats.registration_growth }}</li>    
                 </ul>
-                
-                
-                
+                  
             </div>
         </div>
 
