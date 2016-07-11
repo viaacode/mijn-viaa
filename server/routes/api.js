@@ -3,12 +3,12 @@ var request = require('request');
 
 var router = express.Router();
 
-//region Magical Numbers
-// used in callback argument to return if successful
-// otherwise the error object/message is returned (not a falsy value)
-var SUCCESS = '';
-
-//endregion
+//region stats
+/**
+ * used in callback argument to return if successful
+ * otherwise the error object/message is returned (not a falsy value)
+ */
+var NO_ERROR = '';
 
 router.get('/stats/', function (req, res, next) {
   // todo: get organisationId from SAML
@@ -19,7 +19,6 @@ router.get('/stats/', function (req, res, next) {
   });
 });
 
-//region Helper methods
 function fetchStats (organisation, callback) {
 
   var url = 'http://labs.viaa.be/api/v1/archived?tenant=' + organisation;
@@ -30,7 +29,7 @@ function fetchStats (organisation, callback) {
 
     console.log(obj);
     var obj = parseStats(JSON.parse(body));
-    callback(SUCCESS, obj);
+    callback(NO_ERROR, obj);
   });
 }
 
@@ -42,6 +41,24 @@ function parseStats (inputObject) {
     registration_growth: 111.5
   };
 }
+//endregion
+
+//region services
+router.get('/services/:serviceId', function (req, res, next) {
+  var serviceId = req.params.serviceId;
+  res.json({
+    service: serviceId
+  });
+});
+//endregion
+
+//region reports
+router.get('/reports/:reportId', function (req, res, next) {
+  var reportId = req.params.reportId;
+  res.json({
+    report: reportId
+  });
+});
 //endregion
 
 // Return router
