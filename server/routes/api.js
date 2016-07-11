@@ -5,12 +5,13 @@ var DUMMY = require('../dummy/dummy');
 
 var router = express.Router();
 
-//region stats
 /**
  * used in callback argument to return if successful
  * otherwise the error object/message is returned (not a falsy value)
  */
 var NO_ERROR = '';
+
+//region stats
 
 router.get('/stats/', function (req, res, next) {
   // todo: get organisationId from SAML
