@@ -13,12 +13,11 @@ function isAvailable() {
 // Overview of hard coded data about services - all references point to these objects
 // Unique identifier is the 'service' key
 function getServicesList() {
-
     return [
         {
             service:"FTP",
             title:"FTP &ndash; Bestanden",
-            description:"Korte info Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum viverra malesuada. Sed auctor accumsan tempus. Nulla ac augue a odio porttitor porta. Phasellus venenatis ornare dolor, sed luctus justo mattis et. Donec tincidunt lacus eget, ipsum placerat pharetra. Nulla eget varius metus.",
+            description:"Uploaden of downloaden van uw bestanden.",
             link_info:"detail.html#ftp",
             link_service:"ftp://ftp.viaa.be/",
             img:"assets/ftp.svg",
@@ -30,7 +29,7 @@ function getServicesList() {
         {
             service:"AMS",
             title:"AMS &ndash; Registratie",
-            description:"Korte info Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum viverra malesuada. Sed auctor accumsan tempus. Nulla ac augue a odio porttitor porta. Phasellus venenatis ornare dolor, sed luctus justo mattis et. Donec tincidunt lacus eget, ipsum placerat pharetra. Nulla eget varius metus.",
+            description:"Registratieplatform voor analoge dragers.",
             link_info:"detail.html#ams",
             link_service:"http://registratie.viaa.be",
             img:"assets/avo.svg",
@@ -41,7 +40,7 @@ function getServicesList() {
         {
             service:"MAM",
             title:"MAM &ndash; Archief",
-            description:"Korte info Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum viverra malesuada. Sed auctor accumsan tempus. Nulla ac augue a odio porttitor porta. Phasellus venenatis ornare dolor, sed luctus justo mattis et. Donec tincidunt lacus eget, ipsum placerat pharetra. Nulla eget varius metus.",
+            description:"Centrale storage voor alle metadata van het VIAA (MediaHaven).",
             link_info:"detail.html#mam",
             link_service:"https://archief.viaa.be/",
             img:"assets/mam.svg",
@@ -52,7 +51,7 @@ function getServicesList() {
         {
             service:"DBS",
             title:"DBS &ndash; Contracten",
-            description:"Korte info Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum viverra malesuada. Sed auctor accumsan tempus. Nulla ac augue a odio porttitor porta. Phasellus venenatis ornare dolor, sed luctus justo mattis et. Donec tincidunt lacus eget, ipsum placerat pharetra. Nulla eget varius metus.",
+            description:"Bewaren van online documenten zoals Contracten en Service Agreements.",
             link_info:"detail.html#dbs",
             link_service:"https://oauth.viaa.be/user/login.jsp",
             img:"assets/avo.svg",
