@@ -1,14 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var path = require("path");
+var ejs = require("ejs");
 
-router.get('/', function (req, res, next) {
-  res.sendFile(path.join(__dirname + '/documentation.html'));
-});
+var displayRoutes = [
+  {title: 'stats', url: '/api/stats'},
+  {title: 'services', url: '/api/services/MAM'},
+  {title: 'reports', url: '/api/reports/items-last-month'}
+];
 
-router.get('/api/', function (req, res, next) {
-  res.sendFile(path.join(__dirname + '/documentation.html'));
-});
+function showDocumentation (req, res, next) {
+  res.render('documentation', {
+    routes: displayRoutes
+  });
+}
+
+router.get('/', showDocumentation);
+
+router.get('/api/', showDocumentation);
 
 // Return router
 module.exports = router;
