@@ -16,7 +16,7 @@ $(document).ready(function() {
                 img:"assets/ftp.svg",
                 img_classname:"service-icon-ftp",
                 alt:"FTP icon",
-                available: test(),
+                available: isAvailable(),
                 
             },
             {
@@ -38,7 +38,7 @@ $(document).ready(function() {
                 img:"assets/mam.svg",
                 img_classname:"service-icon-mam",
                 alt:"MAM icon",
-                available
+                available: true,
             },
             {
                 
