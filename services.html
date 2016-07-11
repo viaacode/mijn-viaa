@@ -25,7 +25,7 @@
         <div id="app"></div>
 
         <div class="container col-8" id="services-app">
-            <article class="col col-12" v-for="item in listitems">
+            <article class="col col-12" v-for="item in serviceslist" v-if="item.available">
                 <div class="service-icon-container">
                     <div class="service-icon {{ item.img_classname }}">
                         <img src="{{ item.img }}" alt="{{ item.alt }}"/>
