@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 // Express
 var app = express();
 
+app.set('view engine', 'ejs');
+
 // Morgan to log requests
 app.use(logger('dev'));
 

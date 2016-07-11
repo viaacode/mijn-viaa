@@ -10,12 +10,8 @@ var displayRoutes = [
 ];
 
 function showDocumentation (req, res, next) {
-  var data = {
+  res.render('documentation', {
     routes: displayRoutes
-  };
-  ejs.renderFile(__dirname + '/documentation.ejs', data, {delimiter: "%"}, function (err, str) {
-    if (err) return next(err);
-    res.send(str);
   });
 }
 
