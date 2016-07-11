@@ -7,11 +7,12 @@ var myChart = new Chart(ctx, {
         labels: ["20", "30", "40", "50", "60", "70"],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [50,12, 19, 3, 5, 2, 3],
             backgroundColor: "rgba(255, 255, 255, 0)",
             borderColor: "#8fcee0", 
             borderWidth: 2,
-            pointBackgroundColor:"#8fcee0" 
+            pointBackgroundColor:"#8fcee0",
+             
         },
         {
             label: '# of Votes',
