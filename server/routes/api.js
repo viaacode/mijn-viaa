@@ -8,20 +8,11 @@ var router = express.Router();
 // otherwise the error object/message is returned (not a falsy value)
 var SUCCESS = '';
 
-// used to indicate that global stats of VIAA requested
-var VIAA_STATS = '';
 //endregion
 
 router.get('/stats/', function (req, res, next) {
-  fetchStats(VIAA_STATS, function (err, data) {
-    if (err) return next(err);
-    res.json(data);
-  });
-});
-
-// todo: auth
-router.get('/stats/organisation/:organisationId', function (req, res, next) {
-  var organisationId = req.params.organisationId;
+  // todo: get organisationId from SAML
+  var organisationId = 'VRT';
   fetchStats(organisationId, function (err, data) {
     if (err) return next(err);
     res.json(data);
@@ -31,11 +22,7 @@ router.get('/stats/organisation/:organisationId', function (req, res, next) {
 //region Helper methods
 function fetchStats (organisation, callback) {
 
-  var url = 'http://labs.viaa.be/api/v1/archived';
-
-  if (organisation !== VIAA_STATS) {
-    url += '?tenant=' + organisation;
-  }
+  var url = 'http://labs.viaa.be/api/v1/archived?tenant=' + organisation;
 
   request(url, function (error, response, body) {
     if (error) return callback(error);
