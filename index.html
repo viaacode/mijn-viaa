@@ -25,15 +25,28 @@
             </ul>
         </header>
 
-        <div class="container col-8">
+        <div class="container col-12">
             <!-- Here comes the content -->
-            <div id="app">
-                {{ message }}
+            <div id="home-app" v-cloak>
+                
+                <h1>{{ stats | json }}</h1>
+
+                <br>
+
+                <ul>
+                    <li>Terabytes: {{ stats.terabytes }}</li>
+                    <li>Items: {{ stats.items }}</li>
+                    <li>Archite growth: {{ stats.archive_growth }}</li>
+                    <li>Registration growth: {{ stats.registration_growth }}</li>    
+                </ul>
+                
+                
+                
             </div>
         </div>
 
         <script src="dist/jquery.js"></script>
         <script src="dist/vue.js"></script> 
-        <script src="dist/scripts.js"></script> 
+        <script src="js/home.js"></script> 
     </body>
 </html>
