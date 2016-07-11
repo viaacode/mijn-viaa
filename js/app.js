@@ -25,7 +25,7 @@ function getServicesList() {
             description:"Korte info Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum viverra malesuada. Sed auctor accumsan tempus. Nulla ac augue a odio porttitor porta. Phasellus venenatis ornare dolor, sed luctus justo mattis et. Donec tincidunt lacus eget, ipsum placerat pharetra. Nulla eget varius metus.",
             link_info:"detailAms.html",
             link_service:"http://registratie.viaa.be",
-            img:"assets/avo.svg",
+            img:"assets/ams.svg",
             img_classname:"service-icon-ams",
             img_alt:"AMS icon",
             available:true,
