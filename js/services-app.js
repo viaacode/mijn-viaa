@@ -29,7 +29,7 @@ $(document).ready(function() {
                     img:"assets/avo.svg",
                     img_classname:"service-icon-ams",
                     alt:"AMS icon",
-                    available:false,
+                    available:true,
                 },
                 {
                     
@@ -51,6 +51,7 @@ $(document).ready(function() {
                     img:"assets/avo.svg",
                     img_classname:"service-icon-dbs",
                     alt:"DBS icon",
+                    available:true,
                 },
             ]
 
