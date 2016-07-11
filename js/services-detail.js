@@ -48,7 +48,7 @@ $(document).ready(function() {
         el: '#service-detail',
         data: {
             dataAPI: getDummyData(),
-            dataHard: getDataFromOverviewForService(getDummyData()['service'])
+            dataHard: getDataFromOverviewForService(getDummyData().service)
         },
 
 
