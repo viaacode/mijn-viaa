@@ -71,10 +71,21 @@ function fetchService (serviceId, callback) {
 //region reports
 router.get('/reports/:reportId', function (req, res, next) {
   var reportId = req.params.reportId;
-  res.json({
-    report: reportId
+  fetchReport(reportId, function (error, data) {
+    if (error) return next(error);
+    res.json(data);
   });
 });
+
+function fetchReport (reportId, callback) {
+  var report = DUMMY.reports[reportId];
+
+  if (!report) {
+    return callback("Report '" + reportId + "' does not exist");
+  }
+
+  callback(NO_ERROR, report);
+}
 //endregion
 
 // Return router
