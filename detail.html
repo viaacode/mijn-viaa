@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Service &ndash; Mijn VIAA</title>
+        <title>Dienst Detail &ndash; Mijn VIAA</title>
         <meta name="description" content=""> <!-- site description goes here -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,9 +20,9 @@
             <ul>
                 <li class="logo"><a href="index.html"><img src="assets/logo.svg"/></a></li>
                 <li class="menuitem"><a href="index.html">Home</a></li>
-                <li class="menuitem"><a href="services.html" class="active">Services</a></li>
-                <li class="menuitem"><a href="#">Reports</a></li>
-                <li class="menuitem"><a href="#">About</a></li>
+                <li class="menuitem"><a href="services.html">Diensten</a></li>
+                <li class="menuitem"><a href="#">Rapporten</a></li>
+                <li class="menuitem"><a href="#">Over</a></li>
             </ul>
         </header>
 
@@ -67,7 +67,7 @@
                 <h1>Zendesk articles</h1>
                 <p class="error" v-if="errormsg">Error: {{ errormsg }}</p>
 
-                <div v-if="stats">
+                <div v-if="dataAPI.articles">
                     <article v-for="item in dataAPI.articles">
                         <h1>{{ item.title }}</h1>
                         <p>Article content not in API yet .. Ipsum cupidatat laborum laboris culpa anim. Mollit ex nisi culpa officia magna id. Dolor commodo aute occaecat velit sit enim exercitation culpa id deserunt proident ut.</p>
