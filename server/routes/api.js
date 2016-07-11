@@ -1,6 +1,8 @@
 var express = require('express');
 var request = require('request');
 
+var DUMMY = require('../dummy/dummy');
+
 var router = express.Router();
 
 //region stats
@@ -46,10 +48,23 @@ function parseStats (inputObject) {
 //region services
 router.get('/services/:serviceId', function (req, res, next) {
   var serviceId = req.params.serviceId;
-  res.json({
-    service: serviceId
+  fetchService(serviceId, function (error, data) {
+    if (error) return next(error);
+    res.json(data);
   });
 });
+
+function fetchService (serviceId, callback) {
+  // todo fetch service instead of dummy data
+  var service = DUMMY.services[serviceId];
+
+  if (!service) {
+    return callback("Service '" + serviceId + "' does not exist");
+  }
+
+  callback(NO_ERROR, service);
+}
+
 //endregion
 
 //region reports
