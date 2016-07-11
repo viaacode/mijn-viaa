@@ -40,7 +40,6 @@ $(document).ready(function() {
         for(var i = 0; i < servicelist.length; i++) {
             if(servicelist[i].service == service) return servicelist[i];
         }
-
     }
 
 
@@ -48,11 +47,13 @@ $(document).ready(function() {
         el: '#service-detail',
         data: {
             dataAPI: getDummyData(),
-            dataHard: getDataFromOverviewForService(getDummyData()['service'])
+            dataHard: getDataFromOverviewForService(window.location.hash.substring(1).toUpperCase()),
+
         },
 
-
-
     });
+
+    // Set Title
+    $('title').html(window.location.hash.substring(1).toUpperCase() + ' &ndash; Mijn VIAA');
 
 });
