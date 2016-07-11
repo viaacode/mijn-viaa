@@ -24,8 +24,8 @@
 
         <div id="app"></div>
 
-        <div class="container col-8" id="services-app">
-            <article class="col col-12" v-for="item in serviceslist" v-if="item.available">
+        <div class="container col-8" id="services-app" v-cloak>
+            <article class="col col-12" v-for="item in serviceslist">
                 <div class="service-icon-container">
                     <div class="service-icon {{ item.img_classname }}">
                         <img src="{{ item.img }}" alt="{{ item.img_alt }}"/>
@@ -36,16 +36,18 @@
                     <p>{{{ item.description }}}</p>
                     <p>
                         <a href="{{ item.link_info }}" class="btn btn-secondary">Meer informatie</a>
-                        <a href="{{ item.link_service }}" class="btn btn-primary">Ga naar dienst</a>
+                        <a href="{{ item.link_service }}" class="btn btn-primary" v-if="item.available">Ga naar dienst</a>
+                        <a href="#" class="btn btn-primary" v-else>Vraag toegang</a>
+
                     </p> 
                 </div>
             </article>               
         </div>
 
         <script src="dist/jquery.js"></script>
-        <script src="dist/vue.js"></script> 
-        
+        <script src="dist/vue.js"></script>
+
         <script src="js/app.js"></script> 
-        <script src="js/services-app.js"></script>
+        <script src="js/services-overview.js"></script>
     </body>
 </html>
