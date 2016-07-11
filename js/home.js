@@ -3,7 +3,7 @@ $(document).ready(function() {
     new Vue({
         el: '#home-app',
         data: {
-            stats: { }, // Initialize stats for binding
+            stats: '', // Initialize stats for binding
             errormsg: '' // Initialize error msg 
         },
         created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable

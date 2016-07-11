@@ -29,15 +29,18 @@
             <!-- Here comes the content -->
             <div id="home-app" v-cloak>
                 
-                <p>{{ stats | json }}</p>
-                <p class="error" v-show="errormsg">{{ errormsg }}</p>
-                <ul>
-                    <li>Terabytes: {{ stats.terabytes }}</li>
-                    <li>Items: {{ stats.items }}</li>
-                    <li>Archite growth: {{ stats.archive_growth }}</li>
-                    <li>Registration growth: {{ stats.registration_growth }}</li>    
-                </ul>
-                  
+                <p class="error" v-if="errormsg">{{ errormsg }}</p>
+                <div v-if="stats">
+                    <p>{{ stats | json }}</p>
+                    
+                    <ul>
+                        <li>Terabytes: {{ stats.terabytes }}</li>
+                        <li>Items: {{ stats.items }}</li>
+                        <li>Archite growth: {{ stats.archive_growth }}</li>
+                        <li>Registration growth: {{ stats.registration_growth }}</li>    
+                    </ul>
+                </div> 
+                <div v-else v-if="!errormsg">Loading...</div> 
             </div>
         </div>
 

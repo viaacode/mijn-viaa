@@ -1,40 +1,5 @@
 $(document).ready(function() {
 
-    function getDummyData() {
-        return {
-            "service": "MAM",
-            "stats": [
-                {
-                "key": "archivedData",
-                "value": 11,
-                "unit": "TB"
-                },
-                {
-                "key": "archivedItems",
-                "value": 1111,
-                "unit": ""
-                }
-            ],
-            "articles": [
-                {
-                "title": "Documentatie op zendesk"
-                },
-                {
-                "title": "Handleiding voor invoerders"
-                },
-                {
-                "title": "Si veteres ita miratur laudatque poetas"
-                },
-                {
-                "title": "Ut nihil anteferat, nihil illis comperet, errat"
-                },
-                {
-                "title": "Si quaedam nimis antique"
-                }
-            ]
-        };
-    }
-
     function getDataFromOverviewForService(service) {
         servicelist = getServicesList();
         for(var i = 0; i < servicelist.length; i++) {
@@ -42,14 +7,29 @@ $(document).ready(function() {
         }
     }
 
+    var service = window.location.hash.substring(1).toUpperCase();
 
     new Vue({
         el: '#service-detail',
         data: {
-            dataAPI: getDummyData(),
-            dataHard: getDataFromOverviewForService(window.location.hash.substring(1).toUpperCase()),
-
+            dataAPI: '',
+            dataHard: getDataFromOverviewForService(service),
+            errormsg: '',
         },
+        created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable
+            var that = this;    // !Scope -> within $.ajax(), 'this' will point to the ajax call
+            $.ajax({
+                url: "http://localhost:1337/api/services/" + service, 
+                success: function(result){
+                    console.log(result);
+                    that.dataAPI = result;
+                },
+                error: function(err) {
+                    console.log(err);
+                    that.errormsg = err.status + ' - ' + err.statusText;
+                }            
+            });
+        }
 
     });
 

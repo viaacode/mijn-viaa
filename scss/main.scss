@@ -30,6 +30,10 @@ p {
     color: $error;
 }
 
+strong {
+    font-weight:800;
+}
+
 [v-cloak] {
     display: none;
 }

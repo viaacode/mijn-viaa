@@ -26,10 +26,10 @@
             </ul>
         </header>
 
-        <div class="container col-8" id="service-detail" v-cloak>
+        <div class="container" id="service-detail" v-cloak>
             <!-- Here comes the content -->
             
-            <article class="col col-12">
+            <div class="service-detail-content col col-12">
                 <div class="service-icon-container">
                     <div class="service-icon {{ dataHard.img_classname }}">
                         <img src="assets/avo.svg" alt="{{ dataHard.img_alt }}"/>
@@ -50,8 +50,9 @@
                     
 
                 </div>
-            </article>
-            <article>
+            </div>
+            
+            <div class="service-detail-content col col-12">
                 <h1>Wat is {{ dataHard.service }}</h1>
                 <p>
                     {{{ dataHard.description }}} 
@@ -60,7 +61,23 @@
                 </p>
                 <p>Nunc egestas urna nec lectus placerat bibendum eget eget nunc. Vestibulum aliquet enim nulla, ac aliquam metus molestie id. Nullam at porta enim, vel dapibus libero. Maecenas sagittis aliquam consectetur. Integer vel semper enim. Aliquam porttitor, purus a ultricies mollis, nisi eros congue mauris, et varius mauris quam ut lectus. Duis velit tellus, fermentum id massa eget, laoreet rutrum ex.</p>
                        
-            </article>
+            </div>
+
+            <div class="service-detail-content col col-12">
+                <h1>Zendesk articles</h1>
+                <p class="error" v-if="errormsg">Error: {{ errormsg }}</p>
+
+                <div v-if="stats">
+                    <article v-for="item in dataAPI.articles">
+                        <h1>{{ item.title }}</h1>
+                        <p>Article content not in API yet .. Ipsum cupidatat laborum laboris culpa anim. Mollit ex nisi culpa officia magna id. Dolor commodo aute occaecat velit sit enim exercitation culpa id deserunt proident ut.</p>
+                    </article>
+                </div>
+                <div v-else v-if="!errormsg">
+                    <strong>Debug</strong>
+                    <p>A dump of everything: {{ dataAPI | json }}</p>
+                </div>
+            </div>
 
         </div>
 
