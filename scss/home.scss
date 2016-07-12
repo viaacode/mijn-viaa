@@ -1,13 +1,31 @@
-.home-icons{
-    width:100%;
-    display: flex;
-    justify-content: space-between;   
-}
-
-.home-stats{
-    text-align: center;
+.loading-container{
+    width: 100%;
 }
 
 .loading{
-    margin: auto;
+    display: block;
+    margin-left:auto;
+    margin-right:auto;    
 }
+
+.home-article{
+    background-color: rgba(227,56,0,0.05);
+    border: 1px;
+    border-radius: 5px;
+    margin-bottom: 3rem;
+}
+.home-zendesk-articles{
+    border: none;
+}
+
+.home-zendesk-articles h1{
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    clear: left;
+}  
+
+.home-article h1{
+    font-size: 1.8rem;
+}  
+    

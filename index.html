@@ -30,26 +30,37 @@
             <div id="home-app" v-cloak>
                 
                 <p class="error" v-if="errormsg">{{ errormsg }}</p>
-                <div v-if="stats">
-                    <div class="home-icons">
-                        <img class="service-icon col col-3" src="assets/ams.svg" alt="">    
-                        <img class="service-icon col col-3" src="assets/avo.svg" alt="">    
-                        <img class="service-icon col col-3" src="assets/ftp.svg" alt="">    
-                        <img class="service-icon col col-3" src="assets/mam.svg" alt="">    
-                    </div>  
-
-                    <div class=" col col-12">
-                        <ul>
-                        <li class="col col-3 home-stats">Terabytes: {{ stats.terabytes }}</li>
-                        <li class="col col-3 home-stats">Items: {{ stats.items }}</li>
-                        <li class="col col-3 home-stats">Archite growth: {{ stats.archive_growth }}</li>
-                        <li class="col col-3 home-stats">Registration growth: {{ stats.registration_growth }}</li>    
-                    </ul>    
-
-                    </div>  
-                    
+                <div class="clearfix mb4">
+                    <div class="center col col-12  sm-col-6  lg-col-3" >
+                        <img class="service-icon mb3 mt3" src="assets/ams.svg" alt=""/>
+                        <span  v-if="stats"  class="home-stats">Terabytes: {{ stats.terabytes }}</span>
+                    </div>
+                    <div class="center col col-12  sm-col-6  lg-col-3">
+                        <img class="service-icon mb3 mt3" src="assets/avo.svg" alt=""/>
+                        <span  v-if="stats" class="home-stats">Items: {{ stats.items }}</span>    
+                    </div>
+                    <div class="center col col-12  sm-col-6  lg-col-3">
+                        <img class="service-icon mb3 mt3" src="assets/ftp.svg" alt=""/> 
+                        <span  v-if="stats" class="home-stats">Archite growth: {{ stats.archive_growth }}</span>    
+                    </div>
+                    <div class="center col col-12 sm-col-6 lg-col-3">
+                        <img class="service-icon mb3 mt3" src="assets/mam.svg" alt=""/>
+                        <span v-if="stats" class=" home-stats">Registration growth: {{ stats.registration_growth }}</span>    
+                    </div>   
                 </div> 
-                <div v-else v-if="!errormsg"><img class="loading" src="assets/loader.gif" alt="Loading..."></div> 
+                <div class="loading-container" v-if="!errormsg && !stats" ><img class="loading mb4" src="assets/loader.gif" alt="Loading..."/></div> 
+                <div class="home-zendesk-articles col col-12">
+                <h1>Zendesk articles</h1>
+                <p class="error" v-if="errormsg">Error: {{ errormsg }}</p>
+
+                <div v-if="articles">
+                    <article class="home-article" v-for="item in articles">
+                        <h1>{{ item.title }}</h1>
+                        <a href="http://viaa.be/nl/nieuws/">&rarr; http://viaa.be/nl/nieuws/</a>
+                    </article>
+                </div>
+            </div>
+                
             </div>
         </div>
 
