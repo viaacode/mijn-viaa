@@ -21,7 +21,6 @@ $(document).ready(function() {
             $.ajax({
                 url: "http://localhost:1337/api/services/" + service, 
                 success: function(result){
-                    console.log(result);
                     that.dataAPI = result;
                 },
                 error: function(err) {
