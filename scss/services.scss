@@ -12,8 +12,13 @@ article {
     padding-bottom:1rem;
 }
 
+.service-detail-content.first {
+    border-top: 1px solid $grey-light;
+}
+
 .service-detail-content {
     border:1px solid $grey-light;
+    border-top:none;
     padding:2rem;
 }
 
@@ -30,18 +35,17 @@ article {
 }
 
 /* Concerning service-icons */
-    .service-icon-container {
-        width:100%;
-        float:left;
-    }
-    .service-icon {
-        max-width: 10rem;
-        width: 80%;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
+.service-icon-container {
+    width:100%;
+    float:left;
+    margin-bottom:2rem;
+}
+.service-icon {
+    width: 10rem; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}   
 /* End of concerning service-icons */
 
 
@@ -50,16 +54,17 @@ article {
     float:left;
 }
 
-@media (min-width:760px) {
-    .service-icon-container {
-        width:15%;
-        margin:0 2% 0 0;
+@media (min-width:550px) {
+
+    .service-icon-container {        
+        width:12rem;
+        padding-right:2rem;
     }
 
     .service-content {
-        width:83%;
-    }
+        width: calc(100% - 12rem);
 
+    }
     article {
         margin-bottom:4rem;
         padding:2rem;
