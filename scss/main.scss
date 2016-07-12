@@ -121,8 +121,8 @@ header {
 }
 
 .btn-primary:hover {
-    background-color:$orange-darker;
-    color:#fff;
+    background-color:$orange-lighter;
+    color:$almostwhite;
     box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.15);
 }
 
@@ -136,8 +136,8 @@ header {
 }
 
 .btn-secondary:hover {
-    color:$orange-darker;
-    border-color:$orange-darker;
+    color:$orange-lighter;
+    border-color:$orange-lighter;
     box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.15);
 }
 
