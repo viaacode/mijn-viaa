@@ -20,9 +20,8 @@ $(document).ready(function() {
                 }            
             });
         }
-
     });  
-
+    
 function parseResults(result){
     var parsedResult = [];
     for(var i = 0; i < result.data.length ; i++){
@@ -46,8 +45,7 @@ function drawChart(parsedResult,result){
                 backgroundColor: "rgba(255, 255, 255, 0)",
                 borderColor: "#8fcee0", 
                 borderWidth: 2,
-                pointBackgroundColor:"#8fcee0",
-                
+                pointBackgroundColor:"#8fcee0", 
             },
            ]
         },
