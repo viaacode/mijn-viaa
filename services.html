@@ -29,9 +29,7 @@
 
             <article class="col col-12" v-for="item in serviceslist">
                 <div class="service-icon-container">
-                    <div class="service-icon {{ item.img_classname }}">
-                        <img v-bind:src="item.img" alt="{{ item.img_alt }}"/>
-                    </div>
+                        <img class="service-icon" v-bind:src="item.img" alt="{{ item.img_alt }}"/>
                 </div>
                 <div class="service-content">
                     <h1>{{{ item.title }}}</h1>

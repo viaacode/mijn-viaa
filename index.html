@@ -31,16 +31,25 @@
                 
                 <p class="error" v-if="errormsg">{{ errormsg }}</p>
                 <div v-if="stats">
-                    <p>{{ stats | json }}</p>
+                    <div class="home-icons">
+                        <img class="service-icon col col-3" src="assets/ams.svg" alt="">    
+                        <img class="service-icon col col-3" src="assets/avo.svg" alt="">    
+                        <img class="service-icon col col-3" src="assets/ftp.svg" alt="">    
+                        <img class="service-icon col col-3" src="assets/mam.svg" alt="">    
+                    </div>  
+
+                    <div class=" col col-12">
+                        <ul>
+                        <li class="col col-3 home-stats">Terabytes: {{ stats.terabytes }}</li>
+                        <li class="col col-3 home-stats">Items: {{ stats.items }}</li>
+                        <li class="col col-3 home-stats">Archite growth: {{ stats.archive_growth }}</li>
+                        <li class="col col-3 home-stats">Registration growth: {{ stats.registration_growth }}</li>    
+                    </ul>    
+
+                    </div>  
                     
-                    <ul>
-                        <li>Terabytes: {{ stats.terabytes }}</li>
-                        <li>Items: {{ stats.items }}</li>
-                        <li>Archite growth: {{ stats.archive_growth }}</li>
-                        <li>Registration growth: {{ stats.registration_growth }}</li>    
-                    </ul>
                 </div> 
-                <div v-else v-if="!errormsg">Loading...</div> 
+                <div v-else v-if="!errormsg"><img class="loading" src="assets/loader.gif" alt="Loading..."></div> 
             </div>
         </div>
 
