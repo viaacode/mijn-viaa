@@ -43,7 +43,6 @@ strong {
 }
 
 /* Navigation menu */
-
 header {
     height:30.25rem;
 
@@ -53,17 +52,7 @@ header {
     background-color:$orange;
     color:$almostwhite;
 
-    .logo {
-        height:6rem;
-        width:100%;
-        text-align:center;
-        display:inline-block;
-        
-        img {
-            height:100%;
-        }
 
-    }
 
     ul {
         width:100%;
@@ -93,7 +82,17 @@ header {
                 color:$orange;
             }
         }
+    }
+}
 
+.logo {
+    height:6rem;
+    width:100%;
+    text-align:center;
+    display:inline-block;
+    
+    img {
+        height:100%;
     }
 
 }
@@ -152,8 +151,32 @@ header {
 
 /* End of button styles */
 
-/* Media queries */
+/* Footer */
+footer {
+    width:100%;
+    float:left;
+    background-color:$grey-dark;
+    color:$almostwhite;
+    padding:2rem;
+    line-height:3.2rem;
+    margin-top:5rem;
+}
 
+.logo-footer {
+    display:block;
+    float:right;
+    width:5.5rem;
+}
+
+// Might become unneccesary if footer gets filled
+.lowfootertext {
+    margin:4rem 2rem 4rem 0;
+}
+
+/* End of footer */
+
+
+/* Media queries */
 @media (min-width: 550px) {
     /* Navigation menu */
     header {

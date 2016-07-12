@@ -21,29 +21,47 @@
                 <li class="menuitem"><a href="#">Over</a></li>
             </ul>
         </header>
+        <div id="services-app">
+            <div class="container" v-cloak>
+                <div class="col-12 breadcrumb">
+                    <a href="services.html">Diensten</a>
+                </div>  
 
-        <div class="container" id="services-app" v-cloak>
-            <div class="col-12 breadcrumb">
-                <a href="services.html">Diensten</a>
-            </div>  
+                <article class="col col-12" v-for="item in serviceslist">
+                    <div class="service-icon-container">
+                            <img class="service-icon" v-bind:src="item.img" alt="{{ item.img_alt }}"/>
+                    </div>
+                    <div class="service-content">
+                        <h1>{{{ item.title }}}</h1>
+                        <p>{{{ item.description }}}</p>
+                        <p>
+                            <a href="{{ item.link_info }}" class="btn btn-secondary">Meer informatie</a>
+                            <a href="{{ item.link_service }}" class="btn btn-primary" v-if="item.available"><span class="fa fa-share"></span>&nbsp; Ga naar dienst</a>
+                            <a href="#" class="btn btn-primary" v-else><span class="fa fa-unlock-alt"></span> &nbsp; Vraag toegang</a>
 
-            <article class="col col-12" v-for="item in serviceslist">
-                <div class="service-icon-container">
-                        <img class="service-icon" v-bind:src="item.img" alt="{{ item.img_alt }}"/>
+                        </p> 
+                    </div>
+                </article>               
+            </div>
+
+            <footer v-cloak>
+                <div class="container">
+                    <div class="col sm-col-8">
+                        <p class="lowfootertext">
+                            Voor meer info, mail naar <a href="mailto:support@viaa.be">support@viaa.be</a>.
+                        </p>
+                    </div>
+                    <div class="col sm-col-4 ">
+                        <p class="clearfix">
+                            <img src="assets/logo.svg" class="logo logo-footer" alt="Logo"/><br>
+                        </p>               
+                        <p class="right">
+                            &copy; VIAA 2016
+                        </p>
+                    </div>                    
                 </div>
-                <div class="service-content">
-                    <h1>{{{ item.title }}}</h1>
-                    <p>{{{ item.description }}}</p>
-                    <p>
-                        <a href="{{ item.link_info }}" class="btn btn-secondary">Meer informatie</a>
-                        <a href="{{ item.link_service }}" class="btn btn-primary" v-if="item.available"><span class="fa fa-share"></span>&nbsp; Ga naar dienst</a>
-                        <a href="#" class="btn btn-primary" v-else><span class="fa fa-unlock-alt"></span> &nbsp; Vraag toegang</a>
-
-                    </p> 
-                </div>
-            </article>               
+            </footer>
         </div>
-
         <script src="dist/jquery.js"></script>
         <script src="dist/vue.js"></script>
 
