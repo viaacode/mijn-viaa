@@ -41,7 +41,7 @@ strong {
 /* Navigation menu */
 
 header {
-    height:30rem;
+    height:30.25rem;
 
     width:100%;
     padding:0 1rem;
@@ -55,7 +55,7 @@ header {
         text-align:center;
 
         display:inline-block;
-        float:left;
+        //float:left;
         
         img {
             height:100%;
@@ -73,6 +73,7 @@ header {
         display:inline-block;
         width:100%;
         margin-bottom:1rem;
+
 
         a {
             width:100%;
@@ -108,7 +109,7 @@ header {
 
     height:4rem;
     display:inline-block;
-    float:left;
+    //float:left;
 
     transition:0.4s ease-in-out;
     border-radius:5px;
@@ -149,7 +150,7 @@ header {
 @media (min-width: 550px) {
     /* Navigation menu */
     header {
-        height:7rem;
+        height:8rem;
 
         .logo {
             height:6rem;
@@ -165,11 +166,10 @@ header {
             width:auto;
 
             a {                
-                width:auto;
-                line-height:10rem;
+                //width:auto;
+                line-height:12rem;
                 display:inline;
                 border-radius:5px 5px 0 0;
-
                 padding: 1rem 2rem;
 
             }
@@ -184,7 +184,7 @@ header {
 @media (min-width: 960px) {
     /* Header */
     header {
-        margin-bottom:4rem;
+        margin-bottom:1rem;
     }
     header ul, .container {
         width:960px;

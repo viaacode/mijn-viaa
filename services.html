@@ -22,9 +22,11 @@
             </ul>
         </header>
 
-        <div id="app"></div>
+        <div class="container" id="services-app" v-cloak>
+            <div class="col-12 breadcrumb">
+                <a href="services.html">Diensten</a>
+            </div>
 
-        <div class="container col-8" id="services-app" v-cloak>
             <article class="col col-12" v-for="item in serviceslist">
                 <div class="service-icon-container">
                     <div class="service-icon {{ item.img_classname }}">

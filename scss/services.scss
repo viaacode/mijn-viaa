@@ -22,7 +22,12 @@ article {
     font-size:1.8rem;
 }
 
-
+/* Breadcrumb */
+.breadcrumb {
+    border: 1px solid $grey-light;
+    padding:1rem 2rem;
+    margin-bottom:1rem;
+}
 
 /* Concerning service-icons */
     .service-icon-container {
