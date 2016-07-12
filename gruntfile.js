@@ -15,9 +15,12 @@ var grunt = require("grunt");
       files: [
         // includes files within path
         {expand: false, src: ['node_modules/basscss/css/basscss.css'], dest: 'scss/_basscss.scss', filter: 'isFile'},
+        {expand: true, cwd:'node_modules/font-awesome/fonts', src: '**/*', dest: 'fonts/'},
+        {expand: false, src: ['node_modules/font-awesome/css/font-awesome.css'], dest: 'scss/_font-awesome.scss', filter: 'isFile'},
         {expand: false, src: ['node_modules/vue/dist/vue.js'], dest: 'dist/vue.js', filter: 'isFile'},
         {expand: false, src: ['node_modules/jquery/dist/jquery.js'], dest: 'dist/jquery.js', filter: 'isFile'},
         {expand: false, src: ['node_modules/chart.js/dist/Chart.js'], dest: 'dist/chart.js', filter: 'isFile'},
+        
       ],
     },
   },  

@@ -21,7 +21,7 @@
                 <li class="logo"><a href="index.html"><img src="assets/logo.svg"/></a></li>
                 <li class="menuitem"><a href="index.html">Home</a></li>
                 <li class="menuitem"><a href="services.html" class="active">Diensten</a></li>
-                <li class="menuitem"><a href="#">Rapporten</a></li>
+                <li class="menuitem"><a href="reports.html">Rapporten</a></li>
                 <li class="menuitem"><a href="#">Over</a></li>
             </ul>
         </header>
@@ -40,14 +40,14 @@
                 <div class="service-content">
                     <h1>{{{ dataHard.title }}}</h1>
 
-                    <p>
-                        <a href="{{ dataHard.link_service }}" v-if="dataHard.available">&rarr; https://registratie.viaa.be/</a> &nbsp;
+                    <p v-if="dataHard.available">
+                        &rarr; <a href="{{ dataHard.link_service }}" class="underline">https://registratie.viaa.be/</a> &nbsp;
                     </p>
                     <p>
                         <a href="#" class="btn btn-secondary">Handleiding</a> 
-                        
-                        <a href="#" class="btn btn-primary" v-if='dataHard.available'>Naar Dienst</a>
-                        <a href="#" class="btn btn-primary" v-else>Vraag toegang</a>
+
+                        <a href="{{ dataHard.link_service }}" class="btn btn-primary" v-if="dataHard.available"><span class="fa fa-share"></span>&nbsp; Ga naar dienst</a>
+                        <a href="#" class="btn btn-primary" v-else><span class="fa fa-unlock-alt"></span> &nbsp; Vraag toegang</a>
                     </p>
                     
 

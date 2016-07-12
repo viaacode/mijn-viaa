@@ -11,6 +11,10 @@ body {
 
 }
 
+.underline {
+    text-decoration:underline;
+}
+
 a {
     text-decoration:none;
     color:$orange;
@@ -53,9 +57,7 @@ header {
         height:6rem;
         width:100%;
         text-align:center;
-
         display:inline-block;
-        //float:left;
         
         img {
             height:100%;
@@ -109,7 +111,6 @@ header {
 
     height:4rem;
     display:inline-block;
-    //float:left;
 
     transition:0.4s ease-in-out;
     border-radius:5px;
@@ -123,25 +124,31 @@ header {
 .btn-primary:hover {
     background-color:$orange-lighter;
     color:$almostwhite;
-    box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.15);
+    box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .btn-secondary {
     padding-top:0.8rem;
-
     background-color:$almostwhite;
     color:$orange;
     border:2px solid $orange;
-     
 }
 
 .btn-secondary:hover {
     color:$orange-lighter;
     border-color:$orange-lighter;
-    box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.15);
+    box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
+.btn-ternary {
+    color:$almostwhite;
+    background-color:$blue2;
+}
 
+.btn-ternary:hover {
+    color:$almostwhite;
+    background-color:$blue;
+}
 
 /* End of button styles */
 
