@@ -7,7 +7,7 @@ $(document).ready(function() {
         }
     }
 
-    var service = window.location.hash.substring(1).toUpperCase();
+    var service = window.location.hash.substring(1).toUpperCase();  // Get service from URL after #, ex #mam becomes MAM
 
     new Vue({
         el: '#service-detail',
@@ -34,6 +34,6 @@ $(document).ready(function() {
     });
 
     // Set Title
-    $('title').html(window.location.hash.substring(1).toUpperCase() + ' &ndash; Mijn VIAA');
+    $('title').html(service + ' &ndash; Mijn VIAA');
 
 });
