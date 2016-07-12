@@ -32,7 +32,7 @@ function getServicesList() {
             description:"Registratieplatform voor analoge dragers.",
             link_info:"detail.html#ams",
             link_service:"http://registratie.viaa.be",
-            img:"assets/avo.svg",
+            img:"assets/ams.svg",
             img_classname:"service-icon-ams",
             img_alt:"AMS icon",
             available:false,
