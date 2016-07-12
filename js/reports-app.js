@@ -43,7 +43,7 @@ var myChart = new Chart(ctx, {
 });
 
 var ctx2 = document.getElementById("myChart2");
-var myChart = new Chart(ctx2, {
+var myChart2 = new Chart(ctx2, {
     type: 'line',
     data: {
         labels: ["20", "30", "40", "50", "60", "70"],
@@ -84,7 +84,7 @@ var myChart = new Chart(ctx2, {
 });
 
 var ctx3 = document.getElementById("myChart3");
-var myChart = new Chart(ctx3, {
+var myChart3 = new Chart(ctx3, {
     type: 'line',
     data: {
         labels: ["20", "30", "40", "50", "60", "70"],
