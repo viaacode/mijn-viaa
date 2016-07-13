@@ -8,7 +8,7 @@
         created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable
             var thisvue = this;
             ajaxcall("http://localhost:1337/api/reports/items-last-month", function(err, result) {
-                if(err) thisvue.errormsg = err;
+                url: "http://localhost:1337/api/reports/items/last-month",
                 else {
                     parseResults(result);
                     parseBarResults(result);
@@ -22,9 +22,9 @@
         var parsedResult = [];
         for(var i = 0; i < result.data.length ; i++){
             var obj = {
-                x : moment(result.data[i].timestamp).format('MM DD hh:ss') ,
+            x : moment.unix(result.data[i].timestamp).format('MM DD hh:ss') ,
                 y : result.data[i].value
-            }
+        };
             parsedResult.push(obj);
         }
         drawChart(parsedResult, result);
@@ -34,7 +34,7 @@
         var parsedTimestamps = [];
         var parsedValues = [];
         for(var i = 0; i < result.data.length ; i++){
-            var timestamp = moment(result.data[i].timestamp).format('MM DD hh:ss');
+        var timestamp = moment.unix(result.data[i].timestamp).format('MM DD hh:ss');
             var value = result.data[i].value;
             parsedTimestamps.push(timestamp);
             parsedValues.push(value);
