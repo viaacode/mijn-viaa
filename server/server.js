@@ -30,14 +30,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-function ignoreAuthentication (req, res, next) {
-  return next();
-}
-
 // Routes
 var auth = require('./routes/authentication')(app, config, passport);
-// todo: remove
-auth = ignoreAuthentication;
+auth = require('./config/ignore-authentication');
 require('./routes/documentation')(app, config);
 require('./routes/api')(app, config, auth);
 

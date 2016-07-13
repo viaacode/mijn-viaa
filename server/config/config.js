@@ -9,7 +9,7 @@ module.exports = {
       strategy: 'saml',
       saml: {
         path: process.env.SAML_PATH || '/login/callback',
-        entryPoint: process.env.SAML_ENTRY_POINT || 'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php',
+        entryPoint: process.env.SAML_ENTRY_POINT || 'https://idp-qas.viaa.be/module.php/core/frontpage_welcome.php',
         issuer: 'passport-saml',
         cert: process.env.SAML_CERT || null
       }
