@@ -12,13 +12,6 @@ var config = require('./config/config')[env];
 
 require('./config/passport')(passport, config);
 
-function ensureAuthenticated (req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-  else
-    return res.redirect('/login');
-}
-
 // Express
 var app = express();
 
@@ -37,10 +30,16 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+function ignoreAuthentication (req, res, next) {
+  return next();
+}
+
 // Routes
+var auth = require('./routes/authentication')(app, config, passport);
+// todo: remove
+auth = ignoreAuthentication;
 require('./routes/documentation')(app, config);
-require('./routes/api')(app, config);
-require('./routes/authentication')(app, config, passport);
+require('./routes/api')(app, config, auth);
 
 // Error handling
 app.use(function (err, req, res, next) {

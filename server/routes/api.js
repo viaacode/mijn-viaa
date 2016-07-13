@@ -10,9 +10,9 @@ module.exports = function (app, config, auth) {
    */
   var NO_ERROR = '';
 
-  app.get('/api/stats/', stats);
-  app.get('/api/services/:serviceId', services);
-  app.get('/api/reports/:y/:type', reports);
+  app.get('/api/stats/', auth, stats);
+  app.get('/api/services/:serviceId', auth, services);
+  app.get('/api/reports/:y/:type', auth, reports);
 
 
   //region stats
