@@ -10,8 +10,6 @@ var allowCors = require('./config/cors');
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')[env];
 
-require('./config/passport')(passport, config);
-
 // Express
 var app = express();
 
@@ -32,7 +30,7 @@ app.use(passport.session());
 
 // Routes
 var auth = require('./routes/authentication')(app, config, passport);
-auth = require('./config/ignore-authentication');
+// auth = require('./config/ignore-authentication');
 require('./routes/documentation')(app, config);
 require('./routes/api')(app, config, auth);
 

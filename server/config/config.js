@@ -1,3 +1,12 @@
+var fs = require('fs');
+var path = require('path');
+
+var basedir = path.join(__dirname, '../');
+
+function pathFromBase (p) {
+  return path.join(basedir, p);
+}
+
 module.exports = {
   development: {
     app: {
@@ -8,11 +17,30 @@ module.exports = {
     passport: {
       strategy: 'saml',
       saml: {
+        // URL that goes from the Identity Provider -> Service Provider
         path: process.env.SAML_PATH || '/login/callback',
-        entryPoint: process.env.SAML_ENTRY_POINT || 'https://idp-qas.viaa.be/module.php/core/frontpage_welcome.php',
-        issuer: 'passport-saml',
-        cert: process.env.SAML_CERT || null
+
+        // URL that goes from the Service Provider -> Identity Provider
+        entryPoint: process.env.SAML_ENTRY_POINT || 'https://idp-qas.viaa.be/module.php/core/authenticate.php?as=viaa-ldap',
+
+        // Usually specified as `/shibboleth` from site root
+        issuer: process.env.ISSUER || 'passport-saml',
+
+        identifierFormat: null,
+
+        // Service Provider private key
+        decryptionPvk: fs.readFileSync(pathFromBase('/cert/key.pem'), 'utf8'),
+
+        // Service Provider Certificate
+        privateCert: fs.readFileSync(pathFromBase('/cert/key.pem'), 'utf8'),
+
+        // Identity Provider's public key
+        cert: process.env.SAML_CERT || fs.readFileSync(pathFromBase('/cert/idp_cert.pem'), 'utf8'),
+
+        validateInResponseTo: false,
+        disableRequestedAuthnContext: true
       }
-    }
+    },
+    path: pathFromBase
   }
 };
