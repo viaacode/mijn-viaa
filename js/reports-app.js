@@ -7,8 +7,8 @@
         },
         created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable
             var thisvue = this;
-            ajaxcall("http://localhost:1337/api/reports/items-last-month", function(err, result) {
-                url: "http://localhost:1337/api/reports/items/last-month",
+            ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
+                if(err) thisvue.errormsg = err;
                 else {
                     parseResults(result);
                     parseBarResults(result);
