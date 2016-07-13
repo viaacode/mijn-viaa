@@ -1,7 +1,7 @@
 var request = require('request');
 var moment = require('moment');
 
-module.exports = function (app) {
+module.exports = function (app, config, auth) {
   var DUMMY = require('../dummy/dummy');
 
   /**
@@ -10,15 +10,20 @@ module.exports = function (app) {
    */
   var NO_ERROR = '';
 
+  app.get('/api/stats/', stats);
+  app.get('/api/services/:serviceId', services);
+  app.get('/api/reports/:y/:type', reports);
+
+
   //region stats
-  app.get('/api/stats/', function (req, res, next) {
+  function stats (req, res, next) {
     // todo: get organisationId from SAML
     var organisationId = 'VRT';
     fetchStats(organisationId, function (err, data) {
       if (err) return next(err);
       res.json(data);
     });
-  });
+  }
 
   function fetchStats (organisation, callback) {
 
@@ -46,13 +51,13 @@ module.exports = function (app) {
   //endregion
 
   //region services
-  app.get('/api/services/:serviceId', function (req, res, next) {
+  function services (req, res, next) {
     var serviceId = req.params.serviceId;
     fetchService(serviceId, function (error, data) {
       if (error) return next(error);
       res.json(data);
     });
-  });
+  }
 
   function fetchService (serviceId, callback) {
     // todo fetch service instead of dummy data
@@ -68,7 +73,7 @@ module.exports = function (app) {
   //endregion
 
   //region reports
-  app.get('/api/reports/:y/:type', function (req, res, next) {
+  function reports (req, res, next) {
     /**
      * eg. items, terrabytes
      */
@@ -83,7 +88,7 @@ module.exports = function (app) {
       if (error) return next(error);
       res.json(data);
     });
-  });
+  }
 
   function fetchReport (y, type, callback) {
     var options = reportTypeToOptions(y, type);
