@@ -74,7 +74,7 @@ function getServicesList() {
             img_classname:"service-icon-dbs",
             alt:"DBS icon",
             available:true,
-        },
+        }
     ];
 }
 

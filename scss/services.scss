@@ -27,13 +27,24 @@ article {
     font-size:1.8rem;
 }
 
-/* Breadcrumb */
+/* Submenu for services titles */
 .services-titles {
-    margin-top:-1rem;
-    border: 1px solid $orange;
-    border-top:0;
     padding:1rem 2rem;
-    margin-bottom:1rem;
+    border: 1px solid $almostwhite;
+    
+    border-top:0;
+    border-radius:4px;
+
+    background-color:$orange;
+
+    margin:1rem 0 2rem;
+}
+.services-titles-item {
+    display:inline-block;
+    min-width:7rem;
+    text-align:center;
+
+    color:$almostwhite;
 }
 
 /* Concerning service-icons */
@@ -47,7 +58,7 @@ article {
     display: block;
     margin-left: auto;
     margin-right: auto;
-}   
+}  
 /* End of concerning service-icons */
 
 

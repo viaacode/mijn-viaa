@@ -14,7 +14,13 @@
         data: {
             dataAPI: '',
             dataHard: getDataFromOverviewForService(service),
+            serviceslist: getServicesList(),
             errormsg: '',
+        },
+        methods: {
+            reload: function() {
+                window.location.reload();
+            }
         },
         created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable
             var thisvue = this;

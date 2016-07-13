@@ -5,6 +5,11 @@
         data: {
             serviceslist: getServicesList(),
         },
+        methods: {
+            reload: function() {
+                window.location.reload();
+            }
+        },
     });
 })();
 
