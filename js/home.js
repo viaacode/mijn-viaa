@@ -14,7 +14,7 @@
             var backThenMillis = cachedStats?cachedStats.backThenMillis:0;
             var nowMillis = new Date().getTime();
             var cachingRefreshRate = 60 * 60 * 1000; // One hour
-
+         
             var lessThanAnHourAgo = (backThenMillis !== null) && ((nowMillis - backThenMillis) < cachingRefreshRate);            
 
             if(lessThanAnHourAgo) {
@@ -23,7 +23,11 @@
             else {
                 ajaxcall("http://localhost:1337/api/stats", function(err, result) {
                     if(err) thisvue.stats_errormsg = err;
-                    else thisvue.stats = result;
+                    else {
+                         thisvue.stats = result;
+                         result.backThenMillis = nowMillis;
+                         localStorage.setItem('stats', JSON.stringify(result));
+                    }
                 });
             }
 
