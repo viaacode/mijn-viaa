@@ -41,7 +41,7 @@ app.use(passport.session());
 app.use('/', require('./routes/documentation'));
 app.use('/api', require('./routes/api'));
 
-require('./config/authentication')(app, passport, config);
+require('./routes/authentication')(app, passport, config);
 
 // Error handling
 app.use(function (err, req, res, next) {
