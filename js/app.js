@@ -37,7 +37,6 @@ function getServicesList() {
             link_info:"detail.html#ftp",
             link_service:"ftp://ftp.viaa.be/",
             img:"assets/ftp.svg",
-            img_classname:"service-icon-ftp",
             alt:"FTP icon",
             available: isAvailable(),
             
@@ -49,7 +48,6 @@ function getServicesList() {
             link_info:"detail.html#ams",
             link_service:"http://registratie.viaa.be",
             img:"assets/ams.svg",
-            img_classname:"service-icon-ams",
             img_alt:"AMS icon",
             available:false,
         },
@@ -60,7 +58,6 @@ function getServicesList() {
             link_info:"detail.html#mam",
             link_service:"https://archief.viaa.be/",
             img:"assets/mam.svg",
-            img_classname:"service-icon-mam",
             alt:"MAM icon",
             available: true,
         },
@@ -71,7 +68,6 @@ function getServicesList() {
             link_info:"detail.html#dbs",
             link_service:"https://oauth.viaa.be/user/login.jsp",
             img:"assets/avo.svg",
-            img_classname:"service-icon-dbs",
             alt:"DBS icon",
             available:true,
         }

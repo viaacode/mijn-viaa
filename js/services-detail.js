@@ -4,6 +4,9 @@
         for(var i = 0; i < servicelist.length; i++) {
             if(servicelist[i].service == service) return servicelist[i];
         }
+        return {
+            service:"error",
+        }
     }
 
     var service = window.location.hash.substring(1).toUpperCase();  // Get service from URL after #, ex #mam becomes MAM
