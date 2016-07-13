@@ -27,9 +27,7 @@
 
         <div class="container col-12">
             <!-- Here comes the content -->
-            <div id="home-app" v-cloak>
-                
-                <p class="error" v-if="errormsg">{{ errormsg }}</p>
+            <div id="home-app" v-cloak>               
                 <div class="clearfix mb4">
                     <div class="center col col-12  sm-col-6  lg-col-3" >
                         <img class="service-icon mb3 mt3" src="assets/ams.svg" alt=""/>
@@ -48,10 +46,16 @@
                         <span v-if="stats" class=" home-stats">Registration growth: {{ stats.registration_growth }}</span>    
                     </div>   
                 </div> 
-                <div class="loading-container" v-if="!errormsg && !stats" ><img class="loading mb4" src="assets/loader.gif" alt="Loading..."/></div> 
+
+                <div class="loading-container" >
+                    <img class="loading mb4" src="assets/loader.gif" alt="Loading..." v-if="!stats_errormsg && !stats" />
+                    <p v-if="stats_errormsg">{{ stats_errormsg }}</p>
+                </div>
+                
+                
                 <div class="home-zendesk-articles col col-12">
                 <h1>Zendesk articles</h1>
-                <p class="error" v-if="errormsg">Error: {{ errormsg }}</p>
+                    <p v-if="articles_errormsg">{{ articles_errormsg }}</p>
                     <div v-if="articles">
                         <article class="home-article" v-for="item in articles">
                             <h1>{{ item.title }}</h1>

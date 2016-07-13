@@ -10,11 +10,17 @@ function ajaxcall(url, done) {
     r.open("GET", url, true);
     r.onreadystatechange = function () {
         // We have to know possible error statuses here to show relevant error messages
-        if(r.status == 400 || r.status == 404 || r.status == 500) {
-            return done(r.responseText);
+        if(r.status == 400 || r.status == 404 || r.status == 500 || r.status == 0) {
+            var errmsg;
+            if(r.status == 0) errmsg = 'Verbinding mislukt.';
+            else if(r.status == 400) errmsg = 'Foute request.';
+            else if(r.status == 404) errmsg = 'Gegevens niet gevonden.';
+            else if(r.status == 500) errmsg = 'Problemen met de server.';
+            
+            return done(errmsg);
         }
         if (r.readyState != 4 || r.status != 200) {
-            return;
+            return; // Ajax call also reaches this code on succesful requests
         }
         done(null, JSON.parse(r.responseText));  
     };
