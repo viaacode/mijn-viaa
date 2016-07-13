@@ -1,5 +1,5 @@
 
-$(document).ready(function() {
+(function() {
 
     new Vue({
         el: '#services-app',
@@ -8,5 +8,5 @@ $(document).ready(function() {
 
         },
     });
-});
+})();
 

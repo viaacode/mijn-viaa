@@ -1,4 +1,4 @@
-$(document).ready(function() {
+(function() {
 
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
@@ -123,4 +123,4 @@ var myChart3 = new Chart(ctx3, {
         }
     }
 });
-});
+})();
