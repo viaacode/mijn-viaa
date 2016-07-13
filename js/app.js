@@ -2,8 +2,24 @@
 /*
     Global functions
     Called from everywhere * . *
-                           \___/
 */
+
+// Our beautiful vanilla JS ajax call function <3
+function ajaxcall(url, done) {
+    var r = new XMLHttpRequest();
+    r.open("GET", url, true);
+    r.onreadystatechange = function () {
+        // We have to know possible error statuses here to show relevant error messages
+        if(r.status == 400 || r.status == 404 || r.status == 500) {
+            return done(r.responseText);
+        }
+        if (r.readyState != 4 || r.status != 200) {
+            return;
+        }
+        done(null, JSON.parse(r.responseText));  
+    };
+    r.send();
+}
 
 // Make API call to check if the user that is logged in has access to this service
 function isAvailable() {
