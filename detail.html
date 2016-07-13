@@ -64,7 +64,7 @@
 
             <div class="service-detail-content col col-12">
                 <h1>Zendesk articles</h1>
-                <p class="error" v-if="errormsg">Error: {{ errormsg }}</p>
+                <p v-if="errormsg">{{ errormsg }}</p>
 
                 <div v-if="dataAPI.articles">
                     <article v-for="item in dataAPI.articles">
