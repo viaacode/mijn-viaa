@@ -1,5 +1,6 @@
 var express = require('express');
 var request = require('request');
+var moment = require('moment');
 
 var DUMMY = require('../dummy/dummy');
 
@@ -69,22 +70,85 @@ function fetchService (serviceId, callback) {
 //endregion
 
 //region reports
-router.get('/reports/:reportId', function (req, res, next) {
-  var reportId = req.params.reportId;
-  fetchReport(reportId, function (error, data) {
+router.get('/reports/:y/:type', function (req, res, next) {
+  /**
+   * eg. items, terrabytes
+   */
+  var y = req.params.y;
+  /**
+   * eg. last-month
+   */
+  var type = req.params.type;
+
+
+  fetchReport(y, type, function (error, data) {
     if (error) return next(error);
     res.json(data);
   });
 });
 
-function fetchReport (reportId, callback) {
-  var report = DUMMY.reports[reportId];
+function fetchReport (y, type, callback) {
+  var options = reportTypeToOptions(y, type);
 
-  if (!report) {
-    return callback("Report '" + reportId + "' does not exist");
+  var dummyY = DUMMY.reports[y];
+
+  if (!dummyY) {
+    return callback("Report '" + y + "' does not exist");
   }
 
-  callback(NO_ERROR, report);
+  var typeExists = dummyY[type];
+
+  if (!typeExists) {
+    return callback("Report '" + y + "/" + type + "' does not exist");
+  }
+
+  var data = DUMMY.reportsGeneration(options);
+
+  result = options;
+  result.data = data;
+
+  callback(NO_ERROR, result);
+}
+
+function reportTypeToOptions (y, type) {
+  var DATE_FORMAT = 'YYYY-MM-DD HH:mm:';
+
+  var options = {
+    y: y,
+    reportType: type,
+    begin: '',
+    end: '',
+    gran: ''
+  };
+
+  var beginDate = moment(new Date());
+  var granularity = '';
+
+  switch (type) {
+
+    case 'last-week':
+      granularity = 'day';
+      beginDate = beginDate.startOf(granularity).subtract(1, 'week');
+      break;
+
+    case 'last-month':
+      granularity = 'day';
+      beginDate = beginDate.startOf(granularity).subtract(1, 'month');
+      break;
+
+    case 'last-year':
+      granularity = 'month';
+      beginDate = beginDate.startOf(granularity).subtract(1, 'year');
+      break;
+
+    default:
+      return {};
+  }
+
+  options.begin = beginDate.format(DATE_FORMAT);
+  options.gran = granularity;
+
+  return options;
 }
 //endregion
 
