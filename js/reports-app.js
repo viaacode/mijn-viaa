@@ -8,7 +8,7 @@ $(document).ready(function() {
         created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable
             var that = this;    // !Scope -> within $.ajax(), 'this' will point to the ajax call
             $.ajax({
-                url: "http://localhost:1337/api/reports/items-last-month", 
+                url: "http://localhost:1337/api/reports/items/last-month",
                 success: function(result){
                     parseResults(result);
                     parseBarResults(result);
@@ -27,9 +27,9 @@ function parseResults(result){
     var parsedResult = [];
     for(var i = 0; i < result.data.length ; i++){
         var obj = {
-            x : moment(result.data[i].timestamp).format('MM DD hh:ss') ,
+            x : moment.unix(result.data[i].timestamp).format('MM DD hh:ss') ,
             y : result.data[i].value
-        }
+        };
         parsedResult.push(obj);
     }
     drawChart(parsedResult, result);
@@ -39,7 +39,7 @@ function parseBarResults(result){
     var parsedTimestamps = [];
     var parsedValues = [];
     for(var i = 0; i < result.data.length ; i++){
-        var timestamp = moment(result.data[i].timestamp).format('MM DD hh:ss');
+        var timestamp = moment.unix(result.data[i].timestamp).format('MM DD hh:ss');
         var value = result.data[i].value;
         parsedTimestamps.push(timestamp);
         parsedValues.push(value);
