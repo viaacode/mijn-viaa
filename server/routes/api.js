@@ -14,7 +14,7 @@ var NO_ERROR = '';
 
 //region stats
 
-router.get('/stats/', function (req, res, next) {
+router.get('/api/stats/', function (req, res, next) {
   // todo: get organisationId from SAML
   var organisationId = 'VRT';
   fetchStats(organisationId, function (err, data) {
@@ -48,7 +48,7 @@ function parseStats (inputObject) {
 //endregion
 
 //region services
-router.get('/services/:serviceId', function (req, res, next) {
+router.get('/api/services/:serviceId', function (req, res, next) {
   var serviceId = req.params.serviceId;
   fetchService(serviceId, function (error, data) {
     if (error) return next(error);
@@ -70,7 +70,7 @@ function fetchService (serviceId, callback) {
 //endregion
 
 //region reports
-router.get('/reports/:y/:type', function (req, res, next) {
+router.get('/api/reports/:y/:type', function (req, res, next) {
   /**
    * eg. items, terrabytes
    */

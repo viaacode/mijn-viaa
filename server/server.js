@@ -39,7 +39,7 @@ app.use(passport.session());
 
 // Routes
 app.use('/', require('./routes/documentation'));
-app.use('/api', require('./routes/api'));
+app.use('/', require('./routes/api'));
 
 require('./routes/authentication')(app, passport, config);
 
