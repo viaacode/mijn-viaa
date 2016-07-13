@@ -12,6 +12,13 @@ var config = require('./config/config')[env];
 
 require('./config/passport')(passport, config);
 
+function ensureAuthenticated (req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  else
+    return res.redirect('/login');
+}
+
 // Express
 var app = express();
 
@@ -27,10 +34,14 @@ app.use(session({
   saveUninitialized: true,
   secret: config.app.sessionSecret
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use('/', require('./routes/documentation'));
 app.use('/api', require('./routes/api'));
+
+require('./config/authentication')(app, passport, config);
 
 // Error handling
 app.use(function (err, req, res, next) {
