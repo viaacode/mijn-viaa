@@ -1,4 +1,4 @@
-module.exports = function (app, passport, config) {
+module.exports = function (app, config, passport) {
 
   function auth (req, res, next) {
     if (req.isAuthenticated())

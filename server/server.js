@@ -38,10 +38,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-app.use('/', require('./routes/documentation'));
-app.use('/', require('./routes/api'));
-
-require('./routes/authentication')(app, passport, config);
+require('./routes/documentation')(app, config);
+require('./routes/api')(app, config);
+require('./routes/authentication')(app, config, passport);
 
 // Error handling
 app.use(function (err, req, res, next) {
