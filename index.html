@@ -52,20 +52,19 @@
                 <div class="home-zendesk-articles col col-12">
                 <h1>Zendesk articles</h1>
                 <p class="error" v-if="errormsg">Error: {{ errormsg }}</p>
-
-                <div v-if="articles">
-                    <article class="home-article" v-for="item in articles">
-                        <h1>{{ item.title }}</h1>
-                        <a href="http://viaa.be/nl/nieuws/">&rarr; http://viaa.be/nl/nieuws/</a>
-                    </article>
+                    <div v-if="articles">
+                        <article class="home-article" v-for="item in articles">
+                            <h1>{{ item.title }}</h1>
+                            <a href="http://viaa.be/nl/nieuws/">&rarr; http://viaa.be/nl/nieuws/</a>
+                        </article>
+                    </div>
                 </div>
-            </div>
                 
             </div>
         </div>
-
-        <script src="dist/jquery.js"></script>
-        <script src="dist/vue.js"></script> 
+       
+        <script src="dist/vue.js"></script>
+        <script src="js/app.js"></script> 
         <script src="js/home.js"></script> 
     </body>
 </html>

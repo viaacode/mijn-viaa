@@ -1,5 +1,4 @@
-$(document).ready(function() {
-
+(function() {
     function getDataFromOverviewForService(service) {
         servicelist = getServicesList();
         for(var i = 0; i < servicelist.length; i++) {
@@ -8,6 +7,7 @@ $(document).ready(function() {
     }
 
     var service = window.location.hash.substring(1).toUpperCase();  // Get service from URL after #, ex #mam becomes MAM
+    document.title = service + ' \u2013 Mijn VIAA'; // Set Title
 
     new Vue({
         el: '#service-detail',
@@ -17,22 +17,11 @@ $(document).ready(function() {
             errormsg: '',
         },
         created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable
-            var that = this;    // !Scope -> within $.ajax(), 'this' will point to the ajax call
-            $.ajax({
-                url: "http://localhost:1337/api/services/" + service, 
-                success: function(result){
-                    that.dataAPI = result;
-                },
-                error: function(err) {
-                    console.log(err);
-                    that.errormsg = err.status + ' - ' + err.statusText;
-                }            
+            var thisvue = this;
+            ajaxcall("http://localhost:1337/api/services/" + service, function(err, result) {
+                if(err) thisvue.errormsg = err;
+                else thisvue.dataAPI = result;
             });
         }
-
     });
-
-    // Set Title
-    $('title').html(service + ' &ndash; Mijn VIAA');
-
-});
+})();

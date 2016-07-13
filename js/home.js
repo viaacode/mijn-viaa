@@ -1,4 +1,4 @@
-$(document).ready(function() {
+(function() {
     new Vue({
         el: '#home-app',
         data: {
@@ -7,45 +7,32 @@ $(document).ready(function() {
             errormsg: '' // Initialize error msg
         },
         created: function() { // As soon as instance of Vue is created, fill in the stats object
-            var that = this; // !Scope -> within $.ajax(), 'this' will point to the ajax call
-            var nowMillis = new Date().getTime();
+            var thisvue = this; // !Scope -> within $.ajax(), 'this' will point to the ajax call
+
             var cachedStats = JSON.parse(localStorage.getItem('stats'));
             var backThenMillis = cachedStats?cachedStats.backThenMillis:0;
-            var refreshRate = 60 * 60 * 1000; // One hour
-            var lessThanAnHourAgo = backThenMillis !== null && ((nowMillis - backThenMillis) < refreshRate);
+            var nowMillis = new Date().getTime();
+            var cachingRefreshRate = 60 * 60 * 1000; // One hour
+
+            var lessThanAnHourAgo = backThenMillis !== null && ((nowMillis - backThenMillis) < cachingRefreshRate);            
 
             if(lessThanAnHourAgo) {
                 this.stats = cachedStats;
             }
             else {
-                $.ajax({
-                    url: "http://localhost:1337/api/stats",
-                    success: function(result){
-                        // Save time to localstorage when this ajax call is made
-                        result.backThenMillis = nowMillis;
-                        localStorage.setItem('stats', JSON.stringify(result));
-                        that.stats = result;
-                    },
-                    error: function(err) {
-                        console.log(err);
-                        that.errormsg = err.status + ' - ' + err.statusText;
-                    }
+                ajaxcall("http://localhost:1337/api/stats", function(err, result) {
+                    if(err) thisvue.errormsg = err;
+                    else thisvue.stats = result;
                 });
             }
-            //fetch articles
-            $.ajax({
-                url: "http://localhost:1337/api/services/MAM",
-                success: function(result){
-                    console.log(result);
-                    that.articles = result.articles;
-                },
-                error: function(err) {
-                    console.log(err);
-                    that.errormsg = err.status + ' - ' + err.statusText;
-                }
+
+            ajaxcall("http://localhost:1337/api/services/MAM", function(err, result) {
+                if(err) thisvue.errormsg = err;
+                else thisvue.articles = result.articles;
             });
+
         }
 
     });
-});
+})();
 

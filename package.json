@@ -13,7 +13,6 @@
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "jquery": "^3.0.0",
     "vue": "^1.0.26"
   },
   "scripts": {

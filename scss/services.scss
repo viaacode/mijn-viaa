@@ -28,8 +28,10 @@ article {
 }
 
 /* Breadcrumb */
-.breadcrumb {
-    border: 1px solid $grey-light;
+.services-titles {
+    margin-top:-1rem;
+    border: 1px solid $orange;
+    border-top:0;
     padding:1rem 2rem;
     margin-bottom:1rem;
 }
