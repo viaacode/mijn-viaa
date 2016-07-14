@@ -29,7 +29,7 @@ function dev () {
   return {
     apiDelay: {
       min: 2,
-      max: 5
+      max: 3
     },
     showErrors: true
   };

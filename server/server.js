@@ -39,7 +39,9 @@ var apiRouter = express.Router();
 if (config.passport) {
   apiRouter.use(authMiddleware.errorCode);
 }
-apiRouter.use(delayMiddleware);
+
+apiRouter.use(delayMiddleware(config));
+
 require('./routes/api')(apiRouter, config, request);
 app.use('/', apiRouter);
 
