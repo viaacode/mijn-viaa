@@ -7,3 +7,9 @@ Portaal voor content providers van VIAA
 - `grunt` command to get files from node_modules folder (basscss grid, vue.js, jquery copy to dist/)
 - `grunt watch` to watch all files in /scss folder and merge them to dist/styles.css
 
+## Start server
+```
+cd server
+npm install
+npm start
+```
