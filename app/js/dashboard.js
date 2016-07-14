@@ -2,20 +2,26 @@
     new Vue({
         el: '#dashboard',
         data: {
-            dataAPI: '', // ~~ get rid of it - use specific data
-            errormsg: '', // error msges per api call
+            
+
+            // API / Error msg pairs
+            dataStats: '',
+            errmsgStats: '', 
             
             graph1: '',
 
             view: 'personal', // View on page load
         },
         created: function() { 
-            refresh(this.view, this);   // Load personal/VIAA view on this Vue instance
+            
+            // Apparently not necessary since computed property 'changes' on page load / gets fired
+            //refresh(this.view, this);   // Load personal/VIAA view on this Vue instance
+
         },
         computed: { // Change title & reload charts for selected view
             title: function() {
                 // different ajax calls go here
-                refresh(this.view);
+                refresh(this.view, this);
                 return (this.view == 'personal')?'Mijn dashboard':'VIAA algemeen';
             }
         }
@@ -24,15 +30,26 @@
     // Load correct charts, do appropriate ajax calls
     function refresh(view, vueinstance){
         if(view == 'personal') {
+
+            ajaxcall("http://localhost:1337/api/stats", function(err, result) {
+                if(err) vueinstance.errmsgStats = err;
+                else {
+                    vueinstance.dataStats = result;
+                    //var sliced = parseApiResults(result);
+                    //console.log(sliced);
+                    drawPieFromKvpObj('statsChart', result);
+                }
+            });
+
+/*
             ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
                 if(err) vueinstance.errormsg = err;
                 else {
                     var results = parseApiResults(result.data);
                     drawChart('test', results, 'pie');
-                   // thisvue.dataAPI = result;
                 }
             });
-
+*/
             // 1. ajax call
             // 2. parseApiResults(1)
             // 3. drawChart(whichOne, 2, type)
@@ -42,6 +59,14 @@
 
         }
     }
+
+
+    // Simplify drawChartDev()
+    function drawChart(id, data, type) {
+        drawChartDev(id, data.x, data.y, data.title, type);
+    }
+
+    // Parse time/data results from API dataset
     function parseApiResults(data){
         var parsedXes = [];
         var parsedYs = [];
@@ -55,9 +80,56 @@
         return { x: parsedXes, y: parsedYs };
     }
 
+    // Split object key/values and draw them on piechart #id
+    function drawPieFromKvpObj(id, obj) {
+        var ctx = document.getElementById(id);
 
-    function drawChart(id, result, type) {
-        drawChartDev(id, result.x, result.y, result.title, type);
+        var keys = [];
+        var vals = [];
+
+        for(var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                keys.push(key);
+                vals.push(obj[key]);
+            }
+        }
+
+        var data = {
+            labels: keys,
+            datasets: [{
+                data: vals,
+                backgroundColor: [
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56",
+                    "#123456",
+                    "#239823",
+                    "#fefefe",
+                    "#000fff",
+
+                ],
+                hoverBackgroundColor: [
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56",
+                    "#123456",
+                    "#239823",
+                    "#fefefe",
+                    "#000fff",
+                ]
+            }]
+        };
+
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+                legend: {
+                    display:false    // legend above chart
+                },
+         
+            }
+        });       
     }
 
     function drawChartDev(id, xValues, yValues, title, type){

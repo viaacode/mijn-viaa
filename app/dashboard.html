@@ -40,48 +40,44 @@
                 
                 <div class="col sm-col-4 p3">
                     <p>
-                        <span class="bigtext">1234</span> items
+                        <span class="bigtext">{{ dataStats.items }}</span> items
                     </p>
                     <p>
                         geregistreerd
                     </p>
                 </div>
-
+                <div class="col sm-col-4 p3">
+                    <p>
+                        <span class="bigtext">{{ dataStats.archive_growth }}</span> groei
+                    </p>
+                    <p>
+                        archief
+                    </p>
+                </div>
                 <div class="col sm-col-4 p3">
                     <p>
                         <span class="bigtext">1234</span> items
                     </p>
                     <p>
-                        gedigitaliseerd
+                        something else
                     </p>
                 </div>
-
-
-                <div class="col sm-col-4 p3">
-                    <p>
-                        <span class="bigtext">1234</span> items
-                    </p>
-                    <p>
-                        gearchiveerd
-                    </p>
-                </div>
-            
             </div>
 
-            <!-- Big stat -->
-
-            <div class="col col12">
+            <!-- Big stats -->
+            <div class="col col-12 mt4">
                 <div class="col col-8">
                     <p>
-                        <span class="massivetext">12.45 TB</span>
+                        <span class="massivetext">{{ dataStats.terabytes }} TB</span>
                     </p>
                 </div>
 
                 <div class="col col-4">
-                    <canvas id="overviewChart"></canvas>
+                    <canvas id="statsChart"></canvas>
                 </div>
             </div>
 
+            
             <div class="col col-12">
 
             </div>
