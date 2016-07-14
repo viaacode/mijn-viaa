@@ -1,4 +1,6 @@
 (function() {
+    var charts = [];
+
     new Vue({
         el: '#dashboard',
         data: {
@@ -25,6 +27,10 @@
 
     // Load correct charts, do appropriate ajax calls
     function refresh(view, vueinstance){
+        for(var i = 0; i < charts.length; i++) {
+            charts[i].destroy();
+        }
+
         if(view == 'personal') {
             // Big general stats
             ajaxcall("http://localhost:1337/api/stats", function(err, result) {
@@ -33,8 +39,7 @@
                     vueinstance.dataStats = result;
                     drawPieFromKvpObj('statsChart', result);
                 }
-               // console.log(vueinstance.errormessages.stats);
-               // console.log(err);
+
             });
 
             // Last month graphs
@@ -162,7 +167,9 @@
                 },
          
             }
-        });       
+        });     
+
+        charts.push(myChart);  
     }
 
     function drawChartDev(id, xValues, yValues, title, type){
@@ -202,6 +209,8 @@
                 }
             }
         });
+
+        charts.push(myChart);
     }
 
 })();
