@@ -6,6 +6,7 @@ var passport = require('passport');
 var session = require('express-session');
 
 var allowCors = require('./config/cors');
+var authMiddleware = require('./config/authentication-middleware');
 
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')[env];
@@ -29,15 +30,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-var auth;
+var authPages;
+var authApi;
 if (config.passport) {
-  auth = require('./routes/authentication')(app, config, passport);
+  authPages = authMiddleware.redirect;
+  authApi = authMiddleware.errorCode;
 } else {
-  auth = require('./config/ignore-authentication');
+  authPages = authMiddleware.ignore;
+  authApi = authMiddleware.ignore;
 }
 
 require('./routes/documentation')(app, config);
-require('./routes/api')(app, config, auth);
+require('./routes/api')(app, config, authApi);
 
 // Error handling
 app.use(function (err, req, res, next) {
