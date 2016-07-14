@@ -29,8 +29,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-var auth = require('./routes/authentication')(app, config, passport);
-// auth = require('./config/ignore-authentication');
+var auth;
+if (config.passport) {
+  auth = require('./routes/authentication')(app, config, passport);
+} else {
+  auth = require('./config/ignore-authentication');
+}
+
 require('./routes/documentation')(app, config);
 require('./routes/api')(app, config, auth);
 
@@ -38,7 +43,7 @@ require('./routes/api')(app, config, auth);
 app.use(function (err, req, res, next) {
   //Only print stacktrace when in a dev environment
   var stackTrace = {};
-  if (app.get('env') === 'development') {
+  if (config.showErrors) {
     stackTrace = err;
   }
 
