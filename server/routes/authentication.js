@@ -42,13 +42,4 @@ module.exports = function (app, config, passport) {
       res.status(200).send(samlStrategy.generateServiceProviderMetadata(fs.readFileSync(config.path('cert/cert.pem'), 'utf8')));
     }
   );
-
-  function ensureAuthentication (req, res, next) {
-    if (req.isAuthenticated())
-      return next();
-    else
-      return res.redirect('/login');
-  }
-
-  return ensureAuthentication;
 };
