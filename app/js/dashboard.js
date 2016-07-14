@@ -2,19 +2,19 @@
     new Vue({
         el: '#dashboard',
         data: {
-            
-
             // API / Error msg pairs
-            dataStats: '',
-            errmsgStats: '', 
-            
-            graph1: '',
+                // Big general stats
+                dataStats: '',
+                errmsgStats: '',
+
+                // Graphs
+                errmsgGraphs: '',
 
             view: 'personal', // View on page load
         },
         created: function() { 
             
-            // Apparently not necessary since computed property 'changes' on page load / gets fired
+            // Apparently not necessary since computed property changes when data: { view: '' } is set
             //refresh(this.view, this);   // Load personal/VIAA view on this Vue instance
 
         },
@@ -30,33 +30,68 @@
     // Load correct charts, do appropriate ajax calls
     function refresh(view, vueinstance){
         if(view == 'personal') {
-
+            // Big general stats
             ajaxcall("http://localhost:1337/api/stats", function(err, result) {
                 if(err) vueinstance.errmsgStats = err;
                 else {
                     vueinstance.dataStats = result;
-                    //var sliced = parseApiResults(result);
-                    //console.log(sliced);
                     drawPieFromKvpObj('statsChart', result);
                 }
             });
 
-/*
+            // Last month graphs
             ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
-                if(err) vueinstance.errormsg = err;
+                if(err) vueinstance.errmsgGraphs = err;
                 else {
-                    var results = parseApiResults(result.data);
-                    drawChart('test', results, 'pie');
+                    var parsedResult = parseApiResults(result.data);
+                    drawChart('lastMonth', parsedResult, 'line');
                 }
             });
-*/
-            // 1. ajax call
-            // 2. parseApiResults(1)
-            // 3. drawChart(whichOne, 2, type)
+
+            // Last week graphs
+            ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
+                if(err) vueinstance.errmsgGraphs = err;
+                else {
+                    var parsedResult = parseApiResults(result.data);
+                    drawChart('lastWeek', parsedResult, 'line');
+                }
+            });
+
+            
 
         }
         else {
+            // Do ajax calls and render graphs and stuff for VIAA general view
 
+            // Simulate total data
+            simlatedobj = {
+                "terabytes":"1203",
+                "items":123,
+                "archive_growth":7989,
+                "registration_growth":111.12,
+                
+            };
+            vueinstance.dataStats = simlatedobj;
+            drawPieFromKvpObj('statsChart', simlatedobj);
+            
+
+            // Last month graphs
+            ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
+                if(err) vueinstance.errmsgGraphs = err;
+                else {
+                    var parsedResult = parseApiResults(result.data);
+                    drawChart('lastMonth', parsedResult, 'bar');
+                }
+            });
+
+            // Last week graphs
+            ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
+                if(err) vueinstance.errmsgGraphs = err;
+                else {
+                    var parsedResult = parseApiResults(result.data);
+                    drawChart('lastWeek', parsedResult, 'bar');
+                }
+            });
         }
     }
 

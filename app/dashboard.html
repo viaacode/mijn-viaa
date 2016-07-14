@@ -35,7 +35,7 @@
                 </select>
             </div>
 
-            <!-- General stats -->
+            <!-- Big general stats -->
             <div class="col col-12">
                 
                 <div class="col sm-col-4 p3">
@@ -64,7 +64,8 @@
                 </div>
             </div>
 
-            <!-- Big stats -->
+            <!-- TB + Piechart -->
+            <div class="col col-12" v-if="errmsgGraphs">{{ errmsgStats }}</div>
             <div class="col col-12 mt4">
                 <div class="col col-8">
                     <p>
@@ -77,19 +78,19 @@
                 </div>
             </div>
 
-            
+            <!-- Graphs line -->
+            <div class="col col-12" v-if="errmsgGraphs">{{ errmsgGraphs }}</div>
             <div class="col col-12">
-
+                Graphs for last month (line)
+                <canvas id="lastMonth"></canvas>
             </div>
 
-            
-
-            <div id="chart">
-            
-                <canvas id="test"></canvas> 
-                <canvas id="myChart2"></canvas>  
-            
+            <div class="col col-12">
+                Graphs for last week (line)
+                <canvas id="lastWeek"></canvas>
             </div>
+            
+    
 
         
         </div>
