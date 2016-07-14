@@ -10,19 +10,16 @@ function ajaxcall(url, done) {
 
     r.onload = function () {
         if(r.readyState == 4 && r.status != 200) {
-            console.log('ERROR');
-            return done('Er is een fout opgetreden (Code: ' + r.status + ')');
+            return done('Er is een fout opgetreden (Code ' + r.status + ')');
         }
         if (r.readyState != 4 || r.status != 200) {
-            return; // Ajax call also reaches this code on succesful requests
+            return;
         }
         
-        console.log('success');
         return done(null, JSON.parse(r.responseText));  
     };
     r.onerror = function() {
-        console.log('err');
-        return done('err');
+        return done('Er is een fout opgetreden (Server niet bereikbaar, Code ' + r.status + ')');
     };
 
     r.open("GET", url, true);
