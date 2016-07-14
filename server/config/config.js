@@ -28,7 +28,7 @@ function base () {
 function dev () {
   return {
     apiDelay: {
-      min: 1,
+      min: 2,
       max: 3
     },
     showErrors: true

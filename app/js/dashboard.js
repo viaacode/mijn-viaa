@@ -7,6 +7,8 @@
             dataStats: '',
             errormessages: [],
             view: 'personal', // View on page load
+
+            graphLoading: false,   // Pass to view that loader needs to show
         },
         created: function() { 
             
@@ -31,12 +33,13 @@
 
         vueinstance.dataStats = '';
         vueinstance.errormessages = '';
+        vueinstance.graphLoading = true;
 
         if(view == 'personal') {
             // Big general stats
             ajaxcall("http://localhost:1337/api/stats", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
-                else {                  
+                else {                 
                     vueinstance.dataStats = result;
                     drawPieFromKvpObj('statsChart', vueinstance.dataStats);
                 }
@@ -47,8 +50,9 @@
             ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
+                    vueinstance.graphLoading = false;
                     var parsedResult = parseApiResults(result.data);
-                    drawChart('lastMonth', parsedResult, 'line');
+                    drawChart('lastMonth', parsedResult, 'Items laatste maand', 'line');
                 }
             });
 
@@ -56,12 +60,11 @@
             ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
+                    vueinstance.graphLoading = false;
                     var parsedResult = parseApiResults(result.data);
-                    drawChart('lastWeek', parsedResult, 'line');
+                    drawChart('lastWeek', parsedResult, 'Items laatste week', 'line');
                 }
             });
-
-            
 
         }
         else {
@@ -83,8 +86,9 @@
             ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
+                    vueinstance.graphLoading = false;
                     var parsedResult = parseApiResults(result.data);
-                    drawChart('lastMonth', parsedResult, 'bar');
+                    drawChart('lastMonth', parsedResult, 'Items laatste maand', 'bar');
                 }
             });
 
@@ -92,8 +96,9 @@
             ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
+                    vueinstance.graphLoading = false;
                     var parsedResult = parseApiResults(result.data);
-                    drawChart('lastWeek', parsedResult, 'bar');
+                    drawChart('lastWeek', parsedResult, 'Items laatste week', 'bar');
                 }
             });
         }
@@ -101,8 +106,8 @@
 
 
     // Simplify drawChartDev()
-    function drawChart(id, data, type) {
-        drawChartDev(id, data.x, data.y, data.title, type);
+    function drawChart(id, data, title, type) {
+        drawChartDev(id, data.x, data.y, title, type);
     }
 
     // Parse time/data results from API dataset
@@ -142,19 +147,12 @@
                     "#36A2EB",
                     "#FFCE56",
                     "#123456",
-                    "#239823",
-                    "#fefefe",
-                    "#000fff",
-
                 ],
                 hoverBackgroundColor: [
                     "#FF6384",
                     "#36A2EB",
                     "#FFCE56",
                     "#123456",
-                    "#239823",
-                    "#fefefe",
-                    "#000fff",
                 ]
             }]
         };
@@ -184,8 +182,11 @@
                 datasets: [{
                     label: title,
                     data: yValues,
-                    backgroundColor:'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255,99,132,1)',
+                    //backgroundColor:'rgba(143,206,224, 0.2)',
+                    backgroundColor:'rgba(9,160,75, 0.2)',
+                    //borderColor: 'rgba(224,57,12,1)',
+                    //borderColor: 'rgba(9,160,75, 1)',
+                    borderColor: 'rgba(143,206,224, 1)',
                     borderWidth: 1
                 }]
             },

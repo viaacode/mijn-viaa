@@ -77,7 +77,7 @@
             </div>              
 
             <!-- TB + Piechart -->    
-            <div class="col col-12 mt4"> <!-- Careful, don't v-if or v-show this div,
+            <div class="col col-12 mt4 mb7"> <!-- Careful, don't v-if or v-show this div,
                                              since the chart will try to draw before the div turns visisble by vue
                                              and undefined errors will happen -->
                 <div class="col col-8"  v-if="dataStats">
@@ -92,22 +92,21 @@
             </div>
 
 
+            <!-- Graphs line -->  
 
-            <!-- Graphs line -->
+            <!-- Loader gif -->
+            <div class="col col-12 loader-airbox" v-if="graphLoading && errormessages.length==0">
+                <img src="assets/loader.gif" alt="Loader" class="loader" />
+            </div>     
             
-            <div class="col col-12">
-                Graphs for last month (line)
+            <div class="col col-12 mb7">
                 <canvas id="lastMonth"></canvas>
             </div>
 
             <div class="col col-12">
-                Graphs for last week (line)
                 <canvas id="lastWeek"></canvas>
             </div>
-            
-    
-
-        
+             
         </div>
 
         
