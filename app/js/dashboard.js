@@ -10,86 +10,36 @@
             ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
                 if(err) thisvue.errormsg = err;
                 else {
-                    parseResults(result);
-                    parseBarResults(result);
+                    var results = parseApiResults(result.data);
+                    drawChart(results.x, results.y, result.reportType, 'bar');
                     thisvue.dataAPI = result;
                 }
             });
         }
     });  
-        
-    function parseResults(result){
-        var parsedResult = [];
-        for(var i = 0; i < result.data.length ; i++){
-            var obj = {
-            x : moment.unix(result.data[i].timestamp).format('MM DD hh:ss') ,
-                y : result.data[i].value
+
+    function parseApiResults(data){
+        var parsedXes = [];
+        var parsedYs = [];
+        for(var i = 0; i < data.length ; i++){         
+            var x = moment.unix(data[i].timestamp).format('MM DD hh:ss');
+            var y = data[i].value;
+            parsedXes.push(x);
+            parsedYs.push(y);
         };
-            parsedResult.push(obj);
-        }
-        drawChart(parsedResult, result);
+
+        return { x: parsedXes, y: parsedYs };
     }
 
-    function parseBarResults(result){
-        var parsedTimestamps = [];
-        var parsedValues = [];
-        for(var i = 0; i < result.data.length ; i++){
-        var timestamp = moment.unix(result.data[i].timestamp).format('MM DD hh:ss');
-            var value = result.data[i].value;
-            parsedTimestamps.push(timestamp);
-            parsedValues.push(value);
-        }
-        drawBarChart(parsedValues, parsedTimestamps, result);
-    }
-    function drawChart(parsedResult,result){
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: { 
-                datasets: [{
-                    label:result.report,
-                    data: parsedResult,
-                    backgroundColor: "rgba(255, 255, 255, 0)",
-                    borderColor: "#8fcee0", 
-                    borderWidth: 2,
-                    pointBackgroundColor:"#8fcee0", 
-                },
-            ]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                            type: "time",
-                            time: {
-                                format: 'MM DD',
-                                // round: 'day'
-                                tooltipFormat: 'll HH:mm'
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Date'
-                            }
-                        }, ],
-                        yAxes: [{
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'value'
-                            }
-                        }]
-                }
-            }
-        });
-    }  
-
-    function drawBarChart(parsedValues, parsedTimestamps, result){
+    function drawChart(xValues, yValues, title, type){
         var ctx2 = document.getElementById("myChart2");
         var myChart2 = new Chart(ctx2, {
-            type: 'bar',
+            type: type, // line, bar, doughnut, pie, radar, polar
             data: {
-                labels: parsedTimestamps,
+                labels: xValues,
                 datasets: [{
-                    label: result.report,
-                    data: parsedValues,
+                    label: title,
+                    data: yValues,
                     backgroundColor:'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(255,99,132,1)',
                     borderWidth: 1
@@ -109,12 +59,12 @@
                                 labelString: 'Date'
                             }
                         }, ],
-                        yAxes: [{
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'value'
-                            }
-                        }]
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'value'
+                        }
+                    }]
                 }
             }
         });
