@@ -9,7 +9,7 @@ var allowCors = require('./config/cors');
 var authMiddleware = require('./config/authentication-middleware');
 
 var env = process.env.NODE_ENV || 'development';
-var config = require('./config/config')[env];
+var config = require('./config/config')(env);
 
 // Express
 var app = express();
