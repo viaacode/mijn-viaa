@@ -1,7 +1,7 @@
 var request = require('request');
 var moment = require('moment');
 
-module.exports = function (app, config, auth) {
+module.exports = function (router, config) {
   var DUMMY = require('../dummy/dummy');
 
   /**
@@ -10,9 +10,9 @@ module.exports = function (app, config, auth) {
    */
   var NO_ERROR = '';
 
-  app.get('/api/stats/', auth, stats);
-  app.get('/api/services/:serviceId', auth, services);
-  app.get('/api/reports/:y/:type', auth, reports);
+  router.get('/api/stats/', stats);
+  router.get('/api/services/:serviceId', services);
+  router.get('/api/reports/:y/:type', reports);
 
 
   //region stats
