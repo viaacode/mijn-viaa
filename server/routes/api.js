@@ -12,7 +12,7 @@ module.exports = function (router, config, request) {
   router.get('/api/stats/', stats);
   router.get('/api/services/:serviceId', services);
   router.get('/api/reports/:y/:type', reports);
-  router.get('/muletest', muletest);
+  router.get('/api/mule-test', muletest);
 
 
   //region stats
