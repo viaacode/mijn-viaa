@@ -43,6 +43,23 @@ strong {
     font-weight:800;
 }
 
+h1 {
+    font-size:2.4rem;
+    font-weight:800;
+}
+
+.bigtext {
+    font-size:4rem;
+    font-weight:800;
+    line-height:4rem;
+}
+
+.massivetext {
+    font-size:7rem;
+    line-height:7rem;
+    font-weight:800;
+}
+
 [v-cloak] {
     display: none;
 }

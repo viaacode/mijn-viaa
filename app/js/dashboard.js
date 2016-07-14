@@ -1,23 +1,47 @@
 (function() {
     new Vue({
-        el: '#stats',
+        el: '#dashboard',
         data: {
-            dataAPI: '',
-            errormsg: '',
+            dataAPI: '', // ~~ get rid of it - use specific data
+            errormsg: '', // error msges per api call
+            
+            graph1: '',
+
+            view: 'personal', // View on page load
         },
-        created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable
-            var thisvue = this;
-            ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
-                if(err) thisvue.errormsg = err;
-                else {
-                    var results = parseApiResults(result.data);
-                    drawChart(results.x, results.y, result.reportType, 'bar');
-                    thisvue.dataAPI = result;
-                }
-            });
+        created: function() { 
+            refresh(this.view, this);   // Load personal/VIAA view on this Vue instance
+        },
+        computed: { // Change title & reload charts for selected view
+            title: function() {
+                // different ajax calls go here
+                refresh(this.view);
+                return (this.view == 'personal')?'Mijn dashboard':'VIAA algemeen';
+            }
         }
     });  
 
+    // Load correct charts, do appropriate ajax calls
+    function refresh(view, vueinstance){
+        if(view == 'personal') {
+            ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
+                if(err) vueinstance.errormsg = err;
+                else {
+                    var results = parseApiResults(result.data);
+                    drawChart('test', results, 'pie');
+                   // thisvue.dataAPI = result;
+                }
+            });
+
+            // 1. ajax call
+            // 2. parseApiResults(1)
+            // 3. drawChart(whichOne, 2, type)
+
+        }
+        else {
+
+        }
+    }
     function parseApiResults(data){
         var parsedXes = [];
         var parsedYs = [];
@@ -31,9 +55,14 @@
         return { x: parsedXes, y: parsedYs };
     }
 
-    function drawChart(xValues, yValues, title, type){
-        var ctx2 = document.getElementById("myChart2");
-        var myChart2 = new Chart(ctx2, {
+
+    function drawChart(id, result, type) {
+        drawChartDev(id, result.x, result.y, result.title, type);
+    }
+
+    function drawChartDev(id, xValues, yValues, title, type){
+        var ctx = document.getElementById(id);
+        var myChart = new Chart(ctx, {
             type: type, // line, bar, doughnut, pie, radar, polar
             data: {
                 labels: xValues,
