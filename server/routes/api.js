@@ -161,7 +161,7 @@ module.exports = function (router, config, request) {
     request(config.muleEndpoint + 'api/stats/global', function (error, response, body) {
       if (error) return next(error);
       if (response.statusCode != 200) return next('Statuscode: ' + response.statusCode);
-      res.send(body);
+      res.json(body);
     });
   }
 

@@ -30,5 +30,9 @@
     "request": "^2.72.0",
     "sleep": "^3.0.1",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "supertest": "^1.2.0"
   }
 }
