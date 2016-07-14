@@ -1,7 +1,6 @@
-var request = require('request');
 var moment = require('moment');
 
-module.exports = function (router, config) {
+module.exports = function (router, config, request) {
   var DUMMY = require('../dummy/dummy');
 
   /**
@@ -13,6 +12,7 @@ module.exports = function (router, config) {
   router.get('/api/stats/', stats);
   router.get('/api/services/:serviceId', services);
   router.get('/api/reports/:y/:type', reports);
+  router.get('/api/mule-test', muletest);
 
 
   //region stats
@@ -152,6 +152,17 @@ module.exports = function (router, config) {
     options.gran = granularity;
 
     return options;
+  }
+
+  //endregion
+
+  //region mule test
+  function muletest (req, res, next) {
+    request(config.muleEndpoint + 'api/stats/global', function (error, response, body) {
+      if (error) return next(error);
+      if (response.statusCode != 200) return next('Statuscode: ' + response.statusCode);
+      res.send(body);
+    });
   }
 
   //endregion
