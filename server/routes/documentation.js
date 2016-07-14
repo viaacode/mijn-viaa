@@ -5,7 +5,7 @@ module.exports = function (app) {
   var displayRoutes = [
     {title: 'stats', url: '/api/stats'},
     {title: 'services', url: '/api/services/MAM'},
-    {title: 'reports', url: '/api/reports/items-last-month'}
+    {title: 'reports', url: '/api/reports/items/last-month'}
   ];
 
   function showDocumentation (req, res, next) {

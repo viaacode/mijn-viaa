@@ -209,13 +209,47 @@ footer {
 
 
 /* Media queries */
-@media (min-width: 550px) {
+
+@media (min-width: 575px){
+    header{
+        height: 15rem;
+        .navigation{
+            display:flex;
+        }
+
+        .menuitem{
+            
+            a{
+                font-size: 1.8rem;
+                border-radius:0px;
+
+                &.active{
+                    border-bottom:2px solid $orange;
+                    background-color: transparent;
+                    color : $orange;
+                }
+            }   
+        }
+
+        .logo{
+            position:relative;
+
+            img{
+                height: 260%;
+                margin-top: -5rem;
+            }
+        }
+
+    }   
+}
+@media (min-width: 775px) {
     /* Navigation menu */
     header {
         height:20rem;
-
+        .navigation{
+            display:block;
+        }
         .logo {
-            position: relative;
             top: 0;
             height:6rem;
             max-width:20rem;
@@ -235,6 +269,7 @@ footer {
 
             a {                
                 //width:auto;
+                font-size: 2.8rem;
                 line-height:12rem;
                 display:inline;
                 border-radius:5px 5px 0 0;
@@ -244,11 +279,7 @@ footer {
                     background-color:$almostwhite;
                     color:$orange;
                 }
-                &.active{
-                    border-bottom:2px solid $orange;
-                    background-color: transparent;
-                    color : $orange;
-                }
+                
                 &:after{
                     display: block;
                     position: absolute;

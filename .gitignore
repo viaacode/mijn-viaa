@@ -42,4 +42,4 @@ dist
 .idea
 
 # certificates
-cert/*
+cert
