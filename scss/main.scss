@@ -1,7 +1,11 @@
 body {
     background-color:$almostwhite;
     color:$textcolor;
-    font-family:"Helvetica", sans-serif;
+    font-family:'proxima-nova-regular',"Helvetica", sans-serif;
+}
+
+header, body h1{
+    font-family:'proxima-nova-cond',"Helvetica", sans-serif;
 }
 
 .container { 
@@ -16,6 +20,7 @@ body {
 }
 
 a {
+    //font-family:'proxima-nova-cond',"Helvetica", sans-serif;
     text-decoration:none;
     color:$orange;
 

@@ -13,3 +13,6 @@ cd server
 npm install
 npm start
 ```
+If you want to have the server automatically restart on changes,
+you can install nodemon `npm install nodemon -g`
+and run the server with the command `nodemon`

@@ -6,11 +6,10 @@ var passport = require('passport');
 var session = require('express-session');
 
 var allowCors = require('./config/cors');
+var authMiddleware = require('./config/authentication-middleware');
 
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')[env];
-
-require('./config/passport')(passport, config);
 
 // Express
 var app = express();
@@ -30,22 +29,25 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-function ignoreAuthentication (req, res, next) {
-  return next();
+// Routes
+var authPages;
+var authApi;
+if (config.passport) {
+  authPages = authMiddleware.redirect;
+  authApi = authMiddleware.errorCode;
+} else {
+  authPages = authMiddleware.ignore;
+  authApi = authMiddleware.ignore;
 }
 
-// Routes
-var auth = require('./routes/authentication')(app, config, passport);
-// todo: remove
-auth = ignoreAuthentication;
 require('./routes/documentation')(app, config);
-require('./routes/api')(app, config, auth);
+require('./routes/api')(app, config, authApi);
 
 // Error handling
 app.use(function (err, req, res, next) {
   //Only print stacktrace when in a dev environment
   var stackTrace = {};
-  if (app.get('env') === 'development') {
+  if (config.showErrors) {
     stackTrace = err;
   }
 
