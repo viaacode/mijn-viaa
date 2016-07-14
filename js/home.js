@@ -25,13 +25,13 @@
                     if(err) thisvue.stats_errormsg = err;
                     else {
                          thisvue.stats = result;
-                         result.backThenMillis = nowMillis;
-                         localStorage.setItem('stats', JSON.stringify(result));
+                        // result.backThenMillis = nowMillis;
+                        // localStorage.setItem('stats', JSON.stringify(result));
                     }
                 });
             }
 
-            ajaxcall("http://localhost:1337/api/services/MAM", function(err, result) {
+            ajaxcall("http://localhost:1337/api/services/sdfsdf", function(err, result) {
                 if(err) thisvue.articles_errormsg = err;
                 else thisvue.articles = result.articles;
             });

@@ -7,23 +7,27 @@
 // Our beautiful vanilla JS ajax call function <3
 function ajaxcall(url, done) {
     var r = new XMLHttpRequest();
-    r.open("GET", url, true);
-    r.onreadystatechange = function () {
-        // We have to know possible error statuses here to show relevant error messages
-        if(r.status == 400 || r.status == 404 || r.status == 500 || r.status == 0) {
-            var errmsg;
-            if(r.status == 0) errmsg = 'Verbinding mislukt.';
-            else if(r.status == 400) errmsg = 'Foute request.';
-            else if(r.status == 404) errmsg = 'Gegevens niet gevonden.';
-            else if(r.status == 500) errmsg = 'Problemen met de server.';
-            
-            return done(errmsg);
+
+    r.onload = function () {
+        if(r.readyState == 4 && r.status != 200) {
+            console.log('ERROR');
+            return done('Er is een fout opgetreden (Code: ' + r.status + ')');
         }
         if (r.readyState != 4 || r.status != 200) {
             return; // Ajax call also reaches this code on succesful requests
         }
-        done(null, JSON.parse(r.responseText));  
+        
+        console.log('success');
+        return done(null, JSON.parse(r.responseText));  
     };
+    r.onerror = function() {
+        console.log('err');
+        return done('err');
+    };
+
+    r.open("GET", url, true);
+    // Needs to be allowed on server
+    //r.setRequestHeader('max-age', '3600');
     r.send();
 }
 
