@@ -40,3 +40,6 @@ dist
 
 # IDE settings
 .idea
+
+# certificates
+server/cert/*
