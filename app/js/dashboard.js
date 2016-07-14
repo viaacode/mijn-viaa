@@ -3,9 +3,7 @@
 
     new Vue({
         el: '#dashboard',
-        data: {
-            // API / Error msg pairs
-            
+        data: { 
             dataStats: '',
             errormessages: [],
             view: 'personal', // View on page load
@@ -16,9 +14,8 @@
             //refresh(this.view, this);   // Load personal/VIAA view on this Vue instance
 
         },
-        computed: { // Change title & reload charts for selected view
+        computed: {
             title: function() {
-                // different ajax calls go here
                 refresh(this.view, this);
                 return (this.view == 'personal')?'Mijn dashboard':'VIAA algemeen';
             }
@@ -27,17 +24,21 @@
 
     // Load correct charts, do appropriate ajax calls
     function refresh(view, vueinstance){
+        // Destroy all charts
         for(var i = 0; i < charts.length; i++) {
             charts[i].destroy();
         }
+
+        vueinstance.dataStats = '';
+        vueinstance.errormessages = '';
 
         if(view == 'personal') {
             // Big general stats
             ajaxcall("http://localhost:1337/api/stats", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
-                else {
+                else {                  
                     vueinstance.dataStats = result;
-                    drawPieFromKvpObj('statsChart', result);
+                    drawPieFromKvpObj('statsChart', vueinstance.dataStats);
                 }
 
             });
@@ -172,10 +173,12 @@
         charts.push(myChart);  
     }
 
+    // Draw a chart on <canvas id="#id"> with xValues & yValues, title on top
+    // chart types: line, bar, doughnut, pie, radar, polar
     function drawChartDev(id, xValues, yValues, title, type){
         var ctx = document.getElementById(id);
         var myChart = new Chart(ctx, {
-            type: type, // line, bar, doughnut, pie, radar, polar
+            type: type, 
             data: {
                 labels: xValues,
                 datasets: [{

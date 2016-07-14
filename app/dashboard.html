@@ -37,14 +37,14 @@
 
             <!-- errors -->
             <div class="col col-12">
-                <p class="error" v-if="errormessages.length > 0">
-                    {{ errormessages | json }}
-                </p>
+                <div v-if="errormessages.length > 0">
+                    <p>Oeps! Er blijkt een fout te zijn opgetreden.</p>
+                    <p v-for="msg in errormessages">{{ msg }}</p>
+                </div>
             </div>
 
             <!-- Big general stats -->
-            <div class="col col-12">
-                
+            <div class="col col-12" v-if="dataStats">         
                 <div class="col sm-col-4 p3">
                     <p>
                         <span class="bigtext">{{ dataStats.items }}</span> items
@@ -69,12 +69,18 @@
                         something else
                     </p>
                 </div>
-            </div>
+            </div>    
 
-            <!-- TB + Piechart -->
-            
-            <div class="col col-12 mt4">
-                <div class="col col-8">
+            <!-- Loader gif -->
+            <div class="col col-12 loader-airbox" v-if="!dataStats && errormessages.length==0">
+                <img src="assets/loader.gif" alt="Loader" class="loader" />
+            </div>              
+
+            <!-- TB + Piechart -->    
+            <div class="col col-12 mt4"> <!-- Careful, don't v-if or v-show this div,
+                                             since the chart will try to draw before the div turns visisble by vue
+                                             and undefined errors will happen -->
+                <div class="col col-8"  v-if="dataStats">
                     <p>
                         <span class="massivetext">{{ dataStats.terabytes }} TB</span>
                     </p>
@@ -84,6 +90,8 @@
                     <canvas id="statsChart"></canvas>
                 </div>
             </div>
+
+
 
             <!-- Graphs line -->
             
