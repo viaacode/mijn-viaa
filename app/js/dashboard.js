@@ -3,13 +3,9 @@
         el: '#dashboard',
         data: {
             // API / Error msg pairs
-                // Big general stats
-                dataStats: '',
-                errmsgStats: '',
-
-                // Graphs
-                errmsgGraphs: '',
-
+            
+            dataStats: '',
+            errormessages: [],
             view: 'personal', // View on page load
         },
         created: function() { 
@@ -24,7 +20,7 @@
                 refresh(this.view, this);
                 return (this.view == 'personal')?'Mijn dashboard':'VIAA algemeen';
             }
-        }
+        },
     });  
 
     // Load correct charts, do appropriate ajax calls
@@ -32,16 +28,18 @@
         if(view == 'personal') {
             // Big general stats
             ajaxcall("http://localhost:1337/api/stats", function(err, result) {
-                if(err) vueinstance.errmsgStats = err;
+                if(err) vueinstance.errormessages.push(err);
                 else {
                     vueinstance.dataStats = result;
                     drawPieFromKvpObj('statsChart', result);
                 }
+               // console.log(vueinstance.errormessages.stats);
+               // console.log(err);
             });
 
             // Last month graphs
             ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
-                if(err) vueinstance.errmsgGraphs = err;
+                if(err) vueinstance.errormessages.push(err);
                 else {
                     var parsedResult = parseApiResults(result.data);
                     drawChart('lastMonth', parsedResult, 'line');
@@ -50,7 +48,7 @@
 
             // Last week graphs
             ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
-                if(err) vueinstance.errmsgGraphs = err;
+                if(err) vueinstance.errormessages.push(err);
                 else {
                     var parsedResult = parseApiResults(result.data);
                     drawChart('lastWeek', parsedResult, 'line');
@@ -77,7 +75,7 @@
 
             // Last month graphs
             ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
-                if(err) vueinstance.errmsgGraphs = err;
+                if(err) vueinstance.errormessages.push(err);
                 else {
                     var parsedResult = parseApiResults(result.data);
                     drawChart('lastMonth', parsedResult, 'bar');
@@ -86,7 +84,7 @@
 
             // Last week graphs
             ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
-                if(err) vueinstance.errmsgGraphs = err;
+                if(err) vueinstance.errormessages.push(err);
                 else {
                     var parsedResult = parseApiResults(result.data);
                     drawChart('lastWeek', parsedResult, 'bar');
