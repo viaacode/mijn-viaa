@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Reports - Mijn VIAA</title>
+        <meta name="description" content=""> <!-- site description goes here -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="dist/styles.css">
+    </head>
+    <body>
+        <!--[if lt IE 8]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
+
+        <header>
+            <ul class="navigation">
+                <li class="menuitem"><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li class="menuitem"><a href="services.html">Diensten</a></li>
+                <li class="logo"><a href="dashboard.html"><img src="assets/logo2.svg"/></a></li>
+                <li class="menuitem"><a href="#">Over</a></li>
+                <li class="menuitem"><a href="#">Account</a></li>
+            </ul>
+        </header>
+
+        <div id="charts" class="container ">
+            <div id="stats">
+                <canvas id="myChart"></canvas> 
+                <canvas id="myChart2"></canvas>  
+            </div>  
+        </div>
+
+        <script src="dist/vue.js"></script> 
+        <script src="dist/moment.js"></script>
+        <script src="dist/chart.js"></script>
+        <script src="js/app.js"></script> 
+        <script src="js/dashboard.js"></script>
+    </body>
+</html>
