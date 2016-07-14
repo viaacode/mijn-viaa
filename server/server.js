@@ -8,7 +8,6 @@ var request = require('request');
 
 var allowCors = require('./config/cors');
 var authMiddleware = require('./config/authentication-middleware');
-var delayMiddleware = require('./config/delay-middleware');
 
 var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')(env);
@@ -39,7 +38,7 @@ var apiRouter = express.Router();
 if (config.passport) {
   apiRouter.use(authMiddleware.errorCode);
 }
-apiRouter.use(delayMiddleware);
+
 require('./routes/api')(apiRouter, config, request);
 app.use('/', apiRouter);
 

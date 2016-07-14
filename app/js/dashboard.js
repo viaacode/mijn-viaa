@@ -113,7 +113,7 @@
             var y = data[i].value;
             parsedXes.push(x);
             parsedYs.push(y);
-        };
+        }
 
         return { x: parsedXes, y: parsedYs };
     }

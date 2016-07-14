@@ -28,7 +28,6 @@
     "passport": "^0.3.2",
     "passport-saml": "^0.15.0",
     "request": "^2.72.0",
-    "sleep": "^3.0.1",
     "underscore": "^1.8.3"
   }
 }
