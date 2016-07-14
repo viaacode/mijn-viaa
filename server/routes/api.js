@@ -158,7 +158,7 @@ module.exports = function (router, config, request) {
 
   //region mule test
   function muletest (req, res, next) {
-    request('http://do-qas-esb-01.do.viaa.be:10005/api/stats/global', function (error, response, body) {
+    request(config.muleEndpoint + 'api/stats/global', function (error, response, body) {
       if (error) return next(error);
       if (response.statusCode != 200) return next('Statuscode: ' + response.statusCode);
       res.send(body);

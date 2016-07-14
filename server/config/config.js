@@ -14,8 +14,8 @@ function pathFromBase (p) {
 }
 
 function base () {
-
   return {
+    muleEndpoint: 'http://do-qas-esb-01.do.viaa.be:10005/',
     app: {
       name: 'mijn.VIAA',
       port: process.env.PORT || 1337,
