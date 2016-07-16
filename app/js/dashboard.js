@@ -32,7 +32,7 @@
         }
 
         vueinstance.dataStats = '';
-        vueinstance.errormessages = '';
+        vueinstance.errormessages = [];
         vueinstance.graphLoading = true;
 
         if(view == 'personal') {
@@ -43,7 +43,6 @@
                     vueinstance.dataStats = result;
                     drawPieFromKvpObj('statsChart', vueinstance.dataStats);
                 }
-
             });
 
             // Last month graphs
