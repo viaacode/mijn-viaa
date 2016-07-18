@@ -1,10 +1,11 @@
 var status = {
-  unauthorized: 401
+  unauthorized: 401,
+  redirect: 303
 };
 
 function ignore (req, res, next) {
   next();
-};
+}
 
 function errorCode (req, res, next) {
   if (req.isAuthenticated()) {
@@ -13,16 +14,16 @@ function errorCode (req, res, next) {
   else {
     return res.status(status.unauthorized).send('Not authenticated');
   }
-};
+}
 
 function redirect (req, res, next) {
-  if (req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     return next();
   }
-  else{
-    return res.redirect('/login');
+  else {
+    return res.redirect(status.redirect, '/login');
   }
-};
+}
 
 
 module.exports = {
