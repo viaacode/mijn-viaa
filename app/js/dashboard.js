@@ -9,15 +9,26 @@
             errormessages: [],
             view: 'personal', // View on page load
 
-            // Splitting everything up for now ~~
-            data_1_select: 1,
-            data_1_loading: false,
-            data_2_select: 1,
-            data_2_loading: false,
-
-
-
-          //  graphLoading: false,   // Pass to view that loader needs to show
+            // Definitions for every graph, selectId and chartId have to be unique
+            graphs: {
+                evolutionRegistration: { 
+                    selectId: 1,
+                    chartId: 'data_1_chart',
+                    chartTitle: 'TEST TITLE',
+                    apiUrl: 'http://localhost:1337/api/reports/items/last-month',
+                    lastApiData: {},
+                    isLoading: false 
+                },
+                archiveGrowth: {
+                    selectId: 2,
+                    chartId: 'data_2_chart',
+                    chartTitle: 'TDATA 2 TEST TITLE',
+                    apiUrl: 'http://localhost:1337/api/reports/items/last-week',
+                    lastApiData: {},
+                    isLoading: false 
+                },
+            
+            }, 
         },
         created: function() { 
             
@@ -33,6 +44,23 @@
         },
     });  
 
+    function refreshGraph(graph) {
+
+    }
+
+    function drawChartFromApi(item) {
+        runningAjaxCalls.push(ajaxcall(item.apiUrl, function(err, result) {
+            if(err) vueinstance.errormessages.push(err);
+            else {  
+                item.isLoading = false;
+                var parsedResult = parseApiResults(result.data);
+                drawChart(item.chartId, parsedResult, item.chartTitle, 'line');
+            }
+        }));
+
+
+    }
+
     // Load correct charts, do appropriate ajax calls
     function refresh(view, vueinstance){
         // Destroy all charts
@@ -40,9 +68,10 @@
             charts[i].destroy();
         }
 
+        
+
         // Abort all running ajax calls (view refreshing bug)
         for(var i = 0; i < runningAjaxCalls.length; i++) {
-            console.log(runningAjaxCalls[i]);
             runningAjaxCalls[i].abort();
         }
 
@@ -50,8 +79,10 @@
         vueinstance.dataStats = '';
         vueinstance.errormessages = [];
 
-        vueinstance.data_1_loading = true;
-        vueinstance.data_2_loading = true;
+        for(var item in vueinstance.graphs) {
+            vueinstance.graphs[item].isLoading = true;
+
+        }
 
        // vueinstance.graphLoading = true;
 
@@ -65,25 +96,12 @@
                 }
             }));
 
-            // Last month graphs
-            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
-                if(err) vueinstance.errormessages.push(err);
-                else {
-                    vueinstance.data_1_loading = false;
-                    var parsedResult = parseApiResults(result.data);
-                    drawChart('data_1_chart', parsedResult, 'Items laatste maand', 'line');
-                }
-            }));
 
-            // Last week graphs
-            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
-                if(err) vueinstance.errormessages.push(err);
-                else {
-                    vueinstance.data_2_loading = false;
-                    var parsedResult = parseApiResults(result.data);
-                    drawChart('data_2_chart', parsedResult, 'Items laatste week', 'line');
-                }
-            }));
+            // All graphas
+            for(var itemKey in vueinstance.graphs) {        
+                var item = vueinstance.graphs[itemKey];
+                drawChartFromApi(item);
+            }
 
         }
         else {
@@ -101,25 +119,7 @@
             drawPieFromKvpObj('statsChart', simlatedobj);
             
 
-            // Last month graphs
-            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
-                if(err) vueinstance.errormessages.push(err);
-                else {
-                    vueinstance.data_1_loading = false;
-                    var parsedResult = parseApiResults(result.data);
-                    drawChart('data_1_chart', parsedResult, 'Items laatste maand', 'bar');
-                }
-            }));
-
-            // Last week graphs
-            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
-                if(err) vueinstance.errormessages.push(err);
-                else {
-                    vueinstance.data_2_loading = false;
-                    var parsedResult = parseApiResults(result.data);
-                    drawChart('data_2_chart', parsedResult, 'Items laatste week', 'bar');
-                }
-            }));
+   
         }
     }
 
