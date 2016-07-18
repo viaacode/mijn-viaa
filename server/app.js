@@ -32,19 +32,25 @@ module.exports = function (config) {
   // Routes
   require('./routes/documentation')(app, config);
 
-  // Routes for API
+  /* Routes for API */
   var apiRouter = express.Router();
   if (config.passport) {
     require('./routes/authentication')(app, config, passport);
-    apiRouter.use(authMiddleware.errorCode);
+    apiRouter.use('/api', authMiddleware.errorCode);
   }
 
-  apiRouter.use(delayMiddleware(config));
+  if (config.apiDelay) {
+    apiRouter.use('/api', delayMiddleware(config));
+  }
 
   require('./routes/api')(apiRouter, config, request);
   app.use('/', apiRouter);
 
-  // Error handling
+  /* Routes for front-end */
+  // temporary quick-fix, need to use a public folder in the future
+  app.use('/pages', express.static(config.paths.app()));
+
+  /* Error handling */
   app.use(function (err, req, res, next) {
     //Only print stacktrace when in a dev environment
     var stackTrace = {};

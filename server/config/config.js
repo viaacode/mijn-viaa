@@ -7,10 +7,14 @@ var environments = {
   dev_auth: [base, dev, authentication]
 };
 
-var basedir = path.join(__dirname, '../');
+var basedir = path.join(__dirname, '../../');
 
-function pathFromBase (p) {
-  return path.join(basedir, p);
+function pathFromServer (p) {
+  return path.join(basedir, 'server/', p || '.');
+}
+
+function pathFromApp (p) {
+  return path.join(basedir, 'app/', p || '.');
 }
 
 function base () {
@@ -21,7 +25,11 @@ function base () {
       port: process.env.PORT || 1337,
       sessionSecret: process.env.SAML_PATH || 'mijnVIAAetc'
     },
-    path: pathFromBase
+    paths: {
+      server: pathFromServer,
+      app: pathFromApp
+    },
+    path: pathFromServer  //deprecated
   };
 }
 
@@ -37,6 +45,7 @@ function dev () {
 
 function authentication () {
   return {
+    apiDelay: null,
     passport: {
       strategy: 'saml',
       saml: {
@@ -52,13 +61,13 @@ function authentication () {
         identifierFormat: null,
 
         // Service Provider private key
-        decryptionPvk: fs.readFileSync(pathFromBase('/cert/key.pem'), 'utf8'),
+        decryptionPvk: fs.readFileSync(pathFromServer('/cert/key.pem'), 'utf8'),
 
         // Service Provider Certificate
-        privateCert: fs.readFileSync(pathFromBase('/cert/key.pem'), 'utf8'),
+        privateCert: fs.readFileSync(pathFromServer('/cert/key.pem'), 'utf8'),
 
         // Identity Provider's public key
-        cert: process.env.SAML_CERT || fs.readFileSync(pathFromBase('/cert/idp_cert.pem'), 'utf8'),
+        cert: process.env.SAML_CERT || fs.readFileSync(pathFromServer('/cert/idp_cert.pem'), 'utf8'),
 
         validateInResponseTo: false,
         disableRequestedAuthnContext: true
