@@ -48,7 +48,7 @@ module.exports = function (config) {
 
   /* Routes for front-end */
   // temporary quick-fix, need to use a public folder in the future
-  app.use('/pages', express.static(config.paths.app()));
+  app.use('/pages', authMiddleware.redirect, express.static(config.paths.app()));
 
   /* Error handling */
   app.use(function (err, req, res, next) {

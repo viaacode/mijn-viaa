@@ -72,4 +72,13 @@ describe('authentication', function () {
       .set('Accept', 'application/json')
       .expect(401, done);
   });
+
+  it('Pages should redirect when not logged in', function (done) {
+
+    supertest(app)
+      .get('/pages/dashboard.html')
+      .expect(303)
+      .expect('Location', '/login')
+      .end(done);
+  });
 });
