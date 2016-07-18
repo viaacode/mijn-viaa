@@ -8,7 +8,16 @@
             dataStats: '',
             errormessages: [],
             view: 'personal', // View on page load
-            graphLoading: false,   // Pass to view that loader needs to show
+
+            // Splitting everything up for now ~~
+            data_1_select: 1,
+            data_1_loading: false,
+            data_2_select: 1,
+            data_2_loading: false,
+
+
+
+          //  graphLoading: false,   // Pass to view that loader needs to show
         },
         created: function() { 
             
@@ -31,8 +40,6 @@
             charts[i].destroy();
         }
 
-        if(runningAjaxCalls == null) console.log('null');
-        else console.log('niet null');
         // Abort all running ajax calls (view refreshing bug)
         for(var i = 0; i < runningAjaxCalls.length; i++) {
             console.log(runningAjaxCalls[i]);
@@ -42,7 +49,11 @@
         runningAjaxCalls = [];
         vueinstance.dataStats = '';
         vueinstance.errormessages = [];
-        vueinstance.graphLoading = true;
+
+        vueinstance.data_1_loading = true;
+        vueinstance.data_2_loading = true;
+
+       // vueinstance.graphLoading = true;
 
         if(view == 'personal') {
             // Big general stats
@@ -58,9 +69,9 @@
             runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
-                    vueinstance.graphLoading = false;
+                    vueinstance.data_1_loading = false;
                     var parsedResult = parseApiResults(result.data);
-                    drawChart('lastMonth', parsedResult, 'Items laatste maand', 'line');
+                    drawChart('data_1_chart', parsedResult, 'Items laatste maand', 'line');
                 }
             }));
 
@@ -68,9 +79,9 @@
             runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
-                    vueinstance.graphLoading = false;
+                    vueinstance.data_2_loading = false;
                     var parsedResult = parseApiResults(result.data);
-                    drawChart('lastWeek', parsedResult, 'Items laatste week', 'line');
+                    drawChart('data_2_chart', parsedResult, 'Items laatste week', 'line');
                 }
             }));
 
@@ -94,9 +105,9 @@
             runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
-                    vueinstance.graphLoading = false;
+                    vueinstance.data_1_loading = false;
                     var parsedResult = parseApiResults(result.data);
-                    drawChart('lastMonth', parsedResult, 'Items laatste maand', 'bar');
+                    drawChart('data_1_chart', parsedResult, 'Items laatste maand', 'bar');
                 }
             }));
 
@@ -104,9 +115,9 @@
             runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
-                    vueinstance.graphLoading = false;
+                    vueinstance.data_2_loading = false;
                     var parsedResult = parseApiResults(result.data);
-                    drawChart('lastWeek', parsedResult, 'Items laatste week', 'bar');
+                    drawChart('data_2_chart', parsedResult, 'Items laatste week', 'bar');
                 }
             }));
         }

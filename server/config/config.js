@@ -28,8 +28,8 @@ function base () {
 function dev () {
   return {
     apiDelay: {
-      min: 2,
-      max: 3
+      min: 0,
+      max: 1
     },
     showErrors: true
   };
