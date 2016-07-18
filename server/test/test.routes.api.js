@@ -47,3 +47,41 @@ describe('routs/api', function () {
       .expect(200, expected, done);
   });
 });
+
+describe('authentication', function () {
+  var authMiddleware = require('../config/authentication-middleware');
+  var authenticationRoutes = require('../routes/authentication');
+  var configEnvironments = require('../config/config');
+  var passport = require('passport');
+
+  function fail () {
+    throw new Error('Fail');
+  }
+
+
+  var app;
+  var config;
+
+  beforeEach(function () {
+    config = configEnvironments('dev_auth');
+
+    app = express();
+
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    authenticationRoutes(app, config, passport);
+
+    app.use(authMiddleware.errorCode);
+  });
+
+  it('API should return HTTP 401 when not logged in', function (done) {
+    app.get('/', fail);
+
+    supertest(app)
+      .get('/api/stats')
+      .set('Accept', 'application/json')
+      .expect(401, done);
+  });
+});

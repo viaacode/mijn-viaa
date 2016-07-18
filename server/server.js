@@ -37,6 +37,7 @@ require('./routes/documentation')(app, config);
 // Routes for API
 var apiRouter = express.Router();
 if (config.passport) {
+  require('./routes/authentication')(app, config, passport);
   apiRouter.use(authMiddleware.errorCode);
 }
 
