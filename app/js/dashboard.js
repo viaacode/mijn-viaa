@@ -88,18 +88,18 @@
             runningAjaxCalls[i].abort();
         }
 
+        // Clean the view
         runningAjaxCalls = [];
         vueinstance.dataStats = '';
         vueinstance.errormessages = [];
 
-        // Everything is loading now
-        for(var item in vueinstance.graphs.personal) {
-            vueinstance.graphs.personal[item].isLoading = true;   
+        // Put all loading booleans to true
+        for(var item in vueinstance.graphs[view]) {
+            vueinstance.graphs[view][item].isLoading = true;   
         }
-
-
+     
+        // 'Big stats' on top
         if(view == 'personal') {
-            // Big general stats
             runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/stats", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {                 
@@ -107,38 +107,30 @@
                     drawPieFromKvpObj('statsChart', vueinstance.dataStats);
                 }
             }));
-
-            // All graphas
-            for(var itemKey in vueinstance.graphs.personal) {        
-                var item = vueinstance.graphs.personal[itemKey];
-                drawChartFromApi(item, vueinstance);
-            }
-
         }
         else {
-            // Do ajax calls and render graphs and stuff for VIAA general view
-
-            // Simulate total data
             simlatedobj = {
                 "terabytes":"1203",
                 "items":123,
                 "archive_growth":7989,
                 "registration_growth":111.12,
-                
             };
             vueinstance.dataStats = simlatedobj;
             drawPieFromKvpObj('statsChart', simlatedobj);
+        }
 
-             // All graphas
-            for(var itemKey in vueinstance.graphs.personal) {        
-                var item = vueinstance.graphs.personal[itemKey];
-                drawChartFromApi(item);
-            }           
-
-   
+        // Draw all graphs with API data
+        var graphsForView = vueinstance.graphs[view];
+        for(var graphKey in graphsForView) {        
+            drawChartFromApi(graphsForView[graphKey], vueinstance);
         }
     }
 
+
+    /*************************************
+     * ***  Chart drawing and stuff    ***
+     * ***********************************
+     */
 
     // Simplify drawChartDev()
     function drawChart(id, data, title, type) {
