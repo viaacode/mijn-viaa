@@ -100,9 +100,9 @@
                 <div class="col col-12 mb7" > <!-- Can't put v-show to this div somehow, won't show chart -->
                     <form>
                         <select @change="refreshGraph(graph, $event)" v-show="!graph.isLoading">
-                            <option value="1" selected>24h</option>
-                            <option value="2">2 weken</option>
-                            <option value="3">2 maanden</option>
+                            <option value="0" selected>24h</option>
+                            <option value="1">2 weken</option>
+                            <option value="2">2 maanden</option>
                         </select>
                     </form>
                     <canvas :id="graph.chartId"></canvas>

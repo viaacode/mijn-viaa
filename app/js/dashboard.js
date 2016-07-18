@@ -16,18 +16,26 @@
                     evolutionRegistration: { 
                         dropdown: 1,
                         chartId: 'data_1_chart',
-                        chartTitle: 'Registration Evolution per month',
+                        chartTitle: 'Evolutie Registratie',
                         chartType: 'line',
-                        apiUrl: 'http://localhost:1337/api/reports/items/last-month',
+                        apiUrls: [
+                            'http://localhost:1337/api/reports/items/last-week',
+                            'http://localhost:1337/api/reports/items/last-month',
+                            'http://localhost:1337/api/reports/items/last-year'
+                        ],
                         lastApiData: {},
                         isLoading: false 
                     },
                     archiveGrowth: {
                         dropdown: 1,
                         chartId: 'data_2_chart',
-                        chartTitle: 'Archive Growth last week',
+                        chartTitle: 'Aangroei Archief',
                         chartType: 'line',
-                        apiUrl: 'http://localhost:1337/api/reports/items/last-week',
+                        apiUrls: [
+                            'http://localhost:1337/api/reports/items/last-week',
+                            'http://localhost:1337/api/reports/items/last-month',
+                            'http://localhost:1337/api/reports/items/last-year'
+                        ],
                         lastApiData: {},
                         isLoading: false 
                     }
@@ -38,7 +46,11 @@
                         chartId: 'data_1_chart',
                         chartTitle: 'TEST TITLE',
                         chartType: 'bar',
-                        apiUrl: 'http://localhost:1337/api/reports/items/last-month',
+                        apiUrls: [
+                            'http://localhost:1337/api/reports/items/last-week',
+                            'http://localhost:1337/api/reports/items/last-month',
+                            'http://localhost:1337/api/reports/items/last-year'
+                        ],
                         lastApiData: {},
                         isLoading: false 
                     },
@@ -47,7 +59,11 @@
                         chartId: 'data_2_chart',
                         chartTitle: 'TDATA 2 TEST TITLE',
                         chartType: 'line',
-                        apiUrl: 'http://localhost:1337/api/reports/items/last-week',
+                        apiUrls: [
+                            'http://localhost:1337/api/reports/items/last-week',
+                            'http://localhost:1337/api/reports/items/last-month',
+                            'http://localhost:1337/api/reports/items/last-year'
+                        ],
                         lastApiData: {},
                         isLoading: false 
                     }
@@ -62,7 +78,7 @@
         },
         computed: {
             title: function() {
-                refresh(this.view, this);
+                refreshView(this.view, this);
                 return (this.view == 'personal')?'Mijn dashboard':'VIAA algemeen';
             },
 
@@ -74,15 +90,15 @@
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
                 }
                 graph.isLoading = true;         // Our lovely loading circle
-                drawChartFromApi(graph, this);
+                drawChartFromApi(graph, graph.apiUrls[e.target.value], this);  // Draw new chart
             }
         }
     });  
 
 
     // Pass an object from graphs {} and draw the chart for it
-    function drawChartFromApi(item, vueinstance) {
-        runningAjaxCalls.push(ajaxcall(item.apiUrl, function(err, result) {
+    function drawChartFromApi(item, url, vueinstance) {
+        runningAjaxCalls.push(ajaxcall(url, function(err, result) {
             if(err) vueinstance.errormessages.push(err);
             else {  
                 item.isLoading = false;
@@ -93,7 +109,7 @@
     }
 
     // Refresh the whole view
-    function refresh(view, vueinstance){
+    function refreshView(view, vueinstance){
         // Destroy all charts
         for(var i = 0; i < charts.length; i++) {
             charts[i].destroy();
@@ -138,7 +154,7 @@
         // Draw all graphs with API data
         var graphsForView = vueinstance.graphs[view];
         for(var graphKey in graphsForView) {        
-            drawChartFromApi(graphsForView[graphKey], vueinstance);
+            drawChartFromApi(graphsForView[graphKey], graphsForView[graphKey].apiUrls[0], vueinstance);
         }
     }
 
