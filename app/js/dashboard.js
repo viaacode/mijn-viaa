@@ -1,5 +1,6 @@
 (function() {
     var charts = [];
+    var runningAjaxCalls = [];
 
     new Vue({
         el: '#dashboard',
@@ -7,7 +8,6 @@
             dataStats: '',
             errormessages: [],
             view: 'personal', // View on page load
-
             graphLoading: false,   // Pass to view that loader needs to show
         },
         created: function() { 
@@ -31,39 +31,48 @@
             charts[i].destroy();
         }
 
+        if(runningAjaxCalls == null) console.log('null');
+        else console.log('niet null');
+        // Abort all running ajax calls (view refreshing bug)
+        for(var i = 0; i < runningAjaxCalls.length; i++) {
+            console.log(runningAjaxCalls[i]);
+            runningAjaxCalls[i].abort();
+        }
+
+        runningAjaxCalls = [];
         vueinstance.dataStats = '';
         vueinstance.errormessages = [];
         vueinstance.graphLoading = true;
 
         if(view == 'personal') {
             // Big general stats
-            ajaxcall("http://localhost:1337/api/stats", function(err, result) {
+            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/stats", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {                 
-                    vueinstance.dataStats = result;
+                    vueinstance.dataStats = result;                   
                     drawPieFromKvpObj('statsChart', vueinstance.dataStats);
                 }
-            });
+            }));
 
             // Last month graphs
-            ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
+            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
                     vueinstance.graphLoading = false;
                     var parsedResult = parseApiResults(result.data);
                     drawChart('lastMonth', parsedResult, 'Items laatste maand', 'line');
                 }
-            });
+            }));
 
             // Last week graphs
-            ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
+            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
                     vueinstance.graphLoading = false;
                     var parsedResult = parseApiResults(result.data);
                     drawChart('lastWeek', parsedResult, 'Items laatste week', 'line');
                 }
-            });
+            }));
 
         }
         else {
@@ -82,24 +91,24 @@
             
 
             // Last month graphs
-            ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
+            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
                     vueinstance.graphLoading = false;
                     var parsedResult = parseApiResults(result.data);
                     drawChart('lastMonth', parsedResult, 'Items laatste maand', 'bar');
                 }
-            });
+            }));
 
             // Last week graphs
-            ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
+            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {
                     vueinstance.graphLoading = false;
                     var parsedResult = parseApiResults(result.data);
                     drawChart('lastWeek', parsedResult, 'Items laatste week', 'bar');
                 }
-            });
+            }));
         }
     }
 

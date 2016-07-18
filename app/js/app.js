@@ -26,6 +26,7 @@ function ajaxcall(url, done) {
     // Needs to be allowed on server
     //r.setRequestHeader('max-age', '3600');
     r.send();
+    return r; // Return it so we can cancel it * . *
 }
 
 // Make API call to check if the user that is logged in has access to this service
