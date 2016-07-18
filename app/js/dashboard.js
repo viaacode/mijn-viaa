@@ -71,10 +71,10 @@
 
             // Simulate total data
             simlatedobj = {
-                "terabytes":"1203",
-                "items":123,
-                "archive_growth":7989,
-                "registration_growth":111.12,
+                "terabytes":"250",
+                "items":150,
+                "archive_growth":50,
+                "registration_growth":550,
                 
             };
             vueinstance.dataStats = simlatedobj;
@@ -142,16 +142,22 @@
             datasets: [{
                 data: vals,
                 backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#123456",
+                    "#8d6e36",
+                    "#7e525f",
+                    "#94c847",
+                    "#8fcee0",
+                    "#F24313",
+                    "#e8e2bf",
+                    
                 ],
                 hoverBackgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
-                    "#FFCE56",
-                    "#123456",
+                    "#8d6e36",
+                    "#7e525f",
+                    "#94c847",
+                    "#8fcee0",
+                    "#F24313",
+                    "#e8e2bf",
+                    
                 ]
             }]
         };
@@ -182,11 +188,12 @@
                     label: title,
                     data: yValues,
                     //backgroundColor:'rgba(143,206,224, 0.2)',
-                    backgroundColor:'rgba(9,160,75, 0.2)',
+                    backgroundColor:'rgba(143,206,224, 0.2)',
                     //borderColor: 'rgba(224,57,12,1)',
                     //borderColor: 'rgba(9,160,75, 1)',
                     borderColor: 'rgba(143,206,224, 1)',
-                    borderWidth: 1
+                    borderWidth: 2,
+                    pointBackgroundColor : 'rgba(143,206,224, 1)'
                 }]
             },
             options: {

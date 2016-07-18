@@ -9,3 +9,72 @@
     padding:6rem;
 }
 
+.general{
+    border-top: 1px solid #afafaf;
+    margin-bottom : 6rem;
+    :first-child{
+        border:none;
+    }
+}
+
+.stat{
+    border-left: 1px solid #afafaf;
+
+    
+    .number{
+        padding-top:2rem;
+        text-align: center;
+
+        
+    }
+    .stat-title{
+        color: #afafaf;
+        text-align: center;
+    }
+
+    .orange{
+        color: $green; 
+    }
+
+    .blue{
+        color: $blue;
+    }
+
+    .purple{
+        color: $orange;
+    }
+
+}
+
+.item{
+    color: #afafaf;
+}
+
+.storage{
+    line-height: 22rem;
+
+    .massivetext{
+        color: $purple;
+    }
+}
+
+.selectbox{
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 5rem;
+    overflow: hidden;
+
+    select{
+        padding: 5px 8px;
+        width: 100%;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        background-image: none;
+        -webkit-appearance: none;
+
+    }
+}
+
+
+
