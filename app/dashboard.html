@@ -48,7 +48,9 @@
 
              <!-- Loader gif -->
             <div class="col col-12 loader-airbox" v-if="!dataStats && errormessages.length==0">
-                <span class="icon-spin3 animate-spin"></span>
+                <div class="loader">
+                    <span class="icon-spin3 animate-spin"></span>       
+                </div>    
             </div>              
 
             <!-- TB + Piechart -->    
@@ -109,8 +111,10 @@
             <!-- Graphs line -->  
 
             <!-- Loader gif -->
-            <div class="col col-12 loader-airbox" v-if="graphLoading && errormessages.length==0">
-               <span class="icon-spin3 animate-spin"></span>
+            <div class="col col-12 loader-airbox " v-if="graphLoading && errormessages.length==0">
+                <div class="loader">
+                    <span class="icon-spin3 animate-spin"></span>
+                </div>
             </div>     
             
             <div class="col col-12 mb7">
