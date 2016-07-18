@@ -4,13 +4,12 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var session = require('express-session');
-var request = require('request');
 
 var allowCors = require('./config/cors');
 var authMiddleware = require('./config/authentication-middleware');
 var delayMiddleware = require('./config/delay-middleware');
 
-module.exports = function (config) {
+module.exports = function (config, request) {
   // Express
   var app = express();
 

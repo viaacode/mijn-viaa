@@ -1,7 +1,9 @@
 var configEnvironments = require('./config/config');
 
+var request = require('request');
+
 var env = process.env.NODE_ENV || 'development';
-var config = configEnvironments(env);
+var config = configEnvironments(env, request);
 
 var app = require('./app')(config);
 

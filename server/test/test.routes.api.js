@@ -3,6 +3,7 @@ var supertest = require('supertest');
 
 var configEnvironments = require('../config/config');
 var apiRoutes = require('../routes/api');
+var appConfig = require('../app');
 
 var FAKE_REQUEST = {
   success: function createRequestMockWhichReturns (body) {
@@ -54,7 +55,7 @@ describe('authentication', function () {
   var config = configEnvironments('dev_auth');
 
   beforeEach(function () {
-    app = require('../app')(config);
+    app = appConfig(config, null);
   });
 
   it('API should return HTTP 401 when not logged in', function (done) {
