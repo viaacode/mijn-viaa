@@ -31,7 +31,7 @@
             <div class="col col-6">
                 <div class="right selectbox">
                     <select v-model="view">
-                        <option value="personal">Mijn cijfers</option>
+                        <option value="personal">Mijn cijfers </option>
                         <option value="viaa">Totaal VIAA</option>
                     </select>   
                 </div>
@@ -48,7 +48,7 @@
 
              <!-- Loader gif -->
             <div class="col col-12 loader-airbox" v-if="!dataStats && errormessages.length==0">
-                <img src="assets/loader.gif" alt="Loader" class="loader" />
+                <span class="icon-spin3 animate-spin"></span>
             </div>              
 
             <!-- TB + Piechart -->    
@@ -110,7 +110,7 @@
 
             <!-- Loader gif -->
             <div class="col col-12 loader-airbox" v-if="graphLoading && errormessages.length==0">
-                <img src="assets/loader.gif" alt="Loader" class="loader" />
+               <span class="icon-spin3 animate-spin"></span>
             </div>     
             
             <div class="col col-12 mb7">
