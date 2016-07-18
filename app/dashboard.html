@@ -29,10 +29,12 @@
                 <h1>{{ title }}</h1>
             </div>
             <div class="col col-6">
-                <select v-model="view" class="right">
-                    <option value="personal">Mijn cijfers</option>
-                    <option value="viaa">Totaal VIAA</option>
-                </select>
+                <div class="right selectbox">
+                    <select v-model="view">
+                        <option value="personal">Mijn cijfers</option>
+                        <option value="viaa">Totaal VIAA</option>
+                    </select>
+                </div>
             </div>
 
             <!-- errors -->
@@ -43,59 +45,69 @@
                 </div>
             </div>
 
+             <!-- Loader gif -->
+            <div class="col col-12 loader-airbox" v-if="!dataStats && errormessages.length==0">
+                <div class="loader">
+                    <span class="icon-spin3 animate-spin"></span>       
+                </div>    
+            </div>              
+
+            <!-- TB + Piechart -->    
+            <div class="col col-12 mt4 mb7"> 
+                <div class="col col-6">
+                    <canvas id="statsChart"></canvas>
+                </div>
+                <div class="col col-6 stat-title"  v-if="dataStats">
+                    <p class="storage">
+                        <span class="massivetext">{{ dataStats.terabytes }} </span>
+                        <span class="item">terabyte</span>
+                    </p>
+                </div>    
+            </div>
+
             <!-- Big general stats -->
-            <div class="col col-12" v-if="dataStats">         
-                <div class="col sm-col-4 p3">
-                    <p>
-                        <span class="bigtext">{{ dataStats.items }}</span> items
+            <div class="col col-12 general" v-if="dataStats">         
+                <div class="col sm-col-4 p3 stat">
+                    <p class="stat-title">
+                        Geregistreerd
                     </p>
-                    <p>
-                        geregistreerd
+                    <p class="orange number">
+                        <span class="bigtext">{{ dataStats.items }}</span> 
+                        <span class="item">items</span>
                     </p>
+
                 </div>
-                <div class="col sm-col-4 p3">
-                    <p>
-                        <span class="bigtext">{{ dataStats.archive_growth }}</span> groei
+
+                <div class="col sm-col-4 p3 stat">
+                    <p class="stat-title">
+                        Gedigitaliseerd
                     </p>
-                    <p>
-                        archief
+                    <p class="blue number">
+                        <span class="bigtext">{{ dataStats.archive_growth }}</span> 
+                        <span class="item">items</span>
                     </p>
+                    
                 </div>
-                <div class="col sm-col-4 p3">
-                    <p>
-                        <span class="bigtext">1234</span> items
+                <div class="col sm-col-4 p3 stat">
+                    <p class="stat-title">
+                        Gearchiveerd
                     </p>
-                    <p>
-                        something else
+                    <p class="purple number">
+                        <span class="bigtext">1234</span>
+                        <span class="item">items</span> 
                     </p>
+                    
                 </div>
             </div>    
 
-            <!-- Loader gif -->
-            <div class="col col-12 loader-airbox" 
-                 v-if="!dataStats && errormessages.length==0">
-                <img src="assets/loader.gif" alt="Loader" class="loader" />
-            </div>              
-
-            <!-- Terabytes + Piechart -->    
-            <div class="col col-12 mt4 mb7"> 
-                <div class="col col-8"  v-if="dataStats">
-                    <p>
-                        <span class="massivetext">{{ dataStats.terabytes }} TB</span>
-                    </p>
-                </div>
-
-                <div class="col col-4">
-                    <canvas id="statsChart"></canvas>
-                </div>
-            </div>
-
             <!-- Graphs  -->  
-            <div class="col col-12 mb4" v-for="graph in graphs[view]"> <!-- Can't abstract this with active 'view' ?? -->
+            <div class="col col-12 mb4" v-for="graph in graphs.personal"> <!-- Can't abstract this with active 'view' ?? -->
                 <!-- Loader gif -->
                 <div class="col col-12 loader-airbox"
-                    v-if="graph.isLoading && errormessages.length==0">
-                    <img src="assets/loader.gif" alt="Loader" class="loader" />
+                     v-if="graph.isLoading && errormessages.length==0">
+                    <div class="loader">
+                        <span class="icon-spin3 animate-spin"></span>
+                    </div>
                 </div>        
                 <div class="col col-12 mb7" > <!-- Can't put v-show to this div somehow, won't show chart -->
                     <form>
@@ -107,8 +119,7 @@
                     </form>
                     <canvas :id="graph.chartId"></canvas>
                 </div>
-            </div>              
-
+            </div>
         </div>
 
         <script src="dist/vue.js"></script> 
