@@ -8,7 +8,67 @@
             dataStats: '',
             errormessages: [],
             view: 'personal', // View on page load
-            graphLoading: false,   // Pass to view that loader needs to show
+
+            graphs: {
+                // These objects have to match the 'view' v-model options (from dropdown)
+                // Note: chartId value doesn't matter at all but has to be unique
+                personal: {
+                    evolutionRegistration: { 
+                        dropdown: 1,
+                        chartId: 'data_1_chart',
+                        chartTitle: 'Evolutie Registratie',
+                        chartType: 'line',
+                        apiUrls: [
+                            'http://localhost:1337/api/reports/items/last-week',
+                            'http://localhost:1337/api/reports/items/last-month',
+                            'http://localhost:1337/api/reports/items/last-year'
+                        ],
+                        lastApiData: {},
+                        isLoading: false 
+                    },
+                    archiveGrowth: {
+                        dropdown: 1,
+                        chartId: 'data_2_chart',
+                        chartTitle: 'Aangroei Archief',
+                        chartType: 'line',
+                        apiUrls: [
+                            'http://localhost:1337/api/reports/items/last-week',
+                            'http://localhost:1337/api/reports/items/last-month',
+                            'http://localhost:1337/api/reports/items/last-year'
+                        ],
+                        lastApiData: {},
+                        isLoading: false 
+                    },
+                },
+                viaa: {
+                    evolutionRegistration: {
+                        dropdown: 1,
+                        chartId: 'data_1_chart',
+                        chartTitle: 'TEST TITLE',
+                        chartType: 'bar',
+                        apiUrls: [
+                            'http://localhost:1337/api/reports/items/last-week',
+                            'http://localhost:1337/api/reports/items/last-month',
+                            'http://localhost:1337/api/reports/items/last-year'
+                        ],
+                        lastApiData: {},
+                        isLoading: false 
+                    },
+                    archiveGrowth: {
+                        dropdown: 1,
+                        chartId: 'data_2_chart',
+                        chartTitle: 'TDATA 2 TEST TITLE',
+                        chartType: 'line',
+                        apiUrls: [
+                            'http://localhost:1337/api/reports/items/last-week',
+                            'http://localhost:1337/api/reports/items/last-month',
+                            'http://localhost:1337/api/reports/items/last-year'
+                        ],
+                        lastApiData: {},
+                        isLoading: false 
+                    }
+                }
+            }
         },
         created: function() { 
             
@@ -18,34 +78,62 @@
         },
         computed: {
             title: function() {
-                refresh(this.view, this);
+                refreshView(this.view, this);
                 return (this.view == 'personal')?'Mijn dashboard':'VIAA algemeen';
-            }
+            },
+
         },
+        methods: {
+            refreshGraph: function(graph, e) {
+                // Destroy chart
+                for(var i = 0; i < charts.length; i++) {
+                    if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
+                }
+                graph.isLoading = true;         // Our lovely loading circle
+                drawChartFromApi(graph, graph.apiUrls[e.target.value], this);  // Draw new chart
+            }
+        }
     });  
 
-    // Load correct charts, do appropriate ajax calls
-    function refresh(view, vueinstance){
+
+    // Pass an object from graphs {} and draw the chart for it
+    function drawChartFromApi(item, url, vueinstance) {
+        runningAjaxCalls.push(ajaxcall(url, function(err, result) {
+            if(err) vueinstance.errormessages.push(err);
+            else {  
+                item.isLoading = false;
+                var parsedResult = parseApiResults(result.data);
+                drawChart(item.chartId, parsedResult, item.chartTitle, item.chartType);
+            }
+        }));
+    }
+
+    // Refresh the whole view
+    function refreshView(view, vueinstance){
         // Destroy all charts
         for(var i = 0; i < charts.length; i++) {
             charts[i].destroy();
         }
 
-        if(runningAjaxCalls == null) console.log('null');
-        else console.log('niet null');
         // Abort all running ajax calls (view refreshing bug)
         for(var i = 0; i < runningAjaxCalls.length; i++) {
-            console.log(runningAjaxCalls[i]);
             runningAjaxCalls[i].abort();
         }
 
+        // Clean the view
         runningAjaxCalls = [];
         vueinstance.dataStats = '';
         vueinstance.errormessages = [];
-        vueinstance.graphLoading = true;
+        
+        var graphsForView = vueinstance.graphs[view];
 
+        // Put all loading booleans to true
+        for(var item in graphsForView) {
+            vueinstance.graphs[view][item].isLoading = true;   
+        }
+     
+        // 'Big stats' on top
         if(view == 'personal') {
-            // Big general stats
             runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/stats", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {                 
@@ -53,65 +141,30 @@
                     drawPieFromKvpObj('statsChart', vueinstance.dataStats);
                 }
             }));
-
-            // Last month graphs
-            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
-                if(err) vueinstance.errormessages.push(err);
-                else {
-                    vueinstance.graphLoading = false;
-                    var parsedResult = parseApiResults(result.data);
-                    drawChart('lastMonth', parsedResult, 'Items laatste maand', 'line');
-                }
-            }));
-
-            // Last week graphs
-            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
-                if(err) vueinstance.errormessages.push(err);
-                else {
-                    vueinstance.graphLoading = false;
-                    var parsedResult = parseApiResults(result.data);
-                    drawChart('lastWeek', parsedResult, 'Items laatste week', 'line');
-                }
-            }));
-
         }
         else {
-            // Do ajax calls and render graphs and stuff for VIAA general view
-
-            // Simulate total data
             simlatedobj = {
                 "terabytes":"1203",
                 "items":123,
                 "archive_growth":7989,
                 "registration_growth":111.12,
-                
             };
             vueinstance.dataStats = simlatedobj;
             drawPieFromKvpObj('statsChart', simlatedobj);
-            
+        }
 
-            // Last month graphs
-            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-month", function(err, result) {
-                if(err) vueinstance.errormessages.push(err);
-                else {
-                    vueinstance.graphLoading = false;
-                    var parsedResult = parseApiResults(result.data);
-                    drawChart('lastMonth', parsedResult, 'Items laatste maand', 'bar');
-                }
-            }));
-
-            // Last week graphs
-            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/reports/items/last-week", function(err, result) {
-                if(err) vueinstance.errormessages.push(err);
-                else {
-                    vueinstance.graphLoading = false;
-                    var parsedResult = parseApiResults(result.data);
-                    drawChart('lastWeek', parsedResult, 'Items laatste week', 'bar');
-                }
-            }));
+        // Draw all graphs with API data
+        
+        for(var graphKey in graphsForView) {        
+            drawChartFromApi(graphsForView[graphKey], graphsForView[graphKey].apiUrls[0], vueinstance);
         }
     }
 
+
+    /*************************************
+     * ***  Chart drawing and stuff    ***
+     * ***********************************
+     */
 
     // Simplify drawChartDev()
     function drawChart(id, data, title, type) {

@@ -72,14 +72,13 @@
             </div>    
 
             <!-- Loader gif -->
-            <div class="col col-12 loader-airbox" v-if="!dataStats && errormessages.length==0">
+            <div class="col col-12 loader-airbox" 
+                 v-if="!dataStats && errormessages.length==0">
                 <img src="assets/loader.gif" alt="Loader" class="loader" />
             </div>              
 
-            <!-- TB + Piechart -->    
-            <div class="col col-12 mt4 mb7"> <!-- Careful, don't v-if or v-show this div,
-                                             since the chart will try to draw before the div turns visisble by vue
-                                             and undefined errors will happen -->
+            <!-- Terabytes + Piechart -->    
+            <div class="col col-12 mt4 mb7"> 
                 <div class="col col-8"  v-if="dataStats">
                     <p>
                         <span class="massivetext">{{ dataStats.terabytes }} TB</span>
@@ -91,26 +90,27 @@
                 </div>
             </div>
 
+            <!-- Graphs  -->  
+            <div class="col col-12 mb4" v-for="graph in graphs[view]"> <!-- Can't abstract this with active 'view' ?? -->
+                <!-- Loader gif -->
+                <div class="col col-12 loader-airbox"
+                    v-if="graph.isLoading && errormessages.length==0">
+                    <img src="assets/loader.gif" alt="Loader" class="loader" />
+                </div>        
+                <div class="col col-12 mb7" > <!-- Can't put v-show to this div somehow, won't show chart -->
+                    <form>
+                        <select @change="refreshGraph(graph, $event)" v-show="!graph.isLoading">
+                            <option value="0" selected>24h</option>
+                            <option value="1">2 weken</option>
+                            <option value="2">2 maanden</option>
+                        </select>
+                    </form>
+                    <canvas :id="graph.chartId"></canvas>
+                </div>
+            </div>              
 
-            <!-- Graphs line -->  
-
-            <!-- Loader gif -->
-            <div class="col col-12 loader-airbox" v-if="graphLoading && errormessages.length==0">
-                <img src="assets/loader.gif" alt="Loader" class="loader" />
-            </div>     
-            
-
-            <div class="col col-12 mb7">
-                <canvas id="lastMonth"></canvas>
-            </div>
-
-            <div class="col col-12">
-                <canvas id="lastWeek"></canvas>
-            </div>
-             
         </div>
 
-        
         <script src="dist/vue.js"></script> 
         <script src="dist/moment.js"></script>
         <script src="dist/chart.js"></script>
