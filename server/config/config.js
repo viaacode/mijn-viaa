@@ -50,7 +50,7 @@ function authentication () {
       strategy: 'saml',
       saml: {
         // URL that goes from the Identity Provider -> Service Provider
-        path: process.env.SAML_PATH || '/login/callback',
+        callbackUrl: process.env.SAML_PATH || 'mijn-qas.viaa.be/login/callback',
 
         // URL that goes from the Service Provider -> Identity Provider
         entryPoint: process.env.SAML_ENTRY_POINT || 'https://idp-qas.viaa.be/module.php/core/authenticate.php?as=viaa-ldap',
