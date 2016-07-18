@@ -91,10 +91,10 @@
             </div>
 
             <!-- Graphs  -->  
-            <div class="col col-12 mb4" v-for="graph in graphs.personal"> <!-- Can't abstract this with active 'view' ?? -->
+            <div class="col col-12 mb4" v-for="graph in graphs[view]"> <!-- Can't abstract this with active 'view' ?? -->
                 <!-- Loader gif -->
                 <div class="col col-12 loader-airbox"
-                     v-if="graph.isLoading && errormessages.length==0">
+                    v-if="graph.isLoading && errormessages.length==0">
                     <img src="assets/loader.gif" alt="Loader" class="loader" />
                 </div>        
                 <div class="col col-12 mb7" > <!-- Can't put v-show to this div somehow, won't show chart -->
@@ -107,7 +107,8 @@
                     </form>
                     <canvas :id="graph.chartId"></canvas>
                 </div>
-            </div>
+            </div>              
+
         </div>
 
         <script src="dist/vue.js"></script> 
