@@ -10,7 +10,7 @@
             view: 'personal', // View on page load
 
             // Definitions for every graph, chartId has to be unique
-            graphs: {
+            /*graphs: {
                 evolutionRegistration: { 
                     dropdown: 1,
                     chartId: 'data_1_chart',
@@ -26,9 +26,28 @@
                     apiUrl: 'http://localhost:1337/api/reports/items/last-week',
                     lastApiData: {},
                     isLoading: false 
-                },
-            
-            }, 
+                }, 
+            }, */
+            graphs: {
+                personal: {
+                    evolutionRegistration: { 
+                        dropdown: 1,
+                        chartId: 'data_1_chart',
+                        chartTitle: 'TEST TITLE',
+                        apiUrl: 'http://localhost:1337/api/reports/items/last-month',
+                        lastApiData: {},
+                        isLoading: false 
+                    },
+                    archiveGrowth: {
+                        dropdown: 1,
+                        chartId: 'data_2_chart',
+                        chartTitle: 'TDATA 2 TEST TITLE',
+                        apiUrl: 'http://localhost:1337/api/reports/items/last-week',
+                        lastApiData: {},
+                        isLoading: false 
+                    }
+                }
+            }
         },
         created: function() { 
             
@@ -46,7 +65,7 @@
 
 
     // Pass an object from graphs {} and draw the chart for it
-    function drawChartFromApi(item) {
+    function drawChartFromApi(item, vueinstance) {
         runningAjaxCalls.push(ajaxcall(item.apiUrl, function(err, result) {
             if(err) vueinstance.errormessages.push(err);
             else {  
@@ -74,9 +93,10 @@
         vueinstance.errormessages = [];
 
         // Everything is loading now
-        for(var item in vueinstance.graphs) {
-            vueinstance.graphs[item].isLoading = true;
+        for(var item in vueinstance.graphs.personal) {
+            vueinstance.graphs.personal[item].isLoading = true;   
         }
+
 
         if(view == 'personal') {
             // Big general stats
@@ -89,9 +109,9 @@
             }));
 
             // All graphas
-            for(var itemKey in vueinstance.graphs) {        
-                var item = vueinstance.graphs[itemKey];
-                drawChartFromApi(item);
+            for(var itemKey in vueinstance.graphs.personal) {        
+                var item = vueinstance.graphs.personal[itemKey];
+                drawChartFromApi(item, vueinstance);
             }
 
         }
@@ -110,8 +130,8 @@
             drawPieFromKvpObj('statsChart', simlatedobj);
 
              // All graphas
-            for(var itemKey in vueinstance.graphs) {        
-                var item = vueinstance.graphs[itemKey];
+            for(var itemKey in vueinstance.graphs.personal) {        
+                var item = vueinstance.graphs.personal[itemKey];
                 drawChartFromApi(item);
             }           
 
