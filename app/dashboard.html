@@ -94,11 +94,6 @@
 
             <!-- Graphs line -->  
 
-            <select v-model="test">
-                <option value="1">sd</option>
-                <option value="2">ssdfsdfd</option>
-            </select>
-
             <!-- For loop this?? Woooop -->
 
             <!-- Data 1 -->
@@ -108,13 +103,12 @@
                 </div>        
                 <div class="col col-12 mb7" > <!-- Can't put v-show to this div somehow, won't show chart -->
                     <form>
-                        <select v-model="graphs.evolutionRegistration.selectId" v-show="!graphs.evolutionRegistration.isLoading">
+                        <select v-model="graphs.evolutionRegistration.dropdown" v-show="!graphs.evolutionRegistration.isLoading">
                             <option value="1" selected>24h</option>
                             <option value="2">2 weken</option>
                             <option value="3">2 maanden</option>
                         </select>
                     </form>
-                    {{ graphs.evolutionRegistration.chartId }}
                     <canvas :id="graphs.evolutionRegistration.chartId"></canvas>
                 </div>
 
@@ -129,13 +123,12 @@
                 </div>    
                 <div class="col col-12 mb7" >
                     <form>
-                        <select v-show="!graphs.archiveGrowth.isLoading">
+                        <select v-model="graphs.archiveGrowth.dropdown" v-show="!graphs.archiveGrowth.isLoading">
                             <option value="1" selected>24h</option>
                             <option value="2">2 weken</option>
                             <option value="3">2 maanden</option>
                         </select>
                     </form>
-                    {{ graphs.archiveGrowth.chartId }}
                     <canvas :id="graphs.archiveGrowth.chartId"></canvas>
                 </div>
         </div>

@@ -12,7 +12,7 @@
             // Definitions for every graph, selectId and chartId have to be unique
             graphs: {
                 evolutionRegistration: { 
-                    selectId: 1,
+                    dropdown: 1,
                     chartId: 'data_1_chart',
                     chartTitle: 'TEST TITLE',
                     apiUrl: 'http://localhost:1337/api/reports/items/last-month',
@@ -20,7 +20,7 @@
                     isLoading: false 
                 },
                 archiveGrowth: {
-                    selectId: 2,
+                    dropdown: 1,
                     chartId: 'data_2_chart',
                     chartTitle: 'TDATA 2 TEST TITLE',
                     apiUrl: 'http://localhost:1337/api/reports/items/last-week',
@@ -40,14 +40,12 @@
             title: function() {
                 refresh(this.view, this);
                 return (this.view == 'personal')?'Mijn dashboard':'VIAA algemeen';
-            }
+            },
         },
     });  
 
-    function refreshGraph(graph) {
 
-    }
-
+    // Pass an object from graphs {} and draw the chart for it
     function drawChartFromApi(item) {
         runningAjaxCalls.push(ajaxcall(item.apiUrl, function(err, result) {
             if(err) vueinstance.errormessages.push(err);
@@ -57,18 +55,14 @@
                 drawChart(item.chartId, parsedResult, item.chartTitle, 'line');
             }
         }));
-
-
     }
 
-    // Load correct charts, do appropriate ajax calls
+    // Refresh the whole view
     function refresh(view, vueinstance){
         // Destroy all charts
         for(var i = 0; i < charts.length; i++) {
             charts[i].destroy();
         }
-
-        
 
         // Abort all running ajax calls (view refreshing bug)
         for(var i = 0; i < runningAjaxCalls.length; i++) {
@@ -79,12 +73,10 @@
         vueinstance.dataStats = '';
         vueinstance.errormessages = [];
 
+        // Everything is loading now
         for(var item in vueinstance.graphs) {
             vueinstance.graphs[item].isLoading = true;
-
         }
-
-       // vueinstance.graphLoading = true;
 
         if(view == 'personal') {
             // Big general stats
@@ -95,7 +87,6 @@
                     drawPieFromKvpObj('statsChart', vueinstance.dataStats);
                 }
             }));
-
 
             // All graphas
             for(var itemKey in vueinstance.graphs) {        
@@ -117,7 +108,12 @@
             };
             vueinstance.dataStats = simlatedobj;
             drawPieFromKvpObj('statsChart', simlatedobj);
-            
+
+             // All graphas
+            for(var itemKey in vueinstance.graphs) {        
+                var item = vueinstance.graphs[itemKey];
+                drawChartFromApi(item);
+            }           
 
    
         }
