@@ -9,7 +9,7 @@
             errormessages: [],
             view: 'personal', // View on page load
 
-            // Definitions for every graph, selectId and chartId have to be unique
+            // Definitions for every graph, chartId has to be unique
             graphs: {
                 evolutionRegistration: { 
                     dropdown: 1,
