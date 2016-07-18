@@ -127,7 +127,7 @@
         
         var graphsForView = vueinstance.graphs[view];
 
-        // Put all loading booleans to true
+        // Put all isLoading booleans to true
         for(var item in graphsForView) {
             vueinstance.graphs[view][item].isLoading = true;   
         }
@@ -136,25 +136,39 @@
         if(view == 'personal') {
             runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/stats", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
-                else {                 
+                else {         
+                    // Translate the keys to user friendly output
+                    var userfriendlytextObj = {
+                        "Terabytes": result.terabytes,
+                        "Items": result.items,
+                        "Archive Growth": result.archive_growth,
+                        "Registration Growth": result.registration_growth      
+                    } 
                     vueinstance.dataStats = result;                   
-                    drawPieFromKvpObj('statsChart', vueinstance.dataStats);
+                    drawPieFromKvpObj('statsChart', userfriendlytextObj);
                 }
             }));
         }
         else {
-            simlatedobj = {
+            var simulatedObj = {
                 "terabytes":250,
                 "items":150,
                 "archive_growth":50,
                 "registration_growth":550,
             };
-            vueinstance.dataStats = simlatedobj;
-            drawPieFromKvpObj('statsChart', simlatedobj);
+            
+            // Translate the keys to user friendly output
+            var userfriendlytextObj = {
+                "Terabytes": simulatedObj.terabytes,
+                "Items": simulatedObj.items,
+                "Archive Growth": simulatedObj.archive_growth,
+                "Registration Growth": simulatedObj.registration_growth
+            }
+            vueinstance.dataStats = simulatedObj;
+            drawPieFromKvpObj('statsChart', userfriendlytextObj);
         }
 
-        // Draw all graphs with API data
-        
+        // Draw all graphs with API data  
         for(var graphKey in graphsForView) {        
             drawChartFromApi(graphsForView[graphKey], graphsForView[graphKey].apiUrls[0], vueinstance);
         }
