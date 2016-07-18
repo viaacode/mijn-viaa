@@ -74,4 +74,11 @@ describe('authentication', function () {
       .expect('Location', '/login')
       .end(done);
   });
+
+  it('js files should not redirect redirect when not logged in', function (done) {
+    supertest(app)
+      .get('/pages/js/app.js')
+      .expect(200)
+      .end(done);
+  });
 });

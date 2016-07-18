@@ -36,6 +36,7 @@ module.exports = function (config, request) {
   if (config.passport) {
     require('./routes/authentication')(app, config, passport);
     apiRouter.use('/api', authMiddleware.errorCode);
+    app.use('/pages/*.html', authMiddleware.redirect);
   }
 
   if (config.apiDelay) {
@@ -47,7 +48,7 @@ module.exports = function (config, request) {
 
   /* Routes for front-end */
   // temporary quick-fix, need to use a public folder in the future
-  app.use('/pages', authMiddleware.redirect, express.static(config.paths.app()));
+  app.use('/pages', express.static(config.paths.app()));
 
   /* Error handling */
   app.use(function (err, req, res, next) {
