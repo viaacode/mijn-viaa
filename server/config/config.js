@@ -3,6 +3,7 @@ var path = require('path');
 var _ = require('underscore');
 
 var environments = {
+  qas: [base, qas, authentication],
   development: [base, dev],
   dev_auth: [base, dev, authentication]
 };
@@ -23,7 +24,7 @@ function base () {
     app: {
       name: 'mijn.VIAA',
       port: process.env.PORT || 1337,
-      sessionSecret: process.env.SAML_PATH || 'mijnVIAAetc'
+      sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
     },
     paths: {
       server: pathFromServer,
@@ -38,6 +39,17 @@ function dev () {
     apiDelay: {
       min: 2,
       max: 3
+    },
+    showErrors: true
+  };
+}
+
+function qas () {
+  return {
+    app: {
+      name: 'mijn.VIAA',
+      port: process.env.PORT || 3000,
+      sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
     },
     showErrors: true
   };
