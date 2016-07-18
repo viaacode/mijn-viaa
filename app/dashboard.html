@@ -101,7 +101,7 @@
             </div>    
 
             <!-- Graphs  -->  
-            <div class="col col-12 mb4" v-for="graph in graphs.personal"> <!-- Can't abstract this with active 'view' ?? -->
+            <div class="col col-12 mb4" v-for="graph in graphs.personal"> 
                 <!-- Loader gif -->
                 <div class="col col-12 loader-airbox"
                      v-if="graph.isLoading && errormessages.length==0">
@@ -109,7 +109,7 @@
                         <span class="icon-spin3 animate-spin"></span>
                     </div>
                 </div>        
-                <div class="col col-12 mb7" > <!-- Can't put v-show to this div somehow, won't show chart -->
+                <div class="col col-12 mb7" >
                     <form>
                         <select @change="refreshGraph(graph, $event)" v-show="!graph.isLoading">
                             <option value="0" selected>24h</option>
