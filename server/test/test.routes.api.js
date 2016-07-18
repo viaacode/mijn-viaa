@@ -58,27 +58,15 @@ describe('authentication', function () {
     throw new Error('Fail');
   }
 
-
   var app;
   var config;
 
   beforeEach(function () {
     config = configEnvironments('dev_auth');
-
-    app = express();
-
-
-    app.use(passport.initialize());
-    app.use(passport.session());
-
-    authenticationRoutes(app, config, passport);
-
-    app.use(authMiddleware.errorCode);
+    app = require('../app')(config);
   });
 
   it('API should return HTTP 401 when not logged in', function (done) {
-    app.get('/', fail);
-
     supertest(app)
       .get('/api/stats')
       .set('Accept', 'application/json')
