@@ -6,7 +6,7 @@ module.exports = function (app, config) {
     if (req.user) {
       services = parseServices(req.user.apps);
     } else {
-      services = {};
+      services = config.fakeServicesAvailable || {};
     }
     console.log(services);
 

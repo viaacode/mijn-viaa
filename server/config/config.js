@@ -42,6 +42,7 @@ function base () {
 
 function dev () {
   return {
+    fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
     apiDelay: {
       min: 0,
       max: 1

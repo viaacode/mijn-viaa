@@ -85,13 +85,16 @@ describe('authentication', function () {
 
 describe('services available', function () {
   var app;
-  var config = configEnvironments('dev_auth');
+  var config;
 
   beforeEach(function () {
+    config = configEnvironments('dev_auth');
     app = appConfig(config, null);
   });
 
-  it('should return be empty when not logged in', function (done) {
+  it('should return be config.fakeServicesAvailable when not logged in', function (done) {
+    config.fakeServicesAvailable = {};
+
     var expected = 'function isServiceAvailable(serviceName){return ' +
       '{}' +
       '[serviceName];}';
