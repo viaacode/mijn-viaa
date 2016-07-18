@@ -9,31 +9,35 @@
             errormessages: [],
             view: 'personal', // View on page load
 
-            // Definitions for every graph, chartId has to be unique
-            /*graphs: {
-                evolutionRegistration: { 
-                    dropdown: 1,
-                    chartId: 'data_1_chart',
-                    chartTitle: 'TEST TITLE',
-                    apiUrl: 'http://localhost:1337/api/reports/items/last-month',
-                    lastApiData: {},
-                    isLoading: false 
-                },
-                archiveGrowth: {
-                    dropdown: 1,
-                    chartId: 'data_2_chart',
-                    chartTitle: 'TDATA 2 TEST TITLE',
-                    apiUrl: 'http://localhost:1337/api/reports/items/last-week',
-                    lastApiData: {},
-                    isLoading: false 
-                }, 
-            }, */
             graphs: {
+                // These objects have to match the 'view' v-model options (from dropdown)
+                // Note: chartId value doesn't matter at all but has to be unique
                 personal: {
                     evolutionRegistration: { 
                         dropdown: 1,
                         chartId: 'data_1_chart',
+                        chartTitle: 'Registration Evolution per month',
+                        chartType: 'line',
+                        apiUrl: 'http://localhost:1337/api/reports/items/last-month',
+                        lastApiData: {},
+                        isLoading: false 
+                    },
+                    archiveGrowth: {
+                        dropdown: 1,
+                        chartId: 'data_2_chart',
+                        chartTitle: 'Archive Growth last week',
+                        chartType: 'line',
+                        apiUrl: 'http://localhost:1337/api/reports/items/last-week',
+                        lastApiData: {},
+                        isLoading: false 
+                    }
+                },
+                viaa: {
+                    evolutionRegistration: {
+                        dropdown: 1,
+                        chartId: 'data_1_chart',
                         chartTitle: 'TEST TITLE',
+                        chartType: 'bar',
                         apiUrl: 'http://localhost:1337/api/reports/items/last-month',
                         lastApiData: {},
                         isLoading: false 
@@ -42,6 +46,7 @@
                         dropdown: 1,
                         chartId: 'data_2_chart',
                         chartTitle: 'TDATA 2 TEST TITLE',
+                        chartType: 'line',
                         apiUrl: 'http://localhost:1337/api/reports/items/last-week',
                         lastApiData: {},
                         isLoading: false 
@@ -60,7 +65,18 @@
                 refresh(this.view, this);
                 return (this.view == 'personal')?'Mijn dashboard':'VIAA algemeen';
             },
+
         },
+        methods: {
+            refreshGraph: function(graph, e) {
+                // Destroy chart
+                for(var i = 0; i < charts.length; i++) {
+                    if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
+                }
+                graph.isLoading = true;         // Our lovely loading circle
+                drawChartFromApi(graph, this);
+            }
+        }
     });  
 
 
@@ -71,7 +87,7 @@
             else {  
                 item.isLoading = false;
                 var parsedResult = parseApiResults(result.data);
-                drawChart(item.chartId, parsedResult, item.chartTitle, 'line');
+                drawChart(item.chartId, parsedResult, item.chartTitle, item.chartType);
             }
         }));
     }
