@@ -39,7 +39,7 @@ module.exports = function (app, config, passport) {
   app.get('/Metadata',
     function (req, res) {
       res.type('application/xml');
-      res.status(200).send(samlStrategy.generateServiceProviderMetadata(fs.readFileSync(config.path('cert/cert.pem'), 'utf8')));
+      res.status(200).send(samlStrategy.generateServiceProviderMetadata(fs.readFileSync(config.paths.server('cert/cert.pem'), 'utf8')));
     }
   );
 };
