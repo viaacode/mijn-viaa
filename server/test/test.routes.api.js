@@ -74,4 +74,69 @@ describe('authentication', function () {
       .expect('Location', '/login')
       .end(done);
   });
+
+  it('js files should not redirect redirect when not logged in', function (done) {
+    supertest(app)
+      .get('/pages/js/app.js')
+      .expect(200)
+      .end(done);
+  });
+});
+
+describe('services available', function () {
+  var app;
+  var config;
+
+  beforeEach(function () {
+    config = configEnvironments('dev_auth');
+    app = appConfig(config, null);
+  });
+
+  it('should return be config.fakeServicesAvailable when not logged in', function (done) {
+    config.fakeServicesAvailable = {};
+
+    var expected = 'function isServiceAvailable(serviceName){return ' +
+      '{}' +
+      '[serviceName];}';
+
+    supertest(app)
+      .get('/pages/js/service-available.js')
+      .expect(200)
+      .expect(expected)
+      .end(done);
+  });
+
+  it('should return req.user.apps when not logged in', function (done) {
+    var inputServices = ['mediahaven (mam)', 'amsweb', 'FTP'];
+    var expected = 'function isServiceAvailable(serviceName){return ' +
+      '{"MAM":1,"AMS":1,"FTP":1}' +
+      '[serviceName];}';
+
+    var getAvailableServices;
+    var app = {
+      get: function (url, f) {
+        getAvailableServices = f;
+      }
+    };
+
+    require('../routes/service-available')(app, config);
+
+    var req = {
+      user: {
+        apps: inputServices
+      }
+    };
+
+    var res = {
+      send: function (text) {
+        if (expected != text) {
+          return done('not equal - received: ' + text + ' but expected: ' + expected);
+        }
+        done();
+      }
+    };
+
+    getAvailableServices(req, res, function () {
+    });
+  });
 });

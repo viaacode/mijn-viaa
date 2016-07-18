@@ -29,10 +29,6 @@ function ajaxcall(url, done) {
     return r; // Return it so we can cancel it * . *
 }
 
-// Make API call to check if the user that is logged in has access to this service
-function isAvailable() {
-    return (2 == 2);
-}
 
 // Overview of hard coded data about services - all references point to these objects
 // Unique identifier is the 'service' key
@@ -46,7 +42,7 @@ function getServicesList() {
             link_service:"ftp://ftp.viaa.be/",
             img:"assets/ftp.svg",
             alt:"FTP icon",
-            available: isAvailable(),
+            available: isServiceAvailable("FTP"),
             
         },
         {
@@ -57,7 +53,7 @@ function getServicesList() {
             link_service:"http://registratie.viaa.be",
             img:"assets/ams.svg",
             img_alt:"AMS icon",
-            available:false,
+            available: isServiceAvailable("AMS"),
         },
         {
             service:"MAM",
@@ -67,7 +63,7 @@ function getServicesList() {
             link_service:"https://archief.viaa.be/",
             img:"assets/mam.svg",
             alt:"MAM icon",
-            available: true,
+            available: isServiceAvailable("MAM"),
         },
         {
             service:"DBS",
@@ -77,7 +73,7 @@ function getServicesList() {
             link_service:"https://oauth.viaa.be/user/login.jsp",
             img:"assets/avo.svg",
             alt:"DBS icon",
-            available:true,
+            available: isServiceAvailable("DBS"),
         }
     ];
 }

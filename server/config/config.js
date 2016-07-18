@@ -20,6 +20,12 @@ function pathFromApp (p) {
 
 function base () {
   return {
+    servicesMap: {
+      'mediahaven (mam)': 'MAM',
+      'amsweb': 'AMS',
+      'FTP': 'FTP',
+      'DBS': 'DBS'
+    },
     muleEndpoint: 'http://do-qas-esb-01.do.viaa.be:10005/',
     app: {
       name: 'mijn.VIAA',
@@ -36,6 +42,7 @@ function base () {
 
 function dev () {
   return {
+    fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
     apiDelay: {
       min: 0,
       max: 1
