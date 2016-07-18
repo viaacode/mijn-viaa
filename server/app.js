@@ -47,6 +47,7 @@ module.exports = function (config, request) {
   app.use('/', apiRouter);
 
   /* Routes for front-end */
+  require('./routes/service-available')(app, config);
   // temporary quick-fix, need to use a public folder in the future
   app.use('/pages', express.static(config.paths.app()));
 
