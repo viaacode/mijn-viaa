@@ -1,6 +1,7 @@
 var express = require('express');
 var supertest = require('supertest');
 
+var configEnvironments = require('../config/config');
 var apiRoutes = require('../routes/api');
 
 var FAKE_REQUEST = {
@@ -49,20 +50,10 @@ describe('routs/api', function () {
 });
 
 describe('authentication', function () {
-  var authMiddleware = require('../config/authentication-middleware');
-  var authenticationRoutes = require('../routes/authentication');
-  var configEnvironments = require('../config/config');
-  var passport = require('passport');
-
-  function fail () {
-    throw new Error('Fail');
-  }
-
   var app;
-  var config;
+  var config = configEnvironments('dev_auth');
 
   beforeEach(function () {
-    config = configEnvironments('dev_auth');
     app = require('../app')(config);
   });
 
