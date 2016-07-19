@@ -14,7 +14,7 @@ module.exports = function (config, request) {
   var app = express();
 
   app.set('port', config.app.port);
-  // app.set('views', __dirname + '/app/views');
+  app.set('views', config.paths.app('views'));
   app.set('view engine', 'ejs');
   app.use(allowCors);
   app.use(morgan('dev'));
@@ -49,6 +49,7 @@ module.exports = function (config, request) {
   /* Routes for front-end */
   require('./routes/service-available')(app, config);
   // temporary quick-fix, need to use a public folder in the future
+  require('./routes/front-end')(app, config);
   app.use('/pages', express.static(config.paths.app()));
 
   /* Error handling */
