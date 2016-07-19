@@ -1,4 +1,5 @@
 var supertest = require('supertest');
+var expect = require('chai').expect;
 
 var configEnvironments = require('../config/config');
 var appConfig = require('../app');
@@ -168,7 +169,11 @@ describe('DUMMY request', function () {
       .get('/api/reports/items/last-month')
       .expect(200)
       .expect('Content-Type', /json/)
-      .expect({})
+      .expect(function (res) {
+        expect(res.body).to.have.property('y').to.equal('items');
+        expect(res.body).to.have.property('reportType').to.equal('last-month');
+        expect(res.body).to.have.property('data').to.be.an('array');
+      })
       .end(done);
   });
 });

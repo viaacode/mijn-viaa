@@ -61,34 +61,48 @@ function request (url, callback) {
   var response = {statusCode: 200};
   var error = null;
 
-  var reportsOptions = {
-    y: '',
-    reportType: '',
-    begin: '',
-    end: '',
-    gran: ''
-  };
-
-  var parts = url.split('/');
+  var parts = url.split('?')[0].split('/');
 
   var i;
   if ((i = parts.indexOf('stats')) >= 0) {
-    return statsJson;
-    return callback(error, response, data);
+    data = statsJson;
   } else if ((i = parts.indexOf('reports')) >= 0) {
-    console.log(parts[i]);
-    console.log(parts[i + 1]);
-    console.log(parts[i + 2]);
 
-    reportsOptions.y = parts[i + 1];
-    reportsOptions.reportType = parts[i + 2];
+    var options = {
+      y: parts[i + 1],
+      reportType: parts[i + 2],
+      begin: moment(new Date()),
+      end: '',
+      gran: ''
+    };
 
-    data = generateReports(reportsOptions);
+    switch (options.reportType) {
+      case 'last-week':
+        options.gran = 'day';
+        options.begin = options.begin.startOf(options.gran).subtract(1, 'week');
+        break;
+
+      case 'last-month':
+        options.gran = 'day';
+        options.begin = options.begin.startOf(options.gran).subtract(1, 'month');
+        break;
+
+      case 'last-year':
+        options.gran = 'month';
+        options.begin = options.begin.startOf(options.gran).subtract(1, 'year');
+        break;
+    }
+
+    options.begin = options.begin.format(DATE_FORMAT);
+
+    options.data = generateReports(options);
+    data = options;
   } else if ((i = parts.indexOf('services')) >= 0) {
-    console.log(parts[i]);
-    console.log(parts[i + 1]);
+    var serviceName = parts[i + 1];
+    console.log('services+0' + parts[i]);
+    console.log('services+1' + serviceName);
 
-    data = JSON.parse(servicesJson)[parts[i + 1]];
+    data = JSON.parse(servicesJson)[serviceName];
   }
 
   return callback(error, response, data);
