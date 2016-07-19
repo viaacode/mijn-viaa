@@ -29,7 +29,7 @@
         </div>
     </div>
 
-        <!-- Loader gif -->
+    <!-- Loader gif -->
     <div class="col col-12 loader-airbox" v-if="!dataStats && errormessages.length==0">
         <div class="loader">
             <span class="icon-spin3 animate-spin"></span>       
@@ -92,10 +92,44 @@
             <div class="loader">
                 <span class="icon-spin3 animate-spin"></span>
             </div>
-        </div>        
-        <div class="col col-12 mb7" >
-            <a href="#" @click.prevent="loadGraphCumulative(graph)" v-bind:class="{ 'active': graph.activeView == 'cumulative' }">Cumulatief</a> - 
-            <a href="#" @click.prevent="loadGraphEffective(graph)" v-bind:class="{ 'active': graph.activeView == 'effective' }">Effectief</a>
+        </div>     
+
+        {{ graph.isLoading  }}
+        <div v-show="!graph.isLoading">
+ 
+            <div class="graphbuttons-period-container col col-12 sm-col-6">
+                <a class="graphbuttons-period-btn" 
+                   @click.prevent="refreshGraph(graph, 0)" href="#">
+                    Laatste Dag
+                </a>
+                <a class="graphbuttons-period-btn" 
+                   @click.prevent="refreshGraph(graph, 1)" href="#">
+                    Laatste Week
+                </a>
+                <a class="graphbuttons-period-btn" 
+                   @click.prevent="refreshGraph(graph, 2)" href="#">
+                    Laatste Maand
+                </a>
+                <a class="graphbuttons-period-btn" 
+                   @click.prevent="refreshGraph(graph, 3)" href="#">
+                    Laatste Jaar
+                </a>
+            </div>
+
+            <div class="graphbuttons-data-container col col-12 sm-col-6 col-right">
+                <a class="graphbuttons-data-btn right" href="#" 
+                @click.prevent="loadGraphCumulative(graph)" 
+                v-bind:class="{ 'active': graph.activeView == 'cumulative' }">
+                    Cumulatief
+                </a>
+                <a class="graphbuttons-data-btn right" href="#" 
+                @click.prevent="loadGraphEffective(graph)" 
+                v-bind:class="{ 'active': graph.activeView == 'effective' }">
+                    Effectief
+                </a>
+            </div>
+          
+            <!--
             <form>
                 <select @change="refreshGraph(graph, $event.target.value)" v-show="!graph.isLoading">
                     <option value="0" selected>1 Dag</option>
@@ -103,8 +137,13 @@
                     <option value="2">1 Maand</option>
                     <option value="3">1 Jaar</option>
                 </select>
-            </form>
-            <canvas :id="graph.chartId"></canvas>
+             </form>
+             -->
+        
         </div>
-    </div>
+        
+        <canvas :id="graph.chartId"></canvas>
+        
+
+    </div><!-- End of Graphs -->
 </div>
