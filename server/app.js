@@ -38,7 +38,6 @@ module.exports = function (config, request) {
     console.log('Authentication is ON');
     require('./routes/authentication')(app, config, passport);
     apiRouter.use('/api', authMiddleware.errorCode);
-    app.use('/pages/*.html', authMiddleware.redirect);
   }
 
   if (config.apiDelay) {
@@ -50,8 +49,11 @@ module.exports = function (config, request) {
 
   /* Routes for front-end */
   require('./routes/service-available')(app, config);
-  // temporary quick-fix, need to use a public folder in the future
-  require('./routes/front-end')(app, config);
+  if (config.passport) {
+    require('./routes/front-end')(app, config, authMiddleware.redirect);
+  } else {
+    require('./routes/front-end')(app, config, authMiddleware.ignore);
+  }
   app.use('/public', express.static(config.paths.app('public')));
 
   /* Error handling */

@@ -22,7 +22,7 @@ function createPage (view, title, scripts) {
   }
 }
 
-module.exports = function (app) {
+module.exports = function (app, config, middleware) {
 
   var dashboard = createPage('dashboard', 'Reports - Mijn VIAA', [
     'public/js/vue.js',
@@ -50,8 +50,8 @@ module.exports = function (app) {
   ]);
 
 
-  app.get('/', dashboard);
-  app.get('/dashboard', dashboard);
-  app.get('/services', services);
-  app.get('/detail', detail);
+  app.get('/', middleware, dashboard);
+  app.get('/dashboard', middleware, dashboard);
+  app.get('/services', middleware, services);
+  app.get('/detail', middleware, detail);
 };
