@@ -38,12 +38,14 @@ module.exports = function (app) {
     'public/js/vue.js',
     'public/js/service-available.js',
     'public/js/app.js',
+    'public/js/services-config.js',
     'public/js/services-overview.js'
   ]);
   var detail = createPage('detail', 'Mijn VIAA', [
     'public/js/vue.js',
     'public/js/service-available.js',
     'public/js/app.js',
+    'public/js/services-config.js',
     'public/js/services-detail.js'
   ]);
 
