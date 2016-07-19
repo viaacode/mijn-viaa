@@ -85,42 +85,41 @@
     </div>    
 
     <!-- Graphs  -->  
-    <div class="col col-12 mb4" v-for="graph in graphs.personal"> 
-        <!-- Loader gif -->
-        <div class="col col-12 loader-airbox"
-                v-if="graph.isLoading && errormessages.length==0">
-            <div class="loader">
-                <span class="icon-spin3 animate-spin"></span>
+    <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs.personal"> 
+        <div class="col col-12">
+            <div class="col col-12">
+                <h3 class="graphtitle">{{ graph.chartTitle }}</h3>
             </div>
-        </div>     
-
-        <div v-show="!graph.isLoading">
-            <div class="graphbuttons-period-container col col-12 sm-col-6">
-                <a class="graphbuttons-period-btn" 
-                   @click.prevent="refreshGraph(graph, 0)" href="#">
+            <div class="graphs-btns-container col col-8">
+                <a href="#" 
+                   @click.prevent="refreshGraph(graph, 0)"
+                   v-bind:class="{ 'active': graph.chartFormat == 0 } " >
                     Laatste Dag
                 </a>
-                <a class="graphbuttons-period-btn" 
-                   @click.prevent="refreshGraph(graph, 1)" href="#">
+                <a href="#" 
+                   @click.prevent="refreshGraph(graph, 1)"
+                   v-bind:class="{ 'active': graph.chartFormat == 1 } " >
                     Laatste Week
                 </a>
-                <a class="graphbuttons-period-btn" 
-                   @click.prevent="refreshGraph(graph, 2)" href="#">
+                <a href="#" 
+                   @click.prevent="refreshGraph(graph, 2)"
+                   v-bind:class="{ 'active': graph.chartFormat == 2 } " >
                     Laatste Maand
                 </a>
-                <a class="graphbuttons-period-btn" 
-                   @click.prevent="refreshGraph(graph, 3)" href="#">
+                <a href="#" 
+                   @click.prevent="refreshGraph(graph, 3)"
+                   v-bind:class="{ 'active': graph.chartFormat == 3 } " >
                     Laatste Jaar
                 </a>
             </div>
 
-            <div class="graphbuttons-data-container col col-12 sm-col-6 col-right">
-                <a class="graphbuttons-data-btn right" href="#" 
+            <div class="graphs-databtns-container col col-4">
+                <a href="#" 
                 @click.prevent="loadGraphCumulative(graph)" 
                 v-bind:class="{ 'active': graph.activeView == 'cumulative' }">
                     Cumulatief
                 </a>
-                <a class="graphbuttons-data-btn right" href="#" 
+                <a href="#" 
                 @click.prevent="loadGraphEffective(graph)" 
                 v-bind:class="{ 'active': graph.activeView == 'effective' }">
                     Effectief
@@ -128,8 +127,15 @@
             </div>
         </div>
         
-        <canvas :id="graph.chartId"></canvas>
-        
+        <!-- Loader gif -->
+        <div class="col col-12 loader-airbox" 
+             v-if="graph.isLoading && errormessages.length==0">
+            <div class="loader">
+                <span class="icon-spin3 animate-spin"></span>
+            </div>
+        </div>   
+
+        <canvas :id="graph.chartId" class="mb2"></canvas>   <!-- Do not put this in a v-show or v-if div/container! Thank me for your saved tears later -->
 
     </div><!-- End of Graphs -->
 </div>

@@ -5,8 +5,6 @@
 }
 
 .loader-airbox {
-    height:12rem;
-    padding:6rem;
     width: 100%;
 }
 
@@ -117,3 +115,46 @@
     float: none;
 }
 
+/* Graph buttons styles */
+.graphcontainer {
+    border:1px solid $grey-light;
+    padding:1rem;
+}
+
+.graphtitle {
+    font-size:2rem;
+    font-weight:600;
+    margin:1rem 0 2rem;
+}
+
+.graphs-btns-container, .graphs-databtns-container {
+    height:5rem;
+    line-height:3rem;
+}
+
+.graphs-btns-container a, .graphs-databtns-container a {
+    display:inline-block;
+    padding:0 1rem;
+    border-radius: 4px;
+    margin-right:0.5rem;
+    transition: 0.4s ease-in-out;
+}
+
+
+.graphs-btns-container a { 
+    float:left;
+}
+
+.graphs-databtns-container a {
+    float:right;
+}
+
+.graphs-btns-container a:hover, .graphs-databtns-container a:hover,
+.graphs-btns-container a.active, .graphs-databtns-container a.active {
+    background-color:$orange;
+    color:$almostwhite;
+}
+
+
+
+/* End of graph button styles */
