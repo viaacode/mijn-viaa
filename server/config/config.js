@@ -24,6 +24,7 @@ function base () {
   return {
     endpoints: {
       stats: 'http://labs.viaa.be/api/v1/archived',
+      muletest: muleEndpoint + 'api/stats/global',
       reports: {
         items: {
           "last-day": muleEndpoint + 'reports/items/last-day',
@@ -66,6 +67,7 @@ function base () {
 
 function dev () {
   return {
+    dummyRequest: true,
     fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
     apiDelay: {
       min: 0,

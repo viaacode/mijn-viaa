@@ -4,6 +4,7 @@ var moment = require("moment");
 
 var DATE_FORMAT = 'YYYY-MM-DD HH:mm:';
 
+var statsJson = fs.readFileSync(path.join(__dirname + '/stats.json'));
 var servicesJson = fs.readFileSync(path.join(__dirname + '/services.json'));
 var reportsJson = fs.readFileSync(path.join(__dirname + '/reports.json'));
 
@@ -56,6 +57,10 @@ function getRandomFunction (options) {
  * @param callback function (error, response, body)
  */
 function request (url, callback) {
+  var data = '{}';
+  var response = {statusCode: 200};
+  var error = null;
+
   var reportsOptions = {
     y: '',
     reportType: '',
@@ -64,16 +69,29 @@ function request (url, callback) {
     gran: ''
   };
 
-  switch (url) {
-    default:
-      reportsOptions.y = 'items';
-      reportsOptions.reportType = 'last-month';
-      var data = generateReports(reportsOptions);
-      data = {};
-      var response = {statusCode: 200};
-      var error = null;
-      return callback(error, response, data);
+  var parts = url.split('/');
+
+  var i;
+  if ((i = parts.indexOf('stats')) >= 0) {
+    return statsJson;
+    return callback(error, response, data);
+  } else if ((i = parts.indexOf('reports')) >= 0) {
+    console.log(parts[i]);
+    console.log(parts[i + 1]);
+    console.log(parts[i + 2]);
+
+    reportsOptions.y = parts[i + 1];
+    reportsOptions.reportType = parts[i + 2];
+
+    data = generateReports(reportsOptions);
+  } else if ((i = parts.indexOf('services')) >= 0) {
+    console.log(parts[i]);
+    console.log(parts[i + 1]);
+
+    data = JSON.parse(servicesJson)[parts[i + 1]];
   }
+
+  return callback(error, response, data);
 }
 
 var DUMMY = {

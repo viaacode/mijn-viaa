@@ -84,7 +84,7 @@ module.exports = function (router, config, request) {
 
   //region mule test
   function muletest (req, res, next) {
-    var url = config.muleEndpoint + 'api/stats/global';
+    var url = config.endpoints.muletest;
     forwardRequestCall(url, res, next);
   }
 
