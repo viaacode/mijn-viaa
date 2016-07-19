@@ -36,7 +36,7 @@ describe('routes/api', function () {
       .end(done);
   });
 
-  it('/stats should format requested data', function (done) {
+  it('/stats should pass json from request without changing it', function (done) {
     var input = {foo: "bar"};
     var expected = '{"foo":"bar"}';
     var request = FAKE_REQUEST.success(input);
@@ -49,7 +49,7 @@ describe('routes/api', function () {
       .expect(200, expected, done);
   });
 
-  it('/reports/items/last-month should format requested data', function (done) {
+  it('/reports/items/last-month should pass json from request without changing it', function (done) {
     var input = {foo: "bar"};
     var expected = '{"foo":"bar"}';
     var request = FAKE_REQUEST.success(input);
