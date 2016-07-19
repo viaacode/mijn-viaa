@@ -44,8 +44,8 @@ function showElement(elementID, final_h, interval){
      }
 
      if (curr_h > final_h) {
-         var dist = Math.ceil((curr_h - final_h) / 10);
-         curr_h = curr_h - dist;
+         var dist2 = Math.ceil((curr_h - final_h) / 10);
+         curr_h = curr_h - dist2;
      }
 
      el.style.height = curr_h + "px";

@@ -7,18 +7,20 @@ var grunt = require("grunt");
        src: [
          'scss/styles.scss',
        ],
-       dest: 'dist/styles.css',
+       dest: 'public/css/styles.css',
      }
   },
   copy: {
     main: {
       files: [
-        // includes files within path
         {expand: false, src: ['node_modules/basscss/css/basscss.css'], dest: 'scss/_basscss.scss', filter: 'isFile'},
-        //{expand: true, cwd:'node_modules/font-awesome/fonts', src: '**/*', dest: 'fonts/'},
-        {expand: false, src: ['node_modules/vue/dist/vue.js'], dest: 'dist/vue.js', filter: 'isFile'},
-        {expand: false, src: ['node_modules/chart.js/dist/Chart.js'], dest: 'dist/chart.js', filter: 'isFile'},
-        {expand: false, src: ['node_modules/chart.js/node_modules/moment/min/moment.min.js'], dest: 'dist/moment.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/vue/dist/vue.js'], dest: 'public/js/vue.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/chart.js/dist/Chart.js'], dest: 'public/js/chart.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/chart.js/node_modules/moment/min/moment.min.js'], dest: 'public/js/moment.js', filter: 'isFile'},
+
+        {expand: true, cwd:'js', src: '**/*', dest: 'public/js'},
+        {expand: true, cwd:'assets', src: '**/*', dest: 'public/assets'},
+        {expand: true, cwd:'fonts', src: '**/*', dest: 'public/fonts'},
       ],
     },
   },  
@@ -49,6 +51,6 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-copy');
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-concat');
-grunt.registerTask('default',['copy', 'sass', 'jshint', 'concat', 'sass']);
+grunt.registerTask('default',['copy', 'sass', 'jshint']);
 
 

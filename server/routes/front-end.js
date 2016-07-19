@@ -25,25 +25,26 @@ function createPage (view, title, scripts) {
 module.exports = function (app) {
 
   var dashboard = createPage('dashboard', 'Reports - Mijn VIAA', [
-    'dist/vue.js',
-    'dist/moment.js',
-    'dist/chart.js',
-    'js/service-available.js',
-    'js/app.js',
-    'js/dashboard.js',
-    'js/selectbox.js'
+    'public/js/vue.js',
+    'public/js/moment.js',
+    'public/js/chart.js',
+    'public/js/service-available.js',
+    'public/js/app.js',
+    'public/js/dashboard-config.js',
+    'public/js/dashboard.js',
+    'public/js/dashboard-selectbox.js'
   ]);
   var services = createPage('services', 'Diensten - Mijn VIAA', [
-    'dist/vue.js',
-    'js/service-available.js',
-    'js/app.js',
-    'js/services-overview.js'
+    'public/js/vue.js',
+    'public/js/service-available.js',
+    'public/js/app.js',
+    'public/js/services-overview.js'
   ]);
   var detail = createPage('detail', 'Mijn VIAA', [
-    'dist/vue.js',
-    'js/service-available.js',
-    'js/app.js',
-    'js/services-detail.js'
+    'public/js/vue.js',
+    'public/js/service-available.js',
+    'public/js/app.js',
+    'public/js/services-detail.js'
   ]);
 
 

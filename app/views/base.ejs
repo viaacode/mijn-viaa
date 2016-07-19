@@ -7,7 +7,7 @@
   <meta name="description" content=""> <!-- site description goes here -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="dist/styles.css">
+  <link rel="stylesheet" href="/public/css/styles.css">
 </head>
 <body>
 <!--[if lt IE 8]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
@@ -20,7 +20,7 @@
 
 <!-- script tags -->
 <% body.scripts.forEach(function (script) { %>
-<script src="<%- script %>"></script>
+<script src="/<%- script %>"></script>
 <% }); %>
 
 </body>

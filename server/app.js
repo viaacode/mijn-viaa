@@ -50,7 +50,7 @@ module.exports = function (config, request) {
   require('./routes/service-available')(app, config);
   // temporary quick-fix, need to use a public folder in the future
   require('./routes/front-end')(app, config);
-  app.use('/pages', express.static(config.paths.app()));
+  app.use('/public', express.static(config.paths.app('public')));
 
   /* Error handling */
   app.use(function (err, req, res, next) {
