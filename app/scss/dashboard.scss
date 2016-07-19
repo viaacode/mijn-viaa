@@ -59,24 +59,51 @@
     }
 }
 
-.selectbox{
-    border: 1px solid #ccc;
-    width: 120px;
-    border-radius: 5rem;
+.menu {
+    border: 1px solid #fff;
+    width: 15rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
     overflow: hidden;
     background-color: #fff;
-    background: #fff url("../assets/arrowdown.gif") no-repeat 90% 50%;
-    select{
-        padding: 5px 8px;
-        width: 100%;
-        border: none;
-        box-shadow: none;
-        background: transparent;
-        background-image: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-    }
+   
+}
+.menu li {
+    padding: 5px 8px;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.menu li a {
+    color: $grey-dark; 
 }
 
+.dropdown a{
+    display: block;
+    width: 12rem;
+    background: #fff url("../assets/arrowdown.gif") no-repeat 100% 50%;
+}
+.dropdown-menu {
+    position: absolute;
+    position: absolute;
+    background-color: #fff;
+    width: 15rem;
+    margin-left: -9px;
+    border-bottom: 1px solid #fff;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    
+}
 
+.dropdown-menu a{
+    background: none;
+}
+.dropdown-menu li {
+    float: none;
+    padding-top: 2rem;
+}
 
