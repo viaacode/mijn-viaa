@@ -101,7 +101,7 @@
                 drawChartFromApi(graph, graph.apiUrls[apiUrlId], this);  // Draw new chart
 
             },
-            loadGraphCumulatively: function(graph) {
+            loadGraphCumulative: function(graph) {
                  // Destroy chart
                 for(var i = 0; i < charts.length; i++) {
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
@@ -117,10 +117,10 @@
 
                 drawChart(graph.chartId, parsedResults, graph.chartTitle + ' - Cumulatief', graph.chartType);
             },
-            loadGraphEffectively: function(graph) {
+            loadGraphEffective: function(graph) {
 
-                var parsedResult = parseApiResults(graph.data.data, graph.format);
-                drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartFormat);
+                var parsedResult = parseApiResults(graph.data.data, graph.chartFormat);
+                drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType);
                 graph.activeView = 'effective';
             }
         }
