@@ -28,15 +28,15 @@ function base () {
       reports: {
         items: {
           "last-day": muleEndpoint + 'reports/items/last-day',
-          "last-week": muleEndpoint + 'stats/items/last-week',
-          "last-month": muleEndpoint + 'stats/items/last-month',
-          "last-year": muleEndpoint + 'stats/items/last-year',
+          "last-week": muleEndpoint + 'reports/items/last-week',
+          "last-month": muleEndpoint + 'reports/items/last-month',
+          "last-year": muleEndpoint + 'reports/items/last-year',
         },
         terrabytes: {
           "last-day": muleEndpoint + 'reports/terrabytes/last-day',
-          "last-week": muleEndpoint + 'stats/terrabytes/last-week',
-          "last-month": muleEndpoint + 'stats/terrabytes/last-month',
-          "last-year": muleEndpoint + 'stats/terrabytes/last-year',
+          "last-week": muleEndpoint + 'reports/terrabytes/last-week',
+          "last-month": muleEndpoint + 'reports/terrabytes/last-month',
+          "last-year": muleEndpoint + 'reports/terrabytes/last-year',
         }
       }
     },
