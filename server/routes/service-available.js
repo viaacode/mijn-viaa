@@ -1,7 +1,7 @@
 var _ = require('underscore');
 
 module.exports = function (app, config) {
-  app.get('/pages/js/service-available.js', getAvailableServices);
+  app.get('/public/js/service-available.js', getAvailableServices);
 
   function getAvailableServices (req, res, next) {
     var services;
