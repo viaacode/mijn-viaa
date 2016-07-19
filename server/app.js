@@ -20,6 +20,7 @@ module.exports = function (config, request) {
   app.use(morgan('dev'));
   app.use(cookieParser());
   app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: false}));
   app.use(session({
     resave: true,
     saveUninitialized: true,
@@ -34,6 +35,7 @@ module.exports = function (config, request) {
   /* Routes for API */
   var apiRouter = express.Router();
   if (config.passport) {
+    console.log('Authentication is ON');
     require('./routes/authentication')(app, config, passport);
     apiRouter.use('/api', authMiddleware.errorCode);
     app.use('/pages/*.html', authMiddleware.redirect);

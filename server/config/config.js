@@ -72,7 +72,7 @@ function authentication () {
         callbackUrl: process.env.SAML_PATH || 'mijn-qas.viaa.be/login/callback',
 
         // URL that goes from the Service Provider -> Identity Provider
-        entryPoint: process.env.SAML_ENTRY_POINT || 'https://idp-qas.viaa.be/module.php/core/authenticate.php?as=viaa-ldap',
+        entryPoint: process.env.SAML_ENTRY_POINT || 'https://idp-qas.viaa.be/saml2/idp/SSOService.php',
 
         // Usually specified as `/shibboleth` from site root
         issuer: process.env.ISSUER || 'passport-saml',
@@ -80,10 +80,10 @@ function authentication () {
         identifierFormat: null,
 
         // Service Provider private key
-        decryptionPvk: fs.readFileSync(pathFromServer('/cert/key.pem'), 'utf8'),
+        // decryptionPvk: fs.readFileSync(pathFromServer('/cert/key.pem'), 'utf8'),
 
         // Service Provider Certificate
-        privateCert: fs.readFileSync(pathFromServer('/cert/key.pem'), 'utf8'),
+        // privateCert: fs.readFileSync(pathFromServer('/cert/cert.pem'), 'utf8'),
 
         // Identity Provider's public key
         cert: process.env.SAML_CERT || fs.readFileSync(pathFromServer('/cert/idp_cert.pem'), 'utf8'),
