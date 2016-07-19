@@ -114,9 +114,10 @@
                     <a href="#" @click.prevent="loadGraphEffectively(graph)" v-bind:class="{ 'active': graph.activeView == 'effective' }">Effectief</a>
                     <form>
                         <select @change="refreshGraph(graph, $event.target.value)" v-show="!graph.isLoading">
-                            <option value="0" selected>24h</option>
-                            <option value="1">2 weken</option>
-                            <option value="2">2 maanden</option>
+                            <option value="0" selected>1 Dag</option>
+                            <option value="1">1 Week</option>
+                            <option value="2">1 Maand</option>
+                            <option value="3">1 Jaar</option>
                         </select>
                     </form>
                     <canvas :id="graph.chartId"></canvas>

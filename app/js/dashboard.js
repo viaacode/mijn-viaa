@@ -17,6 +17,7 @@
                         chartId: 'data_1_chart',
                         chartTitle: 'Evolutie Registratie',
                         chartType: 'line',
+                        chartFormat: 0,
                         apiUrls: [
                             'http://localhost:1337/api/reports/items/last-week',
                             'http://localhost:1337/api/reports/items/last-month',
@@ -31,6 +32,7 @@
                         chartId: 'data_2_chart',
                         chartTitle: 'Aangroei Archief',
                         chartType: 'line',
+                        chartFormat: 0,
                         apiUrls: [
                             'http://localhost:1337/api/reports/items/last-week',
                             'http://localhost:1337/api/reports/items/last-month',
@@ -47,6 +49,7 @@
                         chartId: 'data_1_chart',
                         chartTitle: 'TEST TITLE',
                         chartType: 'bar',
+                        chartFormat: 0,
                         apiUrls: [
                             'http://localhost:1337/api/reports/items/last-week',
                             'http://localhost:1337/api/reports/items/last-month',
@@ -61,6 +64,7 @@
                         chartId: 'data_2_chart',
                         chartTitle: 'TDATA 2 TEST TITLE',
                         chartType: 'line',
+                        chartFormat: 0,
                         apiUrls: [
                             'http://localhost:1337/api/reports/items/last-week',
                             'http://localhost:1337/api/reports/items/last-month',
@@ -93,7 +97,7 @@
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
                 }          
                 graph.isLoading = true;         // Our lovely loading circle
-                graph.lastApiUrl = apiUrlId;
+                graph.chartFormat = apiUrlId;
                 drawChartFromApi(graph, graph.apiUrls[apiUrlId], this);  // Draw new chart
 
             },
@@ -103,7 +107,7 @@
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
                 }  
  
-                var parsedResults = parseApiResults(graph.data.data);
+                var parsedResults = parseApiResults(graph.data.data, graph.chartFormat);
                 var cumulData = parsedResults.y;    // Get all values
                 graph.activeView = 'cumulative';
 
@@ -115,10 +119,9 @@
             },
             loadGraphEffectively: function(graph) {
 
-                var parsedResult = parseApiResults(graph.data.data);
-                drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType);
+                var parsedResult = parseApiResults(graph.data.data, graph.format);
+                drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartFormat);
                 graph.activeView = 'effective';
-                //this.refreshGraph(graph, graph.lastApiUrl);
             }
         }
     });  
@@ -131,7 +134,7 @@
             else {  
                 graph.isLoading = false;
                 graph.data = result;
-                var parsedResult = parseApiResults(result.data);
+                var parsedResult = parseApiResults(result.data, graph.chartFormat);
                 drawChart(graph.chartId, parsedResult, graph.chartTitle, graph.chartType);
             }
         }));
@@ -214,12 +217,20 @@
         drawChartDev(id, data.x, data.y, title, type);
     }
 
-    // Parse time/data results from API dataset
-    function parseApiResults(data){
+    // Parse time/data results from API dataset, int formatType decides the label format 
+    function parseApiResults(data, formatType){
+        var formatString = '';
+        if(formatType == 0) formatString = 'DD/MM HH:mm';
+        else if(formatType == 1) formatString = 'DD/MM/YYYY';
+        else if(formatType == 2) formatString = 'DD/MM/YYYY';
+        else if(formatType == 3) formatString = 'DD/MM/YYYY';
+
         var parsedXes = [];
         var parsedYs = [];
         for(var i = 0; i < data.length ; i++){         
-            var x = moment.unix(data[i].timestamp).format('MM DD hh:ss');
+            var x = moment.unix(data[i].timestamp).format(formatString);
+           // var x = moment(data[i].timestamp, formatString);
+           // var x = data[i].timestamp;
             var y = data[i].value;
             parsedXes.push(x);
             parsedYs.push(y);
@@ -304,21 +315,16 @@
             options: {
                 scales: {
                     xAxes: [{
-                            type: "time",
-                            time: {
-                                format: 'MM DD',
-                                // round: 'day'
-                                tooltipFormat: 'll HH:mm'
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Date'
-                            }
+                        
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Datum'
+                        }
                         }, ],
                     yAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'value'
+                            labelString: 'Aantal'
                         }
                     }]
                 }
