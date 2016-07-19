@@ -20,11 +20,16 @@ function pathFromApp (p) {
 
 function base () {
   return {
-    servicesMap: {
-      'mediahaven (mam)': 'MAM',
-      'amsweb': 'AMS',
-      'FTP': 'FTP',
-      'DBS': 'DBS'
+    services: {
+      map: {
+        'mediahaven': 'MAM',
+        'amsweb': 'AMS',
+        'FTP': 'FTP',
+        'skryvweb': 'DBS'
+      },
+      always: {
+        'FTP': 1
+      }
     },
     muleEndpoint: 'http://do-qas-esb-01.do.viaa.be:10005/',
     app: {
