@@ -183,8 +183,11 @@ describe('DUMMY request', function () {
     supertest(app)
       .get(path)
       .expect({
-        status: "error",
-        message: "404 Not Found"
+        status: 404,
+        jsend: {
+          status: 'error',
+          message: '404 Not Found'
+        }
       })
       .expect(404)
       .end(done);

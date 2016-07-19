@@ -80,10 +80,7 @@ module.exports = function (router, config, request) {
     try {
       url = config.endpoints.reports[y][type] + '?org=' + organisation;
     } catch (e) {
-      return res.status(404).send({
-        status: 'error',
-        message: '404 Not Found'
-      });
+      return next(config.error.e404);
     }
 
     forwardRequestCall(url, res, next);
