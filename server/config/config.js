@@ -18,8 +18,27 @@ function pathFromApp (p) {
   return path.join(basedir, 'app/', p || '.');
 }
 
+var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
+
 function base () {
   return {
+    endpoints: {
+      stats: 'http://labs.viaa.be/api/v1/archived',
+      reports: {
+        items: {
+          "last-day": muleEndpoint + 'reports/items/last-day',
+          "last-week": muleEndpoint + 'stats/items/last-week',
+          "last-month": muleEndpoint + 'stats/items/last-month',
+          "last-year": muleEndpoint + 'stats/items/last-year',
+        },
+        terrabytes: {
+          "last-day": muleEndpoint + 'reports/terrabytes/last-day',
+          "last-week": muleEndpoint + 'stats/terrabytes/last-week',
+          "last-month": muleEndpoint + 'stats/terrabytes/last-month',
+          "last-year": muleEndpoint + 'stats/terrabytes/last-year',
+        }
+      }
+    },
     services: {
       map: {
         'mediahaven': 'MAM',

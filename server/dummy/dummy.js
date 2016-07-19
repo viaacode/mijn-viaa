@@ -50,9 +50,36 @@ function getRandomFunction (options) {
   }
 }
 
+/**
+ *
+ * @param url
+ * @param callback function (error, response, body)
+ */
+function request (url, callback) {
+  var reportsOptions = {
+    y: '',
+    reportType: '',
+    begin: '',
+    end: '',
+    gran: ''
+  };
+
+  switch (url) {
+    default:
+      reportsOptions.y = 'items';
+      reportsOptions.reportType = 'last-month';
+      var data = generateReports(reportsOptions);
+      data = {};
+      var response = {statusCode: 200};
+      var error = null;
+      return callback(error, response, data);
+  }
+}
+
 var DUMMY = {
   services: JSON.parse(servicesJson),
   reports: JSON.parse(reportsJson),
+  request: request,
   reportsGeneration: generateReports
 };
 
