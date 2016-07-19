@@ -94,9 +94,7 @@
             </div>
         </div>     
 
-        {{ graph.isLoading  }}
         <div v-show="!graph.isLoading">
- 
             <div class="graphbuttons-period-container col col-12 sm-col-6">
                 <a class="graphbuttons-period-btn" 
                    @click.prevent="refreshGraph(graph, 0)" href="#">
@@ -128,18 +126,6 @@
                     Effectief
                 </a>
             </div>
-          
-            <!--
-            <form>
-                <select @change="refreshGraph(graph, $event.target.value)" v-show="!graph.isLoading">
-                    <option value="0" selected>1 Dag</option>
-                    <option value="1">1 Week</option>
-                    <option value="2">1 Maand</option>
-                    <option value="3">1 Jaar</option>
-                </select>
-             </form>
-             -->
-        
         </div>
         
         <canvas :id="graph.chartId"></canvas>
