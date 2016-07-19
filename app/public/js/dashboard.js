@@ -8,74 +8,7 @@
             dataStats: '',
             errormessages: [],
             view: 'personal', // View on page load
-            graphs: {
-                // These objects have to match the 'view' v-model options (from dropdown)
-                // Note: chartId value doesn't matter at all but has to be unique
-                personal: {
-                    evolutionRegistration: { 
-                        dropdown: 1,
-                        chartId: 'data_1_chart',
-                        chartTitle: 'Evolutie Registratie',
-                        chartType: 'line',
-                        chartFormat: 0,
-                        apiUrls: [
-                            'http://localhost:1337/api/reports/items/last-week',
-                            'http://localhost:1337/api/reports/items/last-month',
-                            'http://localhost:1337/api/reports/items/last-year'
-                        ],
-                        data: {},
-                        activeView: 'effective',
-                        isLoading: false 
-                    },
-                    archiveGrowth: {
-                        dropdown: 1,
-                        chartId: 'data_2_chart',
-                        chartTitle: 'Aangroei Archief',
-                        chartType: 'line',
-                        chartFormat: 0,
-                        apiUrls: [
-                            'http://localhost:1337/api/reports/items/last-week',
-                            'http://localhost:1337/api/reports/items/last-month',
-                            'http://localhost:1337/api/reports/items/last-year'
-                        ],
-                        data: {},
-                        activeView: 'effective',
-                        isLoading: false 
-                    },
-                },
-                viaa: {
-                    evolutionRegistration: {
-                        dropdown: 1,
-                        chartId: 'data_1_chart',
-                        chartTitle: 'TEST TITLE',
-                        chartType: 'bar',
-                        chartFormat: 0,
-                        apiUrls: [
-                            'http://localhost:1337/api/reports/items/last-week',
-                            'http://localhost:1337/api/reports/items/last-month',
-                            'http://localhost:1337/api/reports/items/last-year'
-                        ],
-                        data: {},
-                        activeView: 'effective',
-                        isLoading: false 
-                    },
-                    archiveGrowth: {
-                        dropdown: 1,
-                        chartId: 'data_2_chart',
-                        chartTitle: 'TDATA 2 TEST TITLE',
-                        chartType: 'line',
-                        chartFormat: 0,
-                        apiUrls: [
-                            'http://localhost:1337/api/reports/items/last-week',
-                            'http://localhost:1337/api/reports/items/last-month',
-                            'http://localhost:1337/api/reports/items/last-year'
-                        ],
-                        data: {},
-                        activeView: 'effective',
-                        isLoading: false 
-                    }
-                }
-            }
+            graphs: getGraphsFromConfig(),
         },
         created: function() { 
             
@@ -111,8 +44,8 @@
                 var cumulData = parsedResults.y;    // Get all values
                 graph.activeView = 'cumulative';
 
-                for(var i = 1; i < cumulData.length; i++) {
-                    cumulData[i] = cumulData[i] + cumulData[i-1];
+                for(var j = 1; j < cumulData.length; j++) {
+                    cumulData[j] = cumulData[j] + cumulData[j-1];
                 }
 
                 drawChart(graph.chartId, parsedResults, graph.chartTitle + ' - Cumulatief', graph.chartType);
@@ -175,7 +108,7 @@
                         "Items": result.items,
                         "Archive Growth": result.archive_growth,
                         "Registration Growth": result.registration_growth      
-                    } 
+                    };
                     vueinstance.dataStats = result;                   
                     drawPieFromKvpObj('statsChart', userfriendlytextObj);
                 }
@@ -195,7 +128,7 @@
                 "Items": simulatedObj.items,
                 "Archive Growth": simulatedObj.archive_growth,
                 "Registration Growth": simulatedObj.registration_growth
-            }
+            };
             vueinstance.dataStats = simulatedObj;
             drawPieFromKvpObj('statsChart', userfriendlytextObj);
         }
@@ -219,12 +152,7 @@
 
     // Parse time/data results from API dataset, int formatType decides the label format 
     function parseApiResults(data, formatType){
-        var formatString = '';
-        if(formatType == 0) formatString = 'DD/MM HH:mm';
-        else if(formatType == 1) formatString = 'DD/MM/YYYY';
-        else if(formatType == 2) formatString = 'DD/MM/YYYY';
-        else if(formatType == 3) formatString = 'DD/MM/YYYY';
-
+        var formatString = getFormatString(formatType);
         var parsedXes = [];
         var parsedYs = [];
         for(var i = 0; i < data.length ; i++){         
@@ -303,10 +231,7 @@
                 datasets: [{
                     label: title,
                     data: yValues,
-                    //backgroundColor:'rgba(143,206,224, 0.2)',
                     backgroundColor:'rgba(143,206,224, 0.2)',
-                    //borderColor: 'rgba(224,57,12,1)',
-                    //borderColor: 'rgba(9,160,75, 1)',
                     borderColor: 'rgba(143,206,224, 1)',
                     borderWidth: 2,
                     pointBackgroundColor : 'rgba(143,206,224, 1)'
