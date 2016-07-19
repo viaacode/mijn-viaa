@@ -43,6 +43,10 @@ var grunt = require("grunt");
     css: {
       files: '**/*.scss',
       tasks: ['sass']
+    },
+    scripts: {
+        files: 'js/*.js',
+        tasks: ['jshint', 'copy']
     }
   }
 });

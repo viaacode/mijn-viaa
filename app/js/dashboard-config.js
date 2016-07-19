@@ -78,6 +78,5 @@ function getFormatString(formatType) {
     else if(formatType == 1) formatString = 'DD/MM/YYYY';
     else if(formatType == 2) formatString = 'DD/MM/YYYY';
     else if(formatType == 3) formatString = 'DD/MM/YYYY';
-    console.log(formatString);
     return formatString;
 }
