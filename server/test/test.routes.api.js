@@ -176,4 +176,17 @@ describe('DUMMY request', function () {
       })
       .end(done);
   });
+
+  it('should error 404 when reports unknown', function (done) {
+    var path = '/api/reports/foo/last-month';
+
+    supertest(app)
+      .get(path)
+      .expect({
+        status: "error",
+        message: "404 Not Found"
+      })
+      .expect(404)
+      .end(done);
+  });
 });

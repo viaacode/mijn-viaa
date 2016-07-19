@@ -51,6 +51,37 @@ function getRandomFunction (options) {
   }
 }
 
+// helper method
+function reportsGenerationOptions (y, type) {
+  var options = {
+    y: y,
+    reportType: type,
+    begin: moment(new Date()),
+    end: '',
+    gran: ''
+  };
+
+  switch (options.reportType) {
+    case 'last-week':
+      options.gran = 'day';
+      options.begin = options.begin.startOf(options.gran).subtract(1, 'week');
+      break;
+
+    case 'last-month':
+      options.gran = 'day';
+      options.begin = options.begin.startOf(options.gran).subtract(1, 'month');
+      break;
+
+    case 'last-year':
+      options.gran = 'month';
+      options.begin = options.begin.startOf(options.gran).subtract(1, 'year');
+      break;
+  }
+
+  options.begin = options.begin.format(DATE_FORMAT);
+  return options;
+}
+
 /**
  *
  * @param url
@@ -67,34 +98,9 @@ function request (url, callback) {
   if ((i = parts.indexOf('stats')) >= 0) {
     data = statsJson;
   } else if ((i = parts.indexOf('reports')) >= 0) {
-
-    var options = {
-      y: parts[i + 1],
-      reportType: parts[i + 2],
-      begin: moment(new Date()),
-      end: '',
-      gran: ''
-    };
-
-    switch (options.reportType) {
-      case 'last-week':
-        options.gran = 'day';
-        options.begin = options.begin.startOf(options.gran).subtract(1, 'week');
-        break;
-
-      case 'last-month':
-        options.gran = 'day';
-        options.begin = options.begin.startOf(options.gran).subtract(1, 'month');
-        break;
-
-      case 'last-year':
-        options.gran = 'month';
-        options.begin = options.begin.startOf(options.gran).subtract(1, 'year');
-        break;
-    }
-
-    options.begin = options.begin.format(DATE_FORMAT);
-
+    var y = parts[i + 1];
+    var type = parts[i + 2];
+    var options = reportsGenerationOptions(y, type);
     options.data = generateReports(options);
     data = options;
   } else if ((i = parts.indexOf('services')) >= 0) {

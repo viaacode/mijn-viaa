@@ -75,7 +75,16 @@ module.exports = function (router, config, request) {
 
     var organisation = getOrganisation(req);
 
-    var url = config.endpoints.reports[y][type] + '?org=' + organisation;
+    var url;
+
+    try {
+      url = config.endpoints.reports[y][type] + '?org=' + organisation;
+    } catch (e) {
+      return res.status(404).send({
+        status: 'error',
+        message: '404 Not Found'
+      });
+    }
 
     forwardRequestCall(url, res, next);
   }
