@@ -70,3 +70,15 @@ function getGraphsFromConfig()
         }
     };
 }
+
+// formatType should match the option of the graph dropdown menu
+// Choose a date format per graph view 
+function getFormatString(formatType) {
+    var formatString = '';
+    if(formatType == '0') formatString = 'DD/MM HH:mm';
+    else if(formatType == 1) formatString = 'DD/MM/YYYY';
+    else if(formatType == 2) formatString = 'DD/MM/YYYY';
+    else if(formatType == 3) formatString = 'DD/MM/YYYY';
+    console.log(formatString);
+    return formatString;
+}

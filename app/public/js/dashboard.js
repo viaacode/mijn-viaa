@@ -152,11 +152,7 @@
 
     // Parse time/data results from API dataset, int formatType decides the label format 
     function parseApiResults(data, formatType){
-        var formatString = '';
-        if(formatType === 0) formatString = 'DD/MM HH:mm';
-        else if(formatType == 1) formatString = 'DD/MM/YYYY';
-        else if(formatType == 2) formatString = 'DD/MM/YYYY';
-        else if(formatType == 3) formatString = 'DD/MM/YYYY';
+        var formatString = getFormatString(formatType);
 
         var parsedXes = [];
         var parsedYs = [];
