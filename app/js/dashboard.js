@@ -8,7 +8,6 @@
             dataStats: '',
             errormessages: [],
             view: 'personal', // View on page load
-
             graphs: {
                 // These objects have to match the 'view' v-model options (from dropdown)
                 // Note: chartId value doesn't matter at all but has to be unique
@@ -24,6 +23,7 @@
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
                         data: {},
+                        activeView: 'effective',
                         isLoading: false 
                     },
                     archiveGrowth: {
@@ -37,6 +37,7 @@
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
                         data: {},
+                        activeView: 'effective',
                         isLoading: false 
                     },
                 },
@@ -52,6 +53,7 @@
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
                         data: {},
+                        activeView: 'effective',
                         isLoading: false 
                     },
                     archiveGrowth: {
@@ -65,6 +67,7 @@
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
                         data: {},
+                        activeView: 'effective',
                         isLoading: false 
                     }
                 }
@@ -102,18 +105,19 @@
  
                 var parsedResults = parseApiResults(graph.data.data);
                 var cumulData = parsedResults.y;    // Get all values
+                graph.activeView = 'cumulative';
 
                 for(var i = 1; i < cumulData.length; i++) {
                     cumulData[i] = cumulData[i] + cumulData[i-1];
                 }
 
-                drawChart(graph.chartId, parsedResults, graph.chartTitle, graph.chartType);
+                drawChart(graph.chartId, parsedResults, graph.chartTitle + ' - Cumulatief', graph.chartType);
             },
             loadGraphEffectively: function(graph) {
 
                 var parsedResult = parseApiResults(graph.data.data);
-                drawChart(graph.chartId, parsedResult, graph.chartTitle, graph.chartType);
-
+                drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType);
+                graph.activeView = 'effective';
                 //this.refreshGraph(graph, graph.lastApiUrl);
             }
         }
