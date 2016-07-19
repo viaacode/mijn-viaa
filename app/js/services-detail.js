@@ -6,7 +6,7 @@
         }
         
         // Service not found -> Redirect back to services page
-        window.location.replace('services.html');
+        window.location.replace('services');
     }
 
     var service = window.location.hash.substring(1).toUpperCase();  // Get service from URL after #, ex #mam becomes MAM

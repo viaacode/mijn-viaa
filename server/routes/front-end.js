@@ -10,9 +10,9 @@ function createPage (view, title, scripts) {
         body: {}
       },
       navigation: [
-        {title: 'Dashboard', href: 'dashboard.html', class: view == 'dashboard' ? 'active' : ''},
-        {title: 'Diensten', href: 'services.html', class: view == 'services' || view == 'detail' ? 'active' : ''},
-        {title: '', href: 'dashboard.html', image: true},
+        {title: 'Dashboard', href: 'dashboard', class: view == 'dashboard' ? 'active' : ''},
+        {title: 'Diensten', href: 'services', class: view == 'services' || view == 'detail' ? 'active' : ''},
+        {title: '', href: 'dashboard', image: true},
         {title: 'Over', href: '#'},
         {title: 'Account', href: '#'}
       ]
@@ -51,7 +51,7 @@ module.exports = function (app) {
 
 
   app.get('/', dashboard);
-  app.get('/pages/dashboard.html', dashboard);
-  app.get('/pages/services.html', services);
-  app.get('/pages/detail.html', detail);
+  app.get('/dashboard', dashboard);
+  app.get('/services', services);
+  app.get('/detail', detail);
 };
