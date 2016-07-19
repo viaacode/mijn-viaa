@@ -35,8 +35,8 @@ node_modules
 # Sass cache
 .sass-cache
 
-# Dist folder
-dist
+# public folder
+public
 
 # IDE settings
 .idea

@@ -12,9 +12,9 @@ function getGraphsFromConfig()
                 chartType: 'line',
                 chartFormat: 0,
                 apiUrls: [
-                    'http://localhost:1337/api/reports/items/last-week',
-                    'http://localhost:1337/api/reports/items/last-month',
-                    'http://localhost:1337/api/reports/items/last-year'
+                    '/api/reports/items/last-week',
+                    '/api/reports/items/last-month',
+                    '/api/reports/items/last-year'
                 ],
                 data: {},
                 activeView: 'effective',
@@ -27,9 +27,9 @@ function getGraphsFromConfig()
                 chartType: 'line',
                 chartFormat: 0,
                 apiUrls: [
-                    'http://localhost:1337/api/reports/items/last-week',
-                    'http://localhost:1337/api/reports/items/last-month',
-                    'http://localhost:1337/api/reports/items/last-year'
+                    '/api/reports/items/last-week',
+                    '/api/reports/items/last-month',
+                    '/api/reports/items/last-year'
                 ],
                 data: {},
                 activeView: 'effective',
@@ -44,9 +44,9 @@ function getGraphsFromConfig()
                 chartType: 'bar',
                 chartFormat: 0,
                 apiUrls: [
-                    'http://localhost:1337/api/reports/items/last-week',
-                    'http://localhost:1337/api/reports/items/last-month',
-                    'http://localhost:1337/api/reports/items/last-year'
+                    '/api/reports/items/last-week',
+                    '/api/reports/items/last-month',
+                    '/api/reports/items/last-year'
                 ],
                 data: {},
                 activeView: 'effective',
@@ -59,9 +59,9 @@ function getGraphsFromConfig()
                 chartType: 'line',
                 chartFormat: 0,
                 apiUrls: [
-                    'http://localhost:1337/api/reports/items/last-week',
-                    'http://localhost:1337/api/reports/items/last-month',
-                    'http://localhost:1337/api/reports/items/last-year'
+                    '/api/reports/items/last-week',
+                    '/api/reports/items/last-month',
+                    '/api/reports/items/last-year'
                 ],
                 data: {},
                 activeView: 'effective',
