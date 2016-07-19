@@ -71,7 +71,6 @@
     <!-- Graphs  -->
     <div class="col col-12 mb4" v-for="graph in graphs"> 
         <!-- Loader gif -->
-        {{ graph.isLoading }}
         <div class="col col-12 loader-airbox"
                 v-if="graph.isLoading && errormessages.length==0">
             <div class="loader">
