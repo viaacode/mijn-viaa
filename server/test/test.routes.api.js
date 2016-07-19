@@ -107,7 +107,7 @@ describe('services available', function () {
   });
 
   it('should return req.user.apps when not logged in', function (done) {
-    var inputServices = ['mediahaven (mam)', 'amsweb', 'FTP'];
+    var inputServices = ['mediahaven', 'amsweb'];
     var expected = 'function isServiceAvailable(serviceName){return ' +
       '{"MAM":1,"AMS":1,"FTP":1}' +
       '[serviceName];}';
