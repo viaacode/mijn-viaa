@@ -220,7 +220,13 @@
                             labelString: 'Aantal'
                         }
                     }]
-                }
+                },
+
+                legend: {
+                    onClick : function (event, legendItem) {
+                        event.preventDefault();
+                    }
+                }    
             }
         });
 
