@@ -990,47 +990,47 @@ html {
 .icon-down-dir:before {
   content: '\e800'; }
 
-/* 'εáÇ' */
+/* '' */
 .icon-ok:before {
   content: '\e801'; }
 
-/* 'εáü' */
+/* '' */
 .icon-logout:before {
   content: '\e802'; }
 
-/* 'εáé' */
+/* '' */
 .icon-chart-bar:before {
   content: '\e803'; }
 
-/* 'εáâ' */
+/* '' */
 .icon-menu:before {
   content: '\e804'; }
 
-/* 'εáä' */
+/* '' */
 .icon-spin3:before {
   content: '\e832'; }
 
-/* 'εá▓' */
+/* '' */
 .icon-folder-open-empty:before {
   content: '\f115'; }
 
-/* '∩äò' */
+/* '' */
 .icon-lock-open-alt:before {
   content: '\f13e'; }
 
-/* '∩ä╛' */
+/* '' */
 .icon-right:before {
   content: '\f178'; }
 
-/* '∩à╕' */
+/* '' */
 .icon-database:before {
   content: '\f1c0'; }
 
-/* '∩çÇ' */
+/* '' */
 .icon-chart-line:before {
   content: '\f201'; }
 
-/* '∩êü' */
+/* '' */
 /*
    Animation example, for spinners
 */
@@ -1258,9 +1258,9 @@ footer {
   float: right;
   width: 5.5rem; }
 
-.lowfootertext {
-  margin: 4rem 2rem 4rem 0; }
-
+/*.lowfootertext {
+    margin:4rem 2rem 4rem 0;
+}*/
 /* End of footer */
 /* Media queries */
 @media (min-width: 575px) {
