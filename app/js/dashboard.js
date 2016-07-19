@@ -8,7 +8,6 @@
             dataStats: '',
             errormessages: [],
             view: 'personal', // View on page load
-
             graphs: {
                 // These objects have to match the 'view' v-model options (from dropdown)
                 // Note: chartId value doesn't matter at all but has to be unique
@@ -18,12 +17,14 @@
                         chartId: 'data_1_chart',
                         chartTitle: 'Evolutie Registratie',
                         chartType: 'line',
+                        chartFormat: 0,
                         apiUrls: [
                             'http://localhost:1337/api/reports/items/last-week',
                             'http://localhost:1337/api/reports/items/last-month',
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
-                        lastApiData: {},
+                        data: {},
+                        activeView: 'effective',
                         isLoading: false 
                     },
                     archiveGrowth: {
@@ -31,12 +32,14 @@
                         chartId: 'data_2_chart',
                         chartTitle: 'Aangroei Archief',
                         chartType: 'line',
+                        chartFormat: 0,
                         apiUrls: [
                             'http://localhost:1337/api/reports/items/last-week',
                             'http://localhost:1337/api/reports/items/last-month',
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
-                        lastApiData: {},
+                        data: {},
+                        activeView: 'effective',
                         isLoading: false 
                     },
                 },
@@ -46,12 +49,14 @@
                         chartId: 'data_1_chart',
                         chartTitle: 'TEST TITLE',
                         chartType: 'bar',
+                        chartFormat: 0,
                         apiUrls: [
                             'http://localhost:1337/api/reports/items/last-week',
                             'http://localhost:1337/api/reports/items/last-month',
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
-                        lastApiData: {},
+                        data: {},
+                        activeView: 'effective',
                         isLoading: false 
                     },
                     archiveGrowth: {
@@ -59,12 +64,14 @@
                         chartId: 'data_2_chart',
                         chartTitle: 'TDATA 2 TEST TITLE',
                         chartType: 'line',
+                        chartFormat: 0,
                         apiUrls: [
                             'http://localhost:1337/api/reports/items/last-week',
                             'http://localhost:1337/api/reports/items/last-month',
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
-                        lastApiData: {},
+                        data: {},
+                        activeView: 'effective',
                         isLoading: false 
                     }
                 }
@@ -84,26 +91,51 @@
 
         },
         methods: {
-            refreshGraph: function(graph, e) {
+            refreshGraph: function(graph, apiUrlId) {
                 // Destroy chart
                 for(var i = 0; i < charts.length; i++) {
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
-                }
+                }          
                 graph.isLoading = true;         // Our lovely loading circle
-                drawChartFromApi(graph, graph.apiUrls[e.target.value], this);  // Draw new chart
+                graph.chartFormat = apiUrlId;
+                drawChartFromApi(graph, graph.apiUrls[apiUrlId], this);  // Draw new chart
+
+            },
+            loadGraphCumulatively: function(graph) {
+                 // Destroy chart
+                for(var i = 0; i < charts.length; i++) {
+                    if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
+                }  
+ 
+                var parsedResults = parseApiResults(graph.data.data, graph.chartFormat);
+                var cumulData = parsedResults.y;    // Get all values
+                graph.activeView = 'cumulative';
+
+                for(var i = 1; i < cumulData.length; i++) {
+                    cumulData[i] = cumulData[i] + cumulData[i-1];
+                }
+
+                drawChart(graph.chartId, parsedResults, graph.chartTitle + ' - Cumulatief', graph.chartType);
+            },
+            loadGraphEffectively: function(graph) {
+
+                var parsedResult = parseApiResults(graph.data.data, graph.format);
+                drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartFormat);
+                graph.activeView = 'effective';
             }
         }
     });  
 
 
     // Pass an object from graphs {} and draw the chart for it
-    function drawChartFromApi(item, url, vueinstance) {
+    function drawChartFromApi(graph, url, vueinstance) {
         runningAjaxCalls.push(ajaxcall(url, function(err, result) {
             if(err) vueinstance.errormessages.push(err);
             else {  
-                item.isLoading = false;
-                var parsedResult = parseApiResults(result.data);
-                drawChart(item.chartId, parsedResult, item.chartTitle, item.chartType);
+                graph.isLoading = false;
+                graph.data = result;
+                var parsedResult = parseApiResults(result.data, graph.chartFormat);
+                drawChart(graph.chartId, parsedResult, graph.chartTitle, graph.chartType);
             }
         }));
     }
@@ -185,12 +217,20 @@
         drawChartDev(id, data.x, data.y, title, type);
     }
 
-    // Parse time/data results from API dataset
-    function parseApiResults(data){
+    // Parse time/data results from API dataset, int formatType decides the label format 
+    function parseApiResults(data, formatType){
+        var formatString = '';
+        if(formatType == 0) formatString = 'DD/MM HH:mm';
+        else if(formatType == 1) formatString = 'DD/MM/YYYY';
+        else if(formatType == 2) formatString = 'DD/MM/YYYY';
+        else if(formatType == 3) formatString = 'DD/MM/YYYY';
+
         var parsedXes = [];
         var parsedYs = [];
         for(var i = 0; i < data.length ; i++){         
-            var x = moment.unix(data[i].timestamp).format('MM DD hh:ss');
+            var x = moment.unix(data[i].timestamp).format(formatString);
+           // var x = moment(data[i].timestamp, formatString);
+           // var x = data[i].timestamp;
             var y = data[i].value;
             parsedXes.push(x);
             parsedYs.push(y);
@@ -275,21 +315,16 @@
             options: {
                 scales: {
                     xAxes: [{
-                            type: "time",
-                            time: {
-                                format: 'MM DD',
-                                // round: 'day'
-                                tooltipFormat: 'll HH:mm'
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Date'
-                            }
+                        
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Datum'
+                        }
                         }, ],
                     yAxes: [{
                         scaleLabel: {
                             display: true,
-                            labelString: 'value'
+                            labelString: 'Aantal'
                         }
                     }]
                 }
