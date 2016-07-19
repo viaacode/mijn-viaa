@@ -30,7 +30,8 @@ module.exports = function (app) {
     'dist/chart.js',
     'js/service-available.js',
     'js/app.js',
-    'js/dashboard.js'
+    'js/dashboard.js',
+    'js/selectbox.js'
   ]);
   var services = createPage('services', 'Diensten - Mijn VIAA', [
     'dist/vue.js',
