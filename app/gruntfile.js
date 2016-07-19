@@ -15,10 +15,13 @@ var grunt = require("grunt");
       files: [
         // includes files within path
         {expand: false, src: ['node_modules/basscss/css/basscss.css'], dest: 'scss/_basscss.scss', filter: 'isFile'},
-        //{expand: true, cwd:'node_modules/font-awesome/fonts', src: '**/*', dest: 'fonts/'},
-        {expand: false, src: ['node_modules/vue/dist/vue.js'], dest: 'dist/vue.js', filter: 'isFile'},
-        {expand: false, src: ['node_modules/chart.js/dist/Chart.js'], dest: 'dist/chart.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/vue/dist/vue.js'], dest: 'public/vue.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/chart.js/dist/Chart.js'], dest: 'public/chart.js', filter: 'isFile'},
         {expand: false, src: ['node_modules/chart.js/node_modules/moment/min/moment.min.js'], dest: 'dist/moment.js', filter: 'isFile'},
+
+        {expand: true, cwd:'js', src: '**/*', dest: 'public/js'},
+        {expand: true, cwd:'assets', src: '**/*', dest: 'public/assets'},
+
       ],
     },
   },  
@@ -32,7 +35,7 @@ var grunt = require("grunt");
     },
     dist: {
       // the files to concatenate
-      src: ['js/**/*.js'],
+      src: ['js/concat/*.js'],
       // the location of the resulting JS file
       dest: 'dist/scripts.js'
     }
@@ -44,11 +47,12 @@ var grunt = require("grunt");
     }
   }
 });
+
 grunt.loadNpmTasks('grunt-contrib-sass');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-copy');
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-concat');
-grunt.registerTask('default',['copy', 'sass', 'jshint', 'concat', 'sass']);
+grunt.registerTask('default',['copy', 'sass', 'jshint', 'sass']);
 
 
