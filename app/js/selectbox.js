@@ -10,14 +10,19 @@ function menuActions(e){
 
 function showMenu() {
     var menu = document.getElementsByClassName("dropdown-menu")[0],
-        final_h = 100;
+        final_h = 80;
     
     if (menu.style.height == final_h + "px") {
-        showElement("dropdown-menu", 0, 10);
+        showElement("dropdown-menu", 0, 1000);
         menu.style.display = "none";
+        document.getElementsByClassName("menu")[0].style.borderRadius = "1rem";
     } else {
-        showElement("dropdown-menu", final_h, 10);
+        showElement("dropdown-menu", final_h, 1000);
         menu.style.display = "block";
+        document.getElementsByClassName("menu")[0].style.borderRadius = "0rem";
+        document.getElementsByClassName("menu")[0].style.borderTopLeftRadius = "1rem";
+        document.getElementsByClassName("menu")[0].style.borderTopRightRadius = "1rem";
+         
     }
 }
 
