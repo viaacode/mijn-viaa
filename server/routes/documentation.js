@@ -15,7 +15,5 @@ module.exports = function (app) {
     });
   }
 
-  app.get('/', showDocumentation);
-
   app.get('/api/', showDocumentation);
 };
