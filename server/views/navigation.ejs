@@ -1,0 +1,15 @@
+<header>
+  <ul class="navigation">
+
+    <% navigation.forEach(function (item) { %>
+    <% if (item.image) { %>
+    <li class="logo">
+      <% } else { %>
+    <li class="menuitem">
+      <% } %>
+      <a href="<%- item.href %>" class="<%- item.class %>"><% if (item.image) { %><img src="assets/logo2.svg"/><% } else { %><%- item.title %><% } %></a>
+    </li>
+    <% }); %>
+
+  </ul>
+</header>

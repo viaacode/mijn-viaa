@@ -2,14 +2,23 @@ var ejs = require("ejs");
 
 function createPage (view, title, scripts) {
   return function dashboard (req, res, next) {
-    res.render('base', {
+    var input = {
       title: title,
       body: {
         view: view,
         scripts: scripts,
         body: {}
-      }
-    });
+      },
+      navigation: [
+        {title: 'Dashboard', href: 'dashboard.html', class: view == 'dashboard' ? 'active' : ''},
+        {title: 'Diensten', href: 'services.html', class: view == 'services' || view == 'detail' ? 'active' : ''},
+        {title: '', href: 'dashboard.html', image: true},
+        {title: 'Over', href: '#'},
+        {title: 'Account', href: '#'}
+      ]
+    };
+
+    res.render('base', input);
   }
 }
 
@@ -29,7 +38,7 @@ module.exports = function (app) {
     'js/app.js',
     'js/services-overview.js'
   ]);
-  var detail = createPage('services', 'Mijn VIAA', [
+  var detail = createPage('detail', 'Mijn VIAA', [
     'dist/vue.js',
     'js/service-available.js',
     'js/app.js',
