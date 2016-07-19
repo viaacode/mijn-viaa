@@ -23,7 +23,7 @@
                             'http://localhost:1337/api/reports/items/last-month',
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
-                        lastApiData: {},
+                        data: {},
                         isLoading: false 
                     },
                     archiveGrowth: {
@@ -36,7 +36,7 @@
                             'http://localhost:1337/api/reports/items/last-month',
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
-                        lastApiData: {},
+                        data: {},
                         isLoading: false 
                     },
                 },
@@ -51,7 +51,7 @@
                             'http://localhost:1337/api/reports/items/last-month',
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
-                        lastApiData: {},
+                        data: {},
                         isLoading: false 
                     },
                     archiveGrowth: {
@@ -64,7 +64,7 @@
                             'http://localhost:1337/api/reports/items/last-month',
                             'http://localhost:1337/api/reports/items/last-year'
                         ],
-                        lastApiData: {},
+                        data: {},
                         isLoading: false 
                     }
                 }
@@ -84,26 +84,51 @@
 
         },
         methods: {
-            refreshGraph: function(graph, e) {
+            refreshGraph: function(graph, apiUrlId) {
                 // Destroy chart
                 for(var i = 0; i < charts.length; i++) {
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
-                }
+                }          
                 graph.isLoading = true;         // Our lovely loading circle
-                drawChartFromApi(graph, graph.apiUrls[e.target.value], this);  // Draw new chart
+                graph.lastApiUrl = apiUrlId;
+                drawChartFromApi(graph, graph.apiUrls[apiUrlId], this);  // Draw new chart
+
+            },
+            loadGraphCumulatively: function(graph) {
+                 // Destroy chart
+                for(var i = 0; i < charts.length; i++) {
+                    if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
+                }  
+ 
+                var parsedResults = parseApiResults(graph.data.data);
+                var cumulData = parsedResults.y;    // Get all values
+
+                for(var i = 1; i < cumulData.length; i++) {
+                    cumulData[i] = cumulData[i] + cumulData[i-1];
+                }
+
+                drawChart(graph.chartId, parsedResults, graph.chartTitle, graph.chartType);
+            },
+            loadGraphEffectively: function(graph) {
+
+                var parsedResult = parseApiResults(graph.data.data);
+                drawChart(graph.chartId, parsedResult, graph.chartTitle, graph.chartType);
+
+                //this.refreshGraph(graph, graph.lastApiUrl);
             }
         }
     });  
 
 
     // Pass an object from graphs {} and draw the chart for it
-    function drawChartFromApi(item, url, vueinstance) {
+    function drawChartFromApi(graph, url, vueinstance) {
         runningAjaxCalls.push(ajaxcall(url, function(err, result) {
             if(err) vueinstance.errormessages.push(err);
             else {  
-                item.isLoading = false;
+                graph.isLoading = false;
+                graph.data = result;
                 var parsedResult = parseApiResults(result.data);
-                drawChart(item.chartId, parsedResult, item.chartTitle, item.chartType);
+                drawChart(graph.chartId, parsedResult, graph.chartTitle, graph.chartType);
             }
         }));
     }

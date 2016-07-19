@@ -110,8 +110,10 @@
                     </div>
                 </div>        
                 <div class="col col-12 mb7" >
+                    <a href="#" @click.prevent="loadGraphCumulatively(graph)">Cumulatief</a> - 
+                    <a href="#" @click.prevent="loadGraphEffectively(graph)">Effectief</a>
                     <form>
-                        <select @change="refreshGraph(graph, $event)" v-show="!graph.isLoading">
+                        <select @change="refreshGraph(graph, $event.target.value)" v-show="!graph.isLoading">
                             <option value="0" selected>24h</option>
                             <option value="1">2 weken</option>
                             <option value="2">2 maanden</option>
