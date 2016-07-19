@@ -69,7 +69,7 @@ describe('authentication', function () {
   it('Pages should redirect when not logged in', function (done) {
 
     supertest(app)
-      .get('/pages/dashboard.html')
+      .get('/dashboard')
       .expect(303)
       .expect('Location', '/login')
       .end(done);
@@ -77,7 +77,7 @@ describe('authentication', function () {
 
   it('js files should not redirect redirect when not logged in', function (done) {
     supertest(app)
-      .get('/pages/js/app.js')
+      .get('/public/js/app.js')
       .expect(200)
       .end(done);
   });
@@ -100,14 +100,14 @@ describe('services available', function () {
       '[serviceName];}';
 
     supertest(app)
-      .get('/pages/js/service-available.js')
+      .get('/public/js/service-available.js')
       .expect(200)
       .expect(expected)
       .end(done);
   });
 
   it('should return req.user.apps when not logged in', function (done) {
-    var inputServices = ['mediahaven (mam)', 'amsweb', 'FTP'];
+    var inputServices = ['mediahaven', 'amsweb'];
     var expected = 'function isServiceAvailable(serviceName){return ' +
       '{"MAM":1,"AMS":1,"FTP":1}' +
       '[serviceName];}';

@@ -16,3 +16,10 @@ npm start
 If you want to have the server automatically restart on changes,
 you can install nodemon `npm install nodemon -g`
 and run the server with the command `nodemon`
+
+
+### test locally with authentication: (cert files needed)
+```
+sudo bash
+export NODE_ENV="qas" PORT="80" && npm start
+``

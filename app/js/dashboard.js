@@ -99,7 +99,7 @@
      
         // 'Big stats' on top
         if(view == 'personal') {
-            runningAjaxCalls.push(ajaxcall("http://localhost:1337/api/stats", function(err, result) {
+            runningAjaxCalls.push(ajaxcall("/api/stats", function(err, result) {
                 if(err) vueinstance.errormessages.push(err);
                 else {         
                     // Translate the keys to user friendly output

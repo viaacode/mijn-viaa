@@ -1,5 +1,7 @@
+var _ = require('underscore');
+
 module.exports = function (app, config) {
-  app.get('/pages/js/service-available.js', getAvailableServices);
+  app.get('/public/js/service-available.js', getAvailableServices);
 
   function getAvailableServices (req, res, next) {
     var services;
@@ -8,7 +10,6 @@ module.exports = function (app, config) {
     } else {
       services = config.fakeServicesAvailable || {};
     }
-    console.log(services);
 
     var isServiceAvailableFunction = 'function isServiceAvailable(serviceName){return ' +
       JSON.stringify(services) +
@@ -22,7 +23,7 @@ module.exports = function (app, config) {
 
     for (var key in input) {
       var value = input[key];
-      var mapped = config.servicesMap[value];
+      var mapped = config.services.map[value];
 
       if (!mapped) {
         console.log("WARNING: service-available.js service '" + value + "' is unknown, skipping");
@@ -31,6 +32,8 @@ module.exports = function (app, config) {
 
       services[mapped] = 1;
     }
+
+    _.extend(services, config.services.always);
 
     return services;
   }

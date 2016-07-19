@@ -10,9 +10,9 @@ function createPage (view, title, scripts) {
         body: {}
       },
       navigation: [
-        {title: 'Dashboard', href: 'dashboard.html', class: view == 'dashboard' ? 'active' : ''},
-        {title: 'Diensten', href: 'services.html', class: view == 'services' || view == 'detail' ? 'active' : ''},
-        {title: '', href: 'dashboard.html', image: true},
+        {title: 'Dashboard', href: 'dashboard', class: view == 'dashboard' ? 'active' : ''},
+        {title: 'Diensten', href: 'services', class: view == 'services' || view == 'detail' ? 'active' : ''},
+        {title: '', href: 'dashboard', image: true},
         {title: 'Over', href: '#'},
         {title: 'Account', href: '#'}
       ]
@@ -22,7 +22,7 @@ function createPage (view, title, scripts) {
   }
 }
 
-module.exports = function (app) {
+module.exports = function (app, config, middleware) {
 
   var dashboard = createPage('dashboard', 'Reports - Mijn VIAA', [
     'public/js/vue.js',
@@ -50,8 +50,8 @@ module.exports = function (app) {
   ]);
 
 
-  app.get('/', dashboard);
-  app.get('/pages/dashboard.html', dashboard);
-  app.get('/pages/services.html', services);
-  app.get('/pages/detail.html', detail);
+  app.get('/', middleware, dashboard);
+  app.get('/dashboard', middleware, dashboard);
+  app.get('/services', middleware, services);
+  app.get('/detail', middleware, detail);
 };

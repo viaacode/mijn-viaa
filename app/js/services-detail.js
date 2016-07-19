@@ -6,7 +6,7 @@
         }
         
         // Service not found -> Redirect back to services page
-        window.location.replace('services.html');
+        window.location.replace('services');
     }
 
     var service = window.location.hash.substring(1).toUpperCase();  // Get service from URL after #, ex #mam becomes MAM
@@ -27,7 +27,7 @@
         },
         created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable
             var thisvue = this;
-            ajaxcall("http://localhost:1337/api/services/" + service, function(err, result) {
+            ajaxcall("/api/services/" + service, function(err, result) {
                 if(err) thisvue.errormsg = err;
                 else thisvue.dataAPI = result;
             });
