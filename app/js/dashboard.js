@@ -235,17 +235,22 @@
             enabled: true,
  
             callbacks: {
+                /*
+                // Can't delete my code here just yet .. spent too much time on it, just for it to be replaced by mode: 'label' fml 
                 label: function(tooltip, data) {
-                    console.log(tooltip);
-                    console.log(tooltip.xLabel);
-                    
-                    return 'test hover label';
+                    var r = [];
+                    for(var i = 0; i < data.datasets.length; i++) {
+                        r.push(data.datasets[i].label + ': ' + (data.datasets[i].data[tooltip.index] || 0));
+                    }
+                    return r;
                 }
+                */
             },
+            mode: 'label',
         },
         hover: {
             animationDuration:0,
-            mode: 'label',
+            
         },
         scales: {
             xAxes: [{
