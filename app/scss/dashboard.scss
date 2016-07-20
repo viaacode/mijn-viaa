@@ -128,7 +128,6 @@
 
 /* Graph buttons styles */
 .graphcontainer {
-    border:1px solid $grey-light;
     padding:1rem;
     min-height:35rem;
 }
@@ -142,6 +141,7 @@
 .graphs-btns-container, .graphs-databtns-container {
     height:5rem;
     line-height:3rem;
+    margin-bottom: 2rem;
 }
 
 .graphs-btns-container a, .graphs-databtns-container a {
@@ -155,16 +155,27 @@
 
 .graphs-btns-container a { 
     float:left;
+    border: 1px solid #afafaf;
+    border-radius: 2rem;
+    color: #afafaf;
 }
 
 .graphs-databtns-container a {
     float:right;
+    border: 1px solid #afafaf;
+    border-radius: 2rem;
+    color: #afafaf;
 }
 
-.graphs-btns-container a:hover, .graphs-databtns-container a:hover,
+.graphs-btns-container a:hover, .graphs-databtns-container a:hover{
+    border: 1px solid $orange;
+    border-radius: 2rem;
+    color:$orange;    
+}
 .graphs-btns-container a.active, .graphs-databtns-container a.active {
-    background-color:$orange;
-    color:$almostwhite;
+    border: 1px solid $orange;
+    border-radius: 2rem;
+    color:$orange;
 }
 
 
