@@ -16,6 +16,7 @@ function getGraphsFromConfig()
                 '/api/reports/items/last-year'
             ],
             data: {},
+            errormessages: [],
             activeView: 'effective',
             isLoading: false 
         },
@@ -30,6 +31,7 @@ function getGraphsFromConfig()
                 '/api/reports/items/last-year'
             ],
             data: {},
+            errormessages: [],
             activeView: 'effective',
             isLoading: false 
         },

@@ -7,11 +7,13 @@
         </div>
 
         <!-- Loader gif -->
-        <div class="col col-12 loader-airbox" v-show="!dataStats && errormessages.length==0">
+        <div class="col col-12 loader-airbox" v-show="!dataStats && dataStats.errormessages.length==0">
             <div class="loader">
                 <span class="icon-spin3 animate-spin"></span>       
             </div>    
         </div>              
+
+        {{ dataStats.errormessages || json }}
 
         <!-- Big stats -->
         <div class="bigstats-airbox col col-12">
@@ -68,13 +70,7 @@
             </div>    
         </div> <!-- End of big stats -->
 
-        <!-- errors -->
-        <div class="col col-12">
-            <div v-show="errormessages.length > 0">
-                <p>Oeps! Er blijkt een fout te zijn opgetreden.</p>
-                <p v-for="msg in errormessages">{{ msg }}</p>
-            </div>
-        </div>
+
 
         <!-- Graphs  -->  
         <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs"> 
@@ -126,11 +122,20 @@
             
             <!-- Loader gif -->
             <div class="col col-12 loader-airbox" 
-                v-if="graph.isLoading && errormessages.length==0">
+                v-if="graph.isLoading && graph.errormessages.length==0">
                 <div class="loader">
                     <span class="icon-spin3 animate-spin"></span>
                 </div>
             </div>   
+
+            <!-- errors -->
+            <div class="col col-12 loader-airbox">
+                <div class="col col-12 center" v-show="graph.errormessages.length > 0">
+                    <p>Oeps!</p>
+                    <p v-for="msg in graph.errormessages">{{ msg }}</p>
+                </div>
+            </div>
+
 
             <canvas :id="graph.chartId" class="mb2"></canvas>   <!-- Do not put this in a v-show or v-if div/container! Thank me for your saved tears later -->
 

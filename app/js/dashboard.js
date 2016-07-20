@@ -7,7 +7,6 @@
         data: { 
             dataStats: {},
             progress: {},
-            errormessages: [],
             graphs: getGraphsFromConfig(),
         },
         created: function() { 
@@ -51,19 +50,6 @@
         }
     });  
 
-    // Pass an object from graphs {} and draw the chart for it
-    function drawChartFromApi(graph, url, vueinstance) {
-        runningAjaxCalls.push(ajaxcall(url, function(err, result) {
-            if(err) vueinstance.errormessages.push(err);
-            else {  
-                graph.isLoading = false;
-                graph.data = result;
-                var parsedResult = parseApiResults(result.data, graph.chartFormat);
-                drawChart(graph.chartId, parsedResult, graph.chartTitle, graph.chartType);
-            }
-        }));
-    }
-
     // Refresh the whole view
     function refreshView(vueinstance){
         // Destroy all charts
@@ -79,8 +65,7 @@
         // Clean the view
         runningAjaxCalls = [];
         vueinstance.dataStats = '';
-        vueinstance.errormessages = [];
-        
+
         var theGraphs = vueinstance.graphs;
 
         // Put all isLoading booleans to true
@@ -90,7 +75,7 @@
      
         // 'Big stats' on top
         runningAjaxCalls.push(ajaxcall("/api/stats", function(err, result) {
-            if(err) vueinstance.errormessages.push(err);
+            if(err) vueinstance.dataStats.errormessages.push(err);
             else {         
                 // Translate the keys to user friendly output
                 var userfriendlytextObj = {
@@ -119,6 +104,19 @@
         }        
     }
 
+    // Pass an object from graphs {} and draw the chart for it
+    function drawChartFromApi(graph, url, vueinstance) {
+        graph.errormessages = [];
+        runningAjaxCalls.push(ajaxcall(url, function(err, result) {
+            if(err) graph.errormessages.push(err);
+            else {  
+                graph.isLoading = false;
+                graph.data = result;
+                var parsedResult = parseApiResults(result.data, graph.chartFormat);
+                drawChart(graph.chartId, parsedResult, graph.chartTitle, graph.chartType);
+            }
+        }));
+    }
 
     /*************************************
      * ***  Chart drawing and stuff    ***
