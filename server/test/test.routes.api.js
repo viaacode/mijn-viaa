@@ -108,9 +108,7 @@ describe('services available', function () {
   it('should return be config.fakeServicesAvailable when not logged in', function (done) {
     config.fakeServicesAvailable = {};
 
-    var expected = 'function isServiceAvailable(serviceName){return ' +
-      '{}' +
-      '[serviceName];}';
+    var expected = 'var mijnVIAA=mijnVIAA||{};mijnVIAA.isServiceAvailable=function(serviceName){return {}[serviceName];};mijnVIAA.getOrganisationName=function(){return "";};';
 
     supertest(app)
       .get('/public/js/service-available.js')
@@ -121,9 +119,7 @@ describe('services available', function () {
 
   it('should return req.user.apps when not logged in', function (done) {
     var inputServices = ['mediahaven', 'amsweb'];
-    var expected = 'function isServiceAvailable(serviceName){return ' +
-      '{"MAM":1,"AMS":1,"FTP":1}' +
-      '[serviceName];}';
+    var expected = 'var mijnVIAA=mijnVIAA||{};mijnVIAA.isServiceAvailable=function(serviceName){return {"MAM":1,"AMS":1,"FTP":1}[serviceName];};mijnVIAA.getOrganisationName=function(){return "";};';
 
     var getAvailableServices;
     var app = {
@@ -142,9 +138,7 @@ describe('services available', function () {
 
     var res = {
       send: function (text) {
-        if (expected != text) {
-          return done('not equal - received: ' + text + ' but expected: ' + expected);
-        }
+        expect(text).to.equal(expected);
         done();
       }
     };
@@ -183,11 +177,8 @@ describe('DUMMY request', function () {
     supertest(app)
       .get(path)
       .expect({
-        status: 404,
-        jsend: {
-          status: 'error',
-          message: '404 Not Found'
-        }
+        status: 'error',
+        message: '404 Not Found'
       })
       .expect(404)
       .end(done);
