@@ -5,7 +5,8 @@
     new Vue({
         el: '#dashboard',
         data: { 
-            dataStats: '',
+            dataStats: {},
+            progress: {},
             errormessages: [],
             graphs: getGraphsFromConfig(),
         },
