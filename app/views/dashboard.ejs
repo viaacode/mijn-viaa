@@ -77,7 +77,8 @@
         </div> <!-- End of big stats -->
 
         <!-- Graphs  -->  
-        <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs"> 
+        <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs"
+            v-bind:class="{ 'graph-airplaceholder': graph.isLoading }"> 
             <div class="col col-12">
                 <div class="col col-12">
                     <h3 class="graphtitle">{{ graph.chartTitle }}</h3>
@@ -146,7 +147,8 @@
         </div><!-- End of Graphs -->
 
         <!-- Progress bars -->
-        <div class="progresscontainer col col-12">
+        <div class="progresscontainer col col-12"
+          v-bind:class="{ 'graph-airplaceholder': !dataStats }">
             <div class="col col-12">
                 <h3 class="graphtitle">Progress</h3>
             </div>

@@ -4,13 +4,17 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    top:9rem;
+    top:13rem;
     width: 20px;
 }
 
 .loader-airbox {
     position:relative;
     width: 100%;
+}
+
+.graph-airplaceholder {
+    height:35rem;
 }
 
 .bigstats-airbox {
@@ -198,5 +202,7 @@
         }
     }
 
-
+    .graph-airplaceholder {
+        height:61.4rem;
+    }
 }
