@@ -32,7 +32,6 @@ module.exports = function (app, config, middleware) {
     'public/js/app.js',
     'public/js/dashboard-config.js',
     'public/js/dashboard.js',
-    'public/js/dashboard-selectbox.js'
   ]);
   var services = createPage('services', 'Diensten - Mijn VIAA', [
     'public/js/vue.js',

@@ -85,16 +85,34 @@
         }
      
         // 'Big stats' on top
+<<<<<<< HEAD
         runningAjaxCalls.push(ajaxcall("/api/stats", function(err, result) {
             if(err) vueinstance.errormessages.push(err);
             else {         
                 // Translate the keys to user friendly output
                 var userfriendlytextObj = {
+                    "Terabytes": result.terabytes,
+                    "Items": result.items,
+                    "Archive Growth": result.archive_growth,
+                    "Registration Growth": result.registration_growth      
+                };
+                vueinstance.dataStats = result;                   
+                drawPieFromKvpObj('statsChart', userfriendlytextObj);
+            }
+        }));
+        
+=======
+        if(view == 'personal') {
+            runningAjaxCalls.push(ajaxcall("/api/stats", function(err, result) {
+                if(err) vueinstance.errormessages.push(err);
+                else {         
+                    // Translate the keys to user friendly output
+                    var userfriendlytextObj = {
                         "Video": result.registered.video,
                         "Audio": result.registered.audio,
                         "Film": result.registered.film,
                         "Paper": result.registered.paper
-                };
+                    };
 
                     var dataStats = {
                         "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
@@ -104,10 +122,29 @@
                     };
 
                     vueinstance.dataStats = dataStats;
-                drawPieFromKvpObj('statsChart', userfriendlytextObj);
-            }
-        }));
-        
+                    drawPieFromKvpObj('statsChart', userfriendlytextObj);
+                }
+            }));
+        }
+        else {
+            var simulatedObj = {
+                "terabytes":250,
+                "items":150,
+                "archive_growth":50,
+                "registration_growth":550,
+            };
+            
+            // Translate the keys to user friendly output
+            var userfriendlytextObj = {
+                "Terabytes": simulatedObj.terabytes,
+                "Items": simulatedObj.items,
+                "Archive Growth": simulatedObj.archive_growth,
+                "Registration Growth": simulatedObj.registration_growth
+            };
+            vueinstance.dataStats = simulatedObj;
+            drawPieFromKvpObj('statsChart', userfriendlytextObj);
+        }
+>>>>>>> develop
 
         // Draw all graphs with API data  
         for(var graphKey in theGraphs) {        
