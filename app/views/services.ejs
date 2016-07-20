@@ -1,26 +1,28 @@
-<div id="services-app">
-  <div class="container" v-cloak>
-    <div class="services-titles">
-                    <span v-for="service in serviceslist">
-                        <a href="detail#{{ service.service}}" @click="reload" class="services-titles-item">{{ service.service }}</a>
-                    </span>
+<div id="services-app" v-cloak>
+    <div class="container">
+        <div class="services-titles">
+                        <span v-for="service in serviceslist">
+                            <a href="detail#{{ service.service}}" @click="reload" class="services-titles-item">{{ service.service }}</a>
+                        </span>
+        </div>
+
+        <article class="col col-12" v-for="item in serviceslist">
+        <div class="service-icon-container">
+            <img class="service-icon" v-bind:src="item.img" alt="{{ item.img_alt }}"/>
+        </div>
+        <div class="service-content">
+            <h1>{{{ item.title }}}</h1>
+            <p>{{{ item.description }}}</p>
+            <p>
+            <a href="{{ item.link_info }}" class="btn btn-secondary">Meer informatie</a>
+            <a href="{{ item.link_service }}" class="btn btn-primary" v-if="item.available"><span
+                    class="icon-right"></span>&nbsp; Ga naar dienst</a>
+            <a href="#" class="btn btn-primary" v-else><span class="icon-lock-open-alt"></span> &nbsp; Vraag toegang</a>
+
+            </p>
+        </div>
+        </article>
     </div>
 
-    <article class="col col-12" v-for="item in serviceslist">
-      <div class="service-icon-container">
-        <img class="service-icon" v-bind:src="item.img" alt="{{ item.img_alt }}"/>
-      </div>
-      <div class="service-content">
-        <h1>{{{ item.title }}}</h1>
-        <p>{{{ item.description }}}</p>
-        <p>
-          <a href="{{ item.link_info }}" class="btn btn-secondary">Meer informatie</a>
-          <a href="{{ item.link_service }}" class="btn btn-primary" v-if="item.available"><span
-                class="icon-right"></span>&nbsp; Ga naar dienst</a>
-          <a href="#" class="btn btn-primary" v-else><span class="icon-lock-open-alt"></span> &nbsp; Vraag toegang</a>
-
-        </p>
-      </div>
-    </article>
-  </div>
+    <%- include('footer', {}); %>
 </div>
