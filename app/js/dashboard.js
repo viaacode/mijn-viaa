@@ -76,7 +76,7 @@
         }
      
         // 'Big stats' on top
-        runningAjaxCalls.push(ajaxcall("/api/stdats", function(err, result) {
+        runningAjaxCalls.push(ajaxcall("/api/stats", function(err, result) {
             if(err) { vueinstance.dataErrors.push(err); }
             else {         
                 dataErrors = [];

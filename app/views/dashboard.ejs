@@ -133,8 +133,8 @@
             </div>   
 
             <!-- errors -->
-            <div class="col col-12 loader-airbox mt10">
-                <div class="col col-12 center" v-if="graph.errormessages.length > 0">
+            <div class="col col-12 loader-airbox mt10"  v-if="graph.errormessages.length > 0">
+                <div class="col col-12 center">
                     <p>Oeps!</p>
                     <p v-for="msg in graph.errormessages">{{ msg }}</p>
                 </div>
