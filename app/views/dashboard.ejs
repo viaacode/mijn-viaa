@@ -6,14 +6,6 @@
             <h1 class="dashboard-title">Mijn Dashboard</h1>
         </div>
 
-        <!-- errors -->
-        <div class="col col-12">
-            <div v-show="errormessages.length > 0">
-                <p>Oeps! Er blijkt een fout te zijn opgetreden.</p>
-                <p v-for="msg in errormessages">{{ msg }}</p>
-            </div>
-        </div>
-
         <!-- Loader gif -->
         <div class="col col-12 loader-airbox" v-show="!dataStats && errormessages.length==0">
             <div class="loader">
@@ -21,6 +13,7 @@
             </div>    
         </div>              
 
+        <!-- Big stats -->
         <div class="bigstats-airbox col col-12">
             <!-- TB + Piechart -->    
             <div class="col col-12 mt4"> 
@@ -28,9 +21,13 @@
                     <canvas id="statsChart"></canvas>
                 </div>
                 <div class="col col-6 stat-title"  v-if="dataStats">
-                    <p class="storage">
-                        <span class="massivetext">{{ dataStats.terabytes }} </span>
-                        <span class="item">Terabytes</span>
+                    <p class="storage" v-if="dataStats.terabytes < 1024">
+                            <span class="massivetext">{{ dataStats.terabytes }} </span>
+                            <span class="item">Terabytes</span>
+                    </p>
+                    <p class="storage" v-else>
+                        <span class="massivetext">{{ Math.round(dataStats.terabytes / 10.24) / 100 }} </span>
+                        <span class="item">Petabytes</span>   
                     </p>
                 </div>    
             </div>
@@ -42,7 +39,7 @@
                         Geregistreerd
                     </p>
                     <p class="orange number">
-                        <span class="bigtext">{{ dataStats.registration_growth }}</span>
+                        <span class="bigtext">{{{ numberWithSpaces(dataStats.registered) }}}</span>
                         <span class="item">items</span>
                     </p>
 
@@ -53,7 +50,7 @@
                         Gedigitaliseerd
                     </p>
                     <p class="blue number">
-                        <span class="bigtext">{{ dataStats.items }}</span>
+                        <span class="bigtext">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
                         <span class="item">items</span>
                     </p>
                     
@@ -63,13 +60,22 @@
                         Gearchiveerd
                     </p>
                     <p class="purple number">
-                        <span class="bigtext">{{ dataStats.archive_growth }}</span>
+                        <span class="bigtext">{{{ numberWithSpaces(dataStats.archived) }}}</span>
                         <span class="item">items</span> 
                     </p>
                     
                 </div>
             </div>    
+        </div> <!-- End of big stats -->
+
+        <!-- errors -->
+        <div class="col col-12">
+            <div v-show="errormessages.length > 0">
+                <p>Oeps! Er blijkt een fout te zijn opgetreden.</p>
+                <p v-for="msg in errormessages">{{ msg }}</p>
+            </div>
         </div>
+
         <!-- Graphs  -->  
         <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs"> 
             <div class="col col-12">
@@ -130,7 +136,12 @@
 
         </div><!-- End of Graphs -->
 
-    
+        <!-- Progress bars -->
+        <div class="graphcontainer">
+            df
+
+        </div> <!-- End of Progress bars -->
+
     
     </div>
     <%- include('footer', {}); %>

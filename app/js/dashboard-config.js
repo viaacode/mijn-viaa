@@ -2,11 +2,11 @@
 function getGraphsFromConfig()
 {
     return {
-        // These objects have to match the 'view' v-model options (from dropdown)
         // Note: chartId value doesn't matter at all but has to be unique
+        // apiUrls correspond with the dropdown menu options
+        // charType: line, bar, doughnut, pie, radar, polar, horizontalBar
         evolutionRegistration: { 
-            dropdown: 1,
-            chartId: 'data_1_chart',
+            chartId: 'evoReg',
             chartTitle: 'Evolutie Registratie',
             chartType: 'line',
             chartFormat: 0,
@@ -20,8 +20,7 @@ function getGraphsFromConfig()
             isLoading: false 
         },
         archiveGrowth: {
-            dropdown: 1,
-            chartId: 'data_2_chart',
+            chartId: 'archiGrowth',
             chartTitle: 'Aangroei Archief',
             chartType: 'line',
             chartFormat: 0,
@@ -34,7 +33,6 @@ function getGraphsFromConfig()
             activeView: 'effective',
             isLoading: false 
         },
-
     };
 }
 

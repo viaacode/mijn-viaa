@@ -5,7 +5,8 @@
     new Vue({
         el: '#dashboard',
         data: { 
-            dataStats: '',
+            dataStats: {},
+            progress: {},
             errormessages: [],
             graphs: getGraphsFromConfig(),
         },
@@ -43,6 +44,9 @@
                 var parsedResult = parseApiResults(graph.data.data, graph.chartFormat);
                 drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType);
                 graph.activeView = 'effective';
+            },
+            numberWithSpaces: function (x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;");
             }
         }
     });  
@@ -90,29 +94,29 @@
             else {         
                 // Translate the keys to user friendly output
                 var userfriendlytextObj = {
-                        "Video": result.registered.video,
-                        "Audio": result.registered.audio,
-                        "Film": result.registered.film,
-                        "Paper": result.registered.paper
+                    "Video": result.registered.video || 0,
+                    "Audio": result.registered.audio || 0,
+                    "Film": result.registered.film || 0,
+                    "Papier": result.registered.paper || 0,
                 };
 
-                    var dataStats = {
-                        "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
-                        "items":result.digitised.total.ok,
-                        "archive_growth":result.archived.amount,
-                        "registration_growth":result.registered.total,
-                    };
+                var dataStats = {
+                    "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
+                    "registered":result.registered.total,
+                    "digitised":result.digitised.total.ok,
+                    "archived":result.archived.amount,
+                    
+                };
 
-                    vueinstance.dataStats = dataStats;
+                vueinstance.dataStats = dataStats;
                 drawPieFromKvpObj('statsChart', userfriendlytextObj);
             }
         }));
-        
 
         // Draw all graphs with API data  
         for(var graphKey in theGraphs) {        
             drawChartFromApi(theGraphs[graphKey], theGraphs[graphKey].apiUrls[0], vueinstance);
-        }
+        }        
     }
 
 
@@ -133,8 +137,6 @@
         var parsedYs = [];
         for(var i = 0; i < data.length ; i++){         
             var x = moment.unix(data[i].timestamp).format(formatString);
-           // var x = moment(data[i].timestamp, formatString);
-           // var x = data[i].timestamp;
             var y = data[i].value;
             parsedXes.push(x);
             parsedYs.push(y);
@@ -146,7 +148,6 @@
     // Split object key/values and draw them on piechart #id
     function drawPieFromKvpObj(id, obj) {
         var ctx = document.getElementById(id);
-
         var keys = [];
         var vals = [];
 
@@ -162,22 +163,10 @@
             datasets: [{
                 data: vals,
                 backgroundColor: [
-                    "#8d6e36",
-                    "#7e525f",
-                    "#94c847",
-                    "#8fcee0",
-                    "#F24313",
-                    "#e8e2bf",
-                    
+                    "#8d6e36", "#7e525f", "#94c847", "#8fcee0", "#F24313", "#e8e2bf",
                 ],
                 hoverBackgroundColor: [
-                    "#8d6e36",
-                    "#7e525f",
-                    "#94c847",
-                    "#8fcee0",
-                    "#F24313",
-                    "#e8e2bf",
-                    
+                    "#8d6e36", "#7e525f", "#94c847", "#8fcee0", "#F24313", "#e8e2bf",          
                 ]
             }]
         };
@@ -189,7 +178,6 @@
                 legend: {
                     display:false    // legend above chart
                 },
-         
             }
         });     
 
@@ -215,8 +203,7 @@
             },
             options: {
                 scales: {
-                    xAxes: [{
-                        
+                    xAxes: [{            
                         scaleLabel: {
                             display: true,
                             labelString: 'Datum'
@@ -240,5 +227,4 @@
 
         charts.push(myChart);
     }
-
 })();
