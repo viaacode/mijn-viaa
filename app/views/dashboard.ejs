@@ -23,88 +23,120 @@
 
     <!-- errors -->
     <div class="col col-12">
-        <div v-if="errormessages.length > 0">
+        <div v-show="errormessages.length > 0">
             <p>Oeps! Er blijkt een fout te zijn opgetreden.</p>
             <p v-for="msg in errormessages">{{ msg }}</p>
         </div>
     </div>
 
-        <!-- Loader gif -->
-    <div class="col col-12 loader-airbox" v-if="!dataStats && errormessages.length==0">
+    <!-- Loader gif -->
+    <div class="col col-12 loader-airbox" v-show="!dataStats && errormessages.length==0">
         <div class="loader">
             <span class="icon-spin3 animate-spin"></span>       
         </div>    
     </div>              
 
-    <!-- TB + Piechart -->    
-    <div class="col col-12 mt4 mb7"> 
-        <div class="col col-6">
-            <canvas id="statsChart"></canvas>
+    <div class="bigstats-airbox col col-12">
+        <!-- TB + Piechart -->    
+        <div class="col col-12 mt4 mb7"> 
+            <div class="col col-6">
+                <canvas id="statsChart"></canvas>
+            </div>
+            <div class="col col-6 stat-title"  v-if="dataStats">
+                <p class="storage">
+                    <span class="massivetext">{{ dataStats.terabytes }} </span>
+                    <span class="item">Terabytes</span>
+                </p>
+            </div>    
         </div>
-        <div class="col col-6 stat-title"  v-if="dataStats">
-            <p class="storage">
-                <span class="massivetext">{{ dataStats.terabytes }} </span>
-                <span class="item">Terabytes</span>
-            </p>
+
+        <!-- Big general stats -->
+        <div class="col col-12 general" v-if="dataStats">         
+            <div class="col sm-col-4 p3 stat">
+                <p class="stat-title">
+                    Geregistreerd
+                </p>
+                <p class="orange number">
+                    <span class="bigtext">{{ dataStats.items }}</span> 
+                    <span class="item">items</span>
+                </p>
+
+            </div>
+
+            <div class="col sm-col-4 p3 stat">
+                <p class="stat-title">
+                    Gedigitaliseerd
+                </p>
+                <p class="blue number">
+                    <span class="bigtext">{{ dataStats.archive_growth }}</span> 
+                    <span class="item">items</span>
+                </p>
+                
+            </div>
+            <div class="col sm-col-4 p3 stat">
+                <p class="stat-title">
+                    Gearchiveerd
+                </p>
+                <p class="purple number">
+                    <span class="bigtext">1234</span>
+                    <span class="item">items</span> 
+                </p>
+                
+            </div>
         </div>    
     </div>
-
-    <!-- Big general stats -->
-    <div class="col col-12 general" v-if="dataStats">         
-        <div class="col sm-col-4 p3 stat">
-            <p class="stat-title">
-                Geregistreerd
-            </p>
-            <p class="orange number">
-                <span class="bigtext">{{ dataStats.items }}</span> 
-                <span class="item">items</span>
-            </p>
-
-        </div>
-
-        <div class="col sm-col-4 p3 stat">
-            <p class="stat-title">
-                Gedigitaliseerd
-            </p>
-            <p class="blue number">
-                <span class="bigtext">{{ dataStats.archive_growth }}</span> 
-                <span class="item">items</span>
-            </p>
-            
-        </div>
-        <div class="col sm-col-4 p3 stat">
-            <p class="stat-title">
-                Gearchiveerd
-            </p>
-            <p class="purple number">
-                <span class="bigtext">1234</span>
-                <span class="item">items</span> 
-            </p>
-            
-        </div>
-    </div>    
-
     <!-- Graphs  -->  
-    <div class="col col-12 mb4" v-for="graph in graphs.personal"> 
+    <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs.personal"> 
+        <div class="col col-12">
+            <div class="col col-12">
+                <h3 class="graphtitle">{{ graph.chartTitle }}</h3>
+            </div>
+            <div class="graphs-btns-container col col-8">
+                <a href="#" 
+                   @click.prevent="refreshGraph(graph, 0)"
+                   v-bind:class="{ 'active': graph.chartFormat == 0 } " >
+                    Laatste Dag
+                </a>
+                <a href="#" 
+                   @click.prevent="refreshGraph(graph, 1)"
+                   v-bind:class="{ 'active': graph.chartFormat == 1 } " >
+                    Laatste Week
+                </a>
+                <a href="#" 
+                   @click.prevent="refreshGraph(graph, 2)"
+                   v-bind:class="{ 'active': graph.chartFormat == 2 } " >
+                    Laatste Maand
+                </a>
+                <a href="#" 
+                   @click.prevent="refreshGraph(graph, 3)"
+                   v-bind:class="{ 'active': graph.chartFormat == 3 } " >
+                    Laatste Jaar
+                </a>
+            </div>
+
+            <div class="graphs-databtns-container col col-4">
+                <a href="#" 
+                @click.prevent="loadGraphCumulative(graph)" 
+                v-bind:class="{ 'active': graph.activeView == 'cumulative' }">
+                    Cumulatief
+                </a>
+                <a href="#" 
+                @click.prevent="loadGraphEffective(graph)" 
+                v-bind:class="{ 'active': graph.activeView == 'effective' }">
+                    Effectief
+                </a>
+            </div>
+        </div>
+        
         <!-- Loader gif -->
-        <div class="col col-12 loader-airbox"
-                v-if="graph.isLoading && errormessages.length==0">
+        <div class="col col-12 loader-airbox" 
+             v-if="graph.isLoading && errormessages.length==0">
             <div class="loader">
                 <span class="icon-spin3 animate-spin"></span>
             </div>
-        </div>        
-        <div class="col col-12 mb7" >
-            <a href="#" @click.prevent="loadGraphCumulative(graph)" v-bind:class="{ 'active': graph.activeView == 'cumulative' }">Cumulatief</a> - 
-            <a href="#" @click.prevent="loadGraphEffective(graph)" v-bind:class="{ 'active': graph.activeView == 'effective' }">Effectief</a>
-            <form>
-                <select @change="refreshGraph(graph, $event.target.value)" v-show="!graph.isLoading">
-                    <option value="0" selected>1 Dag</option>
-                    <option value="1">1 Week</option>
-                    <option value="2">1 Maand</option>
-                    <option value="3">1 Jaar</option>
-                </select>
-            </form>
-            <canvas :id="graph.chartId"></canvas>
-        </div>
-    </div>
+        </div>   
+
+        <canvas :id="graph.chartId" class="mb2"></canvas>   <!-- Do not put this in a v-show or v-if div/container! Thank me for your saved tears later -->
+
+    </div><!-- End of Graphs -->
 </div>
