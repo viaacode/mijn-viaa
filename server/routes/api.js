@@ -14,38 +14,28 @@ module.exports = function (router, config, request) {
   router.get('/api/reports/:y/:type', reports);
   router.get('/api/mule-test', muletest);
 
+  function forwardRequestCall (url, res, next) {
+    request(url, function (error, response, body) {
+      if (error) return next(error);
+      if (response.statusCode != 200) return next('Statuscode: ' + response.statusCode);
+      res
+        .append('Content-Type', 'application/json')
+        .send(body);
+    });
+  }
+
+  function getOrganisation (req) {
+    var user = req.user || {o: null};
+    return user.o;
+  }
 
   //region stats
   function stats (req, res, next) {
-    // todo: get organisationId from SAML
-    var organisationId = 'VRT';
-    fetchStats(organisationId, function (err, data) {
-      if (err) return next(err);
-      res.json(data);
-    });
-  }
+    var organisation = getOrganisation(req);
 
-  function fetchStats (organisation, callback) {
+    var url = config.endpoints.stats + '?tenant=' + organisation;
 
-    var url = 'http://labs.viaa.be/api/v1/archived?tenant=' + organisation;
-
-    request(url, function (error, response, body) {
-      if (error) return callback(error);
-      if (response.statusCode != 200) return callback('Statuscode: ' + response.statusCode);
-
-      console.log(obj);
-      var obj = parseStats(JSON.parse(body));
-      callback(NO_ERROR, obj);
-    });
-  }
-
-  function parseStats (inputObject) {
-    return {
-      terabytes: inputObject.response.data.archived.terabytes,
-      items: inputObject.response.data.archived.all,
-      archive_growth: 111.12,
-      registration_growth: 111.5
-    };
+    forwardRequestCall(url, res, next);
   }
 
   //endregion
@@ -83,88 +73,25 @@ module.exports = function (router, config, request) {
      */
     var type = req.params.type;
 
+    var organisation = getOrganisation(req);
 
-    fetchReport(y, type, function (error, data) {
-      if (error) return next(error);
-      res.json(data);
-    });
-  }
+    var url;
 
-  function fetchReport (y, type, callback) {
-    var options = reportTypeToOptions(y, type);
-
-    var dummyY = DUMMY.reports[y];
-
-    if (!dummyY) {
-      return callback("Report '" + y + "' does not exist");
+    try {
+      url = config.endpoints.reports[y][type] + '?org=' + organisation;
+    } catch (e) {
+      return next(config.error.e404);
     }
 
-    var typeExists = dummyY[type];
-
-    if (!typeExists) {
-      return callback("Report '" + y + "/" + type + "' does not exist");
-    }
-
-    var data = DUMMY.reportsGeneration(options);
-
-    result = options;
-    result.data = data;
-
-    callback(NO_ERROR, result);
-  }
-
-  function reportTypeToOptions (y, type) {
-    var DATE_FORMAT = 'YYYY-MM-DD HH:mm:';
-
-    var options = {
-      y: y,
-      reportType: type,
-      begin: '',
-      end: '',
-      gran: ''
-    };
-
-    var beginDate = moment(new Date());
-    var granularity = '';
-
-    switch (type) {
-
-      case 'last-week':
-        granularity = 'day';
-        beginDate = beginDate.startOf(granularity).subtract(1, 'week');
-        break;
-
-      case 'last-month':
-        granularity = 'day';
-        beginDate = beginDate.startOf(granularity).subtract(1, 'month');
-        break;
-
-      case 'last-year':
-        granularity = 'month';
-        beginDate = beginDate.startOf(granularity).subtract(1, 'year');
-        break;
-
-      default:
-        return {};
-    }
-
-    options.begin = beginDate.format(DATE_FORMAT);
-    options.gran = granularity;
-
-    return options;
+    forwardRequestCall(url, res, next);
   }
 
   //endregion
 
   //region mule test
   function muletest (req, res, next) {
-    request(config.muleEndpoint + 'api/stats/global', function (error, response, body) {
-      if (error) return next(error);
-      if (response.statusCode != 200) return next('Statuscode: ' + response.statusCode);
-      res
-        .append('Content-Type', 'application/json')
-        .send(body);
-    });
+    var url = config.endpoints.muletest;
+    forwardRequestCall(url, res, next);
   }
 
   //endregion

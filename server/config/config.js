@@ -18,8 +18,37 @@ function pathFromApp (p) {
   return path.join(basedir, 'app/', p || '.');
 }
 
+var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
+
 function base () {
   return {
+    error: {
+      e404: {
+        status: 404,
+        jsend: {
+          status: 'error',
+          message: '404 Not Found'
+        }
+      }
+    },
+    endpoints: {
+      stats: 'muleEndpoint' + 'api/stats/global',
+      muletest: muleEndpoint + 'api/stats/global',
+      reports: {
+        items: {
+          "last-day": muleEndpoint + 'reports/items/last-day',
+          "last-week": muleEndpoint + 'reports/items/last-week',
+          "last-month": muleEndpoint + 'reports/items/last-month',
+          "last-year": muleEndpoint + 'reports/items/last-year',
+        },
+        terrabytes: {
+          "last-day": muleEndpoint + 'reports/terrabytes/last-day',
+          "last-week": muleEndpoint + 'reports/terrabytes/last-week',
+          "last-month": muleEndpoint + 'reports/terrabytes/last-month',
+          "last-year": muleEndpoint + 'reports/terrabytes/last-year',
+        }
+      }
+    },
     services: {
       map: {
         'mediahaven': 'MAM',
@@ -47,6 +76,7 @@ function base () {
 
 function dev () {
   return {
+    dummyRequest: true,
     fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
     apiDelay: {
       min: 0,

@@ -75,14 +75,11 @@ h1 {
 /* Navigation menu */
 header {
     height:30.25rem;
-
     width:100%;
     padding:0 1rem;
     margin-bottom:1rem;
     background-color:$almostwhite;
     color:$almostwhite;
-
-
 
     ul {
         width:100%;
@@ -96,7 +93,6 @@ header {
         display:inline-block;
         width:100%;
         margin-bottom:1rem;
-
 
         a {
             width:100%;
@@ -321,6 +317,7 @@ footer {
         margin:0 auto;
         padding:0;
         padding-top: 3rem;
+        overflow:hidden;
     }
 
     .logo img{

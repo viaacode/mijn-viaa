@@ -1,63 +1,68 @@
-<div class="container" id="service-detail" v-cloak>
-  <div class="services-titles">
-                <span v-for="service in serviceslist">
-                    <a href="detail#{{ service.service }}" @click="reload" v-bind:class="{ 'active': service.service == dataHard.service } " class="services-titles-item">{{ service.service }}</a>
-                </span>
-  </div>
-  <div class="service-detail-content col col-12 first">
-    <div class="service-icon-container">
-      <div class="service-icon {{ dataHard.img_classname }}">
-        <img src="/public/assets/avo.svg" alt="{{ dataHard.img_alt }}"/>
-      </div>
-    </div>
-    <div class="service-content">
-      <h1>{{{ dataHard.title }}}</h1>
-      <p v-if="dataHard.available">
-        &rarr; <a href="{{ dataHard.link_service }}" class="underline">{{ dataHard.link_service }}</a> &nbsp;
-      </p>
-      <p>
-        <a href="#" class="btn btn-secondary">Handleiding</a>
-        <a href="{{ dataHard.link_service }}" class="btn btn-primary" v-if="dataHard.available"><span
-              class="icon-right"></span>&nbsp; Ga naar dienst</a>
-        <a href="#" class="btn btn-primary" v-else><span class="icon-lock-open-alt"></span> &nbsp; Vraag toegang</a>
-      </p>
-    </div>
-  </div>
 
-  <div class="service-detail-content col col-12">
-    <h1>Wat is {{ dataHard.service }}</h1>
-    <p>
-      {{{ dataHard.description }}}
-    </p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vel lectus et ante dignissim consequat quis vitae
-      libero. Fusce efficitur fermentum leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam
-      vehicula sollicitudin ipsum, vel hendrerit magna sollicitudin ut. Nunc scelerisque ipsum sed tortor dignissim, et
-      molestie dolor posuere. Donec suscipit eros sed sem volutpat, vulputate sodales urna posuere. Proin a augue enim.
-      Vivamus vitae enim sed dolor pellentesque dapibus vel non ligula. Maecenas ut porta erat. Aenean et diam nunc.
-      Nullam eget nulla sem. Donec mollis tortor eget erat venenatis, nec efficitur orci ultrices. Integer odio lectus,
-      mollis in commodo ut, eleifend vitae urna.
-    </p>
-    <p>Nunc egestas urna nec lectus placerat bibendum eget eget nunc. Vestibulum aliquet enim nulla, ac aliquam metus
-      molestie id. Nullam at porta enim, vel dapibus libero. Maecenas sagittis aliquam consectetur. Integer vel semper
-      enim. Aliquam porttitor, purus a ultricies mollis, nisi eros congue mauris, et varius mauris quam ut lectus. Duis
-      velit tellus, fermentum id massa eget, laoreet rutrum ex.</p>
-
-  </div>
-
-  <div class="service-detail-content col col-12">
-    <h1>Zendesk articles</h1>
-    <p v-if="errormsg">{{ errormsg }}</p>
-
-    <div v-if="dataAPI.articles">
-      <article v-for="item in dataAPI.articles">
-        <h1>{{ item.title }}</h1>
-        <p>Article content not in API yet .. Ipsum cupidatat laborum laboris culpa anim. Mollit ex nisi culpa officia
-          magna id. Dolor commodo aute occaecat velit sit enim exercitation culpa id deserunt proident ut.</p>
-      </article>
+<div  id="service-detail" v-cloak>
+    <div class="container" id="service-detail" v-cloak>
+    <div class="services-titles">
+                    <span v-for="service in serviceslist">
+                        <a href="detail#{{ service.service }}" @click="reload" v-bind:class="{ 'active': service.service == dataHard.service } " class="services-titles-item">{{ service.service }}</a>
+                    </span>
     </div>
-    <div v-if="!errormsg">
-      <strong>Debug</strong>
-      <p>A dump of everything: {{ dataAPI | json }}</p>
+    <div class="service-detail-content col col-12 first">
+        <div class="service-icon-container">
+        <div class="service-icon {{ dataHard.img_classname }}">
+            <img src="/public/assets/avo.svg" alt="{{ dataHard.img_alt }}"/>
+        </div>
+        </div>
+        <div class="service-content">
+        <h1>{{{ dataHard.title }}}</h1>
+        <p v-if="dataHard.available">
+            &rarr; <a href="{{ dataHard.link_service }}" class="underline">{{ dataHard.link_service }}</a> &nbsp;
+        </p>
+        <p>
+            <a href="#" class="btn btn-secondary">Handleiding</a>
+            <a href="{{ dataHard.link_service }}" class="btn btn-primary" v-if="dataHard.available"><span
+                class="icon-right"></span>&nbsp; Ga naar dienst</a>
+            <a href="#" class="btn btn-primary" v-else><span class="icon-lock-open-alt"></span> &nbsp; Vraag toegang</a>
+        </p>
+        </div>
     </div>
-  </div>
+
+    <div class="service-detail-content col col-12">
+        <h1>Wat is {{ dataHard.service }}</h1>
+        <p>
+        {{{ dataHard.description }}}
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vel lectus et ante dignissim consequat quis vitae
+        libero. Fusce efficitur fermentum leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam
+        vehicula sollicitudin ipsum, vel hendrerit magna sollicitudin ut. Nunc scelerisque ipsum sed tortor dignissim, et
+        molestie dolor posuere. Donec suscipit eros sed sem volutpat, vulputate sodales urna posuere. Proin a augue enim.
+        Vivamus vitae enim sed dolor pellentesque dapibus vel non ligula. Maecenas ut porta erat. Aenean et diam nunc.
+        Nullam eget nulla sem. Donec mollis tortor eget erat venenatis, nec efficitur orci ultrices. Integer odio lectus,
+        mollis in commodo ut, eleifend vitae urna.
+        </p>
+        <p>Nunc egestas urna nec lectus placerat bibendum eget eget nunc. Vestibulum aliquet enim nulla, ac aliquam metus
+        molestie id. Nullam at porta enim, vel dapibus libero. Maecenas sagittis aliquam consectetur. Integer vel semper
+        enim. Aliquam porttitor, purus a ultricies mollis, nisi eros congue mauris, et varius mauris quam ut lectus. Duis
+        velit tellus, fermentum id massa eget, laoreet rutrum ex.</p>
+
+    </div>
+
+    <div class="service-detail-content col col-12">
+        <h1>Zendesk articles</h1>
+        <p v-if="errormsg">{{ errormsg }}</p>
+
+        <div v-if="dataAPI.articles">
+        <article v-for="item in dataAPI.articles">
+            <h1>{{ item.title }}</h1>
+            <p>Article content not in API yet .. Ipsum cupidatat laborum laboris culpa anim. Mollit ex nisi culpa officia
+            magna id. Dolor commodo aute occaecat velit sit enim exercitation culpa id deserunt proident ut.</p>
+        </article>
+        </div>
+        <div v-if="!errormsg">
+        <strong>Debug</strong>
+        <p>A dump of everything: {{ dataAPI | json }}</p>
+        </div>
+    </div>
+
+    </div>
+<%- include('footer', {}); %>
 </div>
