@@ -93,10 +93,10 @@
             else {         
                 // Translate the keys to user friendly output
                 var userfriendlytextObj = {
-                        "Video": result.registered.video || 0,
-                        "Audio": result.registered.audio || 0,
-                        "Film": result.registered.film || 0,
-                        "Papier": result.registered.paper || 0,
+                    "Video": result.registered.video || 0,
+                    "Audio": result.registered.audio || 0,
+                    "Film": result.registered.film || 0,
+                    "Papier": result.registered.paper || 0,
                 };
 
                 var dataStats = {
@@ -115,9 +115,7 @@
         // Draw all graphs with API data  
         for(var graphKey in theGraphs) {        
             drawChartFromApi(theGraphs[graphKey], theGraphs[graphKey].apiUrls[0], vueinstance);
-        }
-
-        
+        }        
     }
 
 
@@ -149,7 +147,6 @@
     // Split object key/values and draw them on piechart #id
     function drawPieFromKvpObj(id, obj) {
         var ctx = document.getElementById(id);
-
         var keys = [];
         var vals = [];
 
@@ -165,22 +162,10 @@
             datasets: [{
                 data: vals,
                 backgroundColor: [
-                    "#8d6e36",
-                    "#7e525f",
-                    "#94c847",
-                    "#8fcee0",
-                    "#F24313",
-                    "#e8e2bf",
-                    
+                    "#8d6e36", "#7e525f", "#94c847", "#8fcee0", "#F24313", "#e8e2bf",
                 ],
                 hoverBackgroundColor: [
-                    "#8d6e36",
-                    "#7e525f",
-                    "#94c847",
-                    "#8fcee0",
-                    "#F24313",
-                    "#e8e2bf",
-                    
+                    "#8d6e36", "#7e525f", "#94c847", "#8fcee0", "#F24313", "#e8e2bf",          
                 ]
             }]
         };
@@ -192,7 +177,6 @@
                 legend: {
                     display:false    // legend above chart
                 },
-         
             }
         });     
 
