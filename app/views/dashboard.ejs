@@ -28,9 +28,13 @@
                     <canvas id="statsChart"></canvas>
                 </div>
                 <div class="col col-6 stat-title"  v-if="dataStats">
-                    <p class="storage">
-                        <span class="massivetext">{{ dataStats.terabytes }} </span>
-                        <span class="item">Terabytes</span>
+                    <p class="storage" v-if="dataStats.terabytes < 1024">
+                            <span class="massivetext">{{ dataStats.terabytes }} </span>
+                            <span class="item">Terabytes</span>
+                    </p>
+                    <p class="storage" v-else>
+                        <span class="massivetext">{{ Math.round(dataStats.terabytes / 10.24) / 100 }} </span>
+                        <span class="item">Petabytes</span>   
                     </p>
                 </div>    
             </div>
