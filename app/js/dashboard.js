@@ -43,6 +43,9 @@
                 var parsedResult = parseApiResults(graph.data.data, graph.chartFormat);
                 drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType);
                 graph.activeView = 'effective';
+            },
+            numberWithSpaces: function (x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;");
             }
         }
     });  
@@ -107,12 +110,13 @@
                 drawPieFromKvpObj('statsChart', userfriendlytextObj);
             }
         }));
-        
 
         // Draw all graphs with API data  
         for(var graphKey in theGraphs) {        
             drawChartFromApi(theGraphs[graphKey], theGraphs[graphKey].apiUrls[0], vueinstance);
         }
+
+        
     }
 
 
@@ -213,8 +217,7 @@
             },
             options: {
                 scales: {
-                    xAxes: [{
-                        
+                    xAxes: [{            
                         scaleLabel: {
                             display: true,
                             labelString: 'Datum'
@@ -238,5 +241,4 @@
 
         charts.push(myChart);
     }
-
 })();

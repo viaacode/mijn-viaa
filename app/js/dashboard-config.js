@@ -33,20 +33,6 @@ function getGraphsFromConfig()
             activeView: 'effective',
             isLoading: false 
         },
-        progress: {
-            chartId: 'progress',
-            chartTitle: 'Vooruitgang',
-            chartType: 'horizontalBar',
-            chartFormat: 0,
-            apiUrls: [
-                '/api/reports/items/last-week',
-                '/api/reports/items/last-month',
-                '/api/reports/items/last-year'
-            ],
-            data: {},
-            activeView: 'effective',
-            isLoading: false 
-        },
     };
 }
 
