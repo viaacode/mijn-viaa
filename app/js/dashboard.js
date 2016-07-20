@@ -104,12 +104,20 @@
                 else {         
                     // Translate the keys to user friendly output
                     var userfriendlytextObj = {
-                        "Terabytes": result.terabytes,
-                        "Items": result.items,
-                        "Archive Growth": result.archive_growth,
-                        "Registration Growth": result.registration_growth      
+                        "Video": result.registered.video,
+                        "Audio": result.registered.audio,
+                        "Film": result.registered.film,
+                        "Paper": result.registered.paper
                     };
-                    vueinstance.dataStats = result;                   
+
+                    var dataStats = {
+                        "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
+                        "items":result.digitised.total.ok,
+                        "archive_growth":result.archived.amount,
+                        "registration_growth":result.registered.total,
+                    };
+
+                    vueinstance.dataStats = dataStats;
                     drawPieFromKvpObj('statsChart', userfriendlytextObj);
                 }
             }));

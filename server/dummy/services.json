@@ -1,18 +1,6 @@
 {
   "MAM": {
     "service": "MAM",
-    "stats": [
-      {
-        "key": "archivedData",
-        "value": 11,
-        "unit": "TB"
-      },
-      {
-        "key": "archivedItems",
-        "value": 1111,
-        "unit": ""
-      }
-    ],
     "articles": [
       {
         "title": "Documentatie op zendesk"
@@ -33,13 +21,6 @@
   },
   "AMS": {
     "service": "AMS",
-    "stats": [
-      {
-        "key": "registeredItems",
-        "value": 22,
-        "unit": ""
-      }
-    ],
     "articles": [
       {
         "title": "Documentatie op zendesk"
@@ -60,7 +41,6 @@
   },
   "FTP": {
     "service": "FTP",
-    "stats": [],
     "articles": [
       {
         "title": "Documentatie op zendesk"
@@ -80,18 +60,6 @@
     ],
     "DBS": {
       "service": "DBS",
-      "stats": [
-        {
-          "key": "signedContract",
-          "value": true,
-          "unit": ""
-        },
-        {
-          "key": "signedLOI",
-          "value": true,
-          "unit": ""
-        }
-      ],
       "articles": [
         {
           "title": "Documentatie op zendesk"

@@ -5,6 +5,10 @@ var request = require('request');
 var env = process.env.NODE_ENV || 'development';
 var config = configEnvironments(env);
 
+if (config.dummyRequest) {
+  request = require('./dummy/dummy').request;
+}
+
 var app = require('./app')(config, request);
 
 // Start server

@@ -57,6 +57,20 @@ module.exports = function (config, request) {
   app.use('/public', express.static(config.paths.app('public')));
 
   /* Error handling */
+  app.use(function logErrors (err, req, res, next) {
+    console.error(err);
+    next(err);
+  });
+
+  app.use(function jsendErrors (err, req, res, next) {
+    if (err.jsend) {
+      return res
+        .status(err.status)
+        .send(err.jsend);
+    }
+    next(err);
+  });
+
   app.use(function (err, req, res, next) {
     //Only print stacktrace when in a dev environment
     var stackTrace = {};
