@@ -32,8 +32,8 @@ function base () {
       }
     },
     endpoints: {
-      stats: 'muleEndpoint' + 'api/stats/global',
-      muletest: muleEndpoint + 'api/stats/global',
+      stats: muleEndpoint + 'stats/global',
+      muletest: muleEndpoint + 'stats/global',
       reports: {
         items: {
           "last-day": muleEndpoint + 'reports/items/last-day',
@@ -60,7 +60,6 @@ function base () {
         'FTP': 1
       }
     },
-    muleEndpoint: 'http://do-qas-esb-01.do.viaa.be:10005/',
     app: {
       name: 'mijn.VIAA',
       port: process.env.PORT || 1337,

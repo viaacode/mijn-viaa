@@ -5,17 +5,22 @@ module.exports = function (app, config) {
 
   function getAvailableServices (req, res, next) {
     var services;
+    var organisationName;
     if (req.user) {
-      services = parseServices(req.user.apps);
+      services = parseServices(req.user.apps) || {};
+      organisationName = req.user.oNickname || '';
     } else {
       services = config.fakeServicesAvailable || {};
+      organisationName = '';
     }
 
-    var isServiceAvailableFunction = 'function isServiceAvailable(serviceName){return ' +
+    var mijnVIAA = 'var mijnVIAA=mijnVIAA||{};mijnVIAA.isServiceAvailable=function(serviceName){return ' +
       JSON.stringify(services) +
-      '[serviceName];}';
+      '[serviceName];};mijnVIAA.getOrganisationName=function(){return "' +
+      organisationName +
+      '";};';
 
-    res.send(isServiceAvailableFunction);
+    res.send(mijnVIAA);
   }
 
   function parseServices (input) {

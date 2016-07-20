@@ -105,9 +105,6 @@ function request (url, callback) {
     data = options;
   } else if ((i = parts.indexOf('services')) >= 0) {
     var serviceName = parts[i + 1];
-    console.log('services+0' + parts[i]);
-    console.log('services+1' + serviceName);
-
     data = JSON.parse(servicesJson)[serviceName];
   }
 
