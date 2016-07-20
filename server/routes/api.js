@@ -17,7 +17,7 @@ module.exports = function (router, config, request) {
   function forwardRequestCall (url, res, next) {
     request(url, function (error, response, body) {
       if (error) return next(error);
-      if (response.statusCode != 200) return next('Statuscode: ' + response.statusCode);
+      if (response.statusCode != 200) return next(config.error(response.statusCode, error));
 
       if (typeof body === 'string') {
         body = JSON.parse(body);
@@ -85,7 +85,7 @@ module.exports = function (router, config, request) {
     try {
       url = config.endpoints.reports[y][type] + '?org=' + organisation;
     } catch (e) {
-      return next(config.error.e404);
+      return next(config.error(404));
     }
 
     forwardRequestCall(url, res, next);

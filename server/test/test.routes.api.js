@@ -5,6 +5,11 @@ var configEnvironments = require('../config/config');
 var appConfig = require('../app');
 
 var FAKE_REQUEST = {
+  error: function createRequestMockWhichReturns (statusCode, body) {
+    return function requestMock (url, callback) {
+      callback(null, {statusCode: statusCode}, body);
+    }
+  },
   success: function createRequestMockWhichReturns (body) {
     return function requestMock (url, callback) {
       callback(null, {statusCode: 200}, body);
@@ -37,40 +42,40 @@ describe('routes/api', function () {
   var request;
   var config;
 
+  var paths = [
+    '/api/stats',
+    '/api/services/MAM',
+    '/api/services/FTP',
+    '/api/services/AMS',
+    '/api/services/DBS',
+    '/api/stats',
+    '/api/reports/items/last-day',
+    '/api/reports/items/last-week',
+    '/api/reports/items/last-month',
+    '/api/reports/items/last-year',
+    '/api/reports/terrabytes/last-day',
+    '/api/reports/terrabytes/last-week',
+    '/api/reports/terrabytes/last-month',
+    '/api/reports/terrabytes/last-year'
+  ];
+
   before(function () {
     config = configEnvironments('development');
     config.apiDelay = null;
+    config.logErrors = false;
   });
 
   describe('success', function () {
-    var expected;
+    var input = {foo: "bar"};
+    var expected = {status: "success", data: {"foo": "bar"}};
 
     before(function () {
-      var input = {foo: "bar"};
-      expected = {status:"success",data:{"foo":"bar"}};
       var request = FAKE_REQUEST.success(input);
       app = appConfig(config, request);
     });
 
-    var paths = [
-      '/api/stats',
-      '/api/services/MAM',
-      '/api/services/FTP',
-      '/api/services/AMS',
-      '/api/services/DBS',
-      '/api/stats',
-      '/api/reports/items/last-day',
-      '/api/reports/items/last-week',
-      '/api/reports/items/last-month',
-      '/api/reports/items/last-year',
-      '/api/reports/terrabytes/last-day',
-      '/api/reports/terrabytes/last-week',
-      '/api/reports/terrabytes/last-month',
-      '/api/reports/terrabytes/last-year'
-    ];
-
     for (var i = 0; i < paths.length; i++) {
-      var path = '/api/reports' + paths[i];
+      var path = paths[i];
 
       it(path + ' should wrap request in valid jsend', function (done) {
         supertest(app)
@@ -78,6 +83,31 @@ describe('routes/api', function () {
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
+          .expect(validateJsend)
+          .expect(expected)
+          .end(done);
+      });
+    }
+  });
+
+  describe('error', function () {
+    var input = 'foo';
+    var expected = {status: "error", message: '404 Not Found'};
+
+    before(function () {
+      var request = FAKE_REQUEST.error(404, input);
+      app = appConfig(config, request);
+    });
+
+    for (var i = 0; i < paths.length; i++) {
+      var path = paths[i];
+
+      it(path + ' should show error in valid jsend', function (done) {
+        supertest(app)
+          .get('/api/reports/items/last-month')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(404)
           .expect(validateJsend)
           .expect(expected)
           .end(done);

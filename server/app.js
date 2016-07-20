@@ -58,7 +58,9 @@ module.exports = function (config, request) {
 
   /* Error handling */
   app.use(function logErrors (err, req, res, next) {
-    console.error(err);
+    if (config.logErrors) {
+      console.error(err);
+    }
     next(err);
   });
 
@@ -66,7 +68,7 @@ module.exports = function (config, request) {
     if (err.jsend) {
       return res
         .status(err.status)
-        .send(err.jsend);
+        .json(err.jsend);
     }
     next(err);
   });
