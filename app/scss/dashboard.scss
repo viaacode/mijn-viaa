@@ -95,16 +95,17 @@
 .graphs-btns-container, .graphs-databtns-container {
     height:4rem;
     line-height:3rem;
-    margin-bottom:1.5rem;
+    margin-bottom:5rem;
 }
 
 .graphs-databtns-container{
     float: right;
-    width: 18rem;
+    width: 9rem;
 }
 
 .graphs-btns-container{
     float: left;
+    width: 14rem;
 }
 
 .sub-graphs-btns-container{
@@ -180,8 +181,16 @@
         }
     }
 
+    .graphs-btns-container { 
+        width: 28rem;
+    }
+
     .graphs-databtns-container{
-    width: 19rem;
+        width: 19rem;
+    }
+
+    .graphs-btns-container, .graphs-databtns-container {
+        margin-bottom:1.5rem;
     }
 
 
