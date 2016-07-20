@@ -233,18 +233,19 @@
     var barOptions_stacked = {
         tooltips: {
             enabled: true,
-            custom: function(tooltip) {
-                // Tooltip stuff isnt working
-                if(!tooltip) return;
-                
-                // else do regex function here q.q.
-                tooltip.text =  'ttest';
-                
-            }
+ 
+            callbacks: {
+                label: function(tooltip, data) {
+                    console.log(tooltip);
+                    console.log(tooltip.xLabel);
+                    
+                    return 'test hover label';
+                }
+            },
         },
-        tooltipTemplate: "<%= value %> Files",
-        hover :{
-            animationDuration:0
+        hover: {
+            animationDuration:0,
+            mode: 'label',
         },
         scales: {
             xAxes: [{
