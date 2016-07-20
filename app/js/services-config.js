@@ -38,7 +38,7 @@ function getServicesList() {
             title:"DBS &ndash; Contracten",
             description:"Bewaren van online documenten zoals Contracten en Service Agreements.",
             link_info:"detail#dbs",
-            link_service:"https://oauth.viaa.be/user/login.jsp",
+            link_service:"https://contract.viaa.be/",
             img:"/public/assets/avo.svg",
             alt:"DBS icon",
             available: mijnVIAA.isServiceAvailable("DBS"),
