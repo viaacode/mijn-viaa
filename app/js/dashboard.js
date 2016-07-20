@@ -93,20 +93,21 @@
             else {         
                 // Translate the keys to user friendly output
                 var userfriendlytextObj = {
-                        "Video": result.registered.video,
-                        "Audio": result.registered.audio,
-                        "Film": result.registered.film,
-                        "Paper": result.registered.paper
+                        "Video": result.registered.video || 0,
+                        "Audio": result.registered.audio || 0,
+                        "Film": result.registered.film || 0,
+                        "Papier": result.registered.paper || 0,
                 };
 
-                    var dataStats = {
-                        "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
-                        "items":result.digitised.total.ok,
-                        "archive_growth":result.archived.amount,
-                        "registration_growth":result.registered.total,
-                    };
+                var dataStats = {
+                    "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
+                    "registered":result.registered.total,
+                    "digitised":result.digitised.total.ok,
+                    "archived":result.archived.amount,
+                    
+                };
 
-                    vueinstance.dataStats = dataStats;
+                vueinstance.dataStats = dataStats;
                 drawPieFromKvpObj('statsChart', userfriendlytextObj);
             }
         }));
