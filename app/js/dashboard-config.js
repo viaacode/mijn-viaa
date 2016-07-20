@@ -32,7 +32,7 @@ function getGraphsFromConfig()
             ],
             data: {},
             errormessages: [],
-            activeView: 'effective',
+            activeView: 'cumulative',
             isLoading: false 
         },
     };

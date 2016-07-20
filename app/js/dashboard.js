@@ -28,7 +28,7 @@
                 for(var i = 0; i < charts.length; i++) {
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
                 }  
- 
+
                 var parsedResults = parseApiResults(graph.data.data, graph.chartFormat);
                 var cumulData = parsedResults.y;    // Get all values
                 graph.activeView = 'cumulative';
@@ -89,8 +89,7 @@
                     "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
                     "registered":result.registered.total,
                     "digitised":result.digitised.total.ok,
-                    "archived":result.archived.amount,
-                    
+                    "archived":result.archived.amount,     
                 };
 
                 vueinstance.dataStats = dataStats;
@@ -112,8 +111,9 @@
             else {  
                 graph.isLoading = false;
                 graph.data = result;
-                var parsedResult = parseApiResults(result.data, graph.chartFormat);
-                drawChart(graph.chartId, parsedResult, graph.chartTitle, graph.chartType);
+
+                if(graph.activeView == 'effective') vueinstance.loadGraphEffective(graph);
+                else  vueinstance.loadGraphCumulative(graph);
             }
         }));
     }
