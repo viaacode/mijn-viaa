@@ -47,7 +47,7 @@ describe('routes/api', function () {
 
     before(function () {
       var input = {foo: "bar"};
-      expected = '{status:"success",data:{"foo":"bar"}';
+      expected = {status:"success",data:{"foo":"bar"}};
       var request = FAKE_REQUEST.success(input);
       app = appConfig(config, request);
     });
@@ -185,10 +185,11 @@ describe('DUMMY request', function () {
       .get('/api/reports/items/last-month')
       .expect(200)
       .expect('Content-Type', /json/)
+      .expect(validateJsend)
       .expect(function (res) {
-        expect(res.body).to.have.property('y').to.equal('items');
-        expect(res.body).to.have.property('reportType').to.equal('last-month');
-        expect(res.body).to.have.property('data').to.be.an('array');
+        expect(res.body.data).to.have.property('y').to.equal('items');
+        expect(res.body.data).to.have.property('reportType').to.equal('last-month');
+        expect(res.body.data).to.have.property('data').to.be.an('array');
       })
       .end(done);
   });

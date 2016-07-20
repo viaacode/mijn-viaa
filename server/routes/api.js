@@ -18,9 +18,14 @@ module.exports = function (router, config, request) {
     request(url, function (error, response, body) {
       if (error) return next(error);
       if (response.statusCode != 200) return next('Statuscode: ' + response.statusCode);
+
+      if (typeof body === 'string') {
+        body = JSON.parse(body);
+      }
+
       res
         .append('Content-Type', 'application/json')
-        .send(body);
+        .send(config.jsend.success(body));
     });
   }
 

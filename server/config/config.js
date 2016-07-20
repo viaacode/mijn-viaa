@@ -22,6 +22,11 @@ var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
 
 function base () {
   return {
+    jsend: {
+      success: function (data) {
+        return {status: 'success', data: data};
+      }
+    },
     error: {
       e404: {
         status: 404,
