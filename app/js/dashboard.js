@@ -95,6 +95,9 @@
                     "archived":result.archived.amount,   
                 };
 
+                vueinstance.progress = result.digitised;
+                drawProgressChart(vueinstance.progress);
+
                 vueinstance.dataStats = dataStats;
                 drawPieFromKvpObj('statsChart', userfriendlytextObj);
             }
@@ -225,4 +228,101 @@
 
         charts.push(myChart);
     }
+
+    // Progress stacked charts
+    var barOptions_stacked = {
+        tooltips: {
+            enabled: true
+        },
+        hover :{
+            animationDuration:0
+        },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                },
+                scaleLabel:{
+                    display:false,
+                }, 
+                stacked: true,
+            }],
+            yAxes: [{
+                gridLines: {
+                    display:false,
+                    color: "#fff",
+                    zeroLineColor: "#fff",
+                    zeroLineWidth: 0
+                },
+                scaleLabel:{
+                    display:false,
+                },
+                stacked: true
+            }]
+        },
+        legend:{
+            display:true
+        },
+        
+        
+        animation: {
+            onComplete: function () {
+                var chartInstance = this.chart;
+                var ctx = chartInstance.ctx;
+                ctx.textAlign = "left";
+                ctx.fillStyle = "#fefefe";
+
+                Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+                    var meta = chartInstance.controller.getDatasetMeta(i);
+                    Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                        data = dataset.data[index];
+                        if(i===0){
+                            ctx.fillText(data, 75, bar._model.y+2);
+                        } else {
+                            ctx.fillText(data, bar._model.x-25, bar._model.y+2);
+                        }
+                    }),this);
+                }),this);
+            }
+        },
+       // pointLabelFontFamily : "Quadon Extra Bold",
+     //   scaleFontFamily : "Quadon Extra Bold",
+    };
+
+    function drawProgressChart(progress) {
+        var ctx = document.getElementById("progress");
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ["Video", "Audio", "Film", "Kranten", "Total"],
+                
+                datasets: [{
+                    data: [ progress.video.ok, progress.audio.ok, progress.film.ok,
+                            progress.paper.ok, progress.total.ok ],
+                    backgroundColor: "rgba(148, 200, 71, 1)",
+                    hoverBackgroundColor: "rgba(148, 200, 71, 0.9)",
+                    label:"Succes",
+                },
+                /*
+               // In Progress extra data (not in API call atm) {
+                    data: [ progress.video.ok, progress.audio.ok, progress.film.ok,
+                            progress.paper.ok, progress.total.ok ],
+                    backgroundColor: "rgba(143, 206, 224, 1)",
+                    hoverBackgroundColor: "rgba(143, 206, 224, 0.9)",
+                    label:"IN PROGRESS",
+                }*/{
+                    data: [ progress.video.nok, progress.audio.nok, progress.film.nok,
+                            progress.paper.nok, progress.total.nok ],
+                    backgroundColor: "rgba(233,77,24,1)",
+                    hoverBackgroundColor: "rgba(233,77,24,0.9)",
+                    label:"Gefaald",
+                },
+]
+            },
+
+            options: barOptions_stacked,
+        });
+        charts.push(myChart);
+    }
+
 })();
