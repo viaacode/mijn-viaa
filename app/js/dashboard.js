@@ -133,8 +133,6 @@
         var parsedYs = [];
         for(var i = 0; i < data.length ; i++){         
             var x = moment.unix(data[i].timestamp).format(formatString);
-           // var x = moment(data[i].timestamp, formatString);
-           // var x = data[i].timestamp;
             var y = data[i].value;
             parsedXes.push(x);
             parsedYs.push(y);
