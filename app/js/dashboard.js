@@ -95,7 +95,7 @@
                     "archived":result.archived.amount,   
                 };
 
-                vueinstance.progress = result.digitised;
+                vueinstance.progress = result;
                 drawProgressChart(vueinstance.progress);
 
                 vueinstance.dataStats = dataStats;
@@ -234,13 +234,15 @@
         tooltips: {
             enabled: true,
             custom: function(tooltip) {
-                console.log(tooltip);
+                // Tooltip stuff isnt working
                 if(!tooltip) return;
-                else {
-                    tooltip.text =  'ttest';
-                }
+                
+                // else do regex function here q.q.
+                tooltip.text =  'ttest';
+                
             }
         },
+        tooltipTemplate: "<%= value %> Files",
         hover :{
             animationDuration:0
         },
@@ -307,28 +309,32 @@
             data: {
                 labels: ["Video", "Audio", "Film", "Kranten", "Total"],
                 
-                datasets: [{
-                    data: [ progress.video.ok, progress.audio.ok, progress.film.ok,
-                            progress.paper.ok, progress.total.ok ],
-                    backgroundColor: "rgba(148, 200, 71, 1)",
-                    hoverBackgroundColor: "rgba(148, 200, 71, 0.9)",
-                    label:"Succes",
-                },
-                /*
-               // In Progress extra data (not in API call atm) {
-                    data: [ progress.video.ok, progress.audio.ok, progress.film.ok,
-                            progress.paper.ok, progress.total.ok ],
-                    backgroundColor: "rgba(143, 206, 224, 1)",
-                    hoverBackgroundColor: "rgba(143, 206, 224, 0.9)",
-                    label:"IN PROGRESS",
-                }*/{
-                    data: [ progress.video.nok, progress.audio.nok, progress.film.nok,
-                            progress.paper.nok, progress.total.nok ],
-                    backgroundColor: "rgba(233,77,24,1)",
-                    hoverBackgroundColor: "rgba(233,77,24,0.9)",
-                    label:"Gefaald",
-                },
-]
+                datasets: [
+                    {
+                        data: [ progress.registered.video, progress.registered.audio,
+                                progress.registered.film, progress.registered.kranten,
+                                progress.registered.total ],
+                        backgroundColor: "rgba(143, 206, 224, 1)",
+                        hoverBackgroundColor: "rgba(143, 206, 224, 0.9)",
+                        label:"Geregistreerd",
+                    }, 
+                    {
+                        data: [ progress.digitised.video.ok, progress.digitised.audio.ok,
+                                progress.digitised.film.ok, progress.digitised.paper.ok,
+                                progress.digitised.total.ok ],
+                        backgroundColor: "rgba(148, 200, 71, 1)",
+                        hoverBackgroundColor: "rgba(148, 200, 71, 0.9)",
+                        label:"Gedigitaliseerd (Succes)",
+                    },
+                    {
+                        data: [ progress.digitised.video.nok, progress.digitised.audio.nok,
+                                progress.digitised.film.nok, progress.digitised.paper.nok,
+                                progress.digitised.total.nok ],
+                        backgroundColor: "rgba(233,77,24,1)",
+                        hoverBackgroundColor: "rgba(233,77,24,0.9)",
+                        label:"Niet Gedigitaliseerd (Fout)",
+                    },
+                ]
             },
 
             options: barOptions_stacked,
