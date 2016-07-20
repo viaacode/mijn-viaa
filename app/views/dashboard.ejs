@@ -7,16 +7,22 @@
         </div>
 
         <!-- Loader gif -->
-        <div class="col col-12 loader-airbox" v-show="!dataStats && dataStats.errormessages.length==0">
+        <div class="col col-12 loader-airbox" v-show="!dataStats && dataErrors.length==0">
             <div class="loader">
                 <span class="icon-spin3 animate-spin"></span>       
             </div>    
         </div>              
 
-        {{ dataStats.errormessages || json }}
+        <!-- dataStats errors -->
+        <div class="col col-12 loader-airbox mt10" v-if="dataErrors.length > 0">
+            <div class="col col-12 center" >
+                <p>Oeps!</p>
+                <p v-for="msg in dataErrors">{{ msg }}</p>
+            </div>
+        </div>
 
         <!-- Big stats -->
-        <div class="bigstats-airbox col col-12">
+        <div v-bind:class="{ 'bigstats-airbox' : dataErrors.length==0 }" class="col col-12">
             <!-- TB + Piechart -->    
             <div class="col col-12 mt4"> 
                 <div class="col col-6">
@@ -69,8 +75,6 @@
                 </div>
             </div>    
         </div> <!-- End of big stats -->
-
-
 
         <!-- Graphs  -->  
         <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs"> 

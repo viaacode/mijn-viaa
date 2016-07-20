@@ -75,15 +75,15 @@
 }
 
 .graphtitle {
-    font-size:2rem;
+    font-size:2.6rem;
     font-weight:600;
     margin:1rem 0 2rem;
 }
 
 .graphs-btns-container, .graphs-databtns-container {
-    height:5rem;
+    height:4rem;
     line-height:3rem;
-    margin-bottom: 4rem;
+    margin-bottom:1.5rem;
 }
 
 .graphs-databtns-container{
@@ -167,9 +167,7 @@
             font-size: 6rem;
         }
     }
-    .graphs-btns-container, .graphs-databtns-container {
-        margin-bottom: 2rem;
-    }
+
     .graphs-databtns-container{
     width: 19rem;
     }

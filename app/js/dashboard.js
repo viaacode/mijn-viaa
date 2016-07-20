@@ -6,7 +6,9 @@
         el: '#dashboard',
         data: { 
             dataStats: {},
+            dataErrors: [],
             progress: {},
+            progressErrors: [],
             graphs: getGraphsFromConfig(),
         },
         created: function() { 
@@ -74,9 +76,10 @@
         }
      
         // 'Big stats' on top
-        runningAjaxCalls.push(ajaxcall("/api/stats", function(err, result) {
-            if(err) vueinstance.dataStats.errormessages.push(err);
+        runningAjaxCalls.push(ajaxcall("/api/stdats", function(err, result) {
+            if(err) { vueinstance.dataErrors.push(err); }
             else {         
+                dataErrors = [];
                 // Translate the keys to user friendly output
                 var userfriendlytextObj = {
                     "Video": result.registered.video || 0,
@@ -89,7 +92,7 @@
                     "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
                     "registered":result.registered.total,
                     "digitised":result.digitised.total.ok,
-                    "archived":result.archived.amount,     
+                    "archived":result.archived.amount,   
                 };
 
                 vueinstance.dataStats = dataStats;
@@ -139,7 +142,6 @@
             parsedXes.push(x);
             parsedYs.push(y);
         }
-
         return { x: parsedXes, y: parsedYs };
     }
 
@@ -216,9 +218,7 @@
                 },
 
                 legend: {
-                    onClick : function (event, legendItem) {
-                        event.preventDefault();
-                    }
+                    display: false,
                 }    
             }
         });
