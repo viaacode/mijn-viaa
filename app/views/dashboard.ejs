@@ -133,15 +133,15 @@
             </div>   
 
             <!-- errors -->
-            <div class="col col-12 loader-airbox">
-                <div class="col col-12 center" v-show="graph.errormessages.length > 0">
+            <div class="col col-12 loader-airbox mt10">
+                <div class="col col-12 center" v-if="graph.errormessages.length > 0">
                     <p>Oeps!</p>
                     <p v-for="msg in graph.errormessages">{{ msg }}</p>
                 </div>
             </div>
 
 
-            <canvas :id="graph.chartId" class="mb2"></canvas>   <!-- Do not put this in a v-show or v-if div/container! Thank me for your saved tears later -->
+            <canvas :id="graph.chartId" class="mb2" v-show="!graph.isLoading"></canvas>   <!-- Do not put this in a v-show or v-if div/container! Thank me for your saved tears later -->
 
         </div><!-- End of Graphs -->
 
