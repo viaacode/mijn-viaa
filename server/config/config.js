@@ -32,7 +32,7 @@ function base () {
       }
     },
     endpoints: {
-      stats: 'http://labs.viaa.be/api/v1/archived',
+      stats: 'muleEndpoint' + 'api/stats/global',
       muletest: muleEndpoint + 'api/stats/global',
       reports: {
         items: {
@@ -76,7 +76,7 @@ function base () {
 
 function dev () {
   return {
-    // dummyRequest: true,
+    dummyRequest: true,
     fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
     apiDelay: {
       min: 0,
