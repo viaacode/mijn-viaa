@@ -232,7 +232,14 @@
     // Progress stacked charts
     var barOptions_stacked = {
         tooltips: {
-            enabled: true
+            enabled: true,
+            custom: function(tooltip) {
+                console.log(tooltip);
+                if(!tooltip) return;
+                else {
+                    tooltip.text =  'ttest';
+                }
+            }
         },
         hover :{
             animationDuration:0
@@ -243,7 +250,8 @@
                     beginAtZero:true,
                 },
                 scaleLabel:{
-                    display:false,
+                    display:true,
+                    labelString: 'Items',
                 }, 
                 stacked: true,
             }],
@@ -257,14 +265,16 @@
                 scaleLabel:{
                     display:false,
                 },
-                stacked: true
+                stacked: true,
+
             }]
         },
         legend:{
             display:true
         },
-        
-        
+
+        // Following code displays the values on the bars
+        /*
         animation: {
             onComplete: function () {
                 var chartInstance = this.chart;
@@ -277,17 +287,18 @@
                     Chart.helpers.each(meta.data.forEach(function (bar, index) {
                         data = dataset.data[index];
                         if(i===0){
-                            ctx.fillText(data, 75, bar._model.y+2);
+                            ctx.fillText(data, 75, bar._model.y-2   );
                         } else {
-                            ctx.fillText(data, bar._model.x-25, bar._model.y+2);
+                            ctx.fillText(data, bar._model.x-25, bar._model.y-2);
                         }
                     }),this);
                 }),this);
             }
-        },
-       // pointLabelFontFamily : "Quadon Extra Bold",
-     //   scaleFontFamily : "Quadon Extra Bold",
+        },        
+        */
+
     };
+
 
     function drawProgressChart(progress) {
         var ctx = document.getElementById("progress");
@@ -324,5 +335,8 @@
         });
         charts.push(myChart);
     }
+
+
+
 
 })();
