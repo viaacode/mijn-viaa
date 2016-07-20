@@ -12,6 +12,25 @@ var FAKE_REQUEST = {
   }
 };
 
+function validateJsend (res) {
+  expect(res.body).to.have.property('status');
+  switch (res.body.status) {
+    case 'success':
+      expect(res.body).to.have.property('data');
+      break;
+
+    case 'fail':
+      expect(res.body).to.have.property('data');
+      break;
+
+    case 'error':
+      expect(res.body).to.have.property('message');
+      break;
+
+    default:
+      expect().fail("status '" + res.body.status + "' not allowed");
+  }
+}
 
 describe('routes/api', function () {
   var app;
@@ -23,44 +42,47 @@ describe('routes/api', function () {
     config.apiDelay = null;
   });
 
-  it('/mule-test should pass json from request without changing it', function (done) {
-    var input = {foo: "bar"};
-    var expected = '{"foo":"bar"}';
-    var request = FAKE_REQUEST.success(input);
-    app = appConfig(config, request);
+  describe('success', function () {
+    var expected;
 
-    supertest(app)
-      .get('/api/mule-test')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200, expected)
-      .end(done);
-  });
+    before(function () {
+      var input = {foo: "bar"};
+      expected = '{status:"success",data:{"foo":"bar"}';
+      var request = FAKE_REQUEST.success(input);
+      app = appConfig(config, request);
+    });
 
-  it('/stats should pass json from request without changing it', function (done) {
-    var input = {foo: "bar"};
-    var expected = '{"foo":"bar"}';
-    var request = FAKE_REQUEST.success(input);
-    app = appConfig(config, request);
+    var paths = [
+      '/api/stats',
+      '/api/services/MAM',
+      '/api/services/FTP',
+      '/api/services/AMS',
+      '/api/services/DBS',
+      '/api/stats',
+      '/api/reports/items/last-day',
+      '/api/reports/items/last-week',
+      '/api/reports/items/last-month',
+      '/api/reports/items/last-year',
+      '/api/reports/terrabytes/last-day',
+      '/api/reports/terrabytes/last-week',
+      '/api/reports/terrabytes/last-month',
+      '/api/reports/terrabytes/last-year'
+    ];
 
-    supertest(app)
-      .get('/api/stats')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200, expected, done);
-  });
+    for (var i = 0; i < paths.length; i++) {
+      var path = '/api/reports' + paths[i];
 
-  it('/reports/items/last-month should pass json from request without changing it', function (done) {
-    var input = {foo: "bar"};
-    var expected = '{"foo":"bar"}';
-    var request = FAKE_REQUEST.success(input);
-    app = appConfig(config, request);
-
-    supertest(app)
-      .get('/api/reports/items/last-month')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200, expected, done);
+      it(path + ' should wrap request in valid jsend', function (done) {
+        supertest(app)
+          .get('/api/reports/items/last-month')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .expect(validateJsend)
+          .expect(expected)
+          .end(done);
+      });
+    }
   });
 });
 
