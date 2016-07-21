@@ -1,7 +1,11 @@
 # Mijn VIAA
 Dashboard and Portal site for VIAA's Content Partners.
 
+
+
 # Getting started
+Get it running.
+
 ## Start server
 - Navigate to /server (`cd server`)
 - `npm install`
@@ -12,14 +16,22 @@ Dashboard and Portal site for VIAA's Content Partners.
 - `npm install`
 - `grunt` command to get files from node_modules folder (basscss grid, vue.js, jquery copy to dist/)
 
-Go to localhost:1337 in your browser to run the site.
+Go to [localhost:1337](localhost:1337) in your browser to run the site.
+
+
 
 # Content Configuration
+Edit the graphs / API calls / Service data.
+
 ## Graphs and Services configuration
 - Configure graphs and their API calls in /app/js/dashboard-config.js
 - Configure services overview in /app/js/services-config.js
 
+
+
 # Development 
+Making your life better when working on the project.
+
 ## Server watch
 If you want to have the server automatically restart on changes,
 you can install nodemon `npm install nodemon -g` in /server
