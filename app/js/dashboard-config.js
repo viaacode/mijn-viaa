@@ -11,6 +11,7 @@ function getGraphsFromConfig()
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
+                '/api/reports/items/last-day',
                 '/api/reports/items/last-week',
                 '/api/reports/items/last-month',
                 '/api/reports/items/last-year'
