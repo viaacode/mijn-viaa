@@ -147,8 +147,7 @@ header {
 }
 
 .navigation:first-child{
-    padding-top:5rem;
-
+    padding-top: 1rem;
 }
 /* End of navigation menu */
 
@@ -266,7 +265,7 @@ footer {
 @media (min-width: 775px) {
     /* Navigation menu */
     header {
-        height:20rem;
+        height:15rem;
         .navigation{
             display:block;
         }
