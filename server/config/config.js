@@ -22,6 +22,7 @@ var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
 
 function base () {
   return {
+    // Mule endpoint
     endpoints: {
       stats: muleEndpoint + 'stats/global',
       muletest: muleEndpoint + 'stats/global',
@@ -40,6 +41,7 @@ function base () {
         }
       }
     },
+    // used to map SAML data to available services
     services: {
       map: {
         'mediahaven': 'MAM',
@@ -47,32 +49,39 @@ function base () {
         'FTP': 'FTP',
         'skryvweb': 'DBS'
       },
+      // These services are always available (if logged in)
       always: {
         'FTP': 1
       }
     },
     app: {
+      // used in console to tell which app is started
       name: 'mijn.VIAA',
       port: process.env.PORT || 1337,
       sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
     },
+    // used to get the path to a file or folder
     paths: {
       server: pathFromServer,
       app: pathFromApp
-    },
-    path: pathFromServer  //deprecated
+    }
   };
 }
 
 function dev () {
   return {
+    // toggle to show api links on /api/docs
     showApiDocs: true,
+    // replace all outgoing calls (eg. to Mule) by dummy data
     dummyRequest: true,
+    // fake that these services are available when not logged in
     fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
+    // enable api delay for testing graph loading
     apiDelay: {
       min: 0,
       max: 1
     },
+    // show extended error messages in api calls
     showErrors: true
   };
 }
@@ -80,17 +89,21 @@ function dev () {
 function qas () {
   return {
     app: {
+      // used in console to tell which app is started
       name: 'mijn.VIAA',
       port: process.env.PORT || 3000,
       sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
     },
+    // show extended error messages in api calls
     showErrors: true
   };
 }
 
 function authentication () {
   return {
+    // disable api delay for testing graph loading
     apiDelay: null,
+    // settings for authentication
     passport: {
       strategy: 'saml',
       saml: {
