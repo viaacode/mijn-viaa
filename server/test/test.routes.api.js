@@ -18,6 +18,8 @@ var FAKE_REQUEST = {
 };
 
 function validateJsend (res) {
+  expect(res).to.be.an('object');
+  expect(res.body).to.be.an('object');
   expect(res.body).to.have.property('status');
   switch (res.body.status) {
     case 'success':
