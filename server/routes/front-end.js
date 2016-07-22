@@ -10,9 +10,9 @@ function createPage (view, title, scripts) {
         body: {}
       },
       navigation: [
+        {title: '', href: 'dashboard', image: true},
         {title: 'Dashboard', href: 'dashboard', class: view == 'dashboard' ? 'active' : ''},
         {title: 'Diensten', href: 'services', class: view == 'services' || view == 'detail' ? 'active' : ''},
-        {title: '', href: 'dashboard', image: true},
         {title: 'Over', href: '#'},
         {title: 'Account', href: '#'}
       ]
