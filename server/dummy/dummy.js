@@ -4,10 +4,6 @@ var moment = require("moment");
 
 var DATE_FORMAT = 'YYYY-MM-DD HH:mm:';
 
-var statsJson = fs.readFileSync(path.join(__dirname + '/stats.json'));
-var servicesJson = fs.readFileSync(path.join(__dirname + '/services.json'));
-var reportsJson = fs.readFileSync(path.join(__dirname + '/reports.json'));
-
 /**
  *
  * @param options {
@@ -82,40 +78,49 @@ function reportsGenerationOptions (y, type) {
   return options;
 }
 
-/**
- *
- * @param url
- * @param callback function (error, response, body)
- */
-function request (url, callback) {
-  var data = '{}';
-  var response = {statusCode: 200};
-  var error = null;
+module.exports = function (config) {
+  var statsJson = fs.readFileSync(config.paths.server('dummy/stats.json'), "utf8");
+  var servicesJson = fs.readFileSync(config.paths.server('dummy//services.json'), "utf8");
 
-  var parts = url.split('?')[0].split('/');
+  /**
+   *
+   * @param url
+   * @param callback function (error, response, body)
+   */
+  function request (url, callback) {
+    var data = '{}';
+    var response = {statusCode: 200};
+    var error = null;
 
-  var i;
-  if ((i = parts.indexOf('stats')) >= 0) {
-    data = statsJson;
-  } else if ((i = parts.indexOf('reports')) >= 0) {
-    var y = parts[i + 1];
-    var type = parts[i + 2];
-    var options = reportsGenerationOptions(y, type);
-    options.data = generateReports(options);
-    data = options;
-  } else if ((i = parts.indexOf('services')) >= 0) {
-    var serviceName = parts[i + 1];
-    data = JSON.parse(servicesJson)[serviceName];
+    var parts = url.split('?')[0].split('/');
+
+    var i;
+    if (url.startsWith(config.endpoints.stats)) {
+      console.log('dummy stats');
+      console.log(statsJson);
+      data = statsJson;
+    } else if ((i = parts.indexOf('reports')) >= 0) {
+      console.log('dummy reports');
+      var y = parts[i + 1];
+      var type = parts[i + 2];
+      var options = reportsGenerationOptions(y, type);
+      options.data = generateReports(options);
+      data = options;
+    } else if ((i = parts.indexOf('services')) >= 0) {
+      console.log('dummy services');
+      var serviceName = parts[i + 1];
+      data = JSON.parse(servicesJson)[serviceName];
+    } else {
+      console.log('dummy data not found');
+      return callback(config.jsend.error('Not found dummy data', 404))
+    }
+
+    return callback(error, response, data);
   }
 
-  return callback(error, response, data);
-}
-
-var DUMMY = {
-  services: JSON.parse(servicesJson),
-  reports: JSON.parse(reportsJson),
-  request: request,
-  reportsGeneration: generateReports
+  return {
+    services: JSON.parse(servicesJson),
+    request: request,
+    reportsGeneration: generateReports
+  };
 };
-
-module.exports = DUMMY;
