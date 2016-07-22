@@ -18,17 +18,19 @@ function ajaxcall(url, done) {
         }
 
         var jsendResponse = JSON.parse(r.responseText);
-        console.log(jsendResponse);
 
-        if (jsendResponse.status != 'success') {
-            return done('Er is een fout opgetreden: ' + jsendResponse.message);
+        if (jsendResponse.status) {
+            if(jsendResponse.status != 'success') {
+                return done('Er is een fout opgetreden: ' + jsendResponse.message);
+            }
+            return done(null, jsendResponse.data);
         }
 
         if(r.status != 200) {
             return done('Er is een fout opgetreden (Code ' + r.status + ')');
         }
 
-        return done(null, jsendResponse.data);
+        return done(null, jsendResponse);
     };
     r.onerror = function() {
         return done('Er is een fout opgetreden (Server niet bereikbaar, Code ' + r.status + ')');

@@ -19,8 +19,7 @@
                 }
                 else {
                     thisvue.zendesk = result;
-                    console.log('ja');
-                    console.log(result);
+  
                 }
             });
         }
