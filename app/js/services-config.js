@@ -7,7 +7,7 @@ function getServicesList() {
             title:"FTP &ndash; Bestanden",
             description:"Uploaden of downloaden van uw bestanden.",
             link_info:"detail#ftp",
-            link_service:"ftp://ftp.viaa.be/",
+            link_service:"https://viaa.zendesk.com/hc/nl",
             img:"/public/assets/ftp.svg",
             alt:"FTP icon",
             available: mijnVIAA.isServiceAvailable("FTP"),

@@ -10,6 +10,6 @@
       <a href="<%- item.href %>" class="<%- item.class %>"><% if (item.image) { %><img src="/public/assets/logo2.svg"/><% } else { %><%- item.title %><% } %></a>
     </li>
     <% }); %>
-    <li><a href="#" @click ="logout">Uitloggen</a></li>
+    <li><a href="#" onclick="logout()">Uitloggen</a></li>
   </ul>
 </header>
