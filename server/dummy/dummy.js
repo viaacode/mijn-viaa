@@ -2,6 +2,8 @@ var fs = require("fs");
 var path = require("path");
 var moment = require("moment");
 
+var jsend = require('../util/jsend');
+
 var DATE_FORMAT = 'YYYY-MM-DD HH:mm:';
 
 /**
@@ -112,7 +114,7 @@ module.exports = function (config) {
       data = JSON.parse(servicesJson)[serviceName];
     } else {
       console.log('dummy data not found');
-      return callback(config.jsend.error('Not found dummy data', 404))
+      return callback(jsend.error('Not found dummy data', 404))
     }
 
     return callback(error, response, data);

@@ -1,5 +1,7 @@
 var moment = require('moment');
 
+var jsend = require('../util/jsend');
+
 module.exports = function (router, config, request) {
   var DUMMY = require('../dummy/dummy')(config);
 
@@ -17,7 +19,7 @@ module.exports = function (router, config, request) {
   function forwardRequestCall (url, res, next) {
     request(url, function (error, response, body) {
       if (error) return next(error);
-      if (response.statusCode != 200) return next(config.error(response.statusCode, error));
+      if (response.statusCode != 200) return next(jsend.error(response.statusCode, error));
 
       if (typeof body === 'string') {
         body = JSON.parse(body);
@@ -25,7 +27,7 @@ module.exports = function (router, config, request) {
 
       res
         .append('Content-Type', 'application/json')
-        .send(config.jsend.success(body));
+        .send(jsend.success(body));
     });
   }
 
@@ -50,7 +52,7 @@ module.exports = function (router, config, request) {
     var serviceId = req.params.serviceId;
     fetchService(serviceId, function (error, data) {
       if (error) return next(error);
-      res.json(config.jsend.success(data));
+      res.json(jsend.success(data));
     });
   }
 
@@ -85,7 +87,7 @@ module.exports = function (router, config, request) {
     try {
       url = config.endpoints.reports[y][type] + '?org=' + organisation;
     } catch (e) {
-      return next(config.error(404));
+      return next(jsend.error(404));
     }
 
     forwardRequestCall(url, res, next);

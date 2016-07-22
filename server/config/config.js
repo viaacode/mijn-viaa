@@ -2,6 +2,32 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 
+var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
+
+// not used but example of all available properties
+var template = {
+  // Mule endpoint
+  endpoints: null,
+  // used to map SAML data to available services
+  services: null,
+  // general app settings
+  app: null,
+  // contains functions used to get the path to a file or folder
+  paths: null,
+  // toggle to show api links on /api/docs
+  showApiDocs: false,
+  // replace all outgoing calls to Mule by dummy data
+  dummyRequest: false,
+  // fake that these services are available when not logged in
+  fakeServicesAvailable: null,
+  // api delay for testing graph loading
+  apiDelay: null,
+  // show extended error messages in api call responses
+  showErrors: false,
+  // settings for authentication
+  passport: null
+};
+
 var environments = {
   qas: [base, qas, authentication],
   development: [base, dev],
@@ -18,36 +44,9 @@ function pathFromApp (p) {
   return path.join(basedir, 'app/', p || '.');
 }
 
-var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
-
 function base () {
   return {
-    logErrors: false,
-    jsend: {
-      success: function (data) {
-        return {status: 'success', data: data};
-      }
-    },
-    error: function (statusCode, error) {
-      var message = '';
-
-      switch (statusCode) {
-        case 404:
-          message = '404 Not Found';
-          break;
-
-        default:
-          return error;
-      }
-
-      return {
-        status: statusCode,
-        jsend: {
-          status: 'error',
-          message: message
-        }
-      };
-    },
+    // Mule endpoint
     endpoints: {
       stats: muleEndpoint + 'stats/global',
       muletest: muleEndpoint + 'stats/global',
@@ -66,6 +65,7 @@ function base () {
         }
       }
     },
+    // used to map SAML data to available services
     services: {
       map: {
         'mediahaven': 'MAM',
@@ -73,32 +73,39 @@ function base () {
         'FTP': 'FTP',
         'skryvweb': 'DBS'
       },
+      // These services are always available (if logged in)
       always: {
         'FTP': 1
       }
     },
     app: {
+      // used in console to tell which app is started
       name: 'mijn.VIAA',
       port: process.env.PORT || 1337,
       sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
     },
+    // used to get the path to a file or folder
     paths: {
       server: pathFromServer,
       app: pathFromApp
-    },
-    path: pathFromServer  //deprecated
+    }
   };
 }
 
 function dev () {
   return {
+    // toggle to show api links on /api/docs
     showApiDocs: true,
+    // replace all outgoing calls (eg. to Mule) by dummy data
     dummyRequest: true,
+    // fake that these services are available when not logged in
     fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
+    // enable api delay for testing graph loading
     apiDelay: {
       min: 0,
       max: 1
     },
+    // show extended error messages in api calls
     showErrors: true
   };
 }
@@ -106,17 +113,21 @@ function dev () {
 function qas () {
   return {
     app: {
+      // used in console to tell which app is started
       name: 'mijn.VIAA',
       port: process.env.PORT || 3000,
       sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
     },
+    // show extended error messages in api calls
     showErrors: true
   };
 }
 
 function authentication () {
   return {
+    // disable api delay for testing graph loading
     apiDelay: null,
+    // settings for authentication
     passport: {
       strategy: 'saml',
       saml: {
@@ -147,6 +158,12 @@ function authentication () {
   };
 }
 
+/**
+ * builds up config from 'environments' field,
+ * environments need to be functions with delayed execution
+ * authentication requires server/cert/... files to be present
+ * to prevent crashes
+ */
 module.exports = function (environmentName) {
   var environmentSettings = environments[environmentName];
   if (!environmentSettings) {
