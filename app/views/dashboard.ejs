@@ -22,12 +22,12 @@
         </div>
 
         <!-- Big stats -->
-        <div v-bind:class="{ 'bigstats-airbox' : dataErrors.length==0 }" class="col col-12">
+        <div v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }" class="col col-12 mb7">
             <!-- TB + Piechart -->    
             <div class="col col-12 mt3 top-stats"> 
-                <div class="col sm-col-12 md-col-3 stat-title" >
+                <div class="col sm-col-12 md-col-3 stat-title"  v-if="dataStats" >
                     <p class="stat-title">Geregistreerd</p>
-                    <p class="blue number" v-if="dataStats">
+                    <p class="blue number">
                         <span class="massivetext">{{{ numberWithSpaces(dataStats.registered) }}}</span>
                         <span class="item">items</span>
                     </p>    
