@@ -25,15 +25,19 @@
         <div v-bind:class="{ 'bigstats-airbox' : dataErrors.length==0 }" class="col col-12">
             <!-- TB + Piechart -->    
             <div class="col col-12 mt4"> 
-                <div class="col col-6">
-                    <canvas id="statsChart"></canvas>
-                </div>
-                <div class=" storage col col-6 stat-title stat"  v-if="dataStats">
+                <div class="col col-6 stat-title" >
                     <p class="stat-title">Geregistreerd</p>
-                    <p class="blue number">
+                    <p class="blue number" v-if="dataStats">
                         <span class="massivetext">{{{ numberWithSpaces(dataStats.registered) }}}</span>
                         <span class="item">items</span>
                     </p>
+                    <div class="left piechart">
+                        <canvas id="statsChart"></canvas>    
+                    </div>
+                    
+                </div>
+                <div class=" storage col col-6 big-stat-title stat"  v-if="dataStats">
+                    
                     <div class="legend">
                         <div class="legend-item first-item">
                             <div class="circle blue"></div>
@@ -58,7 +62,7 @@
                     </div>
                 </div>    
             </div>
-
+            </div>
             <!-- Big general stats -->
             <div class="col col-12 general" v-if="dataStats">         
                 <div class="col sm-col-4 p3 stat">
