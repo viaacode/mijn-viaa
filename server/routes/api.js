@@ -1,7 +1,7 @@
 var moment = require('moment');
 
 module.exports = function (router, config, request) {
-  var DUMMY = require('../dummy/dummy');
+  var DUMMY = require('../dummy/dummy')(config);
 
   /**
    * used in callback argument to return if successful
@@ -17,10 +17,15 @@ module.exports = function (router, config, request) {
   function forwardRequestCall (url, res, next) {
     request(url, function (error, response, body) {
       if (error) return next(error);
-      if (response.statusCode != 200) return next('Statuscode: ' + response.statusCode);
+      if (response.statusCode != 200) return next(config.error(response.statusCode, error));
+
+      if (typeof body === 'string') {
+        body = JSON.parse(body);
+      }
+
       res
         .append('Content-Type', 'application/json')
-        .send(body);
+        .send(config.jsend.success(body));
     });
   }
 
@@ -45,7 +50,7 @@ module.exports = function (router, config, request) {
     var serviceId = req.params.serviceId;
     fetchService(serviceId, function (error, data) {
       if (error) return next(error);
-      res.json(data);
+      res.json(config.jsend.success(data));
     });
   }
 
@@ -80,7 +85,7 @@ module.exports = function (router, config, request) {
     try {
       url = config.endpoints.reports[y][type] + '?org=' + organisation;
     } catch (e) {
-      return next(config.error.e404);
+      return next(config.error(404));
     }
 
     forwardRequestCall(url, res, next);

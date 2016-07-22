@@ -5,6 +5,11 @@ var configEnvironments = require('../config/config');
 var appConfig = require('../app');
 
 var FAKE_REQUEST = {
+  error: function createRequestMockWhichReturns (statusCode, body) {
+    return function requestMock (url, callback) {
+      callback(null, {statusCode: statusCode}, body);
+    }
+  },
   success: function createRequestMockWhichReturns (body) {
     return function requestMock (url, callback) {
       callback(null, {statusCode: 200}, body);
@@ -12,55 +17,104 @@ var FAKE_REQUEST = {
   }
 };
 
+function validateJsend (res) {
+  expect(res).to.be.an('object');
+  expect(res.body).to.be.an('object');
+  expect(res.body).to.have.property('status');
+  switch (res.body.status) {
+    case 'success':
+      expect(res.body).to.have.property('data');
+      break;
+
+    case 'fail':
+      expect(res.body).to.have.property('data');
+      break;
+
+    case 'error':
+      expect(res.body).to.have.property('message');
+      break;
+
+    default:
+      expect().fail("status '" + res.body.status + "' not allowed");
+  }
+}
 
 describe('routes/api', function () {
   var app;
   var request;
   var config;
 
+  var paths = [
+    '/api/stats',
+    '/api/services/MAM',
+    '/api/services/FTP',
+    '/api/services/AMS',
+    '/api/services/DBS',
+    '/api/stats',
+    '/api/reports/items/last-day',
+    '/api/reports/items/last-week',
+    '/api/reports/items/last-month',
+    '/api/reports/items/last-year',
+    '/api/reports/terrabytes/last-day',
+    '/api/reports/terrabytes/last-week',
+    '/api/reports/terrabytes/last-month',
+    '/api/reports/terrabytes/last-year'
+  ];
+
   before(function () {
     config = configEnvironments('development');
     config.apiDelay = null;
+    config.logErrors = false;
   });
 
-  it('/mule-test should pass json from request without changing it', function (done) {
+  describe('success', function () {
     var input = {foo: "bar"};
-    var expected = '{"foo":"bar"}';
-    var request = FAKE_REQUEST.success(input);
-    app = appConfig(config, request);
+    var expected = {status: "success", data: {"foo": "bar"}};
 
-    supertest(app)
-      .get('/api/mule-test')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200, expected)
-      .end(done);
+    before(function () {
+      var request = FAKE_REQUEST.success(input);
+      app = appConfig(config, request);
+    });
+
+    for (var i = 0; i < paths.length; i++) {
+      var path = paths[i];
+
+      it(path + ' should wrap request in valid jsend', function (done) {
+        supertest(app)
+          .get('/api/reports/items/last-month')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .expect(validateJsend)
+          .expect(expected)
+          .end(done);
+      });
+    }
   });
 
-  it('/stats should pass json from request without changing it', function (done) {
-    var input = {foo: "bar"};
-    var expected = '{"foo":"bar"}';
-    var request = FAKE_REQUEST.success(input);
-    app = appConfig(config, request);
+  describe('error', function () {
+    var input = 'foo';
+    var expected = {status: "error", message: '404 Not Found'};
 
-    supertest(app)
-      .get('/api/stats')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200, expected, done);
-  });
+    before(function () {
+      var request = FAKE_REQUEST.error(404, input);
+      app = appConfig(config, request);
+    });
 
-  it('/reports/items/last-month should pass json from request without changing it', function (done) {
-    var input = {foo: "bar"};
-    var expected = '{"foo":"bar"}';
-    var request = FAKE_REQUEST.success(input);
-    app = appConfig(config, request);
+    for (var i = 0; i < paths.length; i++) {
+      var path = paths[i];
 
-    supertest(app)
-      .get('/api/reports/items/last-month')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200, expected, done);
+      it(path + ' should show error in valid jsend', function (done) {
+        supertest(app)
+          .get('/api/reports/items/last-month')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(404)
+          .expect(validateJsend)
+          .expect(expected)
+          .end(done);
+      });
+    }
   });
 });
 
@@ -108,9 +162,7 @@ describe('services available', function () {
   it('should return be config.fakeServicesAvailable when not logged in', function (done) {
     config.fakeServicesAvailable = {};
 
-    var expected = 'function isServiceAvailable(serviceName){return ' +
-      '{}' +
-      '[serviceName];}';
+    var expected = 'var mijnVIAA=mijnVIAA||{};mijnVIAA.isServiceAvailable=function(serviceName){return {}[serviceName];};mijnVIAA.getOrganisationName=function(){return "";};';
 
     supertest(app)
       .get('/public/js/service-available.js')
@@ -121,9 +173,7 @@ describe('services available', function () {
 
   it('should return req.user.apps when not logged in', function (done) {
     var inputServices = ['mediahaven', 'amsweb'];
-    var expected = 'function isServiceAvailable(serviceName){return ' +
-      '{"MAM":1,"AMS":1,"FTP":1}' +
-      '[serviceName];}';
+    var expected = 'var mijnVIAA=mijnVIAA||{};mijnVIAA.isServiceAvailable=function(serviceName){return {"MAM":1,"AMS":1,"FTP":1}[serviceName];};mijnVIAA.getOrganisationName=function(){return "";};';
 
     var getAvailableServices;
     var app = {
@@ -142,9 +192,7 @@ describe('services available', function () {
 
     var res = {
       send: function (text) {
-        if (expected != text) {
-          return done('not equal - received: ' + text + ' but expected: ' + expected);
-        }
+        expect(text).to.equal(expected);
         done();
       }
     };
@@ -155,12 +203,13 @@ describe('services available', function () {
 });
 
 describe('DUMMY request', function () {
-  var DUMMY = require('../dummy/dummy');
+  var DUMMY;
   var app;
   var config;
 
-  beforeEach(function () {
+  before(function () {
     config = configEnvironments('development');
+    DUMMY = require('../dummy/dummy')(config);
     app = appConfig(config, DUMMY.request);
   });
 
@@ -169,11 +218,33 @@ describe('DUMMY request', function () {
       .get('/api/reports/items/last-month')
       .expect(200)
       .expect('Content-Type', /json/)
+      .expect(validateJsend)
       .expect(function (res) {
-        expect(res.body).to.have.property('y').to.equal('items');
-        expect(res.body).to.have.property('reportType').to.equal('last-month');
-        expect(res.body).to.have.property('data').to.be.an('array');
+        expect(res.body.data).to.have.property('y').to.equal('items');
+        expect(res.body.data).to.have.property('reportType').to.equal('last-month');
+        expect(res.body.data).to.have.property('data').to.be.an('array');
       })
+      .end(done);
+  });
+
+  it('/api/services/AMS should return json of correct form', function (done) {
+    supertest(app)
+      .get('/api/services/AMS')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect(validateJsend)
+      .expect(function (res) {
+        expect(res.body.data).to.have.property('articles').to.be.an('array');
+      })
+      .end(done);
+  });
+
+  it('/api/stats should return json of correct form', function (done) {
+    supertest(app)
+      .get('/api/stats')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect(validateJsend)
       .end(done);
   });
 
@@ -183,11 +254,8 @@ describe('DUMMY request', function () {
     supertest(app)
       .get(path)
       .expect({
-        status: 404,
-        jsend: {
-          status: 'error',
-          message: '404 Not Found'
-        }
+        status: 'error',
+        message: '404 Not Found'
       })
       .expect(404)
       .end(done);

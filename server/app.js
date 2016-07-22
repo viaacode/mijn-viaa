@@ -10,9 +10,9 @@ var authMiddleware = require('./config/authentication-middleware');
 var delayMiddleware = require('./config/delay-middleware');
 
 module.exports = function (config, request) {
-  // Express
-  var app = express();
 
+  //region Initialize server
+  var app = express();
   app.set('port', config.app.port);
   app.set('views', config.paths.app('views'));
   app.set('view engine', 'ejs');
@@ -28,64 +28,79 @@ module.exports = function (config, request) {
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+  //endregion
 
-  // Routes
-  require('./routes/documentation')(app, config);
 
-  /* Routes for API */
+  //region Routes
+  // - api documentation
+  if (config.showApiDocs) {
+    require('./routes/documentation')(app, config);
+  }
+  // - api
   var apiRouter = express.Router();
   if (config.passport) {
     console.log('Authentication is ON');
     require('./routes/authentication')(app, config, passport);
-    apiRouter.use('/api', authMiddleware.errorCode);
+    apiRouter.use('/api', authMiddleware.errorCode); // (error 401 when not authenticated)
   }
-
-  if (config.apiDelay) {
-    apiRouter.use('/api', delayMiddleware(config));
-  }
-
+  // delay api for
+  config.apiDelay && apiRouter.use('/api', delayMiddleware(config));
   require('./routes/api')(apiRouter, config, request);
   app.use('/', apiRouter);
-
-  /* Routes for front-end */
+  // Front-end
+  // - user info
   require('./routes/service-available')(app, config);
-  if (config.passport) {
-    require('./routes/front-end')(app, config, authMiddleware.redirect);
-  } else {
-    require('./routes/front-end')(app, config, authMiddleware.ignore);
-  }
+  // - front-end templates (redirect to login when not authenticated)
+  require('./routes/front-end')(app, config, config.passport ? authMiddleware.redirect : authMiddleware.ignore);
+  // - static files in the public folder
   app.use('/public', express.static(config.paths.app('public')));
+  //endregion
 
-  /* Error handling */
-  app.use(function logErrors (err, req, res, next) {
+
+  //region Error handling
+  // - Log errors && next
+  config.logErrors && app.use(logErrors);
+  // - Send errors in jsend format || next
+  app.use(sendJsendErrors);
+  // -Send errors as '500 Internal'
+  app.use(sendInternalError);
+  //endregion
+
+
+  return app;
+
+
+  //region Helper Functions: error handling
+  function logErrors (err, req, res, next) {
     console.error(err);
     next(err);
-  });
+  }
 
-  app.use(function jsendErrors (err, req, res, next) {
+  function sendJsendErrors (err, req, res, next) {
+    // if error is in jsend format: send error and do not fall through
     if (err.jsend) {
       return res
         .status(err.status)
-        .send(err.jsend);
+        .json(err.jsend);
     }
+    //
     next(err);
-  });
+  }
 
-  app.use(function (err, req, res, next) {
+  function sendInternalError (err, req, res, next) {
+    var jsendMessage = {
+      status: "error",
+      message: "internal",
+      code: 500
+    };
+
     //Only print stacktrace when in a dev environment
-    var stackTrace = {};
     if (config.showErrors) {
-      stackTrace = err;
+      jsendMessage.stackTrace = err;
     }
 
-    console.error(err);
-    res.status(500).send({
-      status: 500,
-      message: err.message,
-      error: stackTrace,
-      type: 'internal'
-    });
-  });
+    res.status(500).send(jsendMessage);
+  }
 
-  return app;
+  //endregion
 };

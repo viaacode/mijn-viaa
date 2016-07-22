@@ -22,14 +22,31 @@ var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
 
 function base () {
   return {
-    error: {
-      e404: {
-        status: 404,
+    logErrors: false,
+    jsend: {
+      success: function (data) {
+        return {status: 'success', data: data};
+      }
+    },
+    error: function (statusCode, error) {
+      var message = '';
+
+      switch (statusCode) {
+        case 404:
+          message = '404 Not Found';
+          break;
+
+        default:
+          return error;
+      }
+
+      return {
+        status: statusCode,
         jsend: {
           status: 'error',
-          message: '404 Not Found'
+          message: message
         }
-      }
+      };
     },
     endpoints: {
       stats: muleEndpoint + 'stats/global',
@@ -75,6 +92,7 @@ function base () {
 
 function dev () {
   return {
+    showApiDocs: true,
     dummyRequest: true,
     fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
     apiDelay: {
