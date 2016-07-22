@@ -12,11 +12,18 @@ function ajaxcall(url, done) {
         if(r.readyState == 4 && r.status != 200) {
             return done('Er is een fout opgetreden (Code ' + r.status + ')');
         }
-        if (r.readyState != 4 || r.status != 200) {
+        if (r.readyState != 4) {
             return;
         }
-        
-        return done(null, JSON.parse(r.responseText));  
+
+        var jsendResponse = JSON.parse(r.responseText);
+        console.log(jsendResponse);
+
+        if (jsendResponse.status != 'success') {
+            return done('Er is een fout opgetreden: ' + jsendResponse.message);
+        }
+
+        return done(null, jsendResponse.data);
     };
     r.onerror = function() {
         return done('Er is een fout opgetreden (Server niet bereikbaar, Code ' + r.status + ')');
