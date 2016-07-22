@@ -166,10 +166,10 @@
             datasets: [{
                 data: vals,
                 backgroundColor: [
-                    "#8d6e36", "#7e525f", "#94c847", "#8fcee0", "#F24313", "#e8e2bf",
+                    "#8fcee0","#4294c8", "#0076b6","#005fa3", 
                 ],
                 hoverBackgroundColor: [
-                    "#8d6e36", "#7e525f", "#94c847", "#8fcee0", "#F24313", "#e8e2bf",          
+                    "#8fcee0","#4294c8", "#0076b6","#005fa3",           
                 ]
             }]
         };

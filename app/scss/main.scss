@@ -92,13 +92,12 @@ header {
         width:100%;
         height:100%;
         margin: 0;
-        text-align: center;
+        text-align: left;
         display: block;
     }
 
-    .menuitem {
+    .menuitem, .logout {
         display:inline-block;
-        width:100%;
         margin-bottom:1rem;
 
         a {
@@ -108,9 +107,8 @@ header {
             border-radius:5px;
 
             color:$orange;
-            text-align:center;
+            text-align:left;
 
-            font-size:2.8rem; 
             position: relative;
             
             &.active{
@@ -119,6 +117,19 @@ header {
             }
         }
     }
+    
+    .menuitem {
+        width:100%;
+        a {
+            font-size:2.8rem; 
+        }
+    }
+
+    .logout {
+        display:inline-block;
+        float:right;
+    }
+
 }
 
 .logo {
@@ -126,7 +137,7 @@ header {
     position:absolute;
     top: 1rem;
     width:100%;
-    text-align:center;
+    text-align:left;
     display:inline-block;
     
     img {
@@ -136,8 +147,7 @@ header {
 }
 
 .navigation:first-child{
-    padding-top:5rem;
-
+    padding-top: 1rem;
 }
 /* End of navigation menu */
 
@@ -255,7 +265,7 @@ footer {
 @media (min-width: 775px) {
     /* Navigation menu */
     header {
-        height:20rem;
+        height:15rem;
         .navigation{
             display:block;
         }
@@ -267,10 +277,6 @@ footer {
             text-align:left;
             margin-right:4rem;
             margin-top:0.5rem;
-
-            img{
-                margin-left: 60px;
-            }
 
         }
 

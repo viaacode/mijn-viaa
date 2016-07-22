@@ -36,5 +36,14 @@ function ajaxcall(url, done) {
     return r; // Return it so we can cancel it * . *
 }
 
+function logout() {
+   ajaxcall('https://idp-qas.viaa.be/module.php/core/authenticate.php?as=viaa-ldap&logout', function(err, response) {
+       if(err) {}
+       else {
+            window.location.replace('logout');
+       }
+   });
+}
+
 
 
