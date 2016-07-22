@@ -25,18 +25,22 @@
         <div v-bind:class="{ 'bigstats-airbox' : dataErrors.length==0 }" class="col col-12">
             <!-- TB + Piechart -->    
             <div class="col col-12 mt4"> 
-                <div class="col col-6 stat-title" >
+                <div class="col col-3 stat-title" >
                     <p class="stat-title">Geregistreerd</p>
                     <p class="blue number" v-if="dataStats">
                         <span class="massivetext">{{{ numberWithSpaces(dataStats.registered) }}}</span>
                         <span class="item">items</span>
-                    </p>
+                    </p>    
+                </div>
+
+                <div class="col col-6 stat-title" >
                     <div class="left piechart">
                         <canvas id="statsChart"></canvas>    
                     </div>
                     
                 </div>
-                <div class=" storage col col-6 big-stat-title stat"  v-if="dataStats">
+
+                <div class=" storage col col-3 big-stat-title stat"  v-if="dataStats">
                     
                     <div class="legend">
                         <div class="legend-item first-item">
@@ -63,45 +67,51 @@
                 </div>    
             </div>
             </div>
+        </div> <!-- End of big container -->
             <!-- Big general stats -->
-            <div class="col col-12 general" v-if="dataStats">         
-                <div class="col sm-col-4 p3 stat">
-                    <p class="stat-title">
-                        In archief
-                    </p>
-                    <p class="purple number" v-if="dataStats.terabytes < 1024">
-                        <span class="massivetext">{{ dataStats.terabytes }} </span>
-                        <span class="item">Terabytes</span>
-                    </p>
-                    <p class="purple number" v-else>
-                        <span class="bigtext">{{ Math.round(dataStats.terabytes / 10.24) / 100 }} </span>
-                        <span class="item">Petabytes</span>   
-                    </p>
-                </div>
+            <div class="col col-12 general" v-if="dataStats">  
+                <div class="container">
+                    <div class="col sm-col-4 p3 stat">
+                        <p class="stat-title">
+                            In archief
+                        </p>
+                        <p class="purple number" v-if="dataStats.terabytes < 1024">
+                            <span class="massivetext">{{ dataStats.terabytes }} </span>
+                            <span class="item">Terabytes</span>
+                        </p>
+                        <p class="purple number" v-else>
+                            <span class="bigtext">{{ Math.round(dataStats.terabytes / 10.24) / 100 }} </span>
+                            <span class="item">Petabytes</span>   
+                        </p>
+                    </div>
 
-                <div class="col sm-col-4 p3 stat">
-                    <p class="stat-title">
-                        Gedigitaliseerd
-                    </p>
-                    <p class="purple number">
-                        <span class="bigtext">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
-                        <span class="item">items</span>
-                    </p>
-                    
-                </div>
-                <div class="col sm-col-4 p3 stat">
-                    <p class="stat-title">
-                        Gearchiveerd
-                    </p>
-                    <p class="purple number">
-                        <span class="bigtext">{{{ numberWithSpaces(dataStats.archived) }}}</span>
-                        <span class="item">items</span> 
-                    </p>
-                    
-                </div>
-            </div>    
-        </div> <!-- End of big stats -->
-
+                    <div class="col sm-col-4 p3 stat">
+                        <p class="stat-title">
+                            Gedigitaliseerd
+                        </p>
+                        <p class="purple number">
+                            <span class="bigtext">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
+                            <span class="item">items</span>
+                        </p>
+                        
+                    </div>
+                    <div class="col sm-col-4 p3 stat">
+                        <p class="stat-title">
+                            Gearchiveerd
+                        </p>
+                        <p class="purple number">
+                            <span class="bigtext">{{{ numberWithSpaces(dataStats.archived) }}}</span>
+                            <span class="item">items</span> 
+                        </p>
+                        
+                    </div>    
+                </div>       
+                
+            </div><!-- End of big stats -->    
+        
+        
+        <div class="container">
+        
         <!-- Graphs  -->  
         <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs"
             v-bind:class="{ 'graph-airplaceholder': graph.isLoading }"> 
@@ -200,6 +210,7 @@
 
         </div> <!-- End of Progress bars -->
 
+    </div>        
     </div>
     <%- include('footer', {}); %>
 </div>
