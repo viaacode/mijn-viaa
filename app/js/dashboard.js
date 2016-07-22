@@ -5,8 +5,10 @@
     new Vue({
         el: '#dashboard',
         data: { 
-            dataStats: '',
-            errormessages: [],
+            dataStats: {},
+            dataErrors: [],
+            progress: {},
+            progressErrors: [],
             graphs: getGraphsFromConfig(),
         },
         created: function() { 
@@ -28,7 +30,7 @@
                 for(var i = 0; i < charts.length; i++) {
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
                 }  
- 
+
                 var parsedResults = parseApiResults(graph.data.data, graph.chartFormat);
                 var cumulData = parsedResults.y;    // Get all values
                 graph.activeView = 'cumulative';
@@ -43,22 +45,12 @@
                 var parsedResult = parseApiResults(graph.data.data, graph.chartFormat);
                 drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType);
                 graph.activeView = 'effective';
+            },
+            numberWithSpaces: function (x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;");
             }
         }
     });  
-
-    // Pass an object from graphs {} and draw the chart for it
-    function drawChartFromApi(graph, url, vueinstance) {
-        runningAjaxCalls.push(ajaxcall(url, function(err, result) {
-            if(err) vueinstance.errormessages.push(err);
-            else {  
-                graph.isLoading = false;
-                graph.data = result;
-                var parsedResult = parseApiResults(result.data, graph.chartFormat);
-                drawChart(graph.chartId, parsedResult, graph.chartTitle, graph.chartType);
-            }
-        }));
-    }
 
     // Refresh the whole view
     function refreshView(vueinstance){
@@ -75,8 +67,7 @@
         // Clean the view
         runningAjaxCalls = [];
         vueinstance.dataStats = '';
-        vueinstance.errormessages = [];
-        
+
         var theGraphs = vueinstance.graphs;
 
         // Put all isLoading booleans to true
@@ -86,35 +77,52 @@
      
         // 'Big stats' on top
         runningAjaxCalls.push(ajaxcall("/api/stats", function(err, result) {
-            if(err) vueinstance.errormessages.push(err);
+            if(err) { vueinstance.dataErrors.push(err); }
             else {         
+                dataErrors = [];
                 // Translate the keys to user friendly output
                 var userfriendlytextObj = {
-                        "Video": result.registered.video,
-                        "Audio": result.registered.audio,
-                        "Film": result.registered.film,
-                        "Paper": result.registered.paper
+                    "Video": result.registered.video || 0,
+                    "Audio": result.registered.audio || 0,
+                    "Film": result.registered.film || 0,
+                    "Papier": result.registered.paper || 0,
                 };
 
-                    var dataStats = {
-                        "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
-                        "items":result.digitised.total.ok,
-                        "archive_growth":result.archived.amount,
-                        "registration_growth":result.registered.total,
-                    };
+                var dataStats = {
+                    "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
+                    "registered":result.registered.total,
+                    "digitised":result.digitised.total.ok,
+                    "archived":result.archived.amount,   
+                };
 
-                    vueinstance.dataStats = dataStats;
+                vueinstance.progress = result;
+                drawProgressChart(vueinstance.progress);
+
+                vueinstance.dataStats = dataStats;
                 drawPieFromKvpObj('statsChart', userfriendlytextObj);
             }
         }));
-        
 
         // Draw all graphs with API data  
         for(var graphKey in theGraphs) {        
             drawChartFromApi(theGraphs[graphKey], theGraphs[graphKey].apiUrls[0], vueinstance);
-        }
+        }        
     }
 
+    // Pass an object from graphs {} and draw the chart for it
+    function drawChartFromApi(graph, url, vueinstance) {
+        graph.errormessages = [];
+        runningAjaxCalls.push(ajaxcall(url, function(err, result) {
+            if(err) graph.errormessages.push(err);
+            else {  
+                graph.isLoading = false;
+                graph.data = result;
+
+                if(graph.activeView == 'effective') vueinstance.loadGraphEffective(graph);
+                else  vueinstance.loadGraphCumulative(graph);
+            }
+        }));
+    }
 
     /*************************************
      * ***  Chart drawing and stuff    ***
@@ -133,20 +141,16 @@
         var parsedYs = [];
         for(var i = 0; i < data.length ; i++){         
             var x = moment.unix(data[i].timestamp).format(formatString);
-           // var x = moment(data[i].timestamp, formatString);
-           // var x = data[i].timestamp;
             var y = data[i].value;
             parsedXes.push(x);
             parsedYs.push(y);
         }
-
         return { x: parsedXes, y: parsedYs };
     }
 
     // Split object key/values and draw them on piechart #id
     function drawPieFromKvpObj(id, obj) {
         var ctx = document.getElementById(id);
-
         var keys = [];
         var vals = [];
 
@@ -162,22 +166,10 @@
             datasets: [{
                 data: vals,
                 backgroundColor: [
-                    "#8d6e36",
-                    "#7e525f",
-                    "#94c847",
-                    "#8fcee0",
-                    "#F24313",
-                    "#e8e2bf",
-                    
+                    "#8d6e36", "#7e525f", "#94c847", "#8fcee0", "#F24313", "#e8e2bf",
                 ],
                 hoverBackgroundColor: [
-                    "#8d6e36",
-                    "#7e525f",
-                    "#94c847",
-                    "#8fcee0",
-                    "#F24313",
-                    "#e8e2bf",
-                    
+                    "#8d6e36", "#7e525f", "#94c847", "#8fcee0", "#F24313", "#e8e2bf",          
                 ]
             }]
         };
@@ -189,7 +181,6 @@
                 legend: {
                     display:false    // legend above chart
                 },
-         
             }
         });     
 
@@ -215,8 +206,7 @@
             },
             options: {
                 scales: {
-                    xAxes: [{
-                        
+                    xAxes: [{            
                         scaleLabel: {
                             display: true,
                             labelString: 'Datum'
@@ -231,14 +221,134 @@
                 },
 
                 legend: {
-                    onClick : function (event, legendItem) {
-                        event.preventDefault();
-                    }
+                    display: false,
                 }    
             }
         });
 
         charts.push(myChart);
     }
+
+    // Progress stacked charts
+    var barOptions_stacked = {
+        tooltips: {
+            enabled: true,
+ 
+            callbacks: {
+                /*
+                // Can't delete my code here just yet .. spent too much time on it, just for it to be replaced by mode: 'label' fml 
+                label: function(tooltip, data) {
+                    var r = [];
+                    for(var i = 0; i < data.datasets.length; i++) {
+                        r.push(data.datasets[i].label + ': ' + (data.datasets[i].data[tooltip.index] || 0));
+                    }
+                    return r;
+                }
+                */
+            },
+            mode: 'label',
+        },
+        hover: {
+            animationDuration:0,
+            
+        },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero:true,
+                },
+                scaleLabel:{
+                    display:true,
+                    labelString: 'Items',
+                }, 
+                stacked: true,
+            }],
+            yAxes: [{
+                gridLines: {
+                    display:false,
+                    color: "#fff",
+                    zeroLineColor: "#fff",
+                    zeroLineWidth: 0
+                },
+                scaleLabel:{
+                    display:false,
+                },
+                stacked: true,
+
+            }]
+        },
+        legend:{
+            display:true
+        },
+
+        // Following code displays the values on the bars
+        /*
+        animation: {
+            onComplete: function () {
+                var chartInstance = this.chart;
+                var ctx = chartInstance.ctx;
+                ctx.textAlign = "left";
+                ctx.fillStyle = "#fefefe";
+
+                Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
+                    var meta = chartInstance.controller.getDatasetMeta(i);
+                    Chart.helpers.each(meta.data.forEach(function (bar, index) {
+                        data = dataset.data[index];
+                        if(i===0){
+                            ctx.fillText(data, 75, bar._model.y-2   );
+                        } else {
+                            ctx.fillText(data, bar._model.x-25, bar._model.y-2);
+                        }
+                    }),this);
+                }),this);
+            }
+        },        
+        */
+
+    };
+
+
+    function drawProgressChart(progress) {
+        var ctx = document.getElementById("progress");
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ["Video", "Audio", "Film", "Kranten", "Total"],
+                
+                datasets: [
+                    {
+                        data: [ progress.registered.video || 0, progress.registered.audio || 0,
+                                progress.registered.film || 0, progress.registered.kranten || 0,
+                                progress.registered.total || 0 ],
+                        backgroundColor: "rgba(143, 206, 224, 1)",
+                        hoverBackgroundColor: "rgba(143, 206, 224, 0.9)",
+                        label:"Geregistreerd",
+                    }, 
+                    {
+                        data: [ progress.digitised.video.ok || 0, progress.digitised.audio.ok || 0,
+                                progress.digitised.film.ok || 0, progress.digitised.paper.ok || 0,
+                                progress.digitised.total.ok || 0 ],
+                        backgroundColor: "rgba(148, 200, 71, 1)",
+                        hoverBackgroundColor: "rgba(148, 200, 71, 0.9)",
+                        label:"Gedigitaliseerd (Succes)",
+                    },
+                    {
+                        data: [ progress.digitised.video.nok || 0, progress.digitised.audio.nok || 0,
+                                progress.digitised.film.nok || 0, progress.digitised.paper.nok || 0,
+                                progress.digitised.total.nok || 0 ],
+                        backgroundColor: "rgba(233,77,24,1)",
+                        hoverBackgroundColor: "rgba(233,77,24,0.9)",
+                        label:"Niet Gedigitaliseerd (Fout)",
+                    },
+                ]
+            },
+
+            options: barOptions_stacked,
+        });
+        charts.push(myChart);
+    }
+
+
+
 
 })();

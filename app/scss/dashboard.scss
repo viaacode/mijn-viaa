@@ -4,7 +4,7 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    top:9rem;
+    top:13rem;
     width: 20px;
 }
 
@@ -13,12 +13,15 @@
     width: 100%;
 }
 
+.graph-airplaceholder {
+    height:35rem;
+}
+
 .bigstats-airbox {
-    height:55rem;
+    height:70rem;
 }
 
 .general{
-    border-top: 1px solid #afafaf;
     margin-bottom : 6rem;
 
     :first-child{
@@ -32,7 +35,7 @@
 }
 
 .stat{
-    border-left: 1px solid #afafaf;
+    width: 100%;
     .number{
         padding-top:2rem;
         text-align: center;
@@ -61,54 +64,154 @@
 }
 
 .storage{
-    line-height: 22rem;
+    line-height: 16rem;
 
     .massivetext{
+        font-size: 4rem;
         color: $purple;
     }
 }
 
 /* Graph buttons styles */
 .graphcontainer {
-    border:1px solid $grey-light;
     padding:1rem;
     min-height:35rem;
 }
 
+.progresscontainer {
+    padding:1rem;
+}
+
+#progress {
+    
+}
+
 .graphtitle {
-    font-size:2rem;
+    font-size:2.6rem;
     font-weight:600;
     margin:1rem 0 2rem;
 }
 
 .graphs-btns-container, .graphs-databtns-container {
-    height:5rem;
+    height:4rem;
     line-height:3rem;
+    margin-bottom:5rem;
+}
+
+.graphs-databtns-container{
+    float: right;
+    width: 9rem;
+}
+
+.graphs-btns-container{
+    float: left;
+    width: 14rem;
+}
+
+.sub-graphs-btns-container{
+    float: left; 
+    width: 14rem;
 }
 
 .graphs-btns-container a, .graphs-databtns-container a {
     display:inline-block;
     padding:0 1rem;
     border-radius: 4px;
-    margin-right:0.5rem;
     transition: 0.4s ease-in-out;
+    margin-bottom: 0.5rem;
+    margin-right:0.5rem; 
 }
 
+.graphs-btns-container a, .graphs-databtns-container a{
+    border: 1px solid #afafaf;
+    border-radius: 2rem;
+    color: #afafaf;
+    font-size: 1.4rem;
+    text-align: center;
+}
 
 .graphs-btns-container a { 
     float:left;
+    width: 6.5rem;
 }
 
 .graphs-databtns-container a {
     float:right;
+    width: 9rem;    
 }
 
-.graphs-btns-container a:hover, .graphs-databtns-container a:hover,
+.graphs-btns-container a:hover, .graphs-databtns-container a:hover{
+    border: 1px solid $orange;
+    border-radius: 2rem;
+    color:$orange;    
+}
 .graphs-btns-container a.active, .graphs-databtns-container a.active {
-    background-color:$orange;
-    color:$almostwhite;
+    border: 1px solid $orange;
+    border-radius: 2rem;
+    color:$orange;
 }
 
 
 
 /* End of graph button styles */
+
+@media (min-width:550px) {
+    .general{
+        border-top : 1px solid #afafaf;
+    }
+
+    .bigstats-airbox {
+        height: 45rem;
+        :first-child{
+            margin-bottom: 2rem
+        }
+    }
+
+    .stat{
+        border-left: 1px solid #afafaf;
+        width: 33.33333%;
+        .bigtext{
+            font-size: 3rem;
+        }
+    }
+    .storage{
+        line-height: 22rem;
+        .massivetext{
+            font-size: 6rem;
+        }
+    }
+
+    .graphs-btns-container { 
+        width: 28rem;
+    }
+
+    .graphs-databtns-container{
+        width: 19rem;
+    }
+
+    .graphs-btns-container, .graphs-databtns-container {
+        margin-bottom:1.5rem;
+    }
+
+
+}
+
+@media (min-width:813px) {
+    .general{
+        border-top : 1px solid #afafaf;
+    }
+
+    .bigstats-airbox{
+        height: 55rem;
+    }
+
+    .stat{
+        .bigtext{
+            font-size: 6rem;
+        }
+    }
+
+    .graph-airplaceholder {
+        height:61.4rem;
+    }
+}
