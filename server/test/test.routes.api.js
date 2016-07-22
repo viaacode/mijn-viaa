@@ -203,12 +203,13 @@ describe('services available', function () {
 });
 
 describe('DUMMY request', function () {
-  var DUMMY = require('../dummy/dummy');
+  var DUMMY;
   var app;
   var config;
 
-  beforeEach(function () {
+  before(function () {
     config = configEnvironments('development');
+    DUMMY = require('../dummy/dummy')(config);
     app = appConfig(config, DUMMY.request);
   });
 
@@ -223,6 +224,27 @@ describe('DUMMY request', function () {
         expect(res.body.data).to.have.property('reportType').to.equal('last-month');
         expect(res.body.data).to.have.property('data').to.be.an('array');
       })
+      .end(done);
+  });
+
+  it('/api/services/AMS should return json of correct form', function (done) {
+    supertest(app)
+      .get('/api/services/AMS')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect(validateJsend)
+      .expect(function (res) {
+        expect(res.body.data).to.have.property('articles').to.be.an('array');
+      })
+      .end(done);
+  });
+
+  it('/api/stats should return json of correct form', function (done) {
+    supertest(app)
+      .get('/api/stats')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .expect(validateJsend)
       .end(done);
   });
 

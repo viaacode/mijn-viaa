@@ -1,7 +1,7 @@
 var moment = require('moment');
 
 module.exports = function (router, config, request) {
-  var DUMMY = require('../dummy/dummy');
+  var DUMMY = require('../dummy/dummy')(config);
 
   /**
    * used in callback argument to return if successful
