@@ -46,10 +46,6 @@ describe('routes/api', function () {
 
   var paths = [
     '/api/stats',
-    '/api/services/MAM',
-    '/api/services/FTP',
-    '/api/services/AMS',
-    '/api/services/DBS',
     '/api/stats',
     '/api/reports/items/last-day',
     '/api/reports/items/last-week',
@@ -223,18 +219,6 @@ describe('DUMMY request', function () {
         expect(res.body.data).to.have.property('y').to.equal('items');
         expect(res.body.data).to.have.property('reportType').to.equal('last-month');
         expect(res.body.data).to.have.property('data').to.be.an('array');
-      })
-      .end(done);
-  });
-
-  it('/api/services/AMS should return json of correct form', function (done) {
-    supertest(app)
-      .get('/api/services/AMS')
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .expect(validateJsend)
-      .expect(function (res) {
-        expect(res.body.data).to.have.property('articles').to.be.an('array');
       })
       .end(done);
   });
