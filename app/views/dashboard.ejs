@@ -177,8 +177,9 @@
                 </div>
             </div>
 
-
-            <canvas :id="graph.chartId" class="mb2" v-show="!graph.isLoading"></canvas>   <!-- Do not put this in a v-show or v-if div/container! Thank me for your saved tears later -->
+            <div class="font-spacing">
+                <canvas :id="graph.chartId" class="mb2" v-show="!graph.isLoading"></canvas>   <!-- Do not put this in a v-show or v-if div/container! Thank me for your saved tears later -->
+            </div>
 
         </div><!-- End of Graphs -->
 
@@ -204,7 +205,7 @@
                 </div>
             </div>
 
-            <div class="col col-12">
+            <div class="col col-12 font-spacing">
                 <canvas id="progress"></canvas>
             </div>
 
