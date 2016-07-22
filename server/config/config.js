@@ -92,6 +92,7 @@ function base () {
 
 function dev () {
   return {
+    showApiDocs: true,
     dummyRequest: true,
     fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
     apiDelay: {
