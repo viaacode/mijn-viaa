@@ -37,6 +37,7 @@ module.exports = function (app, config, middleware) {
     'public/js/vue.js',
     'public/js/service-available.js',
     'public/js/app.js',
+    'public/js/moment.js',
     'public/js/services-config.js',
     'public/js/services-overview.js'
   ]);

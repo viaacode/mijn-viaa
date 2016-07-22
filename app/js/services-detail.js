@@ -25,7 +25,7 @@
                 window.location.reload();
             }
         },
-        created: function() { // As soon as instance of Vue is created, do the ajax call and populate stats variable
+        created: function() {
             var thisvue = this;
             ajaxcall("/api/services/" + service, function(err, result) {
                 if(err) thisvue.errormsg = err;
