@@ -92,7 +92,7 @@ header {
         width:100%;
         height:100%;
         margin: 0;
-        text-align: center;
+        text-align: left;
         display: block;
     }
 
@@ -108,7 +108,7 @@ header {
             border-radius:5px;
 
             color:$orange;
-            text-align:center;
+            text-align:left;
 
             font-size:2.8rem; 
             position: relative;
@@ -126,7 +126,7 @@ header {
     position:absolute;
     top: 1rem;
     width:100%;
-    text-align:center;
+    text-align:left;
     display:inline-block;
     
     img {
@@ -267,10 +267,6 @@ footer {
             text-align:left;
             margin-right:4rem;
             margin-top:0.5rem;
-
-            img{
-                margin-left: 60px;
-            }
 
         }
 
