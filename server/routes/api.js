@@ -50,7 +50,7 @@ module.exports = function (router, config, request) {
     var serviceId = req.params.serviceId;
     fetchService(serviceId, function (error, data) {
       if (error) return next(error);
-      res.json(data);
+      res.json(config.jsend.success(data));
     });
   }
 
