@@ -2,6 +2,70 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 
+var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
+
+// not used but example of all available properties
+var template = {
+  // Mule endpoint
+  endpoints: {
+    stats: muleEndpoint + 'stats/global',
+    muletest: muleEndpoint + 'stats/global',
+    reports: {
+      items: {
+        "last-day": muleEndpoint + 'reports/items/last-day',
+        "last-week": muleEndpoint + 'reports/items/last-week',
+        "last-month": muleEndpoint + 'reports/items/last-month',
+        "last-year": muleEndpoint + 'reports/items/last-year',
+      },
+      terrabytes: {
+        "last-day": muleEndpoint + 'reports/terrabytes/last-day',
+        "last-week": muleEndpoint + 'reports/terrabytes/last-week',
+        "last-month": muleEndpoint + 'reports/terrabytes/last-month',
+        "last-year": muleEndpoint + 'reports/terrabytes/last-year',
+      }
+    }
+  },
+  // used to map SAML data to available services
+  services: {
+    map: {
+      'mediahaven': 'MAM',
+      'amsweb': 'AMS',
+      'FTP': 'FTP',
+      'skryvweb': 'DBS'
+    },
+    // These services are always available (if logged in)
+    always: {
+      'FTP': 1
+    }
+  },
+  // general app settings
+  app: {
+    // used in console to tell which app is started
+    name: 'mijn.VIAA',
+    // port on which the server listens
+    port: process.env.PORT || 3000,
+    // secret for session
+    sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
+  },
+  // used to get the path to a file or folder
+  paths: {
+    server: pathFromServer,
+    app: pathFromApp
+  },
+  // toggle to show api links on /api/docs
+  showApiDocs: false,
+  // replace all outgoing calls to Mule by dummy data
+  dummyRequest: false,
+  // fake that these services are available when not logged in
+  fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
+  // api delay for testing graph loading
+  apiDelay: null,
+  // show extended error messages in api call responses
+  showErrors: false,
+  // settings for authentication
+  passport: null
+};
+
 var environments = {
   qas: [base, qas, authentication],
   development: [base, dev],
@@ -17,8 +81,6 @@ function pathFromServer (p) {
 function pathFromApp (p) {
   return path.join(basedir, 'app/', p || '.');
 }
-
-var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
 
 function base () {
   return {
