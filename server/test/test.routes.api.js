@@ -101,16 +101,20 @@ describe('routes/api', function () {
     for (var i = 0; i < paths.length; i++) {
       var path = paths[i];
 
-      it(path + ' should show error in valid jsend', function (done) {
+      it(path + ' should show error in valid jsend', expectError(path));
+    }
+
+    function expectError (path) {
+      return function (done) {
         supertest(app)
-          .get('/api/reports/items/last-month')
+          .get(path)
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(404)
           .expect(validateJsend)
           .expect(expected)
           .end(done);
-      });
+      }
     }
   });
 });
