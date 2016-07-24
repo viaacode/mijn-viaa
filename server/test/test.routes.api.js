@@ -46,7 +46,6 @@ describe('routes/api', function () {
 
   var paths = [
     '/api/stats',
-    '/api/stats',
     '/api/reports/items/last-day',
     '/api/reports/items/last-week',
     '/api/reports/items/last-month',
@@ -75,16 +74,18 @@ describe('routes/api', function () {
     for (var i = 0; i < paths.length; i++) {
       var path = paths[i];
 
-      it(path + ' should wrap request in valid jsend', function (done) {
+      it(path + ' should wrap request in valid jsend', testWrapValidJsonFor(path));
+    }
+
+    function testWrapValidJsonFor (path) {
+      return function (done) {
         supertest(app)
-          .get('/api/reports/items/last-month')
+          .get(path)
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .expect(200)
-          .expect(validateJsend)
-          .expect(expected)
           .end(done);
-      });
+      };
     }
   });
 
