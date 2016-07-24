@@ -11,6 +11,7 @@ function getGraphsFromConfig()
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
+                '/api/reports/items/last-day',
                 '/api/reports/items/last-week',
                 '/api/reports/items/last-month',
                 '/api/reports/items/last-year'
@@ -26,9 +27,10 @@ function getGraphsFromConfig()
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
-                '/api/reports/items/last-week',
-                '/api/reports/items/last-month',
-                '/api/reports/items/last-year'
+                '/api/reports/terrabytes/last-day',
+                '/api/reports/terrabytes/last-week',
+                '/api/reports/terrabytes/last-month',
+                '/api/reports/terrabytes/last-year'
             ],
             data: {},
             errormessages: [],

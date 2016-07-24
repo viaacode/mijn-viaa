@@ -6,7 +6,8 @@ module.exports = function (router, config, request) {
   router.get('/api/stats/', stats);
   router.get('/api/reports/:y/:type', reports);
 
-  function forwardRequestCall (url, res, next) {
+  function forwardRequestCall (url, res, next, parse) {
+    console.log('executing forwardRequestCall('+url+')');
     request(url, function (error, response, body) {
       if (error) return next(error);
       if (response.statusCode != 200) return next(jsend.error(response.statusCode, error));
@@ -15,9 +16,11 @@ module.exports = function (router, config, request) {
         body = JSON.parse(body);
       }
 
+      data = parse ? parse(body) : body;
+
       res
         .append('Content-Type', 'application/json')
-        .send(jsend.success(body));
+        .send(jsend.success(data));
     });
   }
 
@@ -53,12 +56,19 @@ module.exports = function (router, config, request) {
     var url;
 
     try {
-      url = config.endpoints.reports[y][type] + '?org=' + organisation;
+      url = config.endpoints.reports[y][type] + '&org=' + organisation;
     } catch (e) {
+      console.log(e);
       return next(jsend.error(404));
     }
 
-    forwardRequestCall(url, res, next);
+    forwardRequestCall(url, res, next, function (object) {
+      return {
+        y: y,
+        reportType: type,
+        data: object
+      };
+    });
   }
 
   //endregion

@@ -26,8 +26,8 @@ function generateReports (options) {
 
   for (var m = moment(begin); m.isBefore(end); m.add(1, options.gran)) {
     data.push({
-      timestamp: m.unix(),
-      value: random()
+      x: m.valueOf(),
+      y: random()
     });
   }
 
@@ -60,6 +60,11 @@ function reportsGenerationOptions (y, type) {
   };
 
   switch (options.reportType) {
+    case 'last-day':
+      options.gran = 'hour';
+      options.begin = options.begin.startOf(options.gran).subtract(1, 'day');
+      break;
+
     case 'last-week':
       options.gran = 'day';
       options.begin = options.begin.startOf(options.gran).subtract(1, 'week');
@@ -74,6 +79,9 @@ function reportsGenerationOptions (y, type) {
       options.gran = 'month';
       options.begin = options.begin.startOf(options.gran).subtract(1, 'year');
       break;
+
+    default:
+      throw Error('Trying to generate dummy data - reportType unknown: '+ options.reportType);
   }
 
   options.begin = options.begin.format(DATE_FORMAT);
@@ -101,13 +109,13 @@ module.exports = function (config) {
       console.log('dummy stats');
       console.log(statsJson);
       data = statsJson;
-    } else if ((i = parts.indexOf('reports')) >= 0) {
+    } else if ((i = parts.indexOf('report')) >= 0) {
       console.log('dummy reports');
       var y = parts[i + 1];
-      var type = parts[i + 2];
+      // report/mam/items?gran=last-day
+      var type = url.split('?')[1].split('&')[0].split('=')[1];
       var options = reportsGenerationOptions(y, type);
-      options.data = generateReports(options);
-      data = options;
+      data = generateReports(options);
     } else if ((i = parts.indexOf('services')) >= 0) {
       console.log('dummy services');
       var serviceName = parts[i + 1];
