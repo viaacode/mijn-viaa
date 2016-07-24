@@ -140,8 +140,8 @@
         var parsedXes = [];
         var parsedYs = [];
         for(var i = 0; i < data.length ; i++){         
-            var x = moment.unix(data[i].timestamp).format(formatString);
-            var y = data[i].value;
+            var x = moment(data[i].x).format(formatString);
+            var y = data[i].y;
             parsedXes.push(x);
             parsedYs.push(y);
         }

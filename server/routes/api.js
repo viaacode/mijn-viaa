@@ -53,7 +53,7 @@ module.exports = function (router, config, request) {
     var url;
 
     try {
-      url = config.endpoints.reports[y][type] + '?org=' + organisation;
+      url = config.endpoints.reports[y][type] + '&org=' + organisation;
     } catch (e) {
       return next(jsend.error(404));
     }

@@ -52,16 +52,16 @@ function base () {
       muletest: muleEndpoint + 'stats/global',
       reports: {
         items: {
-          "last-day": muleEndpoint + 'reports/items/last-day',
-          "last-week": muleEndpoint + 'reports/items/last-week',
-          "last-month": muleEndpoint + 'reports/items/last-month',
-          "last-year": muleEndpoint + 'reports/items/last-year',
+          "last-day": muleEndpoint + 'report/mam/items?gran=last-day',
+          "last-week": muleEndpoint + 'report/mam/items?gran=last-week',
+          "last-month": muleEndpoint + 'report/mam/items?gran=last-month',
+          "last-year": muleEndpoint + 'report/mam/items?gran=last-year',
         },
         terrabytes: {
-          "last-day": muleEndpoint + 'reports/terrabytes/last-day',
-          "last-week": muleEndpoint + 'reports/terrabytes/last-week',
-          "last-month": muleEndpoint + 'reports/terrabytes/last-month',
-          "last-year": muleEndpoint + 'reports/terrabytes/last-year',
+          "last-day": muleEndpoint + 'report/mam/terrabytes?gran=last-day',
+          "last-week": muleEndpoint + 'report/mam/terrabytes?gran=last-week',
+          "last-month": muleEndpoint + 'report/mam/terrabytes?gran=last-month',
+          "last-year": muleEndpoint + 'report/mam/terrabytes?gran=last-year',
         }
       }
     },
