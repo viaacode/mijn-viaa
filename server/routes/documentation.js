@@ -4,7 +4,6 @@ var ejs = require("ejs");
 module.exports = function (app) {
   var displayRoutes = [
     {title: 'stats', url: '/api/stats'},
-    {title: 'services', url: '/api/services/MAM'},
     {title: 'reports', url: '/api/reports/items/last-month'},
     {title: 'mule test', url: '/api/mule-test'}
   ];
