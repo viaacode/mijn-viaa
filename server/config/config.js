@@ -102,6 +102,9 @@ var dev = {
 };
 
 var qas = {
+  // toggle to show api links on /api/docs
+  showApiDocs: true,
+  // general app settings
   app: {
     // used in console to tell which app is started
     name: 'mijn.VIAA',
