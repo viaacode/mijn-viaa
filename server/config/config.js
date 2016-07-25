@@ -1,4 +1,4 @@
-var fs = require('fs');
+var readFile = require('./read-file');
 var path = require('path');
 var _ = require('underscore');
 
@@ -143,13 +143,13 @@ function authentication () {
         identifierFormat: null,
 
         // Service Provider private key
-        // decryptionPvk: fs.readFileSync(pathFromServer('/cert/key.pem'), 'utf8'),
+        // decryptionPvk: readFile(pathFromServer('/cert/key.pem')),
 
         // Service Provider Certificate
-        // privateCert: fs.readFileSync(pathFromServer('/cert/cert.pem'), 'utf8'),
+        // privateCert: readFile(pathFromServer('/cert/cert.pem')),
 
         // Identity Provider's public key
-        cert: process.env.SAML_CERT || fs.readFileSync(pathFromServer('/cert/idp_cert.pem'), 'utf8'),
+        cert: process.env.SAML_CERT || readFile(pathFromServer('/cert/idp_cert.pem')),
 
         validateInResponseTo: false,
         disableRequestedAuthnContext: true
