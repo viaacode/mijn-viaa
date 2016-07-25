@@ -22,7 +22,7 @@
         </div>
 
         <!-- Big stats -->
-        <div v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }" class="col col-12 mb7">
+        <div class="col col-7 mb7" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">
             <!-- TB + Piechart -->    
             <div class="col col-12 mt3 top-stats"> 
                 <div class="col sm-col-12 md-col-3 stat-title"  v-if="dataStats" > 
@@ -62,51 +62,43 @@
                     </div>
                 </div>    
             </div>
-            </div>
-        </div> <!-- End of big container -->
-            <!-- Big general stats -->
-            <div class="col col-12 general" v-if="dataStats">  
-                <div class="container">
-                    <div class="col sm-col-4 first-stat stat ">
-                        <p class="stat-title">
-                            In archief
-                        </p>
-                        <p class="purple number" v-if="dataStats.terabytes < 1024">
-                            <span class="massivetext">{{ dataStats.terabytes }} </span>
-                            <span class="item">Terabytes</span>
-                        </p>
-                        <p class="purple number" v-else>
-                            <span class="bigtext">{{ Math.round(dataStats.terabytes / 10.24) / 100 }} </span>
-                            <span class="item">Petabytes</span>   
-                        </p>
-                    </div>
+        </div>
+        
+        <!-- Big general stats -->
+        <div class="col col-5 general" v-if="dataStats">  
+            
+            <div class="col col-12 stat ">
 
-                    <div class="col sm-col-4 p3 stat">
-                        <p class="stat-title">
-                            Gedigitaliseerd
-                        </p>
-                        <p class="purple number">
-                            <span class="bigtext">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
-                            <span class="item">items</span>
-                        </p>
-                        
-                    </div>
-                    <div class="col sm-col-4 p3 stat">
-                        <p class="stat-title">
-                            Gearchiveerd
-                        </p>
-                        <p class="purple number">
-                            <span class="bigtext">{{{ numberWithSpaces(dataStats.archived) }}}</span>
-                            <span class="item">items</span> 
-                        </p>
-                        
-                    </div>    
-                </div>       
+                <div class="purple number" v-if="dataStats.terabytes < 1024">
+                    <div class="massivetext col">{{ dataStats.terabytes }} </div>
+                    <div class="stat-title col ml3">Terabytes<br>gearchiveerd</div>
+                </div>
+                <div class="purple number" v-else>
+                    <div class="bigtext col">{{ Math.round(dataStats.terabytes / 10.24) / 100 }} </div>
+                    <div class="stat-title col ml3">Petabytes<br>gearchiveerd</div>   
+                </div>
+            </div>
+
+            <div class="col col-12 p3 stat">
+
+                <div class="purple number">
+                    <span class="bigtext col">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
+                    <span class="stat-title col ml3">items<br>gedigitaliseerd</span>
+                </div>
                 
-            </div><!-- End of big stats -->    
+            </div>
+            <div class="col col-12 p3 stat">
+
+                <div class="purple number">
+                    <span class="bigtext col">{{{ numberWithSpaces(dataStats.archived) }}}</span>
+                    <span class="stat-title col ml3">items<br>gearchiveerd</span> 
+                </div>
+                
+            </div>    
         
         
-        <div class="container">
+        </div><!-- End of big stats -->    
+        
         
         <!-- Graphs  -->  
         <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs"

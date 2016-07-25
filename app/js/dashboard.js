@@ -47,7 +47,7 @@
                 graph.activeView = 'effective';
             },
             numberWithSpaces: function (x) {
-                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "&nbsp;");
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, seperationString);
             }
         }
     });  

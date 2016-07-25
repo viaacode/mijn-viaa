@@ -4,6 +4,9 @@
     Called from everywhere * . *
 */
 
+// How to split big numbers (1000)
+var seperationString = ' ';
+
 // Our beautiful vanilla JS ajax call function <3
 function ajaxcall(url, done) {
     var r = new XMLHttpRequest();
