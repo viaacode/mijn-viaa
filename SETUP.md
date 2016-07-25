@@ -55,6 +55,16 @@ To be able to intercept the SAML response from the authentication servers we nee
 - add url to hosts file
 - listen on port 80
 
+# Configuration files
+- Config for server settings: [server/config/config.js](server/config/config.js)
+*eg. port to listen on, mock data, show api documentation page, enable authentication, ...*
+
+- Configure graphs on dashboard: [app/js/dashboard-config.js](app/js/dashboard-config.js)
+*eg. add, remove, change graph type, change API calls, ...*
+
+- Configure services on overview and details page: [app/js/services-config.js](app/js/services-config.js)
+*eg. add, remove, change content*
+
 # Utilities for development
 ## grunt watch
 Automatically rebuild public folder when changes are made.
@@ -64,11 +74,3 @@ Automatically rebuild public folder when changes are made.
 Automatically restart the server every time changes are made.
 install: `npm install -g nodemon`
 run: `nodemon ./server/server.js`
-
-# Configuration files
-### server 
-[server/config/config.js](server/config/config.js)
-###front-end - dashboard 
-[app/js/dashboard-config.js](app/js/dashboard-config.js)
-###front-end - services 
-[app/js/services-config.js](app/js/services-config.js)
