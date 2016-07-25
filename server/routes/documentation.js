@@ -1,16 +1,23 @@
 var path = require("path");
 var ejs = require("ejs");
 
-module.exports = function (app) {
-  var displayRoutes = [
-    {title: 'stats', url: '/api/stats'},
-    {title: 'reports', url: '/api/reports/items/last-month'},
-    {title: 'mule test', url: '/api/mule-test'}
-  ];
+var flattenObject = require('../util/flatten-object');
+
+module.exports = function (app, config) {
+
+  var findRoutes = flattenObject(function (key, value) {
+    return {
+      title: key,
+      url: value,
+      extra: config.dummyRequest ? '(mocked with dummy data)' : ''
+    };
+  });
+
+  var routes = findRoutes('/api', config.endpoints, []);
 
   function showDocumentation (req, res, next) {
     res.render('documentation', {
-      routes: displayRoutes
+      routes: routes
     });
   }
 
