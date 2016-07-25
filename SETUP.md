@@ -6,11 +6,11 @@ To run this project you need to have [Node and NPM](https://docs.npmjs.com/getti
 npm install
 npm start
 ```
-Then surf to [localhost:1337](localhost:1337) in your browser to run the site.
+Then surf to [localhost:1337](http://localhost:1337) in your browser to run the site.
 
 *--everything below is optional--*
 
-You see all available api calls on [localhost:1337/api](localhost:1337/api) (when config.showApiDocs)
+You see all available api calls on [localhost:1337/api](http://localhost:1337/api) (when config.showApiDocs)
 
 # Run configurations
 ## environments
@@ -30,7 +30,8 @@ these environments are defined in [server config](#server)
 
 ## run locally with QAS
 Add `127.0.0.1	mijn-qas.viaa.be` to the hosts file on your computer. This is needed to intercept the data from the authentication servers.
-*replace `mijn-qas.viaa.be` by the host part you have in [config](server/config/config.js).passport.saml.callbackUrl*
+
+*you can replace `mijn-qas.viaa.be` by the host part you have in [config](server/config/config.js).passport.saml.callbackUrl*
 
 ```
 # you need to run as admin to be able to use port 80
@@ -50,6 +51,7 @@ npm start
 ```
 
 *Why all this complicated stuff?*
+
 To be able to intercept the SAML response from the authentication servers we need to:
 
 - add url to hosts file
@@ -57,20 +59,26 @@ To be able to intercept the SAML response from the authentication servers we nee
 
 # Configuration files
 - Config for server settings: [server/config/config.js](server/config/config.js)
+
 *eg. port to listen on, mock data, show api documentation page, enable authentication, ...*
 
 - Configure graphs on dashboard: [app/js/dashboard-config.js](app/js/dashboard-config.js)
+
 *eg. add, remove, change graph type, change API calls, ...*
 
 - Configure services on overview and details page: [app/js/services-config.js](app/js/services-config.js)
+
 *eg. add, remove, change content*
 
 # Utilities for development
 ## grunt watch
 Automatically rebuild public folder when changes are made.
-`grunt watch`
+
+- run: `grunt watch`
 
 ## nodemon
 Automatically restart the server every time changes are made.
-install: `npm install -g nodemon`
-run: `nodemon ./server/server.js`
+
+- install: `npm install -g nodemon`
+
+- run: `nodemon ./server/server.js`
