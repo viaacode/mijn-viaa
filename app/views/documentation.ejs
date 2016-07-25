@@ -8,8 +8,9 @@
 <p>
 <dl>
   <% routes.forEach(function(route){ %>
-  <dt><%= route.title %></dt>
-  <dd><a href="<%= route.url %>"><%= route.url %></a></dd>
+  <dt><a href="<%= route.title %>"><%= route.title %></a></dt>
+  <dd><a href="<%= route.url %>"><%= route.url %></a> <%= route.extra %></dd>
+  <br/>
   <% }); %>
 </dl>
 </p>

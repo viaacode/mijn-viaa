@@ -44,7 +44,6 @@ var base = {
   // Mule endpoint
   endpoints: {
     stats: muleEndpoint + 'stats/global',
-    muletest: muleEndpoint + 'stats/global',
     reports: {
       items: {
         "last-day": muleEndpoint + 'report/mam/items?gran=last-day',
