@@ -24,7 +24,7 @@ select an environment with this command `export NODE_ENV="development"`
   * authentication routes enabled
   * data from config.endpoints
   
-these environments are defined in `server/config/config.js`
+these environments are defined in [server config](#server)
 
 ## run locally with QAS
 Add `127.0.0.1	mijn-qas.viaa.be` to the hosts file on your computer. This is needed to intercept the data from the authentication servers.
@@ -62,3 +62,11 @@ Automatically rebuild public folder when changes are made.
 Automatically restart the server every time changes are made.
 install: `npm install -g nodemon`
 run: `nodemon ./server/server.js`
+
+# Configuration files
+### server 
+[server/config/config.js](server/config/config.js)
+###front-end - dashboard 
+[app/js/dashboard-config.js](app/js/dashboard-config.js)
+###front-end - services 
+[app/js/services-config.js](app/js/services-config.js)
