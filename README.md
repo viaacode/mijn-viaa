@@ -1,6 +1,7 @@
 ## Intro
-[See our project site](https://osoc16.github.io/mijn-viaa/)
 Dashboard and Portal site for VIAA's Content Partners.
+
+See our [project page](https://osoc16.github.io/mijn-viaa/)
 
 ## Requirements
 To run this project you need to have [Node and NPM](https://docs.npmjs.com/getting-started/installing-node) installed.
