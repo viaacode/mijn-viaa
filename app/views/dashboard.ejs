@@ -2,9 +2,9 @@
     <div class="container">
 
     <!-- Title & view selector -->
-        <div class="col col-12 mb4">
+        <!--<div class="col col-12 mb2">
             <h1 class="dashboard-title">Mijn Dashboard</h1>
-        </div>
+        </div>-->
 
         <!-- Loader gif -->
         <div class="col col-12 loader-airbox" v-show="!dataStats && dataErrors.length==0">
@@ -25,38 +25,38 @@
         <div v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }" class="col col-12 mb7">
             <!-- TB + Piechart -->    
             <div class="col col-12 mt3 top-stats"> 
-                <div class="col sm-col-12 md-col-3 stat-title"  v-if="dataStats" >
-                    <p class="stat-title">Geregistreerd</p>
-                    <p class="blue number">
-                        <span class="massivetext">{{{ numberWithSpaces(dataStats.registered) }}}</span>
-                        <span class="item">items</span>
-                    </p>    
+                <div class="col sm-col-12 md-col-3 stat-title"  v-if="dataStats" > 
                 </div>
                 <div class="col sm-col-12 md-col-5 piechart" >
-                        <canvas id="statsChart"></canvas>    
+                    <p class="blue number col" v-if="dataStats">
+                        <div class="massivetext col">{{{ numberWithSpaces(dataStats.registered) }}}</div>
+                        <div class="stat-title col ml3">items<br>geregistreerd</div>
+                    </p>   
+                    <div class="pie-chart-container">
+                        <canvas id="statsChart"></canvas>
+                    </div>
                 </div>
 
                 <div class=" storage col sm-col-12 md-col-3 big-stat-title"  v-if="dataStats">
-                    
                     <div class="legend">
                         <div class="legend-item first-item">
                             <div class="circle blue"></div>
-                            <p>Video</p>    
+                            <p>Video &mdash; 552 items</p>    
                         </div>
 
                         <div class="legend-item ">
                              <div class="circle blue2"></div>
-                            <p>Audio</p>       
+                            <p>Audio &mdash; 552 items</p>       
                         </div>
 
                         <div class="legend-item">
                              <div class="circle blue3"></div>
-                            <p>Film</p>       
+                            <p>Film &mdash; 552 items</p>       
                         </div>
 
                         <div class="legend-item">
                              <div class="circle blue4"></div>
-                            <p>Papier</p>       
+                            <p>Papier &mdash; 552 items</p>       
                         </div>
                 
                     </div>

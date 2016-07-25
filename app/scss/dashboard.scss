@@ -35,8 +35,11 @@
 }
 
 .dashboard-title{
-    font-size: 4rem;
+    font-size: 2rem;
     color: $grey;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.7;
 }
 
 .first-stat{
@@ -72,11 +75,20 @@
 .piechart{
     width: 100%;
 
-    canvas{
-        margin-left: auto;
-        margin-right: auto;
-    }
+    // canvas{
+    //     margin-left: auto;
+    //     margin-right: auto;
+    // }
 }
+
+.pie-chart-container {
+    position: relative;
+    margin-left: -15rem;
+    //margin-right: -15rem;
+    padding-top:2rem;
+    width:60rem;
+}
+
 .circle{
     width: 13px;
     height: 13px;
@@ -240,15 +252,16 @@
         }
         
     }
- 
-    .piechart{
-        width: 45rem;
+
+    .piechart {
+        width:37rem;
     }
+ 
 
     .legend{
         justify-content: space-between;
         flex-direction: column;
-        height: 15rem;
+        height: 20rem;
     }
     .stat{
         border-left: 1px solid #afafaf;
@@ -262,6 +275,7 @@
         text-align: left;
     }
     .storage{
+        margin-top:8rem;
         border: none;
         line-height: 22rem;
         width: auto;
