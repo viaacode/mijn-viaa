@@ -16,7 +16,7 @@ var grunt = require("grunt");
         {expand: false, src: ['node_modules/basscss/css/basscss.css'], dest: 'scss/_basscss.scss', filter: 'isFile'},
         {expand: false, src: ['node_modules/vue/dist/vue.js'], dest: 'public/js/vue.js', filter: 'isFile'},
         {expand: false, src: ['node_modules/chart.js/dist/Chart.js'], dest: 'public/js/chart.js', filter: 'isFile'},
-        {expand: false, src: ['node_modules/chart.js/node_modules/moment/min/moment.min.js'], dest: 'public/js/moment.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/moment/min/moment.min.js'], dest: 'public/js/moment.js', filter: 'isFile'},
 
         {expand: true, cwd:'js', src: '**/*', dest: 'public/js'},
         {expand: true, cwd:'assets', src: '**/*', dest: 'public/assets'},
