@@ -1,36 +1,64 @@
-# Installation
+# Quick setup
 
 To run this project you need to have [Node and NPM](https://docs.npmjs.com/getting-started/installing-node) installed.
 
-## Run
 ```
 npm install
+npm start
+```
+then surf to [localhost:1337](localhost:1337) in your browser to run the site.
+
+*--everything below is optional--*
+
+# Run configurations
+## environments
+select an environment with this command `export NODE_ENV="development"`
+
+- `development`
+  * authentication routes disabled
+  * dummy data
+- `dev_auth` 
+  * authentication routes enabled
+  * dummy data
+- `auth`
+  * authentication routes enabled
+  * data from config.endpoints
+  
+these environments are defined in `server/config/config.js`
+
+## run locally with QAS
+Add `127.0.0.1	mijn-qas.viaa.be` to the hosts file on your computer. This is needed to intercept the data from the authentication servers.
+*replace `mijn-qas.viaa.be` by the host part you have in [config](server/config/config.js).passport.saml.callbackUrl*
+
+```
+# you need to run as admin to be able to use port 80
+sudo bash
+
+# install dependencies
+npm install
+
+# set environment
+export NODE_ENV="qas"
+
+# 80 is default port for http
+export PORT=80
+
+# run the server
 npm start
 ```
 
-## Specific configurations
-### development (default)
-development environment is the default when `NODE_ENV` is not set
-dummy data for API calls
-```
-npm install
-export NODE_ENV="development"
-npm start
-```
+*Why all this complicated stuff?*
+To be able to intercept the SAML response from the authentication servers we need to:
 
-### dev_auth (default)
-development with authentication routes enabled
-dummy data for API calls
-```
-npm install
-export NODE_ENV="development"
-npm start
-```
+- add url to hosts file
+- listen on port 80
 
-### qas (default)
-authentication enabled, forward data from endpoints
-```
-npm install
-export NODE_ENV="development"
-npm start
-```
+# Utilities for development
+## grunt watch
+Automatically rebuild public folder when changes are made.
+`grunt watch`
+
+## nodemon
+Automatically restart the server every time changes are made.
+install: `npm install -g nodemon`
+run: `nodemon ./server/server.js`
