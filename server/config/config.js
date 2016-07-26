@@ -161,6 +161,15 @@ module.exports = function (environmentName) {
   var config = {};
 
   // merge different environments
+  /* Warning: _.extend() will only copy one deep - eg.
+   * {foo: {a:1, b:2}, bar: 'x'}
+   * +
+   * {foo: {c:3}}
+   * =
+   * {foo: {c:3}, bar: 'x'}
+   * !=
+   * {foo: {a:1, b:2, c:3}, bar: 'x'}
+   * */
   _.each(environmentParts, function (env) {
     _.extend(config, env);
   });
