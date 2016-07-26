@@ -1,28 +1,4 @@
-var ejs = require("ejs");
-
-function createPage (view, title, scripts) {
-  return function dashboard (req, res, next) {
-    var input = {
-      title: title,
-      body: {
-        view: view,
-        scripts: scripts,
-        body: {}
-      },
-      navigation: {
-      }
-    };
-
-    // decide which menu item activate
-    var activeView = view;
-
-    // highlight services when view is detail
-    if (activeView == 'detail') input.navigation['services'] = 1;
-    input.navigation[activeView] = 1;
-
-    res.render('base', input);
-  }
-}
+var createPage = require('../util/create-ejs-page');
 
 module.exports = function (app, config, middleware) {
 
