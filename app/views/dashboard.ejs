@@ -21,51 +21,53 @@
             </div>
         </div>
 
-        <!-- Big stats -->
-        <div class="col col-7 mb7" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">
-            <!-- TB + Piechart -->    
+        <!-- Piechart part -->
+        <div class="col col-8 mb4" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
             <div class="col col-12 mt3 top-stats"> 
-                <div class="col sm-col-12 md-col-3 stat-title"  v-if="dataStats" > 
-                </div>
-                <div class="col sm-col-12 md-col-5 piechart" >
-                    <p class="blue number col" v-if="dataStats">
+                <div class="col col-12" >
+                    <div class="blue number col" v-if="dataStats">
                         <div class="massivetext col">{{{ numberWithSpaces(dataStats.registered) }}}</div>
                         <div class="stat-title col ml3">items<br>geregistreerd</div>
-                    </p>   
-                    <div class="pie-chart-container">
-                        <canvas id="statsChart"></canvas>
-                    </div>
+                    </div>   
                 </div>
 
-                <div class=" storage col sm-col-12 md-col-3 big-stat-title"  v-if="dataStats">
-                    <div class="legend">
-                        <div class="legend-item first-item">
-                            <div class="circle blue"></div>
-                            <p>Video &mdash; 552 items</p>    
-                        </div>
+                <div class="pie-chart-container col">
+                    <canvas id="statsChart"></canvas>
+                </div>
 
-                        <div class="legend-item ">
-                             <div class="circle blue2"></div>
-                            <p>Audio &mdash; 552 items</p>       
-                        </div>
-
-                        <div class="legend-item">
-                             <div class="circle blue3"></div>
-                            <p>Film &mdash; 552 items</p>       
-                        </div>
-
-                        <div class="legend-item">
-                             <div class="circle blue4"></div>
-                            <p>Papier &mdash; 552 items</p>       
-                        </div>
-                
+                <div class="legend col col-4" v-if="dataStats">
+                    <div class="legend-item first-item">
+                        <div class="circle blue"></div>
+                        <p>Video &mdash; 552 items</p>    
                     </div>
-                </div>    
+
+                    <div class="legend-item ">
+                            <div class="circle blue2"></div>
+                        <p>Audio &mdash; 552 items</p>       
+                    </div>
+
+                    <div class="legend-item">
+                            <div class="circle blue3"></div>
+                        <p>Film &mdash; 552 items</p>       
+                    </div>
+
+                    <div class="legend-item">
+                            <div class="circle blue4"></div>
+                        <p>Papier &mdash; 552 items</p>       
+                    </div>
+            
+                </div>
             </div>
+
+            <!-- legend -->
+            <div class=" storage col col-4 big-stat-title"  v-if="dataStats">
+
+            </div>    
+            
         </div>
         
         <!-- Big general stats -->
-        <div class="col col-5 general" v-if="dataStats">  
+        <div class="col col-4 general" v-if="dataStats">  
             
             <div class="col col-12 p3 stat ">
 
