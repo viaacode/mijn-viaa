@@ -52,8 +52,8 @@ Your Identity Provider will need to:
 
 - give you it's public key (store it in `server/cert/idp_cert.pem`)
 - add `cert.pem` to it's server
-  - You can get this by surfing to [localhost:1337/Metadata](http://localhost:1337/Metadata)
-  *if your site is online, the Identity Provider can get it directly from this address*
+
+*If your site is available online, your Identity Provider can get it directly by surfing to `http://<your-site>/Metadata`*
 
 
 ### Run locally
