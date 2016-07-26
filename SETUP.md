@@ -51,7 +51,7 @@ openssl req -x509 -newkey rsa:4096 -keyout server/cert/key.pem -out server/cert/
 Your Identity Provider will need to:
 
 - give you it's public key (store it in `server/cert/idp_cert.pem`)
-- add `cert.pem` to it's server
+- add your site's public key(`cert.pem`) to it's server
 
 *If your site is available online, your Identity Provider can get it directly by surfing to `http://<your-site>/Metadata`*
 
