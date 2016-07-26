@@ -92,10 +92,11 @@
 }
 
 .general{
-    position:absolute;
-    bottom:2rem;
-    right:-2rem;
-    margin-left:4rem;
+    margin-top: 8rem;
+
+    span {
+        float:right;
+    }
 
     .container{
         padding-top: 0rem;
@@ -128,37 +129,13 @@
 
 }
 
-.top-stats {
-
-}
-
-
-
 .stat{
     width: 100%;
-  //  border-bottom: 1px solid $grey-lighter;
-//    border-right: 1px solid $grey-lighter;
-
-    .number{
-        padding-top:2rem;
-    }
-    
-    .green{
-        color: $orange; 
-    }
-
-    .blue{
-        color: $blue;
-    }
 
     .grey{
-        color: #444;
+        color: $grey;
     }
 
-    .brown{
-        color: $brown;
-    }
-    
     &.nobottomborder {
         border-bottom:none;
     }

@@ -91,12 +91,19 @@ h1 {
     padding-left:10rem;
 }
 
+.pb7 {
+    padding-bottom:7rem;
+}
+
+.pb10 {
+    padding-bottom:10rem;
+}
+
 /* Navigation menu */
 header {
     height:30.25rem;
     width:100%;
     padding:0 1rem;
-    margin-bottom:1rem;
     background-color:$almostwhite;
     color:$almostwhite;
 
@@ -334,9 +341,6 @@ footer {
 
 @media (min-width: 960px) {
     /* Header */
-    header {
-        margin-bottom:1rem;
-    }
     header ul, .container {
         width:960px;
         margin:0 auto;

@@ -1,5 +1,5 @@
 <div  id="dashboard" v-cloak>
-    <div class="divider"></div>
+  
     <div class="container nopadding">
         <!-- Loader gif -->
         <div class="col col-12 loader-airbox" v-show="!dataStats && dataErrors.length==0">
@@ -20,7 +20,7 @@
     <div class="container nopadding">
         <div class="relative clearfix">
             <!-- Piechart part -->
-            <div class="col col-7 pb4 border-right" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
+            <div class="col col-7 pb7 pt4 border-right" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
                 <div class="col col-12 mt3 top-stats"> 
                     <div class="pie-chart-container col">
                         <canvas id="statsChart"></canvas>
@@ -46,12 +46,12 @@
                 </div>
 
                 <div class="col col-12 pl7">
-                    <div class="col col-12 stat nobottomborder norightborder pt3" v-if="dataStats">
-                        <div class="grey number" v-if="dataStats.terabytes < 1024">
+                    <div class="col col-12 stat nobottomborder norightborder pt4" v-if="dataStats">
+                        <div class="grey pt2" v-if="dataStats.terabytes < 1024">
                             <div class="bigtext col">{{ dataStats.terabytes }} </div>
                             <div class="stat-title col ml3 lower">Terabytes gearchiveerd</div>
                         </div>
-                        <div class="grey number" v-else>
+                        <div class="grey pt2" v-else>
                             <div class="bigtext col">{{ (Math.round(dataStats.terabytes / 10.24) / 100).toString().replace('.', ',') }} </div>
                             <div class="stat-title col ml3 lower">Petabytes gearchiveerd</div>   
                         </div>
@@ -62,20 +62,20 @@
             <!-- Big general stats -->
             <div class="col col-5 general" v-if="dataStats"> 
                 <div class="col col-10 p3 stat">
-                    <div class="grey number">
-                        <div class="bigtext col">{{{ numberWithSpaces(dataStats.registered) }}}</div>
-                        <div class="stat-title col">items geregistreerd</div>
-                    </div>                 
+                    <div class="grey pt2">
+                        <span class="bigtext col">{{{ numberWithSpaces(dataStats.registered) }}}</span>
+                        <span class="stat-title col">items geregistreerd</span>
+                    </div>
                 </div>
                 <div class="col col-12 p3 stat">
-                    <div class="grey number">
+                    <div class="grey pt2">
                         <span class="bigtext col">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
                         <span class="stat-title col">items gedigitaliseerd</span>
-                    </div>                
+                    </div>
                 </div>
                 <div class="col col-12 p3 stat nobottomborder">
 
-                    <div class="grey number">
+                    <div class="grey pt2">
                         <span class="bigtext col">{{{ numberWithSpaces(dataStats.archived) }}}</span>
                         <span class="stat-title col">items gearchiveerd</span> 
                     </div>                 
