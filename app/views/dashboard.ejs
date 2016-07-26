@@ -1,6 +1,5 @@
 <div  id="dashboard" v-cloak>
     <div class="container">
-
     <!-- Title & view selector -->
         <!--<div class="col col-12 mb2">
             <h1 class="dashboard-title">Mijn Dashboard</h1>
@@ -22,13 +21,17 @@
         </div>
 
         <!-- Piechart part -->
-        <div class="col col-8 mb4" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
+        <div class="col col-8 pb4 border-right" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
             <div class="col col-12 mt3 top-stats"> 
-                <div class="col col-12" >
-                    <div class="blue number col" v-if="dataStats">
-                        <div class="massivetext col">{{{ numberWithSpaces(dataStats.registered) }}}</div>
-                        <div class="stat-title col ml3">items<br>geregistreerd</div>
-                    </div>   
+                <div class="col col-12 stat pb3" v-if="dataStats">
+                    <div class="grey number" v-if="dataStats.terabytes < 1024">
+                        <div class="bigtext col">{{ dataStats.terabytes }} </div>
+                        <div class="stat-title col ml3 lower">Terabytes gearchiveerd</div>
+                    </div>
+                    <div class="grey number" v-else>
+                        <div class="bigtext col">{{ (Math.round(dataStats.terabytes / 10.24) / 100).toString().replace('.', ',') }} </div>
+                        <div class="stat-title col ml3 lower">Petabytes gearchiveerd</div>   
+                    </div>
                 </div>
 
                 <div class="pie-chart-container col">
@@ -59,33 +62,26 @@
                 </div>
             </div>
 
-            <!-- legend -->
-            <div class=" storage col col-4 big-stat-title"  v-if="dataStats">
-
-            </div>    
+  
             
         </div>
         
         <!-- Big general stats -->
         <div class="col col-4 general" v-if="dataStats">  
-            
+        
             <div class="col col-12 p3 stat ">
-
-                <div class="grey number" v-if="dataStats.terabytes < 1024">
-                    <div class="massivetext col">{{ dataStats.terabytes }} </div>
-                    <div class="stat-title col ml3">Terabytes<br>gearchiveerd</div>
-                </div>
-                <div class="grey number" v-else>
-                    <div class="bigtext col">{{ (Math.round(dataStats.terabytes / 10.24) / 100).toString().replace('.', ',') }} </div>
-                    <div class="stat-title col ml3">Petabytes<br>gearchiveerd</div>   
-                </div>
+                <div class="grey number">
+                    <div class="bigtext col">{{{ numberWithSpaces(dataStats.registered) }}}</div>
+                    <div class="stat-title col">items geregistreerd</div>
+                </div>  
+                
             </div>
 
             <div class="col col-12 p3 stat">
 
                 <div class="grey number">
                     <span class="bigtext col">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
-                    <span class="stat-title col ml3">items<br>gedigitaliseerd</span>
+                    <span class="stat-title col">items gedigitaliseerd</span>
                 </div>
                 
             </div>
@@ -93,7 +89,7 @@
 
                 <div class="grey number">
                     <span class="bigtext col">{{{ numberWithSpaces(dataStats.archived) }}}</span>
-                    <span class="stat-title col ml3">items<br>gearchiveerd</span> 
+                    <span class="stat-title col">items gearchiveerd</span> 
                 </div>
                 
             </div>    
