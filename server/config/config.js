@@ -46,7 +46,7 @@ var template = {
 
 var base = {
   // Mule endpoint
-  muleHost: null,
+  muleHost: 'http://foo',
   // Map path to mule endpoints ()
   endpoints: JSON.parse(readFile(pathFromServer('config/endpoints.json'))),
   // used to map SAML data to available services
