@@ -9,14 +9,16 @@ function createPage (view, title, scripts) {
         scripts: scripts,
         body: {}
       },
-      navigation: [
-        {title: '', href: 'dashboard', image: true},
-        {title: 'Dashboard', href: 'dashboard', class: view == 'dashboard' ? 'active' : ''},
-        {title: 'Diensten', href: 'services', class: view == 'services' || view == 'detail' ? 'active' : ''},
-        {title: 'Over', href: '#'},
-        {title: 'Account', href: '#'}
-      ]
+      navigation: {
+      }
     };
+
+    // decide which menu item activate
+    var activeView = view;
+
+    // highlight services when view is detail
+    if (activeView == 'detail') input.navigation['services'] = 1;
+    input.navigation[activeView] = 1;
 
     res.render('base', input);
   }

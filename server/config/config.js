@@ -38,6 +38,8 @@ var template = {
   apiDelay: null,
   // show extended error messages in api call responses
   showErrors: false,
+  // log errors in server console
+  logErrors: false,
   // settings for authentication
   passport: null
 };
@@ -70,7 +72,8 @@ var base = {
   paths: {
     server: pathFromServer,
     app: pathFromApp
-  }
+  },
+  logErrors: true
 };
 
 var dev = {
