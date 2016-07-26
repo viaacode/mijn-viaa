@@ -70,13 +70,12 @@
 }
 
 .pie-chart-container {
+    
     position: relative;
-    margin-left: -15rem;
-    margin-right: -7rem;
+    margin-left: -13.6rem;
+    margin-right: -10rem;
 
-    //margin-right: -15rem;
-    padding-top:2rem;
-    width:60rem;
+    width:54rem;
 }
 
 .circle{
@@ -87,9 +86,16 @@
 }
 
 
-.general{
+.relative {
+    position:relative;
 
-    height:100%;
+}
+
+.general{
+    position:absolute;
+    bottom:0;
+    right:-1rem;
+    margin-left:4rem;
 
     .container{
         padding-top: 0rem;
@@ -97,9 +103,6 @@
     
 }
 
-.first-stat{
-    padding: 2rem 0rem 2rem 0rem;
-}
 
 .stat-title{
     text-align: center;
@@ -129,14 +132,12 @@
 
 }
 
-.stat.nobottomborder {
-    border-bottom:none;
-}
+
 
 .stat{
     width: 100%;
-
-    border-bottom: 1px solid $grey-lighter;
+  //  border-bottom: 1px solid $grey-lighter;
+//    border-right: 1px solid $grey-lighter;
 
     .number{
         padding-top:2rem;
@@ -157,7 +158,13 @@
     .brown{
         color: $brown;
     }
-
+    
+    &.nobottomborder {
+        border-bottom:none;
+    }
+    &.norightborder {
+        border-right:none;
+    }
 }
 
 .item{
@@ -284,7 +291,8 @@
         justify-content: space-between;
         flex-direction: column;
         height: 20rem;
-        margin-top:7rem;
+        margin-top:4rem;
+        margin-left:2rem;
     }
     .stat{
 

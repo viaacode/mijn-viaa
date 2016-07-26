@@ -13,6 +13,10 @@ header, body h1{
     margin: 0;
     padding: 0 0.5rem;
 
+    .nopadding {
+        padding: 0;
+    }
+
 }
 
 .underline {
@@ -331,6 +335,10 @@ footer {
         padding:0;
         padding-top: 1.5rem;
         overflow:hidden;
+    }
+
+    .container.nopadding {
+        padding:0;
     }
 
     .logo img{

@@ -1,10 +1,5 @@
 <div  id="dashboard" v-cloak>
-    <div class="container">
-    <!-- Title & view selector -->
-        <!--<div class="col col-12 mb2">
-            <h1 class="dashboard-title">Mijn Dashboard</h1>
-        </div>-->
-
+    <div class="container nopadding ">
         <!-- Loader gif -->
         <div class="col col-12 loader-airbox" v-show="!dataStats && dataErrors.length==0">
             <div class="loader">
@@ -19,84 +14,75 @@
                 <p v-for="msg in dataErrors">{{ msg }}</p>
             </div>
         </div>
+    </div>
 
-        <!-- Piechart part -->
-        <div class="col col-8 pb4 border-right" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
-            <div class="col col-12 mt3 top-stats"> 
-                <div class="col col-12 stat pb3" v-if="dataStats">
-                    <div class="grey number" v-if="dataStats.terabytes < 1024">
-                        <div class="bigtext col">{{ dataStats.terabytes }} </div>
-                        <div class="stat-title col ml3 lower">Terabytes gearchiveerd</div>
+    <div class="divider"></div>
+
+    <div class="container nopadding">
+        <div class="relative clearfix">
+            <!-- Piechart part -->
+            <div class="col col-7 pb3 border-right" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
+                <div class="col col-12 mt3 top-stats"> 
+                    <div class="pie-chart-container col">
+                        <canvas id="statsChart"></canvas>
                     </div>
-                    <div class="grey number" v-else>
-                        <div class="bigtext col">{{ (Math.round(dataStats.terabytes / 10.24) / 100).toString().replace('.', ',') }} </div>
-                        <div class="stat-title col ml3 lower">Petabytes gearchiveerd</div>   
+                    <div class="legend col col-4" v-if="dataStats">
+                        <div class="legend-item first-item">
+                            <div class="circle blue"></div>
+                            <p>Video &mdash; 552 items</p>    
+                        </div>
+                        <div class="legend-item ">
+                                <div class="circle blue2"></div>
+                            <p>Audio &mdash; 552 items</p>       
+                        </div>
+                        <div class="legend-item">
+                                <div class="circle blue3"></div>
+                            <p>Film &mdash; 552 items</p>       
+                        </div>
+                        <div class="legend-item">
+                                <div class="circle blue4"></div>
+                            <p>Papier &mdash; 552 items</p>       
+                        </div>
                     </div>
                 </div>
 
-                <div class="pie-chart-container col">
-                    <canvas id="statsChart"></canvas>
-                </div>
-
-                <div class="legend col col-4" v-if="dataStats">
-                    <div class="legend-item first-item">
-                        <div class="circle blue"></div>
-                        <p>Video &mdash; 552 items</p>    
+                <div class="col col-12">
+                    <div class="col col-12 stat nobottomborder norightborder pt3" v-if="dataStats">
+                        <div class="grey number" v-if="dataStats.terabytes < 1024">
+                            <div class="bigtext col">{{ dataStats.terabytes }} </div>
+                            <div class="stat-title col ml3 lower">Terabytes gearchiveerd</div>
+                        </div>
+                        <div class="grey number" v-else>
+                            <div class="bigtext col">{{ (Math.round(dataStats.terabytes / 10.24) / 100).toString().replace('.', ',') }} </div>
+                            <div class="stat-title col ml3 lower">Petabytes gearchiveerd</div>   
+                        </div>
                     </div>
-
-                    <div class="legend-item ">
-                            <div class="circle blue2"></div>
-                        <p>Audio &mdash; 552 items</p>       
-                    </div>
-
-                    <div class="legend-item">
-                            <div class="circle blue3"></div>
-                        <p>Film &mdash; 552 items</p>       
-                    </div>
-
-                    <div class="legend-item">
-                            <div class="circle blue4"></div>
-                        <p>Papier &mdash; 552 items</p>       
-                    </div>
-            
-                </div>
+                </div>        
             </div>
-
-  
             
+            <!-- Big general stats -->
+            <div class="col col-5 general" v-if="dataStats"> 
+                <div class="col col-10 p3 stat">
+                    <div class="grey number">
+                        <div class="bigtext col">{{{ numberWithSpaces(dataStats.registered) }}}</div>
+                        <div class="stat-title col">items geregistreerd</div>
+                    </div>                 
+                </div>
+                <div class="col col-12 p3 stat">
+                    <div class="grey number">
+                        <span class="bigtext col">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
+                        <span class="stat-title col">items gedigitaliseerd</span>
+                    </div>                
+                </div>
+                <div class="col col-12 p3 stat nobottomborder">
+
+                    <div class="grey number">
+                        <span class="bigtext col">{{{ numberWithSpaces(dataStats.archived) }}}</span>
+                        <span class="stat-title col">items gearchiveerd</span> 
+                    </div>                 
+                </div>          
+            </div><!-- End of big stats -->    
         </div>
-        
-        <!-- Big general stats -->
-        <div class="col col-4 general" v-if="dataStats">  
-        
-            <div class="col col-12 p3 stat ">
-                <div class="grey number">
-                    <div class="bigtext col">{{{ numberWithSpaces(dataStats.registered) }}}</div>
-                    <div class="stat-title col">items geregistreerd</div>
-                </div>  
-                
-            </div>
-
-            <div class="col col-12 p3 stat">
-
-                <div class="grey number">
-                    <span class="bigtext col">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
-                    <span class="stat-title col">items gedigitaliseerd</span>
-                </div>
-                
-            </div>
-            <div class="col col-12 p3 stat nobottomborder">
-
-                <div class="grey number">
-                    <span class="bigtext col">{{{ numberWithSpaces(dataStats.archived) }}}</span>
-                    <span class="stat-title col">items gearchiveerd</span> 
-                </div>
-                
-            </div>    
-        
-        
-        </div><!-- End of big stats -->    
-        
     </div> <!-- container -->
     <div class="divider"></div>
 
