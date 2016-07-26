@@ -1,4 +1,4 @@
-var readFile = require('./read-file');
+var readFile = require('../util/read-file');
 var path = require('path');
 var _ = require('underscore');
 
@@ -18,8 +18,10 @@ var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005';
 
 // not used but example of all available properties
 var template = {
-  // Mule endpoints
-  mule: null,
+  // host of mule
+  muleHost: null,
+  // Map path to mule endpoints
+  endpoints: null,
   // used to map SAML data to available services
   services: null,
   // general app settings
@@ -42,10 +44,9 @@ var template = {
 
 var base = {
   // Mule endpoint
-  mule: {
-    host: 'http://do-qas-esb-01.do.viaa.be:10005',
-    endpoints: JSON.parse(readFile(pathFromServer('config/endpoints.json')))
-  },
+  muleHost: null,
+  // Map path to mule endpoints ()
+  endpoints: JSON.parse(readFile(pathFromServer('config/endpoints.json'))),
   // used to map SAML data to available services
   services: {
     map: {
@@ -89,6 +90,8 @@ var dev = {
 };
 
 var qas = {
+  // Mule endpoint
+  muleHost: 'http://do-qas-esb-01.do.viaa.be:10005',
   // toggle to show api links on /api/docs
   showApiDocs: true,
   // general app settings
@@ -158,6 +161,15 @@ module.exports = function (environmentName) {
   var config = {};
 
   // merge different environments
+  /* Warning: _.extend() will only copy one deep - eg.
+   * {foo: {a:1, b:2}, bar: 'x'}
+   * +
+   * {foo: {c:3}}
+   * =
+   * {foo: {c:3}, bar: 'x'}
+   * !=
+   * {foo: {a:1, b:2, c:3}, bar: 'x'}
+   * */
   _.each(environmentParts, function (env) {
     _.extend(config, env);
   });

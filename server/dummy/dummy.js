@@ -105,7 +105,7 @@ module.exports = function (config) {
     var parts = url.split('?')[0].split('/');
 
     var i;
-    if (url.indexOf(config.mule.endpoints.stats) >= 0) {
+    if (url.indexOf(config.endpoints.stats) >= 0) {
       console.log('dummy stats');
       console.log(statsJson);
       data = statsJson;

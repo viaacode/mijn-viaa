@@ -33,7 +33,7 @@ module.exports = function (router, config, request) {
   function stats (req, res, next) {
     var organisation = getOrganisation(req);
 
-    var url = config.mule.endpoints.host + config.mule.endpoints.stats + '?tenant=' + organisation;
+    var url = config.muleHost + config.endpoints.stats + '?tenant=' + organisation;
 
     forwardRequestCall(url, res, next);
   }
@@ -48,14 +48,16 @@ module.exports = function (router, config, request) {
 
     if (!service || !what || !when) return next(jsend.error(404));
 
-    if (!config.mule.endpoints.reports[service]
-      || !config.mule.endpoints.reports[service][what]
-      || !config.mule.endpoints.reports[service][what][when]) return next(jsend.error(404));
+
+    var reportEndpoints = config.endpoints.reports;
+    if (!reportEndpoints[service]
+      || !reportEndpoints[service][what]
+      || !reportEndpoints[service][what][when]) return next(jsend.error(404));
 
     var organisation = getOrganisation(req);
 
-    var url = config.mule.endpoints.host
-      + config.mule.endpoints.reports[service][what][when]
+    var url = config.muleHost
+      + reportEndpoints[service][what][when]
       + '&org=' + organisation;
 
     forwardRequestCall(url, res, next, function (object) {

@@ -13,14 +13,14 @@ module.exports = function (app, config) {
         extra: ''
       },
       toEndpoint: {
-        title: config.mule.host + value,
-        url: config.mule.host + value,
+        title: config.muleHost + value,
+        url: config.muleHost + value,
         extra: config.dummyRequest ? '(mocked with dummy data)' : ''
       }
     };
   });
 
-  var routes = findRoutes('/api', config.mule.endpoints, []);
+  var routes = findRoutes('/api', config.endpoints, []);
 
   function showDocumentation (req, res, next) {
     res.render('documentation', {

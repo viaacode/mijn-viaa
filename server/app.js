@@ -5,9 +5,9 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var session = require('express-session');
 
-var allowCors = require('./config/cors');
-var authMiddleware = require('./config/authentication-middleware');
-var delayMiddleware = require('./config/delay-middleware');
+var allowCorsMiddleware = require('./middleware/cors');
+var authMiddleware = require('./middleware/authentication');
+var delayMiddleware = require('./middleware/delay');
 
 module.exports = function (config, request) {
 
@@ -16,7 +16,7 @@ module.exports = function (config, request) {
   app.set('port', config.app.port);
   app.set('views', config.paths.app('views'));
   app.set('view engine', 'ejs');
-  app.use(allowCors);
+  app.use(allowCorsMiddleware);
   app.use(morgan('dev'));
   app.use(cookieParser());
   app.use(bodyParser.json());
