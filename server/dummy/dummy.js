@@ -111,10 +111,11 @@ module.exports = function (config) {
       data = statsJson;
     } else if ((i = parts.indexOf('report')) >= 0) {
       console.log('dummy reports');
-      var y = parts[i + 1];
+      // var service = parts[i + 1];
+      var what = parts[i + 2];
       // report/mam/items?gran=last-day
-      var type = url.split('?')[1].split('&')[0].split('=')[1];
-      var options = reportsGenerationOptions(y, type);
+      var when = url.split('?')[1].split('&')[0].split('=')[1];
+      var options = reportsGenerationOptions(what, when);
       data = generateReports(options);
     }  else {
       console.log('dummy data not found');
