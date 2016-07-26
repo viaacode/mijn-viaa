@@ -11,10 +11,10 @@ function getGraphsFromConfig()
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
-                '/api/reports/items/last-day',
-                '/api/reports/items/last-week',
-                '/api/reports/items/last-month',
-                '/api/reports/items/last-year'
+                '/api/reports/ams/items/last-day',
+                '/api/reports/ams/items/last-week',
+                '/api/reports/ams/items/last-month',
+                '/api/reports/ams/items/last-year'
             ],
             data: {},
             errormessages: [],
@@ -27,10 +27,10 @@ function getGraphsFromConfig()
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
-                '/api/reports/terrabytes/last-day',
-                '/api/reports/terrabytes/last-week',
-                '/api/reports/terrabytes/last-month',
-                '/api/reports/terrabytes/last-year'
+                '/api/reports/mam/items/last-day',
+                '/api/reports/mam/items/last-week',
+                '/api/reports/mam/items/last-month',
+                '/api/reports/mam/items/last-year'
             ],
             data: {},
             errormessages: [],

@@ -13,7 +13,7 @@ module.exports = function (app, config) {
     };
   });
 
-  var routes = findRoutes('/api', config.endpoints, []);
+  var routes = findRoutes('/api', config.mule.endpoints, []);
 
   function showDocumentation (req, res, next) {
     res.render('documentation', {

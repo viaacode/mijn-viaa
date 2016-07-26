@@ -105,7 +105,7 @@ module.exports = function (config) {
     var parts = url.split('?')[0].split('/');
 
     var i;
-    if (url.startsWith(config.endpoints.stats)) {
+    if (url.indexOf(config.mule.endpoints.stats) >= 0) {
       console.log('dummy stats');
       console.log(statsJson);
       data = statsJson;
@@ -116,11 +116,7 @@ module.exports = function (config) {
       var type = url.split('?')[1].split('&')[0].split('=')[1];
       var options = reportsGenerationOptions(y, type);
       data = generateReports(options);
-    } else if ((i = parts.indexOf('services')) >= 0) {
-      console.log('dummy services');
-      var serviceName = parts[i + 1];
-      data = JSON.parse(servicesJson)[serviceName];
-    } else {
+    }  else {
       console.log('dummy data not found');
       return callback(jsend.error('Not found dummy data', 404))
     }
