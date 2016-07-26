@@ -1,4 +1,4 @@
-var readFile = require('./read-file');
+var readFile = require('../util/read-file');
 var path = require('path');
 var _ = require('underscore');
 
@@ -14,11 +14,13 @@ function environment (name) {
 }
 
 var basedir = path.join(__dirname, '../../');
-var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
+var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005';
 
 // not used but example of all available properties
 var template = {
-  // Mule endpoint
+  // host of mule
+  muleHost: null,
+  // Map path to mule endpoints
   endpoints: null,
   // used to map SAML data to available services
   services: null,
@@ -36,29 +38,17 @@ var template = {
   apiDelay: null,
   // show extended error messages in api call responses
   showErrors: false,
+  // log errors in server console
+  logErrors: false,
   // settings for authentication
   passport: null
 };
 
 var base = {
   // Mule endpoint
-  endpoints: {
-    stats: muleEndpoint + 'stats/global',
-    reports: {
-      items: {
-        "last-day": muleEndpoint + 'report/mam/items?gran=last-day',
-        "last-week": muleEndpoint + 'report/mam/items?gran=last-week',
-        "last-month": muleEndpoint + 'report/mam/items?gran=last-month',
-        "last-year": muleEndpoint + 'report/mam/items?gran=last-year',
-      },
-      terrabytes: {
-        "last-day": muleEndpoint + 'report/mam/terrabytes?gran=last-day',
-        "last-week": muleEndpoint + 'report/mam/terrabytes?gran=last-week',
-        "last-month": muleEndpoint + 'report/mam/terrabytes?gran=last-month',
-        "last-year": muleEndpoint + 'report/mam/terrabytes?gran=last-year',
-      }
-    }
-  },
+  muleHost: 'http://foo',
+  // Map path to mule endpoints ()
+  endpoints: JSON.parse(readFile(pathFromServer('config/endpoints.json'))),
   // used to map SAML data to available services
   services: {
     map: {
@@ -82,7 +72,8 @@ var base = {
   paths: {
     server: pathFromServer,
     app: pathFromApp
-  }
+  },
+  logErrors: true
 };
 
 var dev = {
@@ -102,6 +93,8 @@ var dev = {
 };
 
 var qas = {
+  // Mule endpoint
+  muleHost: 'http://do-qas-esb-01.do.viaa.be:10005',
   // toggle to show api links on /api/docs
   showApiDocs: true,
   // general app settings
@@ -171,6 +164,15 @@ module.exports = function (environmentName) {
   var config = {};
 
   // merge different environments
+  /* Warning: _.extend() will only copy one deep - eg.
+   * {foo: {a:1, b:2}, bar: 'x'}
+   * +
+   * {foo: {c:3}}
+   * =
+   * {foo: {c:3}, bar: 'x'}
+   * !=
+   * {foo: {a:1, b:2, c:3}, bar: 'x'}
+   * */
   _.each(environmentParts, function (env) {
     _.extend(config, env);
   });

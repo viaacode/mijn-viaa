@@ -10,7 +10,7 @@ Then surf to [localhost:1337](http://localhost:1337) in your browser to run the 
 
 *--everything below is optional--*
 
-You see all available api calls on [localhost:1337/api](http://localhost:1337/api) (when config.showApiDocs)
+You see all available api calls on [localhost:1337/api](http://localhost:1337/api) (when config.showApiDocs is enabled)
 
 # Run configurations
 ## environments
@@ -62,11 +62,11 @@ Add `127.0.0.1	mijn-qas.viaa.be` to the hosts file on your computer. This is nee
 *you can replace `mijn-qas.viaa.be` by the host part you have in [config](server/config/config.js).passport.saml.callbackUrl*
 
 ```
-# you need to run as admin to be able to use port 80
-sudo bash
-
 # install dependencies
 npm install
+
+# you need to run as admin to be able to use port 80
+sudo bash
 
 # set environment
 export NODE_ENV="qas"

@@ -1,26 +1,4 @@
-var ejs = require("ejs");
-
-function createPage (view, title, scripts) {
-  return function dashboard (req, res, next) {
-    var input = {
-      title: title,
-      body: {
-        view: view,
-        scripts: scripts,
-        body: {}
-      },
-      navigation: [
-        {title: '', href: 'dashboard', image: true},
-        {title: 'Dashboard', href: 'dashboard', class: view == 'dashboard' ? 'active' : ''},
-        {title: 'Diensten', href: 'services', class: view == 'services' || view == 'detail' ? 'active' : ''},
-        {title: 'Over', href: '#'},
-        {title: 'Account', href: '#'}
-      ]
-    };
-
-    res.render('base', input);
-  }
-}
+var createPage = require('../util/create-ejs-page');
 
 module.exports = function (app, config, middleware) {
 
@@ -28,14 +6,14 @@ module.exports = function (app, config, middleware) {
     'public/js/vue.js',
     'public/js/moment.js',
     'public/js/chart.js',
-    'public/js/service-available.js',
+    'public/js/saml-properties-for-frontend.js',
     'public/js/app.js',
     'public/js/dashboard-config.js',
     'public/js/dashboard.js',
   ]);
   var services = createPage('services', 'Diensten - Mijn VIAA', [
     'public/js/vue.js',
-    'public/js/service-available.js',
+    'public/js/saml-properties-for-frontend.js',
     'public/js/app.js',
     'public/js/moment.js',
     'public/js/services-config.js',
@@ -43,7 +21,7 @@ module.exports = function (app, config, middleware) {
   ]);
   var detail = createPage('detail', 'Mijn VIAA', [
     'public/js/vue.js',
-    'public/js/service-available.js',
+    'public/js/saml-properties-for-frontend.js',
     'public/js/app.js',
     'public/js/services-config.js',
     'public/js/services-detail.js'
