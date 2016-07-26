@@ -1,4 +1,4 @@
-var readFile = require('./read-file');
+var readFile = require('../util/read-file');
 var path = require('path');
 var _ = require('underscore');
 
