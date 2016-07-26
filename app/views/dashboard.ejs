@@ -67,29 +67,29 @@
         <!-- Big general stats -->
         <div class="col col-5 general" v-if="dataStats">  
             
-            <div class="col col-12 stat ">
+            <div class="col col-12 p3 stat ">
 
-                <div class="purple number" v-if="dataStats.terabytes < 1024">
+                <div class="grey number" v-if="dataStats.terabytes < 1024">
                     <div class="massivetext col">{{ dataStats.terabytes }} </div>
                     <div class="stat-title col ml3">Terabytes<br>gearchiveerd</div>
                 </div>
-                <div class="purple number" v-else>
-                    <div class="bigtext col">{{ Math.round(dataStats.terabytes / 10.24) / 100 }} </div>
+                <div class="grey number" v-else>
+                    <div class="bigtext col">{{ (Math.round(dataStats.terabytes / 10.24) / 100).toString().replace('.', ',') }} </div>
                     <div class="stat-title col ml3">Petabytes<br>gearchiveerd</div>   
                 </div>
             </div>
 
             <div class="col col-12 p3 stat">
 
-                <div class="purple number">
+                <div class="grey number">
                     <span class="bigtext col">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
                     <span class="stat-title col ml3">items<br>gedigitaliseerd</span>
                 </div>
                 
             </div>
-            <div class="col col-12 p3 stat">
+            <div class="col col-12 p3 stat nobottomborder">
 
-                <div class="purple number">
+                <div class="grey number">
                     <span class="bigtext col">{{{ numberWithSpaces(dataStats.archived) }}}</span>
                     <span class="stat-title col ml3">items<br>gearchiveerd</span> 
                 </div>
@@ -99,6 +99,11 @@
         
         </div><!-- End of big stats -->    
         
+    </div> <!-- container -->
+    <div class="divider"></div>
+
+    <div class="container">
+
         
         <!-- Graphs  -->  
         <div class="col col-12 mb4 graphcontainer" v-for="graph in graphs"

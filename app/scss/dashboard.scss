@@ -23,10 +23,7 @@
 
 .general{
     margin-bottom : 3rem;
-
-    :first-child{
-        border:none;
-    }
+    margin-top: 7rem;
 
     .container{
         padding-top: 0rem;
@@ -109,8 +106,28 @@
 .number{
     text-align: center;
 }
+
+.divider {
+    border-bottom: 1px solid $grey-lighter;
+    width:100%;
+
+}
+
+.top-stats {
+
+    padding-bottom:2rem;
+}
+
+.stat.nobottomborder {
+    border-bottom:none;
+}
+
 .stat{
     width: 100%;
+
+    border-left:1px solid $grey-lighter;
+    border-bottom: 1px solid $grey-lighter;
+
     .number{
         padding-top:2rem;
     }
@@ -123,7 +140,7 @@
         color: $blue;
     }
 
-    .purple{
+    .grey{
         color: #444;
     }
 
@@ -236,10 +253,7 @@
 
 @media (min-width:550px) {
 
-    .general{
-        border-top : 1px solid #afafaf;
-        border-bottom : 1px solid #afafaf;
-    }
+
     .stat-title{
         margin-bottom: 0rem;
         text-align: left;
@@ -265,7 +279,7 @@
         height: 20rem;
     }
     .stat{
-        border-left: 1px solid #afafaf;
+
         .bigtext{
             font-size: 3rem;
         }
@@ -301,10 +315,6 @@
 }
 
 @media (min-width:813px) {
-    
-    .general{
-        border-top : 1px solid #afafaf;
-    }
 
     .bigstats-airbox{
         height: 43rem;
