@@ -4,10 +4,10 @@ var jsend = require('../util/jsend');
 
 module.exports = function (router, config, request) {
   router.get('/api/stats/', stats);
-  router.get('/api/reports/:y/:type', reports);
+  router.get('/api/reports/:service/:what/:when', reports);
 
   function forwardRequestCall (url, res, next, parse) {
-    console.log('executing forwardRequestCall('+url+')');
+    console.log('executing forwardRequestCall(' + url + ')');
     request(url, function (error, response, body) {
       if (error) return next(error);
       if (response.statusCode != 200) return next(jsend.error(response.statusCode, error));
@@ -33,7 +33,7 @@ module.exports = function (router, config, request) {
   function stats (req, res, next) {
     var organisation = getOrganisation(req);
 
-    var url = config.endpoints.stats + '?tenant=' + organisation;
+    var url = config.mule.endpoints.host + config.mule.endpoints.stats + '?tenant=' + organisation;
 
     forwardRequestCall(url, res, next);
   }
@@ -42,30 +42,29 @@ module.exports = function (router, config, request) {
 
   //region reports
   function reports (req, res, next) {
-    /**
-     * eg. items, terrabytes
-     */
-    var y = req.params.y;
-    /**
-     * eg. last-month
-     */
-    var type = req.params.type;
+    var service = req.params.service;
+    var what = req.params.what;
+    var when = req.params.when;
+
+    if (!service || !what || !when) return next(jsend.error(404));
+
+    if (!config.mule.endpoints.reports[service]
+      || !config.mule.endpoints.reports[service][what]
+      || !config.mule.endpoints.reports[service][what][when]) return next(jsend.error(404));
 
     var organisation = getOrganisation(req);
 
-    var url;
-
-    try {
-      url = config.endpoints.reports[y][type] + '&org=' + organisation;
-    } catch (e) {
-      console.log(e);
-      return next(jsend.error(404));
-    }
+    var url = config.mule.endpoints.host
+      + config.mule.endpoints.reports[service][what][when]
+      + '&org=' + organisation;
 
     forwardRequestCall(url, res, next, function (object) {
       return {
-        y: y,
-        reportType: type,
+        service: service,
+        what: what,
+        when: when,
+        y: what,  // deprecated
+        reportType: when,  // deprecated
         data: object
       };
     });

@@ -7,13 +7,20 @@ module.exports = function (app, config) {
 
   var findRoutes = flattenObject(function (key, value) {
     return {
-      title: key,
-      url: value,
-      extra: config.dummyRequest ? '(mocked with dummy data)' : ''
+      localPath: {
+        title: key,
+        url: key,
+        extra: ''
+      },
+      toEndpoint: {
+        title: config.mule.host + value,
+        url: config.mule.host + value,
+        extra: config.dummyRequest ? '(mocked with dummy data)' : ''
+      }
     };
   });
 
-  var routes = findRoutes('/api', config.endpoints, []);
+  var routes = findRoutes('/api', config.mule.endpoints, []);
 
   function showDocumentation (req, res, next) {
     res.render('documentation', {

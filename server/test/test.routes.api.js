@@ -46,14 +46,21 @@ describe('routes/api', function () {
 
   var paths = [
     '/api/stats',
-    '/api/reports/items/last-day',
-    '/api/reports/items/last-week',
-    '/api/reports/items/last-month',
-    '/api/reports/items/last-year',
-    '/api/reports/terrabytes/last-day',
-    '/api/reports/terrabytes/last-week',
-    '/api/reports/terrabytes/last-month',
-    '/api/reports/terrabytes/last-year'
+    // mam items
+    '/api/reports/mam/items/last-day',
+    '/api/reports/mam/items/last-week',
+    '/api/reports/mam/items/last-month',
+    '/api/reports/mam/items/last-year',
+    // mam bytes
+    '/api/reports/mam/bytes/last-day',
+    '/api/reports/mam/bytes/last-week',
+    '/api/reports/mam/bytes/last-month',
+    '/api/reports/mam/bytes/last-year',
+    // ams items
+    '/api/reports/ams/items/last-day',
+    '/api/reports/ams/items/last-week',
+    '/api/reports/ams/items/last-month',
+    '/api/reports/ams/items/last-year'
   ];
 
   before(function () {
@@ -116,7 +123,47 @@ describe('routes/api', function () {
           .end(done);
       }
     }
+
+    it('should error 404 when reports-service unknown', function (done) {
+      var path = '/api/reports/foo/items/last-month';
+
+      supertest(app)
+        .get(path)
+        .expect({
+          status: 'error',
+          message: '404 Not Found'
+        })
+        .expect(404)
+        .end(done);
+    });
+
+    it('should error 404 when reports-what unknown', function (done) {
+      var path = '/api/reports/mam/foo/last-month';
+
+      supertest(app)
+        .get(path)
+        .expect({
+          status: 'error',
+          message: '404 Not Found'
+        })
+        .expect(404)
+        .end(done);
+    });
+
+    it('should error 404 when reports-when unknown', function (done) {
+      var path = '/api/reports/mam/items/foo';
+
+      supertest(app)
+        .get(path)
+        .expect({
+          status: 'error',
+          message: '404 Not Found'
+        })
+        .expect(404)
+        .end(done);
+    });
   });
+
 });
 
 describe('authentication', function () {
@@ -216,7 +263,7 @@ describe('DUMMY request', function () {
 
   it('should generate reports when url from config.endpoints.reports', function (done) {
     supertest(app)
-      .get('/api/reports/items/last-month')
+      .get('/api/reports/mam/items/last-month')
       .expect(200)
       .expect('Content-Type', /json/)
       .expect(validateJsend)
@@ -234,19 +281,6 @@ describe('DUMMY request', function () {
       .expect(200)
       .expect('Content-Type', /json/)
       .expect(validateJsend)
-      .end(done);
-  });
-
-  it('should error 404 when reports unknown', function (done) {
-    var path = '/api/reports/foo/last-month';
-
-    supertest(app)
-      .get(path)
-      .expect({
-        status: 'error',
-        message: '404 Not Found'
-      })
-      .expect(404)
       .end(done);
   });
 });

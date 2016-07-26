@@ -14,12 +14,12 @@ function environment (name) {
 }
 
 var basedir = path.join(__dirname, '../../');
-var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005/api/';
+var muleEndpoint = 'http://do-qas-esb-01.do.viaa.be:10005';
 
 // not used but example of all available properties
 var template = {
-  // Mule endpoint
-  endpoints: null,
+  // Mule endpoints
+  mule: null,
   // used to map SAML data to available services
   services: null,
   // general app settings
@@ -42,22 +42,9 @@ var template = {
 
 var base = {
   // Mule endpoint
-  endpoints: {
-    stats: muleEndpoint + 'stats/global',
-    reports: {
-      items: {
-        "last-day": muleEndpoint + 'report/mam/items?gran=last-day',
-        "last-week": muleEndpoint + 'report/mam/items?gran=last-week',
-        "last-month": muleEndpoint + 'report/mam/items?gran=last-month',
-        "last-year": muleEndpoint + 'report/mam/items?gran=last-year',
-      },
-      terrabytes: {
-        "last-day": muleEndpoint + 'report/mam/terrabytes?gran=last-day',
-        "last-week": muleEndpoint + 'report/mam/terrabytes?gran=last-week',
-        "last-month": muleEndpoint + 'report/mam/terrabytes?gran=last-month',
-        "last-year": muleEndpoint + 'report/mam/terrabytes?gran=last-year',
-      }
-    }
+  mule: {
+    host: 'http://do-qas-esb-01.do.viaa.be:10005',
+    endpoints: JSON.parse(readFile(pathFromServer('config/endpoints.json')))
   },
   // used to map SAML data to available services
   services: {

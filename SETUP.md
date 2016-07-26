@@ -10,7 +10,7 @@ Then surf to [localhost:1337](http://localhost:1337) in your browser to run the 
 
 *--everything below is optional--*
 
-You see all available api calls on [localhost:1337/api](http://localhost:1337/api) (when config.showApiDocs)
+You see all available api calls on [localhost:1337/api](http://localhost:1337/api) (when config.showApiDocs is enabled)
 
 # Run configurations
 ## environments
