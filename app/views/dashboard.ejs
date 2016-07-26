@@ -28,19 +28,19 @@
                     <div class="legend col col-4" v-if="dataStats">
                         <div class="legend-item first-item">
                             <div class="circle blue"></div>
-                            <p>Video &mdash; 552 items</p>    
+                            <p>Video &mdash; {{ numberWithSpaces(dataPiechart.Video) }} items</p>    
                         </div>
                         <div class="legend-item ">
                                 <div class="circle blue2"></div>
-                            <p>Audio &mdash; 552 items</p>       
+                            <p>Audio &mdash; {{ numberWithSpaces(dataPiechart.Audio) }} items</p>       
                         </div>
                         <div class="legend-item">
                                 <div class="circle blue3"></div>
-                            <p>Film &mdash; 552 items</p>       
+                            <p>Film &mdash; {{ numberWithSpaces(dataPiechart.Film) }} items</p>       
                         </div>
                         <div class="legend-item">
                                 <div class="circle blue4"></div>
-                            <p>Papier &mdash; 552 items</p>       
+                            <p>Papier &mdash; {{ numberWithSpaces(dataPiechart.Papier) }} items</p>       
                         </div>
                     </div>
                 </div>

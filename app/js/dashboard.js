@@ -6,6 +6,7 @@
         el: '#dashboard',
         data: { 
             dataStats: {},
+            dataPiechart: {},
             dataErrors: [],
             progress: {},
             progressErrors: [],
@@ -80,6 +81,8 @@
             if(err) { vueinstance.dataErrors.push(err); }
             else {         
                 dataErrors = [];
+                vueinstance.progress = result; // For loader (?)
+
                 // Translate the keys to user friendly output
                 var userfriendlytextObj = {
                     "Video": result.registered.video || 0,
@@ -88,6 +91,9 @@
                     "Papier": result.registered.paper || 0,
                 };
 
+                vueinstance.dataPiechart = userfriendlytextObj;
+                drawPieFromKvpObj('statsChart', userfriendlytextObj);
+
                 var dataStats = {
                     "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
                     "registered":result.registered.total,
@@ -95,11 +101,8 @@
                     "archived":result.archived.amount,   
                 };
 
-                vueinstance.progress = result;
-                drawProgressChart(vueinstance.progress);
-
                 vueinstance.dataStats = dataStats;
-                drawPieFromKvpObj('statsChart', userfriendlytextObj);
+                drawProgressChart(vueinstance.progress);
             }
         }));
 
@@ -209,7 +212,9 @@
                     xAxes: [{            
                         scaleLabel: {
                             display: true,
-                            labelString: 'Datum'
+                            labelString: 'Datum',
+                            fontColor: '#111',  
+                            fontStyle: 'bold',   
                         }
                         }, ],
                     yAxes: [{
@@ -218,11 +223,13 @@
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Aantal'
+                            labelString: 'Aantal',
+                            fontColor: '#111',
+                            fontStyle: 'bold',
                         }
                     }]
                 },
-
+                
                 legend: {
                     display: false,
                 }    
