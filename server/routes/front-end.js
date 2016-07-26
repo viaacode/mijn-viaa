@@ -1,25 +1,22 @@
 var ejs = require("ejs");
 
 function createPage (view, title, scripts) {
-  return function dashboard (req, res, next) {
-    var input = {
-      title: title,
-      body: {
-        view: view,
-        scripts: scripts,
-        body: {}
-      },
-      navigation: {
-      }
-    };
+  var input = {
+    title: title,
+    page: view,
+    pageData: null,
+    scripts: scripts,
+    activePages: {}
+  };
 
-    // decide which menu item activate
-    var activeView = view;
+  // decide which menu item activate
+  var activeView = view;
 
-    // highlight services when view is detail
-    if (activeView == 'detail') input.navigation['services'] = 1;
-    input.navigation[activeView] = 1;
+  // highlight services when view is detail
+  if (activeView == 'detail') input.activePages['services'] = 1;
+  input.activePages[activeView] = 1;
 
+  return function (req, res, next) {
     res.render('base', input);
   }
 }
