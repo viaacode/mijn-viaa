@@ -213,7 +213,7 @@ describe('services available', function () {
     var expected = 'var mijnVIAA=mijnVIAA||{};mijnVIAA.isServiceAvailable=function(serviceName){return {}[serviceName];};mijnVIAA.getOrganisationName=function(){return "";};';
 
     supertest(app)
-      .get('/public/js/service-available.js')
+      .get('/public/js/saml-properties-for-frontend.js')
       .expect(200)
       .expect(expected)
       .end(done);
@@ -230,7 +230,7 @@ describe('services available', function () {
       }
     };
 
-    require('../routes/service-available')(app, config);
+    require('../routes/saml-properties-for-frontend')(app, config);
 
     var req = {
       user: {

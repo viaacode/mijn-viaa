@@ -49,7 +49,7 @@ module.exports = function (config, request) {
   app.use('/', apiRouter);
   // Front-end
   // - user info
-  require('./routes/service-available')(app, config);
+  require('./routes/saml-properties-for-frontend')(app, config);
   // - front-end templates (redirect to login when not authenticated)
   require('./routes/front-end')(app, config, config.passport ? authMiddleware.redirect : authMiddleware.ignore);
   // - static files in the public folder
