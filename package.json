@@ -4,8 +4,9 @@
   "description": "Portal site for VIAA partners",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
-    "start": "node server.js"
+    "test": "mocha server/test",
+    "prestart": "grunt",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,15 @@
   },
   "homepage": "https://github.com/osoc16/viaa#readme",
   "dependencies": {
+    "basscss": "^8.0.1",
+    "chart.js": "^2.1.6",
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "vue": "^1.0.26",
     "body-parser": "^1.14.0",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.4.2",
