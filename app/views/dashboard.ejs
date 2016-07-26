@@ -1,5 +1,6 @@
 <div  id="dashboard" v-cloak>
-    <div class="container nopadding ">
+    <div class="divider"></div>
+    <div class="container nopadding">
         <!-- Loader gif -->
         <div class="col col-12 loader-airbox" v-show="!dataStats && dataErrors.length==0">
             <div class="loader">
@@ -16,12 +17,10 @@
         </div>
     </div>
 
-    <div class="divider"></div>
-
     <div class="container nopadding">
         <div class="relative clearfix">
             <!-- Piechart part -->
-            <div class="col col-7 pb3 border-right" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
+            <div class="col col-7 pb4 border-right" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
                 <div class="col col-12 mt3 top-stats"> 
                     <div class="pie-chart-container col">
                         <canvas id="statsChart"></canvas>
@@ -46,7 +45,7 @@
                     </div>
                 </div>
 
-                <div class="col col-12">
+                <div class="col col-12 pl7">
                     <div class="col col-12 stat nobottomborder norightborder pt3" v-if="dataStats">
                         <div class="grey number" v-if="dataStats.terabytes < 1024">
                             <div class="bigtext col">{{ dataStats.terabytes }} </div>

@@ -4,7 +4,7 @@ body {
     font-family:'proxima-nova-regular',"Helvetica", sans-serif;
 }
 
-header, body h1{
+header, h1, h2, h3{
     font-family:'proxima-nova-cond',"Helvetica", sans-serif;
 }
 
@@ -81,6 +81,14 @@ h1 {
 
 .mt10 {
     margin-top:10rem;
+}
+
+.pl7 {
+    padding-left:7rem;
+}
+
+.pl10 {
+    padding-left:10rem;
 }
 
 /* Navigation menu */

@@ -18,7 +18,7 @@
 }
 
 .bigstats-airbox {
-    height: 45rem;
+    height: 41rem;
 }
 
 .dashboard-title{
@@ -93,8 +93,8 @@
 
 .general{
     position:absolute;
-    bottom:0;
-    right:-1rem;
+    bottom:2rem;
+    right:-2rem;
     margin-left:4rem;
 
     .container{
@@ -193,10 +193,6 @@
     padding:1rem;
 }
 
-#progress {
-    
-}
-
 .graphtitle {
     font-size:2.6rem;
     font-weight:600;
@@ -225,20 +221,34 @@
 }
 
 .graphs-btns-container a, .graphs-databtns-container a {
-    display:inline-block;
+    display:inline;
     padding:0 1rem;
-    border-radius: 4px;
     transition: 0.4s ease-in-out;
     margin-bottom: 0.5rem;
     margin-right:0.5rem; 
-}
+
+    &:after {
+
+    }
+}   
 
 .graphs-btns-container a, .graphs-databtns-container a{
-    border: 1px solid #afafaf;
-    border-radius: 2rem;
-    color: #afafaf;
+    
+
+    color: $textcolor;
     font-size: 1.4rem;
     text-align: center;
+
+    &:hover {
+        border-bottom: 1px solid $orange;
+        color:$orange;    
+    }
+
+    &.active {
+        border-bottom: 1px solid $orange;
+   
+        color:$orange;
+    }
 }
 
 .graphs-btns-container a { 
@@ -252,14 +262,9 @@
 }
 
 .graphs-btns-container a:hover, .graphs-databtns-container a:hover{
-    border: 1px solid $orange;
-    border-radius: 2rem;
-    color:$orange;    
 }
 .graphs-btns-container a.active, .graphs-databtns-container a.active {
-    border: 1px solid $orange;
-    border-radius: 2rem;
-    color:$orange;
+
 }
 
 .font-spacing {
@@ -279,7 +284,7 @@
     }
 
     .bigstats-airbox {
-        height: 45rem;
+        height: 41rem;
         .first-item{
             margin-bottom: 0rem;
         }
@@ -331,10 +336,6 @@
 }
 
 @media (min-width:813px) {
-
-    .bigstats-airbox{
-        height: 43rem;
-    }
 
     .stat{
         .bigtext{
