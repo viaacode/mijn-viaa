@@ -14,10 +14,6 @@ header, h1, h2, h3{
     margin: 0;
     padding: 0 0.5rem;
 
-    .nopadding {
-        padding: 0;
-    }
-
     @media (min-width: 960px) {
         width:960px;
         margin:0 auto;
@@ -33,6 +29,10 @@ header, h1, h2, h3{
 
 .underline {
     text-decoration:underline;
+}
+
+.nopadding {
+    padding: 0;
 }
 
 a {
@@ -125,7 +125,6 @@ h1 {
 .btn {
     padding:1rem 2rem;
     margin-right:1rem;
-    margin-bottom:1rem;
     text-align:center;
 
     min-width:18rem;
