@@ -17,7 +17,17 @@ header, h1, h2, h3{
     .nopadding {
         padding: 0;
     }
+    @media (min-width: 960px) {
+        width:960px;
+        margin:0 auto;
+        padding:0;
+        padding-top: 1.5rem;
+        overflow:visible;
 
+        .nopadding {
+            padding:0;
+        }
+    }
 }
 
 .underline {
@@ -104,12 +114,6 @@ h1 {
 }
 
 
-
-
-
-/* End of navigation menu */
-
-
 /* Button styles */
 .btn {
     padding:1rem 2rem;
@@ -159,37 +163,4 @@ h1 {
     color:$almostwhite;
     background-color:$blue;
 }
-
 /* End of button styles */
-
-// Might become unneccesary if footer gets filled
-/*.lowfootertext {
-    margin:4rem 2rem 4rem 0;
-}*/
-
-/* End of footer */
-
-
-/* Media queries */
-
-@media (min-width: 960px) {
-    .container {
-        width:960px;
-        margin:0 auto;
-        padding:0;
-        padding-top: 1.5rem;
-        overflow:visible;
-    }
-
-    .container.nopadding {
-        padding:0;
-    }
-}
-
-@media (min-width: 960px) {
-    /* Header */
-
-    /* End of header */
-
-}
-/* End of media queries */
