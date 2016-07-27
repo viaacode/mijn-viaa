@@ -1,11 +1,12 @@
 body {
     background-color:$grey-bg;
     color:$textcolor;
-    font-family:'proxima-nova-regular',"Helvetica", sans-serif;
+    font-family: $viaafont;
 }
 
 header, h1, h2, h3{
-    font-family:'proxima-nova-cond',"Helvetica", sans-serif;
+    font-family: $viaafont;
+
 }
 
 .container { 
@@ -17,6 +18,17 @@ header, h1, h2, h3{
         padding: 0;
     }
 
+    @media (min-width: 960px) {
+        width:960px;
+        margin:0 auto;
+        padding:0;
+        padding-top: 1.5rem;
+        overflow:visible;
+
+        .nopadding {
+            padding:0;
+        }
+    }
 }
 
 .underline {
@@ -24,7 +36,6 @@ header, h1, h2, h3{
 }
 
 a {
-    //font-family:'proxima-nova-cond',"Helvetica", sans-serif;
     text-decoration:none;
     color:$orange;
 
@@ -68,6 +79,12 @@ h1 {
     display: none;
 }
 
+
+.relative {
+    position:relative;
+    z-index:-1;
+}
+
 .ml5 {
     margin-left:5rem;
 }
@@ -102,77 +119,6 @@ h1 {
 .pb10 {
     padding-bottom:10rem;
 }
-
-/* Navigation menu */
-header {
-    height:30.25rem;
-    width:100%;
-    padding:0 1rem;
-    background-color:$almostwhite;
-    color:$almostwhite;
-
-    ul {
-        width:100%;
-        height:100%;
-        margin: 0;
-        text-align: left;
-        display: block;
-    }
-
-    .menuitem, .logout {
-        display:inline-block;
-
-        a {
-            width:100%;
-            line-height:5rem;
-            display:inline-block;
-            border-radius:5px;
-
-            color:$orange;
-            text-align:left;
-
-            position: relative;
-            
-            &.active{
-                background-color: $orange;
-                color : $almostwhite;
-            }
-        }
-    }
-    
-    .menuitem {
-        width:100%;
-
-        a {
-            font-size:2rem; 
-        }
-    }
-
-    .logout {
-        display:inline-block;
-        float:right;
-    }
-
-}
-
-.logo {
-    height:3rem;
-    position:absolute;
-    top: 1rem;
-    width:100%;
-    text-align:left;
-    display:inline-block;
-    
-    img {
-        height: 130%;
-    }
-
-}
-
-.navigation:first-child{
-    padding-top: 1rem;
-}
-/* End of navigation menu */
 
 
 /* Button styles */
@@ -224,144 +170,4 @@ header {
     color:$almostwhite;
     background-color:$blue;
 }
-
 /* End of button styles */
-
-/* Footer */
-footer {
-    width:100%;
-    float:left;
-    background-color:$grey-dark;
-    color:$almostwhite;
-    padding:2rem;
-    line-height:3.2rem;
-    margin-top:5rem;
-}
-
-.logo-footer {
-    display:block;
-    float:right;
-    width:5.5rem;
-}
-
-// Might become unneccesary if footer gets filled
-/*.lowfootertext {
-    margin:4rem 2rem 4rem 0;
-}*/
-
-/* End of footer */
-
-
-/* Media queries */
-
-@media (min-width: 575px){
-    header{
-        height: 15rem;
-        .navigation{
-            display:flex;
-        }
-
-        .menuitem{
-            
-            a{
-                font-size: 1.8rem;
-                border-radius:0px;
-
-                &.active{
-                    border-bottom:2px solid $orange;
-                    background-color: transparent;
-                    color : $orange;
-                }
-            }   
-        }
-
-        .logo{
-            position:relative;
-
-            img{
-                height: 150%;
-            }
-        }
-
-    }   
-}
-@media (min-width: 775px) {
-    /* Navigation menu */
-    header {
-        height:15rem;
-        .navigation{
-            display:block;
-        }
-        .logo {
-            top: 0;
-            height:6rem;
-            max-width:20rem;
-            width:auto;
-            text-align:left;
-            margin-right:4rem;
-            margin-top:0.5rem;
-
-        }
-
-        .menuitem {
-            width:auto;
-
-            a {                
-                //width:auto;
-                font-size: 2.3rem;
-                line-height:12rem;
-                display:inline;
-                border-radius:5px 5px 0 0;
-                padding: 1rem 2rem;
-
-                &:hover {
-                    background-color:$almostwhite;
-                    color:$orange;
-                }
-                
-                &:after{
-                    display: block;
-                    position: absolute;
-                    left: 0;
-                    bottom: -2px;
-                    width: 0;
-                    height: 2px;
-                    background-color: $orange;
-                    content: "";
-                    transition: width 0.2s;    
-                }
-                &:hover:after{
-                    width:100%;
-                }
-
-            }
-
-        }
-
-    } 
-    /* End of navigation menu */
-
-}
-
-@media (min-width: 960px) {
-    /* Header */
-    header ul, .container {
-        width:960px;
-        margin:0 auto;
-        padding:0;
-        padding-top: 1.5rem;
-        overflow:hidden;
-    }
-
-    .container.nopadding {
-        padding:0;
-    }
-
-    .logo img{
-        display: block;
-        height: 200%;
-    }
-    /* End of header */
-
-}
-/* End of media queries */

@@ -16,9 +16,22 @@
 .graph-airplaceholder {
     height:35rem;
 }
+@media (min-width:813px) {
+    .graph-airplaceholder {
+        height:61.4rem;
+    }
+}
 
 .bigstats-airbox {
     height: 41rem;
+
+    @media (min-width:550px) {
+        height: 41rem;
+        .first-item{
+            margin-bottom: 0rem;
+        }
+        
+    }
 }
 
 .dashboard-title{
@@ -38,6 +51,14 @@
     display: flex;
     margin-top: 3.5rem;
     justify-content: space-around;
+
+    @media (min-width:550px) {
+        justify-content: space-between;
+        flex-direction: column;
+        height: 20rem;
+        margin-top:4rem;
+        margin-left:2rem;
+    }
 }
 
 .legend-item{
@@ -62,15 +83,9 @@
 
 .piechart{
     width: 100%;
-
-    // canvas{
-    //     margin-left: auto;
-    //     margin-right: auto;
-    // }
 }
 
 .pie-chart-container {
-    
     position: relative;
     margin-left: -13.6rem;
     margin-right: -10rem;
@@ -86,11 +101,6 @@
 }
 
 
-.relative {
-    position:relative;
-
-}
-
 .general{
     margin-top: 8rem;
 
@@ -104,6 +114,13 @@
     
 }
 
+.stat{
+    @media (min-width:550px) {
+        .bigtext{
+            font-size: 3rem;
+        }
+    }
+}
 
 .stat-title{
     text-align: center;
@@ -113,6 +130,13 @@
     margin-top: 1.4rem;
     width: 100%;
     float:left;
+
+    @media (min-width:550px) {
+        margin-bottom: 0rem;
+        text-align: left;
+        width: auto;
+    }
+
 }
 
 .stat-title.lower {
@@ -121,12 +145,14 @@
 
 .number{
     text-align: center;
+    @media (min-width:550px) {
+        text-align: left;
+    }
 }
 
 .divider {
     border-bottom: 1px solid $grey-lighter;
     width:100%;
-
 }
 
 .stat{
@@ -142,6 +168,12 @@
     &.norightborder {
         border-right:none;
     }
+
+    @media (min-width:813px) {
+        .bigtext{
+            font-size: 6rem;
+        }
+    }
 }
 
 .item{
@@ -152,6 +184,16 @@
     line-height: 16rem;
     border: none;
     width: 100%;
+
+    @media (min-width:550px) {
+        margin-top:8rem;
+        border: none;
+        line-height: 22rem;
+        width: auto;
+        .massivetext{
+            font-size: 6rem;
+        }
+    }
 }
 
 .massivetext{
@@ -180,16 +222,28 @@
     height:4rem;
     line-height:3rem;
     margin-bottom:5rem;
+
+    @media (min-width:550px) {
+        margin-bottom:1.5rem;
+    }
 }
 
 .graphs-databtns-container{
     float: right;
     width: 9rem;
+    @media (min-width:550px) {
+        width: 19rem;
+    }
+
 }
 
 .graphs-btns-container{
     float: left;
     width: 14rem;
+
+    @media (min-width:550px) { 
+        width: 28rem;
+    }
 }
 
 .sub-graphs-btns-container{
@@ -204,14 +258,9 @@
     margin-bottom: 0.5rem;
     margin-right:0.5rem; 
 
-    &:after {
-
-    }
 }   
 
 .graphs-btns-container a, .graphs-databtns-container a{
-    
-
     color: $textcolor;
     font-size: 1.4rem;
     text-align: center;
@@ -223,7 +272,7 @@
 
     &.active {
         border-bottom: 1px solid $orange;
-   
+
         color:$orange;
     }
 }
@@ -238,89 +287,6 @@
     width: 9rem;    
 }
 
-.graphs-btns-container a:hover, .graphs-databtns-container a:hover{
-}
-.graphs-btns-container a.active, .graphs-databtns-container a.active {
-
-}
-
 .font-spacing {
     letter-spacing: 1.5px;
-}
-
-
-/* End of graph button styles */
-
-@media (min-width:550px) {
-
-
-    .stat-title{
-        margin-bottom: 0rem;
-        text-align: left;
-        width: auto;
-    }
-
-    .bigstats-airbox {
-        height: 41rem;
-        .first-item{
-            margin-bottom: 0rem;
-        }
-        
-    }
- 
-
-    .legend{
-        justify-content: space-between;
-        flex-direction: column;
-        height: 20rem;
-        margin-top:4rem;
-        margin-left:2rem;
-    }
-    .stat{
-
-        .bigtext{
-            font-size: 3rem;
-        }
-    }
-
-    .number{
-        text-align: left;
-    }
-    .storage{
-        margin-top:8rem;
-        border: none;
-        line-height: 22rem;
-        width: auto;
-        .massivetext{
-            font-size: 6rem;
-        }
-
-    }
-
-    .graphs-btns-container { 
-        width: 28rem;
-    }
-
-    .graphs-databtns-container{
-        width: 19rem;
-    }
-
-    .graphs-btns-container, .graphs-databtns-container {
-        margin-bottom:1.5rem;
-    }
-
-
-}
-
-@media (min-width:813px) {
-
-    .stat{
-        .bigtext{
-            font-size: 6rem;
-        }
-    }
-
-    .graph-airplaceholder {
-        height:61.4rem;
-    }
 }

@@ -1,0 +1,249 @@
+/* Navigation menu */
+header {
+    height:30.25rem;
+    width:100%;
+    padding:0 1rem;
+    background-color:$almostwhite;
+    color:$almostwhite;
+
+    @media (min-width: 575px){
+        height: 14rem;
+    }
+
+    .navigation {
+        @media (min-width: 575px){
+            display:flex;
+        }
+
+        @media (min-width: 775px) {
+             display:block;
+        }
+    }
+
+    .logo {
+        @media (min-width: 575px) {
+            position: relative;
+        }
+
+        img {
+            @media (min-width: 575px) {
+                height:150%;
+            }
+            @media (min-width: 960px) {
+                display:block;
+                height:200%;
+            }
+        }
+
+        @media (min-width: 775px) {
+            top: 0;
+            height:6rem;
+            max-width:20rem;
+            width:auto;
+            text-align:left;
+            margin-right:4rem;
+            margin-top:0.5rem;
+        }
+    }
+
+    ul {
+        width:100%;
+        height:100%;
+        margin: 0;
+        text-align: left;
+        display: block;
+
+        @media (min-width: 960px) {
+            width:960px;
+            margin:0 auto;
+            padding:0;
+            padding-top: 1.5rem;
+            overflow:visible;
+        }
+    }
+
+    .menuitem, .logout {
+        display:inline-block;
+
+        .mainlink {
+            width:100%;
+            line-height:5rem;
+            display:inline-block;
+            border-radius:5px;
+
+            color:$orange;
+            text-align:left;
+
+            position: relative;
+            
+            &.active{
+                //background-color: $orange;
+                //color : $almostwhite;
+                border-bottom:2px solid $orange;
+                background-color: transparent;
+                color : $orange;
+            }
+        }
+    }
+    
+    .menuitem {
+        width:100%;
+
+        .mainlink {
+            font-size:2rem; 
+        }
+
+        @media (min-width: 575px) {
+            .menuitem{
+            
+                .mainlink{
+                    font-size: 1.8rem;
+                    border-radius:0px;
+
+                    &.active{
+                        border-bottom:2px solid $orange;
+                        background-color: transparent;
+                        color : $orange;
+                    }
+                }   
+            }
+        }
+
+        @media (min-width:775px) {
+            width:auto;
+
+            .mainlink {                
+                font-size: 2.3rem;
+                line-height:12rem;
+                display:inline;
+                border-radius:5px 5px 0 0;
+                padding: 1rem 2rem;
+
+                &:hover {
+                    background-color:$almostwhite;
+                    color:$orange;
+                }
+                
+                &:after{
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    bottom: -2px;
+                    width: 0;
+                    height: 2px;
+                    background-color: $orange;
+                    content: "";
+                    transition: width 0.2s;    
+                }
+                &:hover:after{
+                    width:100%;
+                }
+
+            }
+
+        }
+    }
+
+    
+    .logout:hover .logoutmenu {
+        display:block;
+    }
+
+}
+
+.menuitem-user { 
+   position: relative;
+   float:right;
+   padding:0 2rem 2rem 9rem;
+}
+
+.menuitem-user:hover .user-container, .menuitem-user:active .user-container {
+    display:block;
+}
+
+.menuitem-user:hover .user, .menuitem-user:active .user {
+    background-color:$orange-lighter;
+}
+
+.user { // The icon container
+    margin-top:3rem;
+    
+    border-radius:50%;
+    width: 5rem;
+    height: 5rem;
+    line-height: 5rem;
+
+    font-size: 3rem;
+    text-align: center;
+
+    background-color:$orange;
+    transition: 0.2s ease-in-out;
+}
+
+.user-container {
+    border: 1px solid $grey-light;
+
+    position:absolute;
+    top: 8.2rem;    
+    right: 0;
+
+    background-color:$almostwhite;
+    color:$textcolor;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.24);
+
+    padding: 1rem;
+
+    width: 30rem;
+    
+    transition: none;
+    display:none;
+
+    p {
+        font-size:1.8rem;
+        margin-bottom:2rem;
+    }
+
+    a {
+        display:block;
+        margin: 0 auto;
+
+        font-size:1.8rem;
+        margin:1rem 0;
+
+        height:4rem;
+        line-height:3rem;
+        text-align:center;
+        transition: .2s ease-in-out;
+
+        font-family:$viaafont;
+
+        &:hover {
+            border-bottom: 1px solid $orange;
+        }
+    }
+
+}
+
+
+
+
+.icon-user {
+    color:$almostwhite;
+}
+
+.navigation:first-child{
+    padding-top: 1rem;
+}
+
+.logo {
+    height:3rem;
+    position:absolute;
+    top: 1rem;
+    width:100%;
+    text-align:left;
+    display:inline-block;
+    
+    img {
+        height: 130%;
+    }
+}

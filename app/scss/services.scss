@@ -10,6 +10,11 @@ article {
     border:1px solid $grey-light;
     padding:1rem;
     padding-bottom:1rem;
+
+    @media (min-width:550px) {
+        margin-bottom:4rem;
+        padding:2rem;
+    }
 }
 
 .service-detail-content.first {
@@ -30,14 +35,6 @@ article {
 /* Submenu for services titles */
 .services-titles {
     padding:1rem 2rem;
-
-    /*border: 1px solid $almostwhite;
-    
-    border-top:0;
-    border-radius:4px;
-
-    background-color:$orange;*/
-
     margin:-2rem 0 2rem;
 }
 
@@ -69,39 +66,26 @@ article {
     border-radius: 5px;
 }
 
-/* Concerning service-icons */
 .service-icon-container {
     width:100%;
     float:left;
     margin-bottom:2rem;
+
+    @media (min-width:550px) {
+        width:12rem;
+        padding-right:2rem;
+    }
 }
 .service-icon {
     width: 10rem; 
     display: block;
     margin-left: auto;
     margin-right: auto;
-}  
-/* End of concerning service-icons */
 
+
+}  
 
 .service-content {
     width:100%;
     float:left;
-}
-
-@media (min-width:550px) {
-
-    .service-icon-container {        
-        width:12rem;
-        padding-right:2rem;
-    }
-
-    .service-content {
-        width: calc(100% - 12rem);
-
-    }
-    article {
-        margin-bottom:4rem;
-        padding:2rem;
-    }
 }

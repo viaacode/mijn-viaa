@@ -15,6 +15,16 @@ module.exports = function createPage (view, title, scripts, pageData) {
   input.activePages[activeView] = 1;
 
   return function (req, res, next) {
+      var organisationName;
+
+    if (req.user) {
+        organisationName = req.user.oNickname || '';
+    } else {
+        organisationName = 'gebruiker';
+    }
+
+    input.organisationName = organisationName;
+
     res.render('base', input);
   }
 };
