@@ -14,12 +14,12 @@
     href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
 
 
-<%- include('navigation', navigation); %>
+<%- include('navigation', activePages); %>
 
-<%- include(body.view, body.input); %>
+<%- include(page, pageData); %>
 
 <!-- script tags -->
-<% body.scripts.forEach(function (script) { %>
+<% scripts.forEach(function (script) { %>
 <script src="/<%- script %>"></script>
 <% }); %>
 

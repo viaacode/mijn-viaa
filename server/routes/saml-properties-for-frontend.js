@@ -1,7 +1,7 @@
 var _ = require('underscore');
 
 module.exports = function (app, config) {
-  app.get('/public/js/service-available.js', getAvailableServices);
+  app.get('/public/js/saml-properties-for-frontend.js', getAvailableServices);
 
   function getAvailableServices (req, res, next) {
     var services;
@@ -31,7 +31,7 @@ module.exports = function (app, config) {
       var mapped = config.services.map[value];
 
       if (!mapped) {
-        console.log("WARNING: service-available.js service '" + value + "' is unknown, skipping");
+        console.log("WARNING: saml-properties-for-frontend.js service '" + value + "' is unknown, skipping");
         continue;
       }
 

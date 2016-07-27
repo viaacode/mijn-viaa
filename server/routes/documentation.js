@@ -7,9 +7,16 @@ module.exports = function (app, config) {
 
   var findRoutes = flattenObject(function (key, value) {
     return {
-      title: key,
-      url: value,
-      extra: config.dummyRequest ? '(mocked with dummy data)' : ''
+      localPath: {
+        title: key,
+        url: key,
+        extra: ''
+      },
+      toEndpoint: {
+        title: config.muleHost + value,
+        url: config.muleHost + value,
+        extra: config.dummyRequest ? '(mocked with dummy data)' : ''
+      }
     };
   });
 

@@ -1,16 +1,13 @@
 <header>
   <ul class="navigation">
+    <li class="logo"><a href="/"><img src="/public/assets/logo2.svg"></a></li>
 
-    <% navigation.forEach(function (item) { %>
-    <% if (item.image) { %>
-    <li class="logo">
-      <% } else { %>
-    <li class="menuitem">
-      <% } %>
-      <a href="<%- item.href %>" class="<%- item.class %>"><% if (item.image) { %><img src="/public/assets/logo2.svg"/><% } else { %><%- item.title %><% } %></a>
-    </li>
-    <% }); %>
-    <li  class="logout"><a href="#" onclick="logout()">Uitloggen</a></li>
+    <li class="menuitem"><a href="dashboard" class="<%- activePages['dashboard'] ? 'active' : '' %>">Dashboard</a></li>
+    <li class="menuitem"><a href="services"  class="<%- activePages['services']  ? 'active' : '' %>">Diensten</a></li>
+    <li class="menuitem"><a href="#"         class="<%- activePages['about']     ? 'active' : '' %>">Over</a></li>
+    <li class="menuitem"><a href="#"         class="<%- activePages['account']   ? 'active' : '' %>">Account</a></li>
+
+    <li class="logout"><a href="#" onclick="logout()">Uitloggen</a></li>
     <ul class="logoutmenu">
         <li>test</li>
         <li>test2</li>
