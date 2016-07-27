@@ -23,11 +23,17 @@ header {
     }
 
     .logo {
+        height:3rem;
+        width:100%;
+        
+        display:inline-block;
+        
         @media (min-width: 575px) {
             position: relative;
         }
 
         img {
+            height: 130%;
             @media (min-width: 575px) {
                 //height:150%;
             }
@@ -153,6 +159,7 @@ header {
 
 }
 
+
 .menuitem-user { 
    position: relative;
    float:right;
@@ -182,7 +189,12 @@ header {
     transition: 0.2s ease-in-out;
 }
 
-.user-container {
+
+.icon-user {
+    color:$almostwhite;
+}
+
+.user-container {   // The popup menu
     border: 1px solid $grey-light;
 
     position:absolute;
@@ -227,24 +239,4 @@ header {
         }
     }
 
-}
-
-
-
-
-.icon-user {
-    color:$almostwhite;
-}
-
-.logo {
-    height:3rem;
-    position:absolute;
-    top: 1rem;
-    width:100%;
-    text-align:left;
-    display:inline-block;
-    
-    img {
-        height: 130%;
-    }
 }
