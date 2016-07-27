@@ -19,17 +19,27 @@ header {
     }
 
     .logo {
-        height:3rem;
-        width:100%;
-        
-        display:inline-block;
-        
+        height:7.5rem;
+        width:100%;   
+        display:block;
+
         @media (min-width: 600px) {
-            
+            display:inline-block;
+            height:7.8rem;
+            width:auto;
+            text-align:left;
+            margin: 0.5rem 5rem 0 2rem;         
+        }
+
+        a {
+            display:block;
+            height:100%;     
+            text-align:center;
         }
 
         img {
             height: 100%;
+                        margin: 0 auto;
 
             @media (min-width: 600px) {
                 display:inline-block;
@@ -38,13 +48,7 @@ header {
             }
         }
 
-        @media (min-width: 600px) {
-            height:7.8rem;
-            width:auto;
-            text-align:left;
-            margin-right:5rem;
-            margin-top:0.5rem;
-        }
+
     }
 
     ul {
@@ -92,16 +96,16 @@ header {
                 font-size: 1.8rem;
                 border-radius:0px;
 
+                font-size: 2.3rem;
+                display:inline;
+                border-radius:5px 5px 0 0;
+                padding: 1rem 2rem;
+               
                 &.active{
                     border-bottom:2px solid $orange;
                     background-color: transparent;
                     color : $orange;
                 }
-
-                font-size: 2.3rem;
-                display:inline;
-                border-radius:5px 5px 0 0;
-                padding: 1rem 2rem;
 
                 &:hover {
                     background-color:$almostwhite;
@@ -126,24 +130,9 @@ header {
         }
     }
     
-    .menuitem {
-
-        @media (min-width:775px) {
-           
-
-            .mainlink {                
-                
-
-            }
-
-        }
-    }
-
-    
     .logout:hover .logoutmenu {
         display:block;
     }
-
 }
 
 
