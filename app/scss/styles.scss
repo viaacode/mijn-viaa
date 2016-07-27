@@ -1,10 +1,16 @@
 @import '_reset';
-@import '_variables';
 @import '_basscss';
-@import '_fontello';
+
+@import '_variables';
+
 @import '_viaafonts';
+@import '_fontello';
 
 @import 'main';
+
+@import 'header';
+@import 'footer';
+
 @import 'dashboard';
 @import 'services';
 

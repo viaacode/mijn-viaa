@@ -1,0 +1,209 @@
+/* Navigation menu */
+header {
+    height:30.25rem;
+    width:100%;
+    padding:0 1rem;
+    background-color:$almostwhite;
+    color:$almostwhite;
+
+    ul {
+        width:100%;
+        height:100%;
+        margin: 0;
+        text-align: left;
+        display: block;
+    }
+
+    .menuitem, .logout {
+        display:inline-block;
+
+        .mainlink {
+            width:100%;
+            line-height:5rem;
+            display:inline-block;
+            border-radius:5px;
+
+            color:$orange;
+            text-align:left;
+
+            position: relative;
+            
+            &.active{
+                background-color: $orange;
+                color : $almostwhite;
+            }
+        }
+    }
+    
+    .menuitem {
+        width:100%;
+
+        .mainlink {
+            font-size:2rem; 
+        }
+    }
+
+    
+    .logout:hover .logoutmenu {
+        display:block;
+    }
+
+}
+
+@media (min-width: 575px){
+    header{
+        height: 14rem;
+        .navigation{
+            display:flex;
+        }
+
+        .menuitem{
+            
+            .mainlink{
+                font-size: 1.8rem;
+                border-radius:0px;
+
+                &.active{
+                    border-bottom:2px solid $orange;
+                    background-color: transparent;
+                    color : $orange;
+                }
+            }   
+        }
+
+        .logo{
+            position:relative;
+
+            img{
+                height: 150%;
+            }
+        }
+    }   
+}
+
+@media (min-width: 775px) {
+    /* Navigation menu */
+    header {
+
+        .navigation{
+            display:block;
+        }
+        .logo {
+            top: 0;
+            height:6rem;
+            max-width:20rem;
+            width:auto;
+            text-align:left;
+            margin-right:4rem;
+            margin-top:0.5rem;
+
+        }
+
+        .menuitem {
+            width:auto;
+
+            .mainlink {                
+                //width:auto;
+                font-size: 2.3rem;
+                line-height:12rem;
+                display:inline;
+                border-radius:5px 5px 0 0;
+                padding: 1rem 2rem;
+
+                &:hover {
+                    background-color:$almostwhite;
+                    color:$orange;
+                }
+                
+                &:after{
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    bottom: -2px;
+                    width: 0;
+                    height: 2px;
+                    background-color: $orange;
+                    content: "";
+                    transition: width 0.2s;    
+                }
+                &:hover:after{
+                    width:100%;
+                }
+
+            }
+
+        }
+
+    } 
+    /* End of navigation menu */
+
+}
+
+@media (min-width: 960px) {
+    header ul {
+        width:960px;
+        margin:0 auto;
+        padding:0;
+        padding-top: 1.5rem;
+        overflow:visible;
+    }
+
+    .logo img{
+        display: block;
+        height: 200%;
+    }
+}
+
+
+.menuitem.user {
+    border-radius:50%;
+    width: 5rem;
+    height: 5rem;
+    font-size: 3rem;
+    line-height: 5rem;
+    text-align: center;
+    background-color:$orange;
+    margin-top:3rem;
+    transition: 0.2s ease-in-out;
+    position: relative;
+
+    &:hover, &:active {
+        background-color:$orange-lighter;
+    }
+}
+
+.user-container {
+    //min-width:20rem;
+    border: 1px solid $grey;
+    padding: 2rem;
+    float:right;
+    overflow:visible;
+    width: 20rem;
+    z-index:9999;
+    //position:absolute;
+    //top:5rem;
+    color:$textcolor;
+}
+
+.icon-user {
+    color:$almostwhite;
+}
+
+.navigation:first-child{
+    padding-top: 1rem;
+}
+
+
+.logo {
+    height:3rem;
+    position:absolute;
+    top: 1rem;
+    width:100%;
+    text-align:left;
+    display:inline-block;
+    
+    img {
+        height: 130%;
+    }
+
+}

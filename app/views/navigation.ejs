@@ -1,16 +1,25 @@
 <header>
-  <ul class="navigation">
-    <li class="logo"><a href="/"><img src="/public/assets/logo2.svg"></a></li>
+    <ul class="navigation">
+        <li class="logo"><a href="/"><img src="/public/assets/logo2.svg"></a></li>
 
-    <li class="menuitem"><a href="dashboard" class="<%- activePages['dashboard'] ? 'active' : '' %>">Dashboard</a></li>
-    <li class="menuitem"><a href="services"  class="<%- activePages['services']  ? 'active' : '' %>">Diensten</a></li>
-    <li class="menuitem"><a href="#"         class="<%- activePages['about']     ? 'active' : '' %>">Over</a></li>
-    <li class="menuitem"><a href="#"         class="<%- activePages['account']   ? 'active' : '' %>">Account</a></li>
+        <li class="menuitem"><a href="dashboard" class="mainlink <%- activePages['dashboard'] ? 'active' : '' %>">Dashboard</a></li>
+        <li class="menuitem"><a href="services"  class="mainlink <%- activePages['services']  ? 'active' : '' %>">Diensten</a></li>
+        <li class="menuitem"><a href="#"         class="mainlink <%- activePages['about']     ? 'active' : '' %>">Over</a></li>
+        <li class="menuitem"><a href="#"         class="mainlink <%- activePages['account']   ? 'active' : '' %>">Account</a></li>
 
-    <li class="logout"><a href="#" onclick="logout()">Uitloggen</a></li>
-    <ul class="logoutmenu">
-        <li>test</li>
-        <li>test2</li>
+
+        <li class="menuitem right user">
+           <a>        
+                <span class="icon-user"></span>
+           </a>
+           <div class="user-container">
+               <p>test</p>
+               <p>test</p>
+               <p>test</p>
+               <p>test</p>
+           </div>
+        </li>
+        
     </ul>
-  </ul>
+
 </header>
