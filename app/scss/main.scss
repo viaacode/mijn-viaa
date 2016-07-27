@@ -152,7 +152,14 @@ header {
         display:inline-block;
         float:right;
     }
+    .logout:hover .logoutmenu {
+        display:block;
+    }
 
+}
+
+.logoutmenu {
+    display:block;
 }
 
 .logo {
@@ -288,7 +295,7 @@ footer {
 @media (min-width: 775px) {
     /* Navigation menu */
     header {
-        height:15rem;
+        height:14rem;
         .navigation{
             display:block;
         }
