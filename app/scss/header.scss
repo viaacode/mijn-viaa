@@ -1,24 +1,20 @@
 /* Navigation menu */
 header {
-    height:30.25rem;
+    height:30rem;
     width:100%;
     padding:0;
     background-color:$almostwhite;
     color:$almostwhite;
 
     @media (min-width: 575px){
-        height: 13rem;
+        height: 11rem;
     }
 
     .navigation {
-        padding-top:2rem;
+        padding-top:1rem;
 
-        @media (min-width: 575px){
-            display:flex;
-        }
-
-        @media (min-width: 775px) {
-             display:block;
+        @media (min-width: 600px){
+            display:block;
         }
     }
 
@@ -28,29 +24,25 @@ header {
         
         display:inline-block;
         
-        @media (min-width: 575px) {
-            position: relative;
+        @media (min-width: 600px) {
+            
         }
 
         img {
-            height: 130%;
-            @media (min-width: 575px) {
-                //height:150%;
-            }
-            @media (min-width: 960px) {
+            height: 100%;
+
+            @media (min-width: 600px) {
                 display:inline-block;
                 vertical-align:middle;
                 // height:150%;
             }
         }
 
-        @media (min-width: 775px) {
-            top: 0;
-            height:6rem;
-            max-width:20rem;
+        @media (min-width: 600px) {
+            height:7.8rem;
             width:auto;
             text-align:left;
-            margin-right:4rem;
+            margin-right:5rem;
             margin-top:0.5rem;
         }
     }
