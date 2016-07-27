@@ -96,14 +96,12 @@ header {
             text-align:left;
             margin-right:4rem;
             margin-top:0.5rem;
-
         }
 
         .menuitem {
             width:auto;
 
             .mainlink {                
-                //width:auto;
                 font-size: 2.3rem;
                 line-height:12rem;
                 display:inline;
@@ -135,7 +133,6 @@ header {
         }
 
     } 
-    /* End of navigation menu */
 
 }
 
@@ -153,7 +150,6 @@ header {
         height: 200%;
     }
 }
-
 
 .menuitem.user {
     border-radius:50%;
@@ -173,15 +169,12 @@ header {
 }
 
 .user-container {
-    //min-width:20rem;
     border: 1px solid $grey;
     padding: 2rem;
     float:right;
     overflow:visible;
     width: 20rem;
     z-index:9999;
-    //position:absolute;
-    //top:5rem;
     color:$textcolor;
 }
 
@@ -192,7 +185,6 @@ header {
 .navigation:first-child{
     padding-top: 1rem;
 }
-
 
 .logo {
     height:3rem;
@@ -205,5 +197,4 @@ header {
     img {
         height: 130%;
     }
-
 }
