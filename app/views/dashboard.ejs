@@ -26,7 +26,7 @@
                     <div class="pie-chart-container col">
                         <canvas id="statsChart"></canvas>
                     </div>
-                    <div class="legend col col-4" v-if="dataStats">
+                    <div class="legend col col-12 md-col-4" v-if="dataStats">
                         <div class="legend-item first-item">
                             <div class="circle blue"></div>
                             <p>Video &mdash; {{ numberWithSpaces(dataPiechart.Video) }} items</p>    
@@ -65,20 +65,20 @@
                 <div class="col col-10 p3 stat">
                     <div class="grey pt2">
                         <span class="bigtext col">{{{ numberWithSpaces(dataStats.registered) }}}</span>
-                        <span class="stat-title col">items geregistreerd</span>
+                        <span class="stat-title col">items geregistreerd &nbsp; </span>
                     </div>
                 </div>
                 <div class="col col-12 p3 stat">
                     <div class="grey pt2">
                         <span class="bigtext col">{{{ numberWithSpaces(dataStats.digitised) }}}</span>
-                        <span class="stat-title col">items gedigitaliseerd</span>
+                        <span class="stat-title col">items gedigitaliseerd &nbsp; </span>
                     </div>
                 </div>
                 <div class="col col-12 p3 stat nobottomborder">
 
                     <div class="grey pt2">
                         <span class="bigtext col">{{{ numberWithSpaces(dataStats.archived) }}}</span>
-                        <span class="stat-title col">items gearchiveerd</span> 
+                        <span class="stat-title col">items gearchiveerd &nbsp; </span> 
                     </div>                 
                 </div>          
             </div><!-- End of big stats -->    

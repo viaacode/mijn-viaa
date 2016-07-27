@@ -47,18 +47,47 @@
     border-right: 1px solid $grey-lighterer;
 }
 
+// Big pie chart
+.piechart{
+    width: 100%;
+}
 
+.pie-chart-container {
+    width:100%;
+    display:block;
+    position:relative;
+ 
+    @media (min-width:700px) {
+        margin-left: 0rem;
+        margin-right: 0rem;
+        width:45rem;
+    }
+
+    @media (min-width:960px) {
+        margin-left: -13.6rem;
+        margin-right: -10rem;
+        width:54rem;
+    }
+}
+
+// Video - audio - film - paper
 .legend{
     display: flex;
-    margin-top: 3.5rem;
+    margin-top: 4rem;
     justify-content: space-around;
 
-    @media (min-width:550px) {
+    @media (min-width:700px) {
+        width:19rem;
         justify-content: space-between;
         flex-direction: column;
         height: 20rem;
+        margin-left:5rem;
+        margin-top:2rem;
+
+    }
+    @media (min-width:880px) {
         margin-top:4rem;
-        margin-left:2rem;
+        margin-left:2rem; 
     }
 }
 
@@ -82,33 +111,6 @@
     }
 }
 
-.piechart{
-    width: 100%;
-}
-
-.pie-chart-container {
-    width:100%;
-    display:block;
-    position:relative;
- 
-
-    @media (min-width:680px) {
-        margin:0;
-        width:40rem;
-
-        left:2rem;
-
-    }
-
-    @media (min-width:700px) {
-        position: relative;
-        margin-left: -13.6rem;
-        margin-right: -10rem;
-
-        width:54rem;
-    }
-}
-
 .circle{
     width: 13px;
     height: 13px;
@@ -118,7 +120,12 @@
 
 
 .general{
-    margin-top: 8rem;
+    border-top: 1px solid $grey-lighterer;
+
+    @media(min-width:832px) {
+        border-top:none;
+        margin-top: 8rem;
+    }
 
     span {
         float:right;
@@ -128,14 +135,6 @@
         padding-top: 0rem;
     }
     
-}
-
-.stat{
-    @media (min-width:550px) {
-        .bigtext{
-            font-size: 3rem;
-        }
-    }
 }
 
 .stat-title{
@@ -181,6 +180,10 @@
         color: $grey;
     }
 
+    .bigtext{
+        font-size: 6rem;
+    }
+
     &.nobottomborder {
         border-bottom:none;
     }
@@ -188,11 +191,6 @@
         border-right:none;
     }
 
-    @media (min-width:813px) {
-        .bigtext{
-            font-size: 6rem;
-        }
-    }
 }
 
 .item{
