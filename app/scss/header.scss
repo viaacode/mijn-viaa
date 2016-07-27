@@ -193,7 +193,7 @@ header {
 
     padding: 1rem;
 
-    width: 30rem;
+    width: 24rem;
     
     transition: none;
     display:none;
@@ -205,13 +205,12 @@ header {
 
     a {
         display:block;
-        margin: 0 auto;
+        margin: 0 auto 1rem auto;
 
         font-size:1.8rem;
-        margin:1rem 0;
 
-        height:4rem;
-        line-height:3rem;
+        height:3rem;
+        line-height:2rem;
         text-align:center;
         transition: .2s ease-in-out;
 
@@ -219,6 +218,10 @@ header {
 
         &:hover {
             border-bottom: 1px solid $orange;
+        }
+
+        &:last-child {
+            margin-bottom:0;
         }
     }
 
