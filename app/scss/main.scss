@@ -132,7 +132,7 @@ h1 {
     height:4rem;
     display:inline-block;
 
-    transition:0.4s ease-in-out;
+    transition:0.2s ease;
     border-radius:5px;
 }
 
@@ -155,9 +155,9 @@ h1 {
 }
 
 .btn-secondary:hover {
-    color:$orange-lighter;
-    border-color:$orange-lighter;
-    box-shadow:2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    color:$almostwhite;
+    border-color:$orange;
+    background-color:$orange;
 }
 
 .btn-ternary {
