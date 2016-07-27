@@ -18,9 +18,10 @@
     </div>
 
     <div class="container nopadding">
-        <div class=" clearfix">
+        <div class=" clearfix"  v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">
             <!-- Piechart part -->
-            <div class="col col-7 pb7 pt4 border-right" v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">  
+            <div class="col col-7 pb7 pt4"
+                 v-bind:class="{ 'border-right' : dataStats && dataErrors.length==0 }">  
                 <div class="col col-12 mt3 top-stats"> 
                     <div class="pie-chart-container col">
                         <canvas id="statsChart"></canvas>
@@ -86,85 +87,83 @@
     
     <div class="divider"></div>
 
-           
-        <!-- Graphs  -->  
-        <div class="col col-12 graphcontainer" v-for="graph in graphs"
-            v-bind:class="{ 'graph-airplaceholder': graph.isLoading }"> 
-            <div class="container">
+    <!-- Graphs  -->  
+    <div class="col col-12 graphcontainer" v-for="graph in graphs"> 
+        <div class="container " v-bind:class="{ 'graph-airbox': graph.isLoading }">
+            <div class="col col-12">
                 <div class="col col-12">
-                    <div class="col col-12">
-                        <h3 class="graphtitle">{{ graph.chartTitle }}</h3>
-                    </div>
-                    <div class="graphs-btns-container col ml5">
-                        <div class="sub-graphs-btns-container " >
-                            <a href="#" 
-                                @click.prevent="refreshGraph(graph, 0)"
-                                v-bind:class="{ 'active': graph.chartFormat == 0 } " >
-                                    Dag
-                            </a>
-                            <a href="#" 
-                                @click.prevent="refreshGraph(graph, 1)"
-                                v-bind:class="{ 'active': graph.chartFormat == 1 } " >
-                                    Week
-                            </a>    
-                        </div>
-                        <div class="sub-graphs-btns-container">
-                            <a href="#" 
-                                @click.prevent="refreshGraph(graph, 2)"
-                                v-bind:class="{ 'active': graph.chartFormat == 2 } " >
-                                    Maand
-                            </a>
-                            <a href="#" 
-                                @click.prevent="refreshGraph(graph, 3)"
-                                v-bind:class="{ 'active': graph.chartFormat == 3 } " >
-                                    Jaar
-                            </a>    
-                        </div>
-                        
-                    </div>
-
-                    <div class="graphs-databtns-container col ">
+                    <h3 class="graphtitle">{{ graph.chartTitle }}</h3>
+                </div>
+                <div class="graphs-btns-container col ml5">
+                    <div class="sub-graphs-btns-container " >
                         <a href="#" 
-                        @click.prevent="loadGraphCumulative(graph)" 
-                        v-bind:class="{ 'active': graph.activeView == 'cumulative' }">
-                            Cumulatief
+                            @click.prevent="refreshGraph(graph, 0)"
+                            v-bind:class="{ 'active': graph.chartFormat == 0 } " >
+                                Dag
                         </a>
                         <a href="#" 
-                        @click.prevent="loadGraphEffective(graph)" 
-                        v-bind:class="{ 'active': graph.activeView == 'effective' }">
-                            Effectief
+                            @click.prevent="refreshGraph(graph, 1)"
+                            v-bind:class="{ 'active': graph.chartFormat == 1 } " >
+                                Week
+                        </a>    
+                    </div>
+                    <div class="sub-graphs-btns-container">
+                        <a href="#" 
+                            @click.prevent="refreshGraph(graph, 2)"
+                            v-bind:class="{ 'active': graph.chartFormat == 2 } " >
+                                Maand
                         </a>
-                    </div>
-                </div>
-                
-                <!-- Loader gif -->
-                <div class="col col-12 loader-airbox" 
-                    v-if="graph.isLoading && graph.errormessages.length==0">
-                    <div class="loader">
-                        <span class="icon-spin3 animate-spin"></span>
-                    </div>
-                </div>   
-
-                <!-- errors -->
-                <div class="col col-12 loader-airbox mt10"  v-if="graph.errormessages.length > 0">
-                    <div class="col col-12 center">
-                        <p>Oeps!</p>
-                        <p v-for="msg in graph.errormessages">{{ msg }}</p>
-                    </div>
+                        <a href="#" 
+                            @click.prevent="refreshGraph(graph, 3)"
+                            v-bind:class="{ 'active': graph.chartFormat == 3 } " >
+                                Jaar
+                        </a>    
+                    </div>                
                 </div>
 
-                <div class="">
-                    <canvas :id="graph.chartId" class="mb2" v-show="!graph.isLoading"></canvas>   <!-- Do not put this in a v-show or v-if div/container! Thank me for your saved tears later -->
+                <div class="graphs-databtns-container col ">
+                    <a href="#" 
+                    @click.prevent="loadGraphCumulative(graph)" 
+                    v-bind:class="{ 'active': graph.activeView == 'cumulative' }">
+                        Cumulatief
+                    </a>
+                    <a href="#" 
+                    @click.prevent="loadGraphEffective(graph)" 
+                    v-bind:class="{ 'active': graph.activeView == 'effective' }">
+                        Effectief
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Loader gif -->
+            <div class="col col-12 loader-airbox" 
+                v-show="graph.isLoading && graph.errormessages.length==0">
+                <div class="loader">
+                    <span class="icon-spin3 animate-spin"></span>
+                </div>
+            </div>   
+
+            <!-- errors -->
+            <div class="col col-12 loader-airbox mt10"  v-if="graph.errormessages.length > 0">
+                <div class="col col-12 center">
+                    <p>Oeps!</p>
+                    <p v-for="msg in graph.errormessages">{{ msg }}</p>
                 </div>
             </div>
 
-            <div class="divider mt4"></div>
-        </div><!-- End of Graphs -->
+            <div class="">
+                <canvas :id="graph.chartId" class="mb2" v-show="!graph.isLoading"></canvas>   <!-- Do not put this in a v-show or v-if div/container! Thank me for your saved tears later -->
+            </div>
+        </div>
+        
+        <div class="divider mt4"> </div>
 
-    <div class="container">
+    </div><!-- End of Graphs -->
+
+    <div class="container clearfix">
         <!-- Progress bars -->
-        <div class="progresscontainer col col-12"
-          v-bind:class="{ 'graph-airplaceholder': !dataStats }">
+        <div class="graphcontainer col col-12"
+          v-bind:class="{ 'graph-airbox': !dataStats }">
             <div class="col col-12">
                 <h3 class="graphtitle">Progress</h3>
             </div>

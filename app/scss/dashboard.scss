@@ -13,11 +13,11 @@
     width: 100%;
 }
 
-.graph-airplaceholder {
+.graph-airbox {
     height:35rem;
 }
 @media (min-width:813px) {
-    .graph-airplaceholder {
+    .graph-airbox {
         height:61.4rem;
     }
 }
@@ -26,7 +26,7 @@
     height: 41rem;
 
     @media (min-width:550px) {
-        height: 41rem;
+        height: 49rem;
         .first-item{
             margin-bottom: 0rem;
         }
@@ -153,6 +153,9 @@
 .divider {
     border-bottom: 1px solid $grey-lighterer;
     width:100%;
+    float:left;
+    margin-bottom:2rem;
+
 }
 
 .stat{
