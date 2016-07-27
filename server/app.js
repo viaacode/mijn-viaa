@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var session = require('express-session');
+var favicon = require('serve-favicon');
 
 var allowCorsMiddleware = require('./middleware/cors');
 var authMiddleware = require('./middleware/authentication');
@@ -28,6 +29,7 @@ module.exports = function (config, request) {
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(favicon(config.paths.app('assets/favicon.png')));
   //endregion
 
 
