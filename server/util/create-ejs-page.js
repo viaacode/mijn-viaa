@@ -16,14 +16,18 @@ module.exports = function createPage (view, title, scripts, pageData) {
 
   return function (req, res, next) {
       var organisationName;
+      var username;
 
     if (req.user) {
         organisationName = req.user.oNickname || '';
+        username = req.user.cn || '';
     } else {
-        organisationName = 'gebruiker';
+        organisationName = 'organisatie';
+        username = 'gebruiker';
     }
 
     input.organisationName = organisationName;
+    input.username = username;
 
     res.render('base', input);
   }
