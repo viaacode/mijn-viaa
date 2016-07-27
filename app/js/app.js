@@ -46,5 +46,9 @@ function ajaxcall(url, done) {
     return r; // Return it so we can cancel it * . *
 }
 
-
+function toggle(item) {
+    var i = document.getElementById(item);
+    if(i.style.display == 'block') i.style.display = 'none';
+    else i.style.display = 'block';   
+}
 

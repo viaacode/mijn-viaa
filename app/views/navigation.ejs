@@ -6,11 +6,11 @@
         <li class="menuitem"><a href="services"  class="mainlink <%- activePages['services']  ? 'active' : '' %>">Diensten</a></li>
         <li class="menuitem"><a href="#"         class="mainlink <%- activePages['about']     ? 'active' : '' %>">Over</a></li>
 
-        <li class="menuitem-user right">
+        <li class="menuitem-user right" onclick="toggle('user-container-id')">
            <div class="user">        
                 <span class="icon-user"></span>
            </div>
-           <div class="user-container">
+           <div class="user-container" id="user-container-id">
                 <p>Welkom terug, <strong><%= username %></strong>!</p>
                 <a href="#">Account</a>
                 <a href="/logout">Log uit</a>

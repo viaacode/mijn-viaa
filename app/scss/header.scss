@@ -6,14 +6,14 @@ header {
     background-color:$almostwhite;
     color:$almostwhite;
 
-    @media (min-width: 575px){
+    @media (min-width: 700px){
         height: 11rem;
     }
 
     .navigation {
         padding-top:1rem;
 
-        @media (min-width: 600px){
+        @media (min-width: 700px){
             display:block;
         }
     }
@@ -22,8 +22,9 @@ header {
         height:7.5rem;
         width:100%;   
         display:block;
+        margin-bottom:3rem;
 
-        @media (min-width: 600px) {
+        @media (min-width: 700px) {
             display:inline-block;
             height:7.8rem;
             width:auto;
@@ -41,7 +42,7 @@ header {
             height: 100%;
             margin: 0 auto;
 
-            @media (min-width: 600px) {
+            @media (min-width: 700px) {
                 display:inline-block;
                 vertical-align:middle;
             }
@@ -66,7 +67,7 @@ header {
         width:100%;
         text-align:center;
 
-        @media (min-width:600px) {
+        @media (min-width:700px) {
              width:auto;
         }
 
@@ -86,7 +87,7 @@ header {
                 color : $orange;
             }
 
-            @media (min-width: 600px) {
+            @media (min-width: 700px) {
                 font-size: 1.8rem;
                 border-radius:0px;
 
@@ -132,13 +133,16 @@ header {
 
 
 .menuitem-user { 
-   position: relative;
-   float:right;
-   padding:0 2rem 2rem 9rem;
-}
+    position:absolute;
+    top:1rem;
+    right:1rem;
 
-.menuitem-user:hover .user-container, .menuitem-user:active .user-container {
-    display:block;
+    @media (min-width:700px) {
+        position: relative;
+        float:right;
+        padding:0.5rem 0 2rem 2rem;
+        margin-right:1rem;
+    }
 }
 
 .menuitem-user:hover .user, .menuitem-user:active .user {
@@ -146,8 +150,7 @@ header {
 }
 
 .user { // The icon container
-    margin-top:2rem;
-    
+
     border-radius:50%;
     width: 5rem;
     height: 5rem;
