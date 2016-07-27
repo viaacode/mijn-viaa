@@ -39,16 +39,13 @@ header {
 
         img {
             height: 100%;
-                        margin: 0 auto;
+            margin: 0 auto;
 
             @media (min-width: 600px) {
                 display:inline-block;
                 vertical-align:middle;
-                // height:150%;
             }
         }
-
-
     }
 
     ul {
@@ -60,35 +57,32 @@ header {
             margin:0 auto;
             padding:0;
             padding-top: 1.5rem;
-            //overflow:visible;
+            //overflow:visible; 
         }
     }
 
     .menuitem {
         display:inline-block;
         width:100%;
+        text-align:center;
 
         @media (min-width:600px) {
              width:auto;
         }
 
         .mainlink {
-            width:100%;
+            padding:0 2rem;
+            margin-bottom:2rem;
+            width:auto;
             line-height:5rem;
             display:inline-block;
-            border-radius:5px;
+            
             font-size:2rem; 
-
             position:relative;
-
             color:$orange;
-            text-align:left;
 
             &.active{
-                //background-color: $orange;
-                //color : $almostwhite;
                 border-bottom:2px solid $orange;
-                background-color: transparent;
                 color : $orange;
             }
 
@@ -100,10 +94,10 @@ header {
                 display:inline;
                 border-radius:5px 5px 0 0;
                 padding: 1rem 2rem;
-               
+                margin-bottom: 0;
+      
                 &.active{
                     border-bottom:2px solid $orange;
-                    background-color: transparent;
                     color : $orange;
                 }
 
@@ -112,6 +106,7 @@ header {
                     color:$orange;
                 }
                 
+                // Fancy line animation - CSS hacks ftw
                 &:after{
                     display: block;
                     position: absolute;
