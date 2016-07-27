@@ -49,34 +49,37 @@ header {
 
     ul {
         width:100%;
-        height:100%;
-        margin: 0;
-        text-align: left;
-        display: block;
+        margin: 0; 
 
         @media (min-width: 960px) {
             width:960px;
             margin:0 auto;
             padding:0;
             padding-top: 1.5rem;
-            overflow:visible;
+            //overflow:visible;
         }
     }
 
-    .menuitem, .logout {
+    .menuitem {
         display:inline-block;
+        width:100%;
+
+        @media (min-width:600px) {
+             width:auto;
+        }
 
         .mainlink {
             width:100%;
             line-height:5rem;
             display:inline-block;
             border-radius:5px;
+            font-size:2rem; 
+
+            position:relative;
 
             color:$orange;
             text-align:left;
 
-            position: relative;
-            
             &.active{
                 //background-color: $orange;
                 //color : $almostwhite;
@@ -84,36 +87,17 @@ header {
                 background-color: transparent;
                 color : $orange;
             }
-        }
-    }
-    
-    .menuitem {
-        width:100%;
 
-        .mainlink {
-            font-size:2rem; 
-        }
+            @media (min-width: 600px) {
+                font-size: 1.8rem;
+                border-radius:0px;
 
-        @media (min-width: 575px) {
-            .menuitem{
-            
-                .mainlink{
-                    font-size: 1.8rem;
-                    border-radius:0px;
+                &.active{
+                    border-bottom:2px solid $orange;
+                    background-color: transparent;
+                    color : $orange;
+                }
 
-                    &.active{
-                        border-bottom:2px solid $orange;
-                        background-color: transparent;
-                        color : $orange;
-                    }
-                }   
-            }
-        }
-
-        @media (min-width:775px) {
-            width:auto;
-
-            .mainlink {                
                 font-size: 2.3rem;
                 display:inline;
                 border-radius:5px 5px 0 0;
@@ -138,6 +122,17 @@ header {
                 &:hover:after{
                     width:100%;
                 }
+            }
+        }
+    }
+    
+    .menuitem {
+
+        @media (min-width:775px) {
+           
+
+            .mainlink {                
+                
 
             }
 
