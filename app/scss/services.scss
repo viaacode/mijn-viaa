@@ -8,12 +8,7 @@ article h1, .service-detail-content h1 {
 article {
     margin-bottom:6rem;
     border:1px solid $grey-light;
-    padding:1rem;
-
-    @media (min-width:550px) {
-        margin-bottom:1%;
-        padding:2rem;
-    }
+    padding:2rem;
 }
 
 .service-item {
@@ -27,7 +22,7 @@ article {
     margin:0 2% 4rem;
     float:left;
 
-    @media (min-width: 620px) {
+    @media (min-width: 550px) {
         width:48%;
         margin-right:1%;
         margin-left:1%;
@@ -45,8 +40,6 @@ article {
 .service-detail-content article h1 {
     font-size:1.8rem;
 }
-
-
 
 .service-icon-container {
     width:100%;
