@@ -38,7 +38,7 @@ module.exports = function (app, config, passport) {
 
   app.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect(config.passport.saml.logoutUrl);
   });
 
   app.get('/Metadata',

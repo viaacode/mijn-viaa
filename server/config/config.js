@@ -121,6 +121,9 @@ var authentication = {
       // URL that goes from the Service Provider -> Identity Provider
       entryPoint: process.env.SAML_ENTRY_POINT || 'https://idp-qas.viaa.be/saml2/idp/SSOService.php',
 
+      // Url to logout from the Identity Provider
+      logoutUrl: 'https://idp-qas.viaa.be/module.php/core/authenticate.php?as=viaa-ldap&logout',
+
       // Usually specified as `/shibboleth` from site root
       issuer: process.env.ISSUER || 'passport-saml',
 
