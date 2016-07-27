@@ -20,7 +20,7 @@
     <div class="container nopadding">
         <div class=" clearfix"  v-bind:class="{ 'bigstats-airbox' : !dataStats && dataErrors.length==0 }">
             <!-- Piechart part -->
-            <div class="col col-7 pb7 pt4"
+            <div class="col col-12 md-col-7 pb7 pt4"
                  v-bind:class="{ 'border-right' : dataStats && dataErrors.length==0 }">  
                 <div class="col col-12 mt3 top-stats"> 
                     <div class="pie-chart-container col">
@@ -61,7 +61,7 @@
             </div>
             
             <!-- Big general stats -->
-            <div class="col col-5 general" v-if="dataStats"> 
+            <div class="col col-12 md-col-5 general" v-if="dataStats"> 
                 <div class="col col-10 p3 stat">
                     <div class="grey pt2">
                         <span class="bigtext col">{{{ numberWithSpaces(dataStats.registered) }}}</span>
