@@ -10,13 +10,13 @@ Font license info
    Homepage:  http://fortawesome.github.com/Font-Awesome/
 
 
-## Entypo
+## Linecons
 
-   Copyright (C) 2012 by Daniel Bruce
+   Copyright (C) 2013 by Designmodo
 
-   Author:    Daniel Bruce
-   License:   SIL (http://scripts.sil.org/OFL)
-   Homepage:  http://www.entypo.com
+   Author:    Designmodo for Smashing Magazine
+   License:   CC BY ()
+   Homepage:  http://designmodo.com/linecons-free/
 
 
 ## Fontelico
@@ -26,5 +26,14 @@ Font license info
    Author:    Crowdsourced, for Fontello project
    License:   SIL (http://scripts.sil.org/OFL)
    Homepage:  http://fontello.com
+
+
+## Entypo
+
+   Copyright (C) 2012 by Daniel Bruce
+
+   Author:    Daniel Bruce
+   License:   SIL (http://scripts.sil.org/OFL)
+   Homepage:  http://www.entypo.com
 
 
