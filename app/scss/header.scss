@@ -79,9 +79,9 @@ header {
             &.active{
                 //background-color: $orange;
                 //color : $almostwhite;
-                                        border-bottom:2px solid $orange;
-                        background-color: transparent;
-                        color : $orange;
+                border-bottom:2px solid $orange;
+                background-color: transparent;
+                color : $orange;
             }
         }
     }
@@ -151,32 +151,81 @@ header {
 
 }
 
-.menuitem.user {
+.menuitem-user { 
+   position: relative;
+   float:right;
+   padding:0 2rem 2rem 9rem;
+}
+
+.menuitem-user:hover .user-container, .menuitem-user:active .user-container {
+    display:block;
+}
+
+.menuitem-user:hover .user, .menuitem-user:active .user {
+    background-color:$orange-lighter;
+}
+
+.user { // The icon container
+    margin-top:3rem;
+    
     border-radius:50%;
     width: 5rem;
     height: 5rem;
-    font-size: 3rem;
     line-height: 5rem;
-    text-align: center;
-    background-color:$orange;
-    margin-top:3rem;
-    transition: 0.2s ease-in-out;
-    position: relative;
 
-    &:hover, &:active {
-        background-color:$orange-lighter;
-    }
+    font-size: 3rem;
+    text-align: center;
+
+    background-color:$orange;
+    transition: 0.2s ease-in-out;
 }
 
 .user-container {
-    border: 1px solid $grey;
-    padding: 2rem;
-    float:right;
-    overflow:visible;
-    width: 20rem;
-    z-index:9999;
+    border: 1px solid $grey-light;
+
+    position:absolute;
+    top: 8.2rem;    
+    right: 0;
+
+    background-color:$almostwhite;
     color:$textcolor;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.24);
+
+    padding: 1rem;
+
+    width: 30rem;
+    
+    transition: none;
+    display:none;
+
+    p {
+        font-size:1.8rem;
+        margin-bottom:2rem;
+    }
+
+    a {
+        display:block;
+        margin: 0 auto;
+
+        font-size:1.8rem;
+        margin:1rem 0;
+
+        height:4rem;
+        line-height:3rem;
+        text-align:center;
+        transition: .2s ease-in-out;
+
+        font-family:$viaafont;
+
+        &:hover {
+            border-bottom: 1px solid $orange;
+        }
+    }
+
 }
+
+
+
 
 .icon-user {
     color:$almostwhite;
