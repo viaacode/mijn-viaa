@@ -52,3 +52,15 @@ function toggle(item) {
     else i.style.display = 'block';   
 }
 
+function showmenu() {
+    document.getElementById("user-container-id").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        var d = document.getElementById("user-container-id");
+        d.classList.remove('show');
+    }
+};
+

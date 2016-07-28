@@ -88,6 +88,23 @@ function reportsGenerationOptions (y, type) {
   return options;
 }
 
+var savedReports = {};
+
+function lazyReportGeneration (service, what, when) {
+  if(!savedReports[service]) {
+    savedReports[service] = {};
+  }
+  if(!savedReports[service][what]) {
+    savedReports[service][what] = {};
+  }
+  if(!savedReports[service][what][when]) {
+    var options = reportsGenerationOptions(what, when);
+    savedReports[service][what][when] = generateReports(options);
+  }
+
+  return savedReports[service][what][when];
+}
+
 module.exports = function (config) {
   var statsJson = fs.readFileSync(config.paths.server('dummy/stats.json'), "utf8");
   var servicesJson = fs.readFileSync(config.paths.server('dummy//services.json'), "utf8");
@@ -111,12 +128,11 @@ module.exports = function (config) {
       data = statsJson;
     } else if ((i = parts.indexOf('report')) >= 0) {
       console.log('dummy reports');
-      // var service = parts[i + 1];
+      var service = parts[i + 1];
       var what = parts[i + 2];
       // report/mam/items?gran=last-day
       var when = url.split('?')[1].split('&')[0].split('=')[1];
-      var options = reportsGenerationOptions(what, when);
-      data = generateReports(options);
+      data = lazyReportGeneration(service, what, when);
     }  else {
       console.log('dummy data not found');
       return callback(jsend.error('Not found dummy data', 404))

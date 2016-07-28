@@ -126,9 +126,6 @@ header {
         }
     }
     
-    .logout:hover .logoutmenu {
-        display:block;
-    }
 }
 
 
@@ -209,4 +206,8 @@ header {
         }
     }
 
+}
+
+.show {
+    display:block;
 }

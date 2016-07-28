@@ -6,9 +6,9 @@
         <li class="menuitem"><a href="services"  class="mainlink <%- activePages['services']  ? 'active' : '' %>">Diensten</a></li>
         <li class="menuitem"><a href="#"         class="mainlink <%- activePages['about']     ? 'active' : '' %>">Over</a></li>
 
-        <li class="menuitem-user right" onclick="toggle('user-container-id')">
+        <li class="menuitem-user right" onclick="showmenu()">
            <div class="user">        
-                <span class="icon-user"></span>
+                <span class="icon-user dropbtn"></span>
            </div>
            <div class="user-container" id="user-container-id">
                 <p>Welkom terug, <strong><%= username %></strong>!</p>
