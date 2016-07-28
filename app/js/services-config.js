@@ -49,7 +49,7 @@ function getServicesList() {
             description:"Artikelen om u te helpen bij VIAA services, alsook de plaats om VIAA te contacteren in verband met vragen of problemen.",
             link_info:"detail#zen",
             link_service:"https://viaa.zendesk.com/hc/nl",
-            img:"/public/assets/avo.svg",
+            img:"/public/assets/zendesk.svg",
             alt:"ZEN icon",
             available: true,
         }
