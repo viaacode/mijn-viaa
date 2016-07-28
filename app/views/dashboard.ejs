@@ -1,5 +1,4 @@
 <div  id="dashboard" v-cloak>
-  
     <div class="container nopadding">
         <!-- Loader gif -->
         <div class="col col-12 loader-airbox" v-show="!dataStats && dataErrors.length==0">
@@ -26,6 +25,7 @@
                     <div class="pie-chart-container col">
                         <canvas id="statsChart"></canvas>
                     </div>
+
                     <div class="legend col col-12 md-col-4" v-if="dataStats">
                         <div class="legend-item first-item">
                             <div class="circle blue"></div>
@@ -75,7 +75,6 @@
                     </div>
                 </div>
                 <div class="col col-12 p3 stat nobottomborder">
-
                     <div class="grey pt2">
                         <span class="bigtext col">{{{ numberWithSpaces(dataStats.archived) }}}</span>
                         <span class="stat-title col">items gearchiveerd &nbsp; </span> 
@@ -89,7 +88,7 @@
 
     <!-- Graphs  -->  
     <div class="col col-12 graphcontainer" v-for="graph in graphs"> 
-        <div class="container " v-bind:class="{ 'graph-airbox': graph.isLoading }">
+        <div class="container" v-bind:class="{ 'graph-airbox': graph.isLoading }">
             <div class="col col-12">
                 <div class="col col-12">
                     <h3 class="graphtitle">{{ graph.chartTitle }}</h3>
@@ -186,10 +185,7 @@
             <div class="col col-12">
                 <canvas id="progress"></canvas>
             </div>
-
-        </div> <!-- End of Progress bars -->
-
-      
+        </div> <!-- End of Progress bars -->      
     </div>
     <%- include('footer', {}); %>
 </div>
