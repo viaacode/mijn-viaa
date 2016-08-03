@@ -35,5 +35,11 @@ node_modules
 # Sass cache
 .sass-cache
 
+# public folder
+public
+
 # IDE settings
 .idea
+
+# certificates
+cert

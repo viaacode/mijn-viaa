@@ -1,14 +1,32 @@
-var express = require('express');
-var router = express.Router();
 var path = require("path");
+var ejs = require("ejs");
 
-router.get('/', function (req, res, next) {
-  res.sendFile(path.join(__dirname + '/documentation.html'));
-});
+var flattenObject = require('../util/flatten-object');
 
-router.get('/api/', function (req, res, next) {
-  res.sendFile(path.join(__dirname + '/documentation.html'));
-});
+module.exports = function (app, config) {
 
-// Return router
-module.exports = router;
+  var findRoutes = flattenObject(function (key, value) {
+    return {
+      localPath: {
+        title: key,
+        url: key,
+        extra: ''
+      },
+      toEndpoint: {
+        title: config.muleHost + value,
+        url: config.muleHost + value,
+        extra: config.dummyRequest ? '(mocked with dummy data)' : ''
+      }
+    };
+  });
+
+  var routes = findRoutes('/api', config.endpoints, []);
+
+  function showDocumentation (req, res, next) {
+    res.render('documentation', {
+      routes: routes
+    });
+  }
+
+  app.get('/api/', showDocumentation);
+};

@@ -1,83 +1,76 @@
-var express = require('express');
-var request = require('request');
-var router = express.Router();
+var moment = require('moment');
 
-// used in callback argument to return if successful
-// otherwise the error object/message is returned (not a falsy value)
-var SUCCESS = '';
-var NO_ORGANISATION = '';
+var jsend = require('../util/jsend');
 
-//region Dummy data
-var dummy = {
-  global: {
-    terabytes: 42,
-    items: 2471,
-    archive_growth: 446.12,
-    registration_growth: 443.5
-  },
-  organisations: createDummyOrganisationsStats()
-};
+module.exports = function (router, config, request) {
+  router.get('/api/stats/', stats);
+  router.get('/api/reports/:service/:what/:when', reports);
 
-function createDummyOrganisationsStats () {
-  var companies = [];
-  companies["VRT"] = {
-    terabytes: 33,
-    items: 234,
-    archive_growth: 3333.12,
-    registration_growth: 867.5
-  };
-  companies["plantentuin"] = {
-    terabytes: 11,
-    items: 64564,
-    archive_growth: 456.12,
-    registration_growth: 23.5
-  };
-  return companies;
-}
-//endregion
+  function forwardRequestCall (url, res, next, parse) {
+    console.log('executing forwardRequestCall(' + url + ')');
+    request(url, function (error, response, body) {
+      if (error) return next(error);
+      if (response.statusCode != 200) return next(jsend.error(response.statusCode, error));
 
-function fetchStats (organisation, callback) {
+      if (typeof body === 'string') {
+        body = JSON.parse(body);
+      }
 
-  var url = 'http://labs.viaa.be/api/v1/archived';
+      data = parse ? parse(body) : body;
 
-  if (organisation !== NO_ORGANISATION) {
-    url += '?tenant=' + organisation;
+      res
+        .append('Content-Type', 'application/json')
+        .send(jsend.success(data));
+    });
   }
 
-  request(url, function (error, response, body) {
-    if (error) return callback(error);
-    if (response.statusCode != 200) return callback('Statuscode: ' + response.statusCode);
+  function getOrganisation (req) {
+    var user = req.user || {o: null};
+    return user.o;
+  }
 
-    console.log(obj);
-    var obj = parseStats(JSON.parse(body));
-    callback(SUCCESS, obj);
-  });
-}
+  //region stats
+  function stats (req, res, next) {
+    var organisation = getOrganisation(req);
 
-function parseStats (inputObject) {
-  return {
-    terabytes: inputObject.response.data.archived.terabytes,
-    items: inputObject.response.data.archived.all,
-    archive_growth: 111.12,
-    registration_growth: 111.5
-  };
-}
+    var url = config.muleHost + config.endpoints.stats + '?tenant=' + organisation;
 
-router.get('/stats/', function (req, res, next) {
-  fetchStats(NO_ORGANISATION, function (err, data) {
-    if (err) return next(err);
-    res.json(data);
-  });
-});
+    forwardRequestCall(url, res, next);
+  }
 
-// todo: auth
-router.get('/stats/organisation/:organisationId', function (req, res, next) {
-  var organisationId = req.params.organisationId;
-  fetchStats(organisationId, function (err, data) {
-    if (err) return next(err);
-    res.json(data);
-  });
-});
+  //endregion
 
-// Return router
-module.exports = router;
+  //region reports
+  function reports (req, res, next) {
+    var service = req.params.service;
+    var what = req.params.what;
+    var when = req.params.when;
+
+    if (!service || !what || !when) return next(jsend.error(404));
+
+
+    var reportEndpoints = config.endpoints.reports;
+    if (!reportEndpoints[service]
+      || !reportEndpoints[service][what]
+      || !reportEndpoints[service][what][when]) return next(jsend.error(404));
+
+    var organisation = getOrganisation(req);
+
+    var url = config.muleHost
+      + reportEndpoints[service][what][when]
+      + '&org=' + organisation;
+
+    forwardRequestCall(url, res, next, function (object) {
+      return {
+        service: service,
+        what: what,
+        when: when,
+        y: what,  // deprecated
+        reportType: when,  // deprecated
+        data: object
+      };
+    });
+  }
+
+  //endregion
+};

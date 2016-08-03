@@ -1,6 +1,17 @@
-var app = require('./app');
+var configEnvironments = require('./config/config');
+
+var request = require('request');
+
+var env = process.env.NODE_ENV || 'development';
+var config = configEnvironments(env);
+
+if (config.dummyRequest) {
+  request = require('./dummy/dummy')(config).request;
+}
+
+var app = require('./app')(config, request);
 
 // Start server
-app.listen(1337, function () {
-  console.log('--Eva-API available on port 1337');
+app.listen(config.app.port, function () {
+  console.log('--' + config.app.name + ' API available on port ' + config.app.port);
 });

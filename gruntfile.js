@@ -5,23 +5,28 @@ var grunt = require("grunt");
   sass: {
       dist: {
        src: [
-         'scss/styles.scss',
+         'app/scss/styles.scss',
        ],
-       dest: 'dist/styles.css',
+       dest: 'app/public/css/styles.css',
      }
   },
   copy: {
     main: {
       files: [
-        // includes files within path
-        {expand: false, src: ['node_modules/basscss/css/basscss.css'], dest: 'scss/basscss.scss', filter: 'isFile'},
-        {expand: false, src: ['node_modules/vue/dist/vue.min.js'], dest: 'dist/vue.js', filter: 'isFile'},
-        {expand: false, src: ['node_modules/jquery/dist/jquery.min.js'], dest: 'dist/jquery.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/basscss/css/basscss.css'], dest: 'app/scss/_basscss.scss', filter: 'isFile'},
+        {expand: false, src: ['node_modules/vue/dist/vue.js'], dest: 'app/public/js/vue.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/chart.js/dist/Chart.js'], dest: 'app/public/js/chart.js', filter: 'isFile'},
+        {expand: false, src: ['node_modules/moment/min/moment.min.js'], dest: 'app/public/js/moment.js', filter: 'isFile'},
+
+        {expand: true, cwd:'app/js', src: '**/*', dest: 'app/public/js'},
+        {expand: true, cwd:'app/assets', src: '**/*', dest: 'app/public/assets'},
+        {expand: true, cwd:'app/fonts', src: '**/*', dest: 'app/public/fonts'},
+
       ],
     },
   },  
   jshint: {
-    all: ['js/*.js']
+    all: ['app/js/*.js']
   },
   concat: {
     options: {
@@ -30,23 +35,28 @@ var grunt = require("grunt");
     },
     dist: {
       // the files to concatenate
-      src: ['js/**/*.js'],
+      src: ['app/js/concat/*.js'],
       // the location of the resulting JS file
-      dest: 'dist/scripts.js'
+      dest: 'app/dist/scripts.js'
     }
   },
   watch: {
     css: {
-      files: '**/*.scss',
+      files: 'app/scss/*.scss',
       tasks: ['sass']
+    },
+    scripts: {
+        files: 'app/js/*.js',
+        tasks: ['jshint', 'copy']
     }
   }
 });
+
 grunt.loadNpmTasks('grunt-contrib-sass');
 grunt.loadNpmTasks('grunt-contrib-watch');
 grunt.loadNpmTasks('grunt-contrib-copy');
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-concat');
-grunt.registerTask('default',['copy', 'sass', 'jshint', 'concat']);
+grunt.registerTask('default',['copy', 'sass', 'jshint']);
 
 
