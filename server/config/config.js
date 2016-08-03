@@ -101,7 +101,7 @@ var qas = {
   app: {
     // used in console to tell which app is started
     name: 'mijn.VIAA',
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 80,
     sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
   },
   // show extended error messages in api calls
