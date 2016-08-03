@@ -31,3 +31,15 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# Sass cache
+.sass-cache
+
+# public folder
+public
+
+# IDE settings
+.idea
+
+# certificates
+cert
