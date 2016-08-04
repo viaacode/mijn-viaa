@@ -11,10 +11,10 @@ function getGraphsFromConfig()
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
-                '/api/reports/ams/items/last-day',
-                '/api/reports/ams/items/last-week',
-                '/api/reports/ams/items/last-month',
-                '/api/reports/ams/items/last-year'
+                '/api/report/ams/items?gran=last-day',
+                '/api/report/ams/items?gran=last-week',
+                '/api/report/ams/items?gran=last-month',
+                '/api/report/ams/items?gran=last-year'
             ],
             data: {},
             errormessages: [],
@@ -27,10 +27,10 @@ function getGraphsFromConfig()
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
-                '/api/reports/mam/items/last-day',
-                '/api/reports/mam/items/last-week',
-                '/api/reports/mam/items/last-month',
-                '/api/reports/mam/items/last-year'
+                '/api/report/mam/items?gran=last-day',
+                '/api/report/mam/items?gran=last-week',
+                '/api/report/mam/items?gran=last-month',
+                '/api/report/mam/items?gran=last-year'
             ],
             data: {},
             errormessages: [],

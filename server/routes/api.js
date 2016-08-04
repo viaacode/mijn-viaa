@@ -4,7 +4,7 @@ var jsend = require('../util/jsend');
 
 module.exports = function (router, config, request) {
   router.get('/api/stats/', stats);
-  router.get('/api/reports/:service/:what/:when', reports);
+  router.get('/api/report/:service/:what', report);
 
   function forwardRequestCall (url, res, next, parse) {
     console.log('executing forwardRequestCall(' + url + ')');
@@ -41,32 +41,30 @@ module.exports = function (router, config, request) {
   //endregion
 
   //region reports
-  function reports (req, res, next) {
+  function report (req, res, next) {
     var service = req.params.service;
     var what = req.params.what;
-    var when = req.params.when;
+    var gran = req.query.gran || 'last-day';
 
-    if (!service || !what || !when) return next(jsend.error(404));
+    if (!service || !what || !gran) return next(jsend.error(404));
 
 
-    var reportEndpoints = config.endpoints.reports;
+    var reportEndpoints = config.endpoints.report;
     if (!reportEndpoints[service]
       || !reportEndpoints[service][what]
-      || !reportEndpoints[service][what][when]) return next(jsend.error(404));
+      || !reportEndpoints[service][what][gran]) return next(jsend.error(404));
 
     var organisation = getOrganisation(req);
 
     var url = config.muleHost
-      + reportEndpoints[service][what][when]
+      + reportEndpoints[service][what][gran]
       + '&cp=' + organisation;
 
     forwardRequestCall(url, res, next, function (object) {
       return {
         service: service,
         what: what,
-        when: when,
-        y: what,  // deprecated
-        reportType: when,  // deprecated
+        granularity: gran,
         data: object
       };
     });

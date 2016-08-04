@@ -1,6 +1,6 @@
 {
   "stats": "/api/report/global",
-  "reports": {
+  "report": {
     "mam": {
       "items": {
         "last-day": "/api/report/mam/items?gran=last-day",
@@ -9,16 +9,16 @@
         "last-year": "/api/report/mam/items?gran=last-year"
       },
       "bytes": {
-        "last-day": "/api/report/mam/terrabytes?gran=last-day",
-        "last-week": "/api/report/mam/terrabytes?gran=last-week",
-        "last-month": "/api/report/mam/terrabytes?gran=last-month",
-        "last-year": "/api/report/mam/terrabytes?gran=last-year"
+        "last-day": "/api/report/mam/bytes?gran=last-day",
+        "last-week": "/api/report/mam/bytes?gran=last-week",
+        "last-month": "/api/report/mam/bytes?gran=last-month",
+        "last-year": "/api/report/mam/bytes?gran=last-year"
       }
     },
     "ams": {
       "items": {
-        "last-day": "/api/report/ams/items?gran=last-day",
-        "last-week": "/api/report/ams/items?gran=last-week",
+        "last-day": "/api/report/mam/items?gran=last-day",
+        "last-week": "/api/report/mam/items?gran=last-week",
         "last-month": "/api/report/ams/items?gran=last-month",
         "last-year": "/api/report/ams/items?gran=last-year"
       }
