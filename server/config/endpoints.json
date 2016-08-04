@@ -1,5 +1,5 @@
 {
-  "stats": "/api/stats/global",
+  "stats": "/api/report/global",
   "reports": {
     "mam": {
       "items": {

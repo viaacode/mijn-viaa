@@ -33,7 +33,7 @@ module.exports = function (router, config, request) {
   function stats (req, res, next) {
     var organisation = getOrganisation(req);
 
-    var url = config.muleHost + config.endpoints.stats + '?tenant=' + organisation;
+    var url = config.muleHost + config.endpoints.stats + '?cp=' + organisation;
 
     forwardRequestCall(url, res, next);
   }
@@ -58,7 +58,7 @@ module.exports = function (router, config, request) {
 
     var url = config.muleHost
       + reportEndpoints[service][what][when]
-      + '&org=' + organisation;
+      + '&cp=' + organisation;
 
     forwardRequestCall(url, res, next, function (object) {
       return {

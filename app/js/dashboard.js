@@ -6,11 +6,12 @@
         el: '#dashboard',
         data: { 
             dataStats: {},
-            dataPiechart: {},
+            dataPieChartStats: {},
+            dataPieChartColors: ["#006495","#004C70", "#0093D1","#F2635F", "#F4D00C", "#E0A025", "#FF0000", "#666666", "#FF9900"],
             dataErrors: [],
             progress: {},
             progressErrors: [],
-            graphs: getGraphsFromConfig(),
+            graphs: getGraphsFromConfig()
         },
         created: function() { 
             refreshView(this);
@@ -49,6 +50,9 @@
             },
             numberWithSpaces: function (x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, seperationString);
+            },
+            getColor: function (index) {
+                return this.dataPieChartColors[index];
             }
         }
     });  
@@ -83,22 +87,24 @@
                 dataErrors = [];
                 vueinstance.progress = result; // For loader (?)
 
-                // Translate the keys to user friendly output
-                var userfriendlytextObj = {
-                    "Video": result.registered.video || 0,
-                    "Audio": result.registered.audio || 0,
-                    "Film": result.registered.film || 0,
-                    "Papier": result.registered.paper || 0,
-                };
+                var dataPieChartStats = {};
 
-                vueinstance.dataPiechart = userfriendlytextObj;
-                drawPieFromKvpObj('statsChart', userfriendlytextObj);
+                // Loop through all mime-types that are archived
+                for (var mime_type in result.archived) {
+                    if (mime_type != "total" && result.archived[mime_type].amount.ok !== 0) {
+                        dataPieChartStats[mime_type] = result.archived[mime_type].amount.ok;
+                    }
+                }
+
+                vueinstance.dataPieChartStats = dataPieChartStats;
+
+                drawPieFromKvpObj('statsChart', dataPieChartStats, vueinstance.dataPieChartColors);
 
                 var dataStats = {
-                    "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
+                    "terabytes":Math.floor(result.archived.total.bytes.ok/1024/1024/1024/1024),
                     "registered":result.registered.total,
                     "digitised":result.digitised.total.ok,
-                    "archived":result.archived.amount,   
+                    "archived":result.archived.total.amount.ok
                 };
 
                 vueinstance.dataStats = dataStats;
@@ -152,15 +158,25 @@
     }
 
     // Split object key/values and draw them on piechart #id
-    function drawPieFromKvpObj(id, obj) {
+    function drawPieFromKvpObj(id, obj, colors) {
         var ctx = document.getElementById(id);
         var keys = [];
         var vals = [];
+        var backgroundColorList = colors;
+        var backgroundColor = [];
+        var hoverBackgroundColorList = colors;
+        var hoverBackgroundColor = [];
 
+        var i = 0;
         for(var key in obj) {
             if (obj.hasOwnProperty(key)) {
                 keys.push(key);
                 vals.push(obj[key]);
+                backgroundColor.push(backgroundColorList[i]);
+                hoverBackgroundColor.push(hoverBackgroundColorList[i]);
+                i++;
+                // when overflow
+                i = (i % backgroundColorList.length);
             }
         }
 
@@ -168,12 +184,8 @@
             labels: keys,
             datasets: [{
                 data: vals,
-                backgroundColor: [
-                    "#8fcee0","#4294c8", "#0076b6","#005fa3", 
-                ],
-                hoverBackgroundColor: [
-                    "#8fcee0","#4294c8", "#0076b6","#005fa3",           
-                ]
+                backgroundColor: backgroundColor,
+                hoverBackgroundColor: hoverBackgroundColor
             }]
         };
 
