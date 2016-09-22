@@ -65,7 +65,7 @@ var base = {
   app: {
     // used in console to tell which app is started
     name: 'mijn.VIAA',
-    port: process.env.PORT || 1337,
+    port: process.env.PORT || 8082,
     sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
   },
   // used to get the path to a file or folder
