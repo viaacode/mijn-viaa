@@ -2,29 +2,29 @@ var saml = require('passport-saml');
 var fs = require('fs');
 
 module.exports = function (app, config, passport) {
-  // var samlStrategy = new saml.Strategy(config.passport.saml, function (profile, done) {
-  //   return done(null, profile);
-  // });
-  //
-  // passport.serializeUser(function (user, done) {
-  //   done(null, user);
-  // });
-  //
-  // passport.deserializeUser(function (user, done) {
-  //   done(null, user);
-  // });
-  //
-  // passport.use(samlStrategy);
+  var samlStrategy = new saml.Strategy(config.passport.saml, function (profile, done) {
+    return done(null, profile);
+  });
+  
+  passport.serializeUser(function (user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function (user, done) {
+    done(null, user);
+  });
+  
+  passport.use(samlStrategy);
 
   app.get('/login',
-    // passport.authenticate('saml', {failureRedirect: '/login/fail'}),
+    passport.authenticate('saml', {failureRedirect: '/login/fail'}),
     function (req, res) {
       res.redirect(303, '/');
     }
   );
 
   app.post('/login/callback',
-    // passport.authenticate('saml', {failureRedirect: '/login/fail'}),
+    passport.authenticate('saml', {failureRedirect: '/login/fail'}),
     function (req, res, next) {
       res.redirect(303, '/');
     }
@@ -37,8 +37,21 @@ module.exports = function (app, config, passport) {
   );
 
   app.get('/logout', function (req, res) {
+    // we only have the nameID
+    req.user.nameIDFormat = '';
+
+
+    samlStrategy.logout(req, function(err, request){
+      if(!err){
+        //redirect to the IdP Logout URL
+        res.redirect(request);
+      }
+    });
+  });
+
+  app.get('/logout/callback', function (req, res) {
     req.logout();
-    res.redirect('https://idp-qas.viaa.be/module.php/core/authenticate.php?as=viaa-ldap&logout');
+    res.redirect('/');
   });
 
   // app.get('/Metadata',

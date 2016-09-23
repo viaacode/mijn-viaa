@@ -40,11 +40,11 @@ module.exports = function (config, request) {
   }
   // - api
   var apiRouter = express.Router();
-  // if (config.passport) {
-  //   console.log('Authentication is ON');
+  if (config.passport) {
+    console.log('Authentication is ON');
     require('./routes/authentication')(app, config, passport);
-    // apiRouter.use('/api', authMiddleware.errorCode); // (error 401 when not authenticated)
-  // }
+    apiRouter.use('/api', authMiddleware.errorCode); // (error 401 when not authenticated)
+  }
   // delay api for
   config.apiDelay && apiRouter.use('/api', delayMiddleware(config));
   require('./routes/api')(apiRouter, config, request);

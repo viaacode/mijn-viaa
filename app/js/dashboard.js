@@ -6,11 +6,12 @@
         el: '#dashboard',
         data: { 
             dataStats: {},
-            dataPiechart: {},
+            dataPieChartStats: {},
+            dataPieChartColors: ["#006495","#004C70", "#0093D1","#F2635F", "#F4D00C", "#E0A025", "#FF0000", "#666666", "#FF9900"],
             dataErrors: [],
             progress: {},
             progressErrors: [],
-            graphs: getGraphsFromConfig(),
+            graphs: getGraphsFromConfig()
         },
         created: function() { 
             refreshView(this);
@@ -32,7 +33,7 @@
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
                 }  
 
-                var parsedResults = parseApiResults(graph.data.data, graph.chartFormat);
+                var parsedResults = parseApiResults(graph.data, graph.chartFormat);
                 var cumulData = parsedResults.y;    // Get all values
                 graph.activeView = 'cumulative';
 
@@ -43,12 +44,15 @@
                 drawChart(graph.chartId, parsedResults, graph.chartTitle + ' - Cumulatief', graph.chartType);
             },
             loadGraphEffective: function(graph) {
-                var parsedResult = parseApiResults(graph.data.data, graph.chartFormat);
+                var parsedResult = parseApiResults(graph.data, graph.chartFormat);
                 drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType);
                 graph.activeView = 'effective';
             },
             numberWithSpaces: function (x) {
                 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, seperationString);
+            },
+            getColor: function (index) {
+                return this.dataPieChartColors[index];
             }
         }
     });  
@@ -83,22 +87,24 @@
                 dataErrors = [];
                 vueinstance.progress = result; // For loader (?)
 
-                // Translate the keys to user friendly output
-                var userfriendlytextObj = {
-                    "Video": result.registered.video || 0,
-                    "Audio": result.registered.audio || 0,
-                    "Film": result.registered.film || 0,
-                    "Papier": result.registered.paper || 0,
-                };
+                var dataPieChartStats = {};
 
-                vueinstance.dataPiechart = userfriendlytextObj;
-                drawPieFromKvpObj('statsChart', userfriendlytextObj);
+                // Loop through all mime-types that are archived
+                for (var mime_type in result.archived) {
+                    if (mime_type != "total" && result.archived[mime_type].amount.ok !== 0) {
+                        dataPieChartStats[mime_type] = result.archived[mime_type].amount.ok;
+                    }
+                }
+
+                vueinstance.dataPieChartStats = dataPieChartStats;
+
+                drawPieFromKvpObj('statsChart', dataPieChartStats, vueinstance.dataPieChartColors);
 
                 var dataStats = {
-                    "terabytes":Math.floor(result.archived.bytes/1024/1024/1024/1024),
+                    "terabytes":Math.floor(result.archived.total.bytes.ok/1024/1024/1024/1024),
                     "registered":result.registered.total,
                     "digitised":result.digitised.total.ok,
-                    "archived":result.archived.amount,   
+                    "archived":result.archived.total.amount.ok
                 };
 
                 vueinstance.dataStats = dataStats;
@@ -119,7 +125,9 @@
             if(err) graph.errormessages.push(err);
             else {  
                 graph.isLoading = false;
-                graph.data = result;
+
+                // Bytes or items
+                graph.data = result.data[result.what];
 
                 if(graph.activeView == 'effective') vueinstance.loadGraphEffective(graph);
                 else  vueinstance.loadGraphCumulative(graph);
@@ -143,7 +151,7 @@
         var parsedXes = [];
         var parsedYs = [];
         for(var i = 0; i < data.length ; i++){         
-            var x = moment(data[i].x).format(formatString);
+            var x = moment.unix(data[i].x).format(formatString);
             var y = data[i].y;
             parsedXes.push(x);
             parsedYs.push(y);
@@ -152,15 +160,25 @@
     }
 
     // Split object key/values and draw them on piechart #id
-    function drawPieFromKvpObj(id, obj) {
+    function drawPieFromKvpObj(id, obj, colors) {
         var ctx = document.getElementById(id);
         var keys = [];
         var vals = [];
+        var backgroundColorList = colors;
+        var backgroundColor = [];
+        var hoverBackgroundColorList = colors;
+        var hoverBackgroundColor = [];
 
+        var i = 0;
         for(var key in obj) {
             if (obj.hasOwnProperty(key)) {
                 keys.push(key);
                 vals.push(obj[key]);
+                backgroundColor.push(backgroundColorList[i]);
+                hoverBackgroundColor.push(hoverBackgroundColorList[i]);
+                i++;
+                // when overflow
+                i = (i % backgroundColorList.length);
             }
         }
 
@@ -168,12 +186,8 @@
             labels: keys,
             datasets: [{
                 data: vals,
-                backgroundColor: [
-                    "#8fcee0","#4294c8", "#0076b6","#005fa3", 
-                ],
-                hoverBackgroundColor: [
-                    "#8fcee0","#4294c8", "#0076b6","#005fa3",           
-                ]
+                backgroundColor: backgroundColor,
+                hoverBackgroundColor: hoverBackgroundColor
             }]
         };
 
@@ -223,7 +237,7 @@
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Aantal',
+                            labelString: 'Aantal items',
                             fontColor: '#111',
                             fontStyle: 'bold',
                         }
@@ -340,7 +354,7 @@
                                 progress.digitised.total.ok || 0 ],
                         backgroundColor: "rgba(148, 200, 71, 1)",
                         hoverBackgroundColor: "rgba(148, 200, 71, 0.9)",
-                        label:"Gedigitaliseerd (Succes)",
+                        label:"Gedigitaliseerd",
                     },
                     {
                         data: [ progress.digitised.video.nok || 0, progress.digitised.audio.nok || 0,
@@ -348,7 +362,7 @@
                                 progress.digitised.total.nok || 0 ],
                         backgroundColor: "rgba(233,77,24,1)",
                         hoverBackgroundColor: "rgba(233,77,24,0.9)",
-                        label:"Niet Gedigitaliseerd (Fout)",
+                        label:"Niet Gedigitaliseerd",
                     },
                 ]
             },

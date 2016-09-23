@@ -8,8 +8,8 @@ module.exports = function (app, config) {
   var findRoutes = flattenObject(function (key, value) {
     return {
       localPath: {
-        title: key,
-        url: key,
+        title: value,
+        url: value,
         extra: ''
       },
       toEndpoint: {

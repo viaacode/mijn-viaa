@@ -65,7 +65,7 @@ var base = {
   app: {
     // used in console to tell which app is started
     name: 'mijn.VIAA',
-    port: process.env.PORT || 1337,
+    port: process.env.PORT || 8082,
     sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
   },
   // used to get the path to a file or folder
@@ -77,10 +77,12 @@ var base = {
 };
 
 var dev = {
+  muleHost: 'http://localhost:10005',
+
   // toggle to show api links on /api/docs
   showApiDocs: true,
   // replace all outgoing calls (eg. to Mule) by dummy data
-  dummyRequest: true,
+  dummyRequest: false,
   // fake that these services are available when not logged in
   fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
   // enable api delay for testing graph loading
@@ -95,13 +97,14 @@ var dev = {
 var qas = {
   // Mule endpoint
   muleHost: 'http://do-qas-esb-01.do.viaa.be:10005',
+
   // toggle to show api links on /api/docs
   showApiDocs: true,
   // general app settings
   app: {
     // used in console to tell which app is started
     name: 'mijn.VIAA',
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 8082,
     sessionSecret: process.env.SESSION_SECRET || 'mijnVIAAetc'
   },
   // show extended error messages in api calls
@@ -122,10 +125,12 @@ var authentication = {
       entryPoint: process.env.SAML_ENTRY_POINT || 'https://idp-qas.viaa.be/saml2/idp/SSOService.php',
 
       // Url to logout from the Identity Provider
-      logoutUrl: 'https://idp-qas.viaa.be/module.php/core/authenticate.php?as=viaa-ldap&logout',
+      logoutUrl: 'https://idp-qas.viaa.be/saml2/idp/SingleLogoutService.php',
 
       // Usually specified as `/shibboleth` from site root
-      issuer: process.env.ISSUER || 'passport-saml',
+      issuer: process.env.ISSUER || 'mijn-qas.viaa.be',
+      // Test environment redirects to localhost so you don't have to change your hosts file
+      //issuer: process.env.ISSUER || 'mijn-tst.viaa.be',
 
       identifierFormat: null,
 

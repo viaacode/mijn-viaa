@@ -7,14 +7,14 @@ function getGraphsFromConfig()
         // charType: line, bar, doughnut, pie, radar, polar, horizontalBar
         evolutionRegistration: { 
             chartId: 'evoReg',
-            chartTitle: 'Evolutie Registratie',
+            chartTitle: 'Registratie',
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
-                '/api/reports/ams/items/last-day',
-                '/api/reports/ams/items/last-week',
-                '/api/reports/ams/items/last-month',
-                '/api/reports/ams/items/last-year'
+                '/api/report/ams?gran=last-day',
+                '/api/report/ams?gran=last-week',
+                '/api/report/ams?gran=last-month',
+                '/api/report/ams?gran=last-year'
             ],
             data: {},
             errormessages: [],
@@ -23,14 +23,14 @@ function getGraphsFromConfig()
         },
         archiveGrowth: {
             chartId: 'archiGrowth',
-            chartTitle: 'Aangroei Archief',
+            chartTitle: 'Archivering',
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
-                '/api/reports/mam/items/last-day',
-                '/api/reports/mam/items/last-week',
-                '/api/reports/mam/items/last-month',
-                '/api/reports/mam/items/last-year'
+                '/api/report/mam?gran=last-day',
+                '/api/report/mam?gran=last-week',
+                '/api/report/mam?gran=last-month',
+                '/api/report/mam?gran=last-year'
             ],
             data: {},
             errormessages: [],
