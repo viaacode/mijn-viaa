@@ -77,10 +77,12 @@ var base = {
 };
 
 var dev = {
+  muleHost: 'http://localhost:10005',
+
   // toggle to show api links on /api/docs
   showApiDocs: true,
   // replace all outgoing calls (eg. to Mule) by dummy data
-  dummyRequest: true,
+  dummyRequest: false,
   // fake that these services are available when not logged in
   fakeServicesAvailable: {"MAM": 1, "AMS": 1, "FTP": 1},
   // enable api delay for testing graph loading
@@ -95,6 +97,7 @@ var dev = {
 var qas = {
   // Mule endpoint
   muleHost: 'http://do-qas-esb-01.do.viaa.be:10005',
+
   // toggle to show api links on /api/docs
   showApiDocs: true,
   // general app settings
@@ -125,7 +128,9 @@ var authentication = {
       logoutUrl: 'https://idp-qas.viaa.be/saml2/idp/SingleLogoutService.php',
 
       // Usually specified as `/shibboleth` from site root
-      issuer: process.env.ISSUER || 'passport-saml',
+      issuer: process.env.ISSUER || 'mijn-qas.viaa.be',
+      // Test environment redirects to localhost so you don't have to change your hosts file
+      //issuer: process.env.ISSUER || 'mijn-tst.viaa.be',
 
       identifierFormat: null,
 
