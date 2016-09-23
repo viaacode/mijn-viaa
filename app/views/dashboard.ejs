@@ -30,7 +30,7 @@
                         <ul v-for="pieChartStat in dataPieChartStats">
                             <li>
                                 <div class="legend-item">
-                                    <div class="circle" style="background-color: {{ getColor($index) }};"></div>
+                                    <div class="circle" v-bind:style="background-color: {{ getColor($index) }};"></div>
                                     <!-- <p>{{pieChartStat}}</p> -->
                                     <p>{{$key}} &mdash; {{ numberWithSpaces(pieChartStat) }} items</p>    
                                 </div>

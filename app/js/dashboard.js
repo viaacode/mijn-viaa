@@ -33,7 +33,7 @@
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
                 }  
 
-                var parsedResults = parseApiResults(graph.data.data, graph.chartFormat);
+                var parsedResults = parseApiResults(graph.data, graph.chartFormat);
                 var cumulData = parsedResults.y;    // Get all values
                 graph.activeView = 'cumulative';
 
@@ -44,7 +44,7 @@
                 drawChart(graph.chartId, parsedResults, graph.chartTitle + ' - Cumulatief', graph.chartType);
             },
             loadGraphEffective: function(graph) {
-                var parsedResult = parseApiResults(graph.data.data, graph.chartFormat);
+                var parsedResult = parseApiResults(graph.data, graph.chartFormat);
                 drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType);
                 graph.activeView = 'effective';
             },
@@ -125,7 +125,9 @@
             if(err) graph.errormessages.push(err);
             else {  
                 graph.isLoading = false;
-                graph.data = result;
+
+                // Bytes or items
+                graph.data = result.data[result.what];
 
                 if(graph.activeView == 'effective') vueinstance.loadGraphEffective(graph);
                 else  vueinstance.loadGraphCumulative(graph);
@@ -149,7 +151,7 @@
         var parsedXes = [];
         var parsedYs = [];
         for(var i = 0; i < data.length ; i++){         
-            var x = moment(data[i].x).format(formatString);
+            var x = moment.unix(data[i].x).format(formatString);
             var y = data[i].y;
             parsedXes.push(x);
             parsedYs.push(y);
@@ -235,7 +237,7 @@
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Aantal',
+                            labelString: 'Aantal items',
                             fontColor: '#111',
                             fontStyle: 'bold',
                         }
@@ -352,7 +354,7 @@
                                 progress.digitised.total.ok || 0 ],
                         backgroundColor: "rgba(148, 200, 71, 1)",
                         hoverBackgroundColor: "rgba(148, 200, 71, 0.9)",
-                        label:"Gedigitaliseerd (Succes)",
+                        label:"Gedigitaliseerd",
                     },
                     {
                         data: [ progress.digitised.video.nok || 0, progress.digitised.audio.nok || 0,
@@ -360,7 +362,7 @@
                                 progress.digitised.total.nok || 0 ],
                         backgroundColor: "rgba(233,77,24,1)",
                         hoverBackgroundColor: "rgba(233,77,24,0.9)",
-                        label:"Niet Gedigitaliseerd (Fout)",
+                        label:"Niet Gedigitaliseerd",
                     },
                 ]
             },

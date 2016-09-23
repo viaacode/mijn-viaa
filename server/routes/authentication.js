@@ -23,13 +23,6 @@ module.exports = function (app, config, passport) {
     }
   );
 
-  app.get('/login/callback',
-    passport.authenticate('saml', {failureRedirect: '/login/fail'}),
-    function (req, res, next) {
-      res.redirect(303, '/');
-    }
-  );
-
   app.post('/login/callback',
     passport.authenticate('saml', {failureRedirect: '/login/fail'}),
     function (req, res, next) {
