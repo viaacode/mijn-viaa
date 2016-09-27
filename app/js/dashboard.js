@@ -17,7 +17,7 @@
             refreshView(this);
         },
         methods: {
-            refreshGraph: function(graph, apiUrlId) {
+            refreshGraph: function(graph, apiUrlId) {   
                 // Destroy chart
                 for(var i = 0; i < charts.length; i++) {
                     if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
@@ -40,12 +40,22 @@
                 for(var j = 1; j < cumulData.length; j++) {
                     cumulData[j] = cumulData[j] + cumulData[j-1];
                 }
+                var labelX = 'Datum';
+                var labelY = (graph.what == 'bytes' ? 'Aantal terabytes' : 'Aantal items');
 
-                drawChart(graph.chartId, parsedResults, graph.chartTitle + ' - Cumulatief', graph.chartType);
+                drawChart(graph.chartId, parsedResults, graph.chartTitle + ' - Cumulatief', graph.chartType, labelX, labelY);
             },
             loadGraphEffective: function(graph) {
+                // Destroy chart
+                for(var i = 0; i < charts.length; i++) {
+                    if(charts[i].chart.canvas.id == graph.chartId) charts[i].destroy();
+                }
+
+                var labelX = 'Datum';
+                var labelY = (graph.what == 'bytes' ? 'Aantal terabytes' : 'Aantal items');
+
                 var parsedResult = parseApiResults(graph.data, graph.chartFormat);
-                drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType);
+                drawChart(graph.chartId, parsedResult, graph.chartTitle + ' - Effectief', graph.chartType, labelX, labelY);
                 graph.activeView = 'effective';
             },
             numberWithSpaces: function (x) {
@@ -125,10 +135,16 @@
             if(err) graph.errormessages.push(err);
             else {  
                 graph.isLoading = false;
-
+                console.log(result);
                 // Bytes or items
                 graph.data = result.data[result.what];
 
+                if (result.what == 'bytes') {
+                    // change to tgraph.databytes
+                    for (var i=0; i<graph.data.length; i++) {
+                        graph.data[i].y = Math.floor(graph.data[i].y/1024/1024/1024/1024);
+                    }
+                }
                 if(graph.activeView == 'effective') vueinstance.loadGraphEffective(graph);
                 else  vueinstance.loadGraphCumulative(graph);
             }
@@ -141,8 +157,8 @@
      */
 
     // Simplify drawChartDev()
-    function drawChart(id, data, title, type) {
-        drawChartDev(id, data.x, data.y, title, type);
+    function drawChart(id, data, title, type, labelX, labelY) {
+        drawChartDev(id, data.x, data.y, title, type, labelX, labelY);
     }
 
     // Parse time/data results from API dataset, int formatType decides the label format 
@@ -206,7 +222,7 @@
 
     // Draw a chart on <canvas id="#id"> with xValues & yValues, title on top
     // chart types: line, bar, doughnut, pie, radar, polar
-    function drawChartDev(id, xValues, yValues, title, type){
+    function drawChartDev(id, xValues, yValues, title, type, labelX, labelY){
         var ctx = document.getElementById(id);
         var myChart = new Chart(ctx, {
             type: type, 
@@ -226,7 +242,7 @@
                     xAxes: [{            
                         scaleLabel: {
                             display: true,
-                            labelString: 'Datum',
+                            labelString: labelX,
                             fontColor: '#111',  
                             fontStyle: 'bold',   
                         }
@@ -237,7 +253,7 @@
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Aantal items',
+                            labelString: labelY,
                             fontColor: '#111',
                             fontStyle: 'bold',
                         }

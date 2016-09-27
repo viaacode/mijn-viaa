@@ -21,22 +21,56 @@ function getGraphsFromConfig()
             activeView: 'effective',
             isLoading: false 
         },
-        archiveGrowth: {
-            chartId: 'archiGrowth',
-            chartTitle: 'Archivering',
+        // evolutionDigitising: { 
+        //     chartId: 'evoDig',
+        //     chartTitle: 'Digitalisatie',
+        //     chartType: 'line',
+        //     chartFormat: 0,
+        //     apiUrls: [
+        //         '/api/report/ams?gran=last-day',
+        //         '/api/report/ams?gran=last-week',
+        //         '/api/report/ams?gran=last-month',
+        //         '/api/report/ams?gran=last-year'
+        //     ],
+        //     data: {},
+        //     errormessages: [],
+        //     activeView: 'effective',
+        //     isLoading: false 
+        // },
+        archiveGrowthItems: {
+            chartId: 'archiGrowthItems',
+            chartTitle: 'Archivering (items)',
+            what: 'items',
             chartType: 'line',
             chartFormat: 0,
             apiUrls: [
-                '/api/report/mam?gran=last-day',
-                '/api/report/mam?gran=last-week',
-                '/api/report/mam?gran=last-month',
-                '/api/report/mam?gran=last-year'
+                '/api/report/mam/items?gran=last-day',
+                '/api/report/mam/items?gran=last-week',
+                '/api/report/mam/items?gran=last-month',
+                '/api/report/mam/items?gran=last-year'
             ],
             data: {},
             errormessages: [],
             activeView: 'cumulative',
             isLoading: false 
         },
+        archiveGrowthBytes: {
+            chartId: 'archiGrowthBytes',
+            chartTitle: 'Archivering (terabytes)',
+            what: 'bytes',
+            chartType: 'line',
+            chartFormat: 0,
+            apiUrls: [
+                '/api/report/mam/bytes?gran=last-day',
+                '/api/report/mam/bytes?gran=last-week',
+                '/api/report/mam/bytes?gran=last-month',
+                '/api/report/mam/bytes?gran=last-year'
+            ],
+            data: {},
+            errormessages: [],
+            activeView: 'cumulative',
+            isLoading: false 
+        }
     };
 }
 
