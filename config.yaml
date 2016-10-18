@@ -1,0 +1,78 @@
+muleHost: 'http://do-qas-esb-01.do.viaa.be:10005'
+endpoints:
+  stats: '/api/report/global'
+  report:
+    mam:
+      last-day: '/api/report/mam?gran=last-day'
+      last-week: '/api/report/mam?gran=last-week'
+      last-month: '/api/report/mam?gran=last-month'
+      last-year: '/api/report/mam?gran=last-year'
+    ams:
+      last-day: '/api/report/ams?gran=last-day'
+      last-week: '/api/report/ams?gran=last-week'
+      last-month: '/api/report/ams?gran=last-month'
+      last-year: '/api/report/ams?gran=last-year'
+
+# used to map SAML data to available services
+services:
+  map:
+    mediahaven: 'MAM'
+    amsweb: 'AMS'
+    FTP: 'FTP'
+    skryvweb: 'DBS'
+  always:
+    FTP: true
+
+# general app settings
+app: # used in console to tell which app is started
+  name: 'mijn.VIAA'
+  port: 80
+  sessionSecret: 'mijnVIAAetc'
+
+# contains functions used to get the path to a file or folder
+paths:
+  server: 'server'
+  app: 'app'
+
+# toggle to show api links on /api/docs
+showApiDocs: false
+# replace all outgoing calls to Mule by dummy data
+dummyRequest: false
+# fake that these services are available when not logged in
+fakeServicesAvailable: null
+# api delay for testing graph loading
+apiDelay:
+  min: 0
+  max: 0
+# show extended error messages in api call responses
+showErrors: false
+# log errors in server console
+logErrors: false
+# settings for authentication
+passport:
+  strategy: 'saml'
+  saml:
+    # URL that goes from the Identity Provider -> Service Provider
+      callbackUrl: 'mijn-qas.viaa.be/login/callback'
+
+      # URL that goes from the Service Provider -> Identity Provider
+      entryPoint: 'https://idp-qas.viaa.be/saml2/idp/SSOService.php'
+
+      # Url to logout from the Identity Provider
+      logoutUrl: 'https://idp-qas.viaa.be/saml2/idp/SingleLogoutService.php'
+
+      issuer: 'mijn-tst.viaa.be'
+
+      identifierFormat: null
+
+      # Service Provider private key
+      # decryptionPvk:
+
+      # Service Provider Certificate
+      # privateCert:
+
+      # Identity Provider's public key
+      cert: MIICRjCCAa+gAwIBAgIJALRK8eVTg5r0MA0GCSqGSIb3DQEBBQUAMDwxEDAOBgNVBAMMB3NzbyBpZHAxDDAKBgNVBAsMA3FhczENMAsGA1UECgwEdmlhYTELMAkGA1UEBhMCYmUwHhcNMTUxMjIxMTEyNjAwWhcNMjAxMTI0MTEyNjAwWjA8MRAwDgYDVQQDDAdzc28gaWRwMQwwCgYDVQQLDANxYXMxDTALBgNVBAoMBHZpYWExCzAJBgNVBAYTAmJlMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDNP1eVJIdVWXzHeDymWAz5O45YncphIl+V8daO/ltDB8v1OLwET3365Z5CUUO1VRmD+hScISxb5EiHLEHXZywiZJhMIh8J5+bUNfFExpdlKOjhzFp+xtJorqujNyHb/T3fIcmDyJZS/+yU6Lb0nwopv0Y8L2rneU3P/COZM6r5KwIDAQABo1AwTjAdBgNVHQ4EFgQU5zR2gHxHCci97tfB6t3B+C2uWVswHwYDVR0jBBgwFoAU5zR2gHxHCci97tfB6t3B+C2uWVswDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQBVXBWykbbcCUDuFS5PTVZCwYk1M0AUn6d3h/R7kdzUGJMAQ/Rj5iQ9ce30hjOVLZIN1kvwElXnlW27JzM3EOjuZOrwnw73SCHn69vd7cJM5eL+A51TfsF7Pi9IEfHSZsIYJM/Dz4yZTDsNt1t28B/4JaYp6GVS7rFLE+LshGsr/g==
+
+      validateInResponseTo: false
+      disableRequestedAuthnContext: true
