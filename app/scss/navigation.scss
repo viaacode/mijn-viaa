@@ -6,6 +6,10 @@ header {
     background-color:$almostwhite;
     color:$almostwhite;
 
+    @media (max-width: 550px) {
+        height: 15rem;
+    }
+
     @media (min-width: 700px){
         height: 11rem;
     }
@@ -23,6 +27,16 @@ header {
         width:100%;   
         display:block;
         margin-bottom:3rem;
+
+        @media (max-width: 550px) {
+            position:absolute;
+            height: 5rem;
+            width: auto;
+            top: 1rem;
+            left: 1rem;
+            margin: 0;
+            padding: 0;
+        }
 
         @media (min-width: 700px) {
             display:inline-block;
