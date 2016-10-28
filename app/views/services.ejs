@@ -1,13 +1,5 @@
 <div id="services-app" v-cloak>
     <div class="container">
-        <!-- Commented out links to detail pages since they are redundant at the moment
-
-        <div class="services-titles">
-                        <span v-for="service in serviceslist">
-                            <a href="detail#{{ service.service}}" @click="reload" class="services-titles-service">{{ service.service }}</a>
-                        </span>
-        </div>
-        -->
 
         <article class="service-item" v-for="service in serviceslist">
             <div class="service-icon-container">
@@ -17,9 +9,7 @@
                 <h1>{{{ service.title }}}</h1>
                 <p>{{{ service.description }}}</p>
                 <p>
-                    <!-- Commented out links to detail pages since they are redundant at the moment
                     <a href="{{ service.link_info }}" class="btn btn-secondary">Meer informatie</a>
-                    -->
                     <a href="{{ service.link_service }}" 
                        v-if="service.available" 
                        class="btn btn-secondary" target="_blank">

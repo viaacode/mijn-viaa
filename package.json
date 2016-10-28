@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha server/test",
     "prestart": "grunt",
-    "start": "node server/server.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

@@ -1,11 +1,7 @@
 
 <div  id="service-detail" v-cloak>
     <div class="container" id="service-detail" v-cloak>
-    <div class="services-titles">
-                    <span v-for="service in serviceslist">
-                        <a href="detail#{{ service.service }}" @click="reload" v-bind:class="{ 'active': service.service == dataHard.service } " class="services-titles-item">{{ service.service }}</a>
-                    </span>
-    </div>
+    
     <div class="service-detail-content col col-12 first">
         <div class="service-icon-container">
         <div class="service-icon {{ dataHard.img_classname }}">
