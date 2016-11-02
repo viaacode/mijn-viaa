@@ -11,6 +11,12 @@ article {
     padding:2rem;
 }
 
+#services-app {
+    overflow: auto;
+    position: relative;
+    margin: 0 auto;
+}
+
 .service-item {
     background-color:$almostwhite;
     padding-bottom:1rem;

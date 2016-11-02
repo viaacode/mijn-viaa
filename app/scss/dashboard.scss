@@ -43,6 +43,12 @@
     opacity: 0.7;
 }
 
+#dashboard {
+    margin: 0 auto;
+    position: relative;
+    overflow: auto;
+}
+
 .border-right {
     border-right: 1px solid $grey-lighterer;
 }
@@ -165,6 +171,7 @@
 }
 
 .divider {
+    position: relative;
     border-bottom: 1px solid $grey-lighterer;
     width:100%;
     float:left;
@@ -181,6 +188,11 @@
 
     .bigtext{
         font-size: 6rem;
+        
+        @media (max-width:550px) {
+            text-align: center;
+            width: 100%;
+        }
     }
 
     &.nobottomborder {
@@ -222,16 +234,27 @@
 .graphcontainer {
     padding:1rem;
     min-height:35rem;
+    position: relative;
+
+    @media (max-width:550px) {
+        min-height: 30rem;
+    }
 }
 
 .progresscontainer {
     padding:1rem;
+    margin-bottom: 3rem;
 }
 
 .graphtitle {
     font-size:2.6rem;
     font-weight:600;
     margin:1rem 0 2rem 6rem;
+
+    @media (max-width:550px) {
+        text-align: centre;
+        width: 100%;
+    }
 }
 
 .graphs-btns-container, .graphs-databtns-container {
