@@ -63,6 +63,9 @@
             },
             getColor: function (index) {
                 return this.dataPieChartColors[index];
+            },
+            getGraphsSize: function () {
+                return Object.keys(this.graphs).length;
             }
         }
     });  
@@ -378,7 +381,7 @@
                                 progress.digitised.total.nok || 0 ],
                         backgroundColor: "rgba(233,77,24,1)",
                         hoverBackgroundColor: "rgba(233,77,24,0.9)",
-                        label:"Niet Gedigitaliseerd",
+                        label:"Niet-gedigitaliseerd",
                     },
                 ]
             },
