@@ -1,3 +1,7 @@
+function isMimeTypeExcluded (mime_type) {
+    var excludes = ['total', 'unknown', 'zip', 'complex'];
+    return excludes.includes(mime_type.toLowerCase());
+}
 
 function getGraphsFromConfig()
 {
@@ -9,7 +13,7 @@ function getGraphsFromConfig()
             chartId: 'evoReg',
             chartTitle: 'Registratie',
             chartType: 'line',
-            chartFormat: 0,
+            chartFormat: 3,
             apiUrls: [
                 '/api/report/ams?gran=last-day',
                 '/api/report/ams?gran=last-week',
@@ -18,7 +22,7 @@ function getGraphsFromConfig()
             ],
             data: {},
             errormessages: [],
-            activeView: 'effective',
+            activeView: 'cumulative',
             isLoading: false 
         },
         // evolutionDigitising: { 
@@ -42,7 +46,7 @@ function getGraphsFromConfig()
             chartTitle: 'Archivering (items)',
             what: 'items',
             chartType: 'line',
-            chartFormat: 0,
+            chartFormat: 3,
             apiUrls: [
                 '/api/report/mam/items?gran=last-day',
                 '/api/report/mam/items?gran=last-week',
@@ -59,7 +63,7 @@ function getGraphsFromConfig()
             chartTitle: 'Archivering (terabytes)',
             what: 'bytes',
             chartType: 'line',
-            chartFormat: 0,
+            chartFormat: 3,
             apiUrls: [
                 '/api/report/mam/bytes?gran=last-day',
                 '/api/report/mam/bytes?gran=last-week',

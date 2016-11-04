@@ -1,6 +1,5 @@
 /* Navigation menu */
 header {
-    height:33rem;
     width:100%;
     padding:0;
     background-color:$almostwhite;
@@ -28,7 +27,7 @@ header {
         display:block;
         margin-bottom:3rem;
 
-        @media (max-width: 550px) {
+        @media (max-width: 700px) {
             position:absolute;
             height: 5rem;
             width: auto;
@@ -180,7 +179,7 @@ header {
 
 .user-container {   // The popup menu
     border: 1px solid $grey-light;
-
+    z-index: 999;
     position:absolute;
     top: 6.2rem;    
     right: 0;

@@ -63,15 +63,9 @@
     display:block;
     position:relative;
  
-    @media (min-width:700px) {
-        margin-left: 0rem;
-        margin-right: 0rem;
-        width:45rem;
-    }
+  
 
     @media (min-width:960px) {
-        margin-left: -13.6rem;
-        margin-right: -10rem;
         width:54rem;
     }
 }
@@ -126,14 +120,24 @@
 
 .general{
     border-top: 1px solid $grey-lighterer;
+    padding: 3rem 0 3rem 0;
+
+    .stat {
+        width: 100%;
+    }
 
     @media(min-width:832px) {
         border-top:none;
-        margin-top: 8rem;
+        //margin-top: 8rem;
     }
 
-    span {
+    p {
         float:right;
+        margin-bottom: 0;
+
+        @media (max-width:550px) {
+            float: none;
+        }
     }
 
     .container{
@@ -142,21 +146,8 @@
     
 }
 
-.stat-title{
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #555;
-    margin-top: 1.4rem;
-    width: 100%;
-    float:left;
-
-    @media (min-width:550px) {
-        margin-bottom: 0rem;
-        text-align: left;
-        width: auto;
-    }
-
+.general-left{
+    padding: 3em 0 3em 0;
 }
 
 .stat-title.lower {
@@ -175,8 +166,11 @@
     border-bottom: 1px solid $grey-lighterer;
     width:100%;
     float:left;
-    margin-bottom:2rem;
+    clear: both;
+}
 
+.withFloatRight {
+    float: right;
 }
 
 .stat{
@@ -186,12 +180,37 @@
         color: $grey;
     }
 
-    .bigtext{
+    .bigtext, .bigtextleft{
         font-size: 6rem;
-        
-        @media (max-width:550px) {
+        font-weight:800;
+        line-height:4rem;
+    }
+
+    .bigtext {
+        @media (max-width:960px) {
             text-align: center;
             width: 100%;
+        }
+    }
+
+    .bigtextleft {
+        text-align: center;
+        width: 100%;
+    }
+
+    .stat-title, .stat-title-left{
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #555;
+        margin-top: 1.4rem;
+        width: 100%;
+    }
+
+    .stat-title {
+        @media (min-width:960px) {
+            margin-bottom: 0rem;
+            width: auto;
         }
     }
 
@@ -201,6 +220,8 @@
     &.norightborder {
         border-right:none;
     }
+
+
 
 }
 
@@ -232,7 +253,7 @@
 
 /* Graph buttons styles */
 .graphcontainer {
-    padding:1rem;
+    padding: 0 1rem;
     min-height:35rem;
     position: relative;
 
@@ -253,7 +274,7 @@
 
     @media (max-width:550px) {
         text-align: centre;
-        width: 100%;
+        /*width: 100%;*/
     }
 }
 

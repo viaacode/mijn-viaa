@@ -104,7 +104,7 @@
 
                 // Loop through all mime-types that are archived
                 for (var mime_type in result.archived) {
-                    if (mime_type != "total" && result.archived[mime_type].amount.ok !== 0) {
+                    if (!isMimeTypeExcluded(mime_type) && result.archived[mime_type].amount.ok !== 0) {
                         dataPieChartStats[mime_type] = result.archived[mime_type].amount.ok;
                     }
                 }
@@ -127,7 +127,7 @@
 
         // Draw all graphs with API data  
         for(var graphKey in theGraphs) {        
-            drawChartFromApi(theGraphs[graphKey], theGraphs[graphKey].apiUrls[0], vueinstance);
+            drawChartFromApi(theGraphs[graphKey], theGraphs[graphKey].apiUrls[theGraphs[graphKey].chartFormat], vueinstance);
         }        
     }
 
@@ -191,7 +191,7 @@
         var i = 0;
         for(var key in obj) {
             if (obj.hasOwnProperty(key)) {
-                keys.push(key);
+                keys.push(key.charAt(0).toUpperCase() + key.slice(1));
                 vals.push(obj[key]);
                 backgroundColor.push(backgroundColorList[i]);
                 hoverBackgroundColor.push(hoverBackgroundColorList[i]);
@@ -215,7 +215,8 @@
             data: data,
             options: {
                 legend: {
-                    display:false    // legend above chart
+                    display: true,    // legend above chart
+                    position: 'right'
                 },
             }
         });     
