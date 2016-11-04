@@ -112,24 +112,24 @@
                         <a href="#" 
                             @click.prevent="refreshGraph(graph, 0)"
                             v-bind:class="{ 'active': graph.chartFormat == 0 } " >
-                                Dag
+                                {{ getWeekLabel() }}
                         </a>
                         <a href="#" 
                             @click.prevent="refreshGraph(graph, 1)"
                             v-bind:class="{ 'active': graph.chartFormat == 1 } " >
-                                Week
-                        </a>    
+                                {{ getMonthLabel() }}
+                        </a>  
                     </div>
                     <div class="sub-graphs-btns-container">
                         <a href="#" 
                             @click.prevent="refreshGraph(graph, 2)"
                             v-bind:class="{ 'active': graph.chartFormat == 2 } " >
-                                Maand
+                                {{ getYearLabel() }}
                         </a>
                         <a href="#" 
                             @click.prevent="refreshGraph(graph, 3)"
                             v-bind:class="{ 'active': graph.chartFormat == 3 } " >
-                                Jaar
+                                {{ getAllTimeLabel() }}
                         </a>    
                     </div>                
                 </div>

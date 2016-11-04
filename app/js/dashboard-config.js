@@ -14,12 +14,12 @@ function getGraphsFromConfig()
             chartTitle: 'Geregistreerde dragers',
             chartDescription: 'Deze grafiek toont het aantal geregistreerde dragers in functie van de tijd:',
             chartType: 'line',
-            chartFormat: 3,
+            chartFormat: 2,
             apiUrls: [
-                '/api/report/ams?gran=last-day',
                 '/api/report/ams?gran=last-week',
                 '/api/report/ams?gran=last-month',
-                '/api/report/ams?gran=last-year'
+                '/api/report/ams?gran=last-year',
+                '/api/report/ams?gran=all-time'
             ],
             data: {},
             errormessages: [],
@@ -48,12 +48,12 @@ function getGraphsFromConfig()
             chartDescription: 'Deze grafiek toont het aantal gearchiveerde items in functie van de tijd:',
             what: 'items',
             chartType: 'line',
-            chartFormat: 3,
+            chartFormat: 2,
             apiUrls: [
-                '/api/report/mam/items?gran=last-day',
                 '/api/report/mam/items?gran=last-week',
                 '/api/report/mam/items?gran=last-month',
-                '/api/report/mam/items?gran=last-year'
+                '/api/report/mam/items?gran=last-year',
+                '/api/report/mam/items?gran=all-time'
             ],
             data: {},
             errormessages: [],
@@ -66,12 +66,12 @@ function getGraphsFromConfig()
             chartDescription: 'Deze grafiek toont het aantal terabytes die gearchiveerd zijn in functie van de tijd:',
             what: 'bytes',
             chartType: 'line',
-            chartFormat: 3,
+            chartFormat: 2,
             apiUrls: [
-                '/api/report/mam/bytes?gran=last-day',
                 '/api/report/mam/bytes?gran=last-week',
                 '/api/report/mam/bytes?gran=last-month',
-                '/api/report/mam/bytes?gran=last-year'
+                '/api/report/mam/bytes?gran=last-year',
+                '/api/report/mam/bytes?gran=all-time'
             ],
             data: {},
             errormessages: [],

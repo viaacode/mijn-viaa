@@ -1,6 +1,7 @@
 (function() {
     var charts = [];
     var runningAjaxCalls = [];
+    var windowWidth = window.innerWidth;
 
     new Vue({
         el: '#dashboard',
@@ -66,6 +67,22 @@
             },
             getGraphsSize: function () {
                 return Object.keys(this.graphs).length;
+            },
+            getWeekLabel: function () {
+                if (windowWidth < 900) return 'Week';
+                else return 'Afgelopen week';
+            },
+            getMonthLabel: function () {
+                if (windowWidth < 900) return 'Maand';
+                else return 'Afgelopen maand';
+            },
+            getYearLabel: function () {
+                if (windowWidth < 900) return 'Jaar';
+                else return 'Afgelopen jaar';
+            },
+            getAllTimeLabel: function () {
+                if (windowWidth < 900) return 'All-time';
+                else return 'All-time';
             }
         }
     });  
@@ -188,10 +205,9 @@
         var hoverBackgroundColorList = colors;
         var hoverBackgroundColor = [];
 
-        var width = window.innerWidth;
         var padding = 35;
 
-        if (width < 930) {
+        if (windowWidth < 930) {
             padding = 10;
         }
 
@@ -286,10 +302,9 @@
     function drawProgressChart(progress) {
         var ctx = document.getElementById("progress");
         
-        var width = window.innerWidth;
         var padding = 50;
 
-        if (width < 500) {
+        if (windowWidth < 500) {
             padding = 10;
         }
 

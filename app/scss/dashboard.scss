@@ -316,11 +316,19 @@
     @media (min-width:550px) { 
         width: 28rem;
     }
+
+    @media (min-width:900px) { 
+        width: 56rem;
+    }
 }
 
 .sub-graphs-btns-container{
     float: left; 
     width: 14rem;
+
+    @media (min-width:900px) { 
+        width: 28rem;
+    }
 }
 
 .graphs-btns-container a, .graphs-databtns-container a {
@@ -328,8 +336,7 @@
     padding:0 1rem;
     transition: 0.4s ease-in-out;
     margin-bottom: 0.5rem;
-    margin-right:0.5rem; 
-
+    margin-right:0.5rem;
 }   
 
 .graphs-btns-container a, .graphs-databtns-container a{
@@ -352,6 +359,11 @@
 .graphs-btns-container a { 
     float:left;
     width: 6.5rem;
+
+    @media (min-width:900px) { 
+        width: 14rem;
+        margin-right: 0;
+    }
 }
 
 .graphs-databtns-container a {
