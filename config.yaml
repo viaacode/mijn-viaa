@@ -1,4 +1,4 @@
-muleHost: 'http://do-qas-esb-01.do.viaa.be:10005'
+muleHost: 'http://do-qas-esb-01.do.viaa.be:10006'
 endpoints:
   stats: '/api/report/global'
   report:
@@ -7,11 +7,13 @@ endpoints:
       last-week: '/api/report/mam?gran=last-week'
       last-month: '/api/report/mam?gran=last-month'
       last-year: '/api/report/mam?gran=last-year'
+      all-time: '/api/report/mam?gran=all-time'
     ams:
       last-day: '/api/report/ams?gran=last-day'
       last-week: '/api/report/ams?gran=last-week'
       last-month: '/api/report/ams?gran=last-month'
       last-year: '/api/report/ams?gran=last-year'
+      all-time: '/api/report/ams?gran=all-time'
 
 # used to map SAML data to available services
 services:
@@ -30,7 +32,7 @@ app: # used in console to tell which app is started
   sessionSecret: 'mijnVIAAetc'
 
 # toggle to show api links on /api/docs
-showApiDocs: false
+showApiDocs: true
 # replace all outgoing calls to Mule by dummy data
 dummyRequest: false
 # fake that these services are available when not logged in
