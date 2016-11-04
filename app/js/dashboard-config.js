@@ -11,7 +11,8 @@ function getGraphsFromConfig()
         // charType: line, bar, doughnut, pie, radar, polar, horizontalBar
         evolutionRegistration: { 
             chartId: 'evoReg',
-            chartTitle: 'Registratie',
+            chartTitle: 'Geregistreerde dragers',
+            chartDescription: 'Deze grafiek toont het aantal geregistreerde dragers in functie van de tijd.',
             chartType: 'line',
             chartFormat: 3,
             apiUrls: [
@@ -43,7 +44,8 @@ function getGraphsFromConfig()
         // },
         archiveGrowthItems: {
             chartId: 'archiGrowthItems',
-            chartTitle: 'Archivering (items)',
+            chartTitle: 'Gearchiveerde items',
+            chartDescription: 'Deze grafiek toont het aantal gearchiveerde items in functie van de tijd.',
             what: 'items',
             chartType: 'line',
             chartFormat: 3,
@@ -60,7 +62,8 @@ function getGraphsFromConfig()
         },
         archiveGrowthBytes: {
             chartId: 'archiGrowthBytes',
-            chartTitle: 'Archivering (terabytes)',
+            chartTitle: 'Aantal gearchiveerde terabytes',
+            chartDescription: 'Deze grafiek toont het aantal terabytes die gearchiveerd zijn in functie van de tijd.',
             what: 'bytes',
             chartType: 'line',
             chartFormat: 3,

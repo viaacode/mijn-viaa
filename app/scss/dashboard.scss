@@ -274,7 +274,14 @@
 
     @media (max-width:550px) {
         text-align: centre;
-        /*width: 100%;*/
+    }
+}
+
+.graphdescription {
+    margin:1rem 0 2rem 6rem;
+
+    @media (max-width:550px) {
+        text-align: centre;
     }
 }
 
