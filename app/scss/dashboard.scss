@@ -263,8 +263,9 @@
 }
 
 .progresscontainer {
-    padding:1rem;
-    margin-bottom: 3rem;
+    @media (min-width: 550px) {
+        margin-top: -4rem;
+    }
 }
 
 .graphtitle {
@@ -278,7 +279,7 @@
 }
 
 .graphdescription {
-    margin:1rem 0 2rem 6rem;
+    margin:1rem 0 4rem 6rem;
 
     @media (max-width:550px) {
         text-align: centre;

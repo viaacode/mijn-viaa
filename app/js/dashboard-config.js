@@ -12,7 +12,7 @@ function getGraphsFromConfig()
         evolutionRegistration: { 
             chartId: 'evoReg',
             chartTitle: 'Geregistreerde dragers',
-            chartDescription: 'Deze grafiek toont het aantal geregistreerde dragers in functie van de tijd.',
+            chartDescription: 'Deze grafiek toont het aantal geregistreerde dragers in functie van de tijd:',
             chartType: 'line',
             chartFormat: 3,
             apiUrls: [
@@ -45,7 +45,7 @@ function getGraphsFromConfig()
         archiveGrowthItems: {
             chartId: 'archiGrowthItems',
             chartTitle: 'Gearchiveerde items',
-            chartDescription: 'Deze grafiek toont het aantal gearchiveerde items in functie van de tijd.',
+            chartDescription: 'Deze grafiek toont het aantal gearchiveerde items in functie van de tijd:',
             what: 'items',
             chartType: 'line',
             chartFormat: 3,
@@ -63,7 +63,7 @@ function getGraphsFromConfig()
         archiveGrowthBytes: {
             chartId: 'archiGrowthBytes',
             chartTitle: 'Aantal gearchiveerde terabytes',
-            chartDescription: 'Deze grafiek toont het aantal terabytes die gearchiveerd zijn in functie van de tijd.',
+            chartDescription: 'Deze grafiek toont het aantal terabytes die gearchiveerd zijn in functie van de tijd:',
             what: 'bytes',
             chartType: 'line',
             chartFormat: 3,

@@ -188,6 +188,13 @@
         var hoverBackgroundColorList = colors;
         var hoverBackgroundColor = [];
 
+        var width = window.innerWidth;
+        var padding = 35;
+
+        if (width < 930) {
+            padding = 10;
+        }
+
         var i = 0;
         for(var key in obj) {
             if (obj.hasOwnProperty(key)) {
@@ -216,7 +223,10 @@
             options: {
                 legend: {
                     display: true,    // legend above chart
-                    position: 'right'
+                    position: 'right',
+                    labels: {
+                        padding: padding
+                    }
                 },
             }
         });     
@@ -273,87 +283,56 @@
         charts.push(myChart);
     }
 
-    // Progress stacked charts
-    var barOptions_stacked = {
-        tooltips: {
-            enabled: true,
- 
-            callbacks: {
-                /*
-                // Can't delete my code here just yet .. spent too much time on it, just for it to be replaced by mode: 'label' fml 
-                label: function(tooltip, data) {
-                    var r = [];
-                    for(var i = 0; i < data.datasets.length; i++) {
-                        r.push(data.datasets[i].label + ': ' + (data.datasets[i].data[tooltip.index] || 0));
-                    }
-                    return r;
-                }
-                */
-            },
-            mode: 'label',
-        },
-        hover: {
-            animationDuration:0,
-            
-        },
-        scales: {
-            xAxes: [{
-                ticks: {
-                    beginAtZero:true,
-                },
-                scaleLabel:{
-                    display:true,
-                    labelString: 'Items',
-                }, 
-                stacked: true,
-            }],
-            yAxes: [{
-                gridLines: {
-                    display:false,
-                    color: "#fff",
-                    zeroLineColor: "#fff",
-                    zeroLineWidth: 0
-                },
-                scaleLabel:{
-                    display:false,
-                },
-                stacked: true,
-
-            }]
-        },
-        legend:{
-            display:true
-        },
-
-        // Following code displays the values on the bars
-        /*
-        animation: {
-            onComplete: function () {
-                var chartInstance = this.chart;
-                var ctx = chartInstance.ctx;
-                ctx.textAlign = "left";
-                ctx.fillStyle = "#fefefe";
-
-                Chart.helpers.each(this.data.datasets.forEach(function (dataset, i) {
-                    var meta = chartInstance.controller.getDatasetMeta(i);
-                    Chart.helpers.each(meta.data.forEach(function (bar, index) {
-                        data = dataset.data[index];
-                        if(i===0){
-                            ctx.fillText(data, 75, bar._model.y-2   );
-                        } else {
-                            ctx.fillText(data, bar._model.x-25, bar._model.y-2);
-                        }
-                    }),this);
-                }),this);
-            }
-        },        
-        */
-
-    };
-
-
     function drawProgressChart(progress) {
         var ctx = document.getElementById("progress");
+        
+        var width = window.innerWidth;
+        var padding = 50;
+
+        if (width < 500) {
+            padding = 10;
+        }
+
+        var barOptions_stacked = {
+            tooltips: {
+                enabled: true,
+                mode: 'label'
+            },
+            hover: {
+                animationDuration:0
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    },
+                    scaleLabel:{
+                        display:true,
+                        labelString: 'Items'
+                    }, 
+                    stacked: true,
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display:false,
+                        color: "#fff",
+                        zeroLineColor: "#fff",
+                        zeroLineWidth: 0
+                    },
+                    scaleLabel:{
+                        display:false
+                    },
+                    stacked: true
+                }]
+            },
+            legend:{
+                display: true,
+                labels: {
+                    padding: padding
+                }
+            }
+    };
+
         var myChart = new Chart(ctx, {
             type: 'horizontalBar',
             data: {
