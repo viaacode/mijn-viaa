@@ -14,7 +14,7 @@ function getGraphsFromConfig()
             chartTitle: 'Geregistreerde dragers',
             chartDescription: 'Deze grafiek toont het aantal geregistreerde dragers in functie van de tijd:',
             chartType: 'line',
-            chartFormat: 2,
+            chartFormat: 3,
             apiUrls: [
                 '/api/report/ams?gran=last-week',
                 '/api/report/ams?gran=last-month',
@@ -48,7 +48,7 @@ function getGraphsFromConfig()
             chartDescription: 'Deze grafiek toont het aantal gearchiveerde items in functie van de tijd:',
             what: 'items',
             chartType: 'line',
-            chartFormat: 2,
+            chartFormat: 3,
             apiUrls: [
                 '/api/report/mam/items?gran=last-week',
                 '/api/report/mam/items?gran=last-month',
@@ -66,7 +66,7 @@ function getGraphsFromConfig()
             chartDescription: 'Deze grafiek toont het aantal terabytes die gearchiveerd zijn in functie van de tijd:',
             what: 'bytes',
             chartType: 'line',
-            chartFormat: 2,
+            chartFormat: 3,
             apiUrls: [
                 '/api/report/mam/bytes?gran=last-week',
                 '/api/report/mam/bytes?gran=last-month',

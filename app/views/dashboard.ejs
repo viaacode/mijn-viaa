@@ -49,12 +49,12 @@
                         <p class="stat-title withFloatRight col">items geregistreerd</p>
                     </div>
                 </div>
-                <div class="col col-12 p3 stat">
+                <!-- <div class="col col-12 p3 stat">
                     <div class="grey pt2">
                         <p class="bigtext withFloatRight col">&nbsp;{{{ numberWithSpaces(dataStats.digitised) }}}</p>
                         <p class="stat-title withFloatRight col">items gedigitaliseerd</p>
                     </div>
-                </div>
+                </div> -->
                 <div class="col col-12 p3 stat nobottomborder">
                     <div class="grey pt2">
                         <p class="bigtext withFloatRight col">&nbsp;{{{ numberWithSpaces(dataStats.archived) }}}</p>
@@ -66,36 +66,36 @@
     </div> <!-- container -->
     
 
-    <div class="divider"></div>
+<!--     <div class="divider"></div>
 
     <div class="col col-12 graphcontainer clearfix" v-bind:class="{ 'graph-airbox': !dataStats }">
-        <div class="container">
+        <div class="container"> -->
         <!-- Progress bars -->
-            <div class="col col-12">
+            <!-- <div class="col col-12">
                 <h3 class="graphtitle">Status digitalisatie</h3>
                 <h5 class="graphdescription">Volgende grafiek toont het aantal geregistreerd, gedigitaliseerd en niet-gedigitaliseerd materiaal, onderverdeeld per type drager:</h5>
-            </div>
+            </div> -->
 
             <!-- Loader gif -->
-            <div class="col col-12 loader-airbox" v-show="!dataStats">
+           <!--  <div class="col col-12 loader-airbox" v-show="!dataStats">
                 <div class="loader">
                     <span class="icon-spin3 animate-spin"></span>       
                 </div>    
-            </div>              
+            </div>   -->            
 
             <!-- errors -->
-            <div class="col col-12 loader-airbox mt10"  v-if="!progress && dataStats">
+            <!-- <div class="col col-12 loader-airbox mt10"  v-if="!progress && dataStats">
                 <div class="col col-12 center">
                     <p>Oeps!</p>
                     <p v-for="msg in graph.errormessages">{{ msg }}</p>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="progresscontainer col col-12">
+            <!-- <div class="progresscontainer col col-12">
                 <canvas id="progress"></canvas>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="divider mt3 mb1"></div>
 
