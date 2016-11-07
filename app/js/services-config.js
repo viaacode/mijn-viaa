@@ -7,7 +7,7 @@ function getServicesList() {
             title:"FTP &ndash; Bestanden",
             description:"Uploaden of downloaden van uw bestanden.",
             link_info:"detail#ftp",
-            link_service:"https://viaa.zendesk.com/hc/nl",
+            link_service:"ftp://ftp.viaa.be",
             img:"/public/assets/ftp.svg",
             alt:"FTP icon",
             available: mijnVIAA.isServiceAvailable("FTP"),
@@ -46,7 +46,7 @@ function getServicesList() {
         {
             service:"ZEN",
             title:"VIAA Zendesk",
-            description:"Artikelen om u te helpen bij VIAA services, alsook de plaats om VIAA te contacteren in verband met vragen of problemen.",
+            description:"Handleidingen om u te helpen met VIAA services. Hier kunt u ook VIAA contacteren met vragen of problemen.",
             link_info:"detail#zen",
             link_service:"https://viaa.zendesk.com/hc/nl",
             img:"/public/assets/zendesk.svg",
