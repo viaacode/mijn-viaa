@@ -5,7 +5,7 @@ function getServicesList() {
         {
             service:"FTP",
             title:"FTP &ndash; Bestanden",
-            description:"Uploaden of downloaden van uw bestanden.",
+            description:"Downloaden van bestanden die geëxporteerd zijn.",
             link_info:"detail#ftp",
             link_service:"ftp://ftp.viaa.be",
             img:"/public/assets/ftp.svg",
@@ -26,7 +26,7 @@ function getServicesList() {
         {
             service:"MAM",
             title:"MAM &ndash; Archief",
-            description:"Centrale storage voor alle metadata van het VIAA (MediaHaven).",
+            description:"Platform om audiovisueel materiaal te beheren.",
             link_info:"detail#mam",
             link_service:"https://archief.viaa.be/",
             img:"/public/assets/mam.svg",
@@ -36,7 +36,7 @@ function getServicesList() {
         {
             service:"DBS",
             title:"DBS &ndash; Contracten",
-            description:"Bewaren van online documenten zoals Contracten en Service Agreements.",
+            description:"Bewaren van online documenten zoals contracten en Service Agreements.",
             link_info:"detail#dbs",
             link_service:"https://contract.viaa.be/",
             img:"/public/assets/avo.svg",
