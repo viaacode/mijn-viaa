@@ -5,6 +5,7 @@ See our [project page](https://osoc16.github.io/mijn-viaa/)
 
 ## Requirements
 To run this project you need to have [Node and NPM](https://docs.npmjs.com/getting-started/installing-node) installed.
+Also make sure that [Ruby](https://www.ruby-lang.org/en/documentation/installation/#apt), [Sass](http://sass-lang.com/install) and [Grunt](http://gruntjs.com/getting-started) are installed.
 
 ## Quick setup
 
