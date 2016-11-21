@@ -155,6 +155,10 @@ header {
     }
 }
 
+.invisible {
+    visibility: hidden;
+}
+
 .menuitem-user:hover .user, .menuitem-user:active .user {
     background-color:$orange-lighter;
 }
