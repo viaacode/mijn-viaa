@@ -3,17 +3,6 @@
 function getServicesList() {
     return [
         {
-            service:"FTP",
-            title:"FTP &ndash; Bestanden",
-            description:"Downloaden van bestanden die geëxporteerd zijn.",
-            link_info:"detail#ftp",
-            link_service:"ftp://ftp.viaa.be",
-            img:"/public/assets/ftp.svg",
-            alt:"FTP icon",
-            available: mijnVIAA.isServiceAvailable("FTP"),
-            
-        },
-        {
             service:"AMS",
             title:"AMS &ndash; Registratie",
             description:"Registratieplatform voor analoge dragers.",
@@ -22,6 +11,16 @@ function getServicesList() {
             img:"/public/assets/ams.svg",
             img_alt:"AMS icon",
             available: mijnVIAA.isServiceAvailable("AMS"),
+        },
+        {
+            service:"ZEN",
+            title:"VIAA support",
+            description:"Handleidingen om u te helpen met VIAA services. Hier kunt u ook VIAA contacteren met vragen of problemen.",
+            link_info:"detail#zen",
+            link_service:"https://viaa.zendesk.com/hc/nl",
+            img:"/public/assets/zendesk.svg",
+            alt:"ZEN icon",
+            available: true,
         },
         {
             service:"MAM",
@@ -36,7 +35,7 @@ function getServicesList() {
         {
             service:"DBS",
             title:"DBS &ndash; Contracten",
-            description:"Bewaren van online documenten zoals contracten en Service Agreements.",
+            description:"Beheren van online documenten zoals contracten en Service Agreements.",
             link_info:"detail#dbs",
             link_service:"https://contract.viaa.be/",
             img:"/public/assets/avo.svg",
@@ -44,14 +43,15 @@ function getServicesList() {
             available: mijnVIAA.isServiceAvailable("DBS"),
         },
         {
-            service:"ZEN",
-            title:"VIAA Zendesk",
-            description:"Handleidingen om u te helpen met VIAA services. Hier kunt u ook VIAA contacteren met vragen of problemen.",
-            link_info:"detail#zen",
-            link_service:"https://viaa.zendesk.com/hc/nl",
-            img:"/public/assets/zendesk.svg",
-            alt:"ZEN icon",
-            available: true,
+            service:"FTP",
+            title:"FTP &ndash; Bestanden",
+            description:"Downloaden van bestanden die geëxporteerd zijn.",
+            link_info:"detail#ftp",
+            link_service:"ftp://ftp.viaa.be",
+            img:"/public/assets/ftp.svg",
+            alt:"FTP icon",
+            available: mijnVIAA.isServiceAvailable("FTP"),
+            
         }
     ];
 }
