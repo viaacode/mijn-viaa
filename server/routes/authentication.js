@@ -49,7 +49,7 @@ module.exports = function (app, config, passport) {
     });
   });
 
-  app.get('/logout/callback', function (req, res) {
+  app.post('/logout/callback', function (req, res) {
     req.logout();
     res.redirect('/');
   });

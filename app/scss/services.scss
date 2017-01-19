@@ -29,11 +29,16 @@ article {
     margin:0 2% 4rem;
     float:left;
 
-    @media (min-width: 550px) {
+    @media (min-width: 760px) {
         width:48%;
+        height: 310px;
         margin-right:1%;
         margin-left:1%;
         margin-bottom:2%;
+    }
+
+    @media (min-width: 960px) {
+        height: 220px;
     }
 
 }
