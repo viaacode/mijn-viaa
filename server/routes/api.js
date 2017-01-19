@@ -17,7 +17,7 @@ module.exports = function (router, config, request) {
         body = JSON.parse(body);
       }
 
-      data = parse ? parse(body) : body;
+      data = parse ? parse(body.data) : body.data;
 
       res
         .append('Content-Type', 'application/json')
@@ -26,7 +26,7 @@ module.exports = function (router, config, request) {
   }
 
   function getOrganisation (req) {
-    var user = req.user || {o: null};
+    var user = req.user || {o: 'OR-w66976m'};
     return user.o;
   }
 
