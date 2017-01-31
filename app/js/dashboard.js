@@ -131,7 +131,7 @@
                 drawPieFromKvpObj('statsChart', dataPieChartStats, vueinstance.dataPieChartColors);
 
                 var dataStats = {
-                    "terabytes":Math.floor(result.archived.total.bytes.ok/1024/1024/1024/1024),
+                    "terabytes": (result.archived.total.bytes.ok/1024/1024/1024/1024).toFixed(2),
                     "registered":result.registered.total,
                     "digitised":result.digitised.total.ok,
                     "archived":result.archived.total.amount.ok
@@ -162,7 +162,7 @@
                 if (result.what == 'bytes') {
                     // change to tgraph.databytes
                     for (var i=0; i<graph.data.length; i++) {
-                        graph.data[i].y = Math.floor(graph.data[i].y/1024/1024/1024/1024);
+                        graph.data[i].y = graph.data[i].y/1024/1024/1024/1024;
                     }
                 }
                 if(graph.activeView == 'effective') vueinstance.loadGraphEffective(graph);
