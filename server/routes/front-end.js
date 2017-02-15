@@ -29,7 +29,7 @@ module.exports = function (app, config, middleware) {
 
 
   app.get('/', middleware, function(req, res, next) {
-    if (!req.user.role || req.user.role != 'Content Partner') {
+    if (config.authenticationEnabled && (!req.user.role || req.user.role != 'Content Partner')) {
             res.redirect(301, '/unauthorised_401.html');
     } else {
       next();
