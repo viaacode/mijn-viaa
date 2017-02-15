@@ -69,6 +69,10 @@ module.exports = function (config, request) {
   app.use('/public', express.static(pathFromApp('public')));
   //endregion
 
+  app.get('/unauthorised_401.html', function(req, res) {
+      res.sendFile(path.join(pathFromApp('views/401.html')));
+    }
+  );
 
   //region Error handling
   // - Log errors && next
